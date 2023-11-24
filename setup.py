@@ -1,8 +1,8 @@
-import setuptools
 import pathlib
 import site
 import sys
 import sysconfig
+import setuptools
 
 # odd bug with develop (editable) installs, see: https://github.com/pypa/pip/issues/7953
 site.ENABLE_USER_SITE = "--user" in sys.argv[1:]
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         version="0.0.1",
         author="Sam Scholten",
         author_email="samcaspar@gmail.com",
-        description="Defect μscopy toolkit",
+        description="🦆🔬 Defect μscopy toolkit",
         long_description=long_description,
         long_description_content_type="text/markdown",
         url="https://github.com/casparvitch/dukit",
