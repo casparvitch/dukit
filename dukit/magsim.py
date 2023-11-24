@@ -6,17 +6,17 @@ Basically add some examples HERE of how to use this subpkg.
 
 Classes
 -------
- - `dukit.magsim.interface.MagSim`
- - `dukit.magsim.interface.SandboxMagSim`
- - `dukit.magsim.interface.ComparisonMagSim`
+ - `dukit.magsim.MagSim`
+ - `dukit.magsim.SandboxMagSim`
+ - `dukit.magsim.ComparisonMagSim`
 """
 # ============================================================================
 
 __author__ = "Sam Scholten"
 __pdoc__ = {
-    "dukit.magsim.interface.MagSim": True,
-    "dukit.magsim.interface.SandboxMagSim": True,
-    "dukit.magsim.interface.ComparisonMagSim": True,
+    "dukit.magsim.MagSim": True,
+    "dukit.magsim.SandboxMagSim": True,
+    "dukit.magsim.ComparisonMagSim": True,
 }
 # ============================================================================
 

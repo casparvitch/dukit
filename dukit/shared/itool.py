@@ -6,23 +6,6 @@ Functions
 ---------
  - `dukit.shared.itool.mask_polygons`
  - `dukit.shared.itool.get_im_filtered`
- - `dukit.shared.itool._get_im_filtered_gaussian`
- - `dukit.shared.itool._zero_background`
- - `dukit.shared.itool._equation_plane`
- - `dukit.shared.itool._points_to_params`
- - `dukit.shared.itool._three_point_background`
- - `dukit.shared.itool._mean_background`
- - `dukit.shared.itool._residual_poly`
- - `dukit.shared.itool._poly_background`
- - `dukit.shared.itool._gaussian`
- - `dukit.shared.itool._lorentzian`
- - `dukit.shared.itool._moments`
- - `dukit.shared.itool._residual_gaussian`
- - `dukit.shared.itool._residual_lorentzian`
- - `dukit.shared.itool._gaussian_background`
- - `dukit.shared.itool._lorentzian background`
- - `dukit.shared.itool._interpolated_background`
- - `dukit.shared.itool._filtered_background`
  - `dukit.shared.itool.get_background`
  - `dukit.shared.itool.mu_sigma_inside_polygons`
 """
@@ -33,20 +16,6 @@ __author__ = "Sam Scholten"
 __pdoc__ = {
     "dukit.shared.itool.mask_polygons": True,
     "dukit.shared.itool.get_im_filtered": True,
-    "dukit.shared.itool._get_im_filtered_gaussian": True,
-    "dukit.shared.itool._zero_background": True,
-    "dukit.shared.itool._equation_plane": True,
-    "dukit.shared.itool._points_to_params": True,
-    "dukit.shared.itool._three_point_background": True,
-    "dukit.shared.itool._mean_background": True,
-    "dukit.shared.itool._residual_poly": True,
-    "dukit.shared.itool._poly_background": True,
-    "dukit.shared.itool._gaussian": True,
-    "dukit.shared.itool._moments": True,
-    "dukit.shared.itool._residual_gaussian": True,
-    "dukit.shared.itool._gaussian_background": True,
-    "dukit.shared.itool._interpolated_background": True,
-    "dukit.shared.itool._filtered_background": True,
     "dukit.shared.itool.get_background": True,
     "dukit.shared.itool.mu_sigma_inside_polygons": True,
 }
@@ -130,44 +99,45 @@ def get_background(
     """Returns a background for given image, via chosen method.
 
     Methods available:
-        - "fix_zero"
-            - Fix background to be a constant offset (z value)
-            - params required in method_params_dict:
-                "zero" an int/float, defining the constant offset of the background
-        - "three_point"
-            - Calculate plane background with linear algebra from three [x,y]
-              lateral positions given
-            - params required in method_params_dict:
-                - "points" a len-3 iterable containing [x, y] points
-        - "mean"
-            - background calculated from mean of image
-            - no params required
-        - "poly"
-            - background calculated from polynomial fit to image.
-            - params required in method_params_dict:
-                - "order": an int, the 'order' polynomial to fit. (e.g. 1 = plane).
-        - "gaussian"
-            - background calculated from _gaussian fit to image (with rotation)
-            - no params required
-        - "lorentzian"
-            - as above, but a lorentzian lineshape (with rotation)
-        - "interpolate"
-            - Background defined by the dataset smoothed via a sigma-_gaussian
-                filtering, and method-interpolation over masked (polygon) regions.
-            - params required in method_params_dict:
-                - "interp_method": nearest, linear, cubic.
-                - "sigma": sigma passed to _gaussian filter
-                    (see scipy.ndimage._gaussian_filter) which is utilized on the
-                    background before interpolating
-        - "gaussian_filter"
-            - background calculated from image filtered with a _gaussian filter.
-            - params required in method_params_dict:
-                - "sigma": sigma passed to _gaussian filter (see
-                        scipy.ndimage._gaussian_filter)
-        - "gaussian_then_poly"
-            - runs gaussian then poly subtraction
-            - params required in method_params_dict:
-                - "order": an int, the 'order' polynomial to fit. (e.g. 1 = plane).
+
+    - "fix_zero"
+        - Fix background to be a constant offset (z value)
+        - params required in method_params_dict:
+            "zero" an int/float, defining the constant offset of the background
+    - "three_point"
+        - Calculate plane background with linear algebra from three [x,y]
+          lateral positions given
+        - params required in method_params_dict:
+            - "points" a len-3 iterable containing [x, y] points
+    - "mean"
+        - background calculated from mean of image
+        - no params required
+    - "poly"
+        - background calculated from polynomial fit to image.
+        - params required in method_params_dict:
+            - "order": an int, the 'order' polynomial to fit. (e.g. 1 = plane).
+    - "gaussian"
+        - background calculated from _gaussian fit to image (with rotation)
+        - no params required
+    - "lorentzian"
+        - as above, but a lorentzian lineshape (with rotation)
+    - "interpolate"
+        - Background defined by the dataset smoothed via a sigma-_gaussian
+            filtering, and method-interpolation over masked (polygon) regions.
+        - params required in method_params_dict:
+            - "interp_method": nearest, linear, cubic.
+            - "sigma": sigma passed to _gaussian filter
+                (see scipy.ndimage._gaussian_filter) which is utilized on the
+                background before interpolating
+    - "gaussian_filter"
+        - background calculated from image filtered with a _gaussian filter.
+        - params required in method_params_dict:
+            - "sigma": sigma passed to _gaussian filter (see
+                    scipy.ndimage._gaussian_filter)
+    - "gaussian_then_poly"
+        - runs gaussian then poly subtraction
+        - params required in method_params_dict:
+            - "order": an int, the 'order' polynomial to fit. (e.g. 1 = plane).
 
     polygon utilization:
         - if method is not interpolate, the image is masked where the polygons are
@@ -275,7 +245,7 @@ def mu_sigma_inside_polygons(
 
 # hands off to other filters
 def get_im_filtered(image: npt.NDArray, filter_type: str, **kwargs) -> npt.NDArray:
-    """Wrapped over other filters defined in `qdmpy.shared.polygon.Polygon_filter'.
+    """Wrapped over other filters.
     Current filters defined:
         - filter_type = gaussian, `qdmpy.shared.itool._get_im_filtered_gaussian`
     """

@@ -27,9 +27,16 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# vendored from https://github.com/sbrisard/rebin as it has no conda-forge package.
+#
 
-"""Python/NumPy implementation of IDL's rebin function.
+"""
+NOTE: vendored from https://github.com/sbrisard/rebin as it has no conda-forge package
+
+
+========
+
+
+Python/NumPy implementation of IDL's rebin function.
 
 See http://www.harrisgeospatial.com/docs/rebin.html.
 

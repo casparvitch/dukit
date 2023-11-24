@@ -506,6 +506,7 @@ class PolygonSelectionWidget:
     selector.disconnect()
     polygon_lst = selector.get_polygon_lst()
 
+    ```text
     GUI help
     --------
     In the mpl gui, select points to draw polygons.
@@ -517,6 +518,7 @@ class PolygonSelectionWidget:
     'alt' to start a new polygon (and finalise the current one)
     'del' to clear all lines from the graphic  (thus deleting all polygons).
     'right click' on a vertex (of a finished polygon) to remove it.
+    ```
     """
 
     def __init__(self, ax, style=None, base_scale=1.5):

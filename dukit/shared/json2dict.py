@@ -4,17 +4,11 @@ json2dict; functions for loading json files to dicts and the inverse.
 
 Functions
 ---------
- - `qdmpy.shared.json2dict.json_to_dict`
- - `qdmpy.shared.json2dict.dict_to_json`
- - `qdmpy.shared.json2dict.dict_to_json_str`
- - `qdmpy.shared.json2dict._prettyjson`
- - `qdmpy.shared.json2dict._getsubitems`
- - `qdmpy.shared.json2dict._basictype2str`
- - `qdmpy.shared.json2dict._indentitems`
- - `qdmpy.shared.json2dict._json_remove_comments`
- - `qdmpy.shared.json2dict.failfloat`
- - `qdmpy.shared.json2dict._defaultdict_from_d`
- - `qdmpy.shared.json2dict.recursive_dict_update`
+ - `dukit.shared.json2dict.json_to_dict`
+ - `dukit.shared.json2dict.dict_to_json`
+ - `dukit.shared.json2dict.dict_to_json_str`
+ - `dukit.shared.json2dict.failfloat`
+ - `dukit.shared.json2dict.recursive_dict_update`
 """
 
 # ============================================================================
@@ -22,17 +16,11 @@ Functions
 
 __author__ = "Sam Scholten"
 __pdoc__ = {
-    "qdmpy.shared.json2dict.json_to_dict": True,
-    "qdmpy.shared.json2dict.dict_to_json": True,
-    "qdmpy.shared.json2dict.dict_to_json_str": True,
-    "qdmpy.shared.json2dict._prettyjson": True,
-    "qdmpy.shared.json2dict._getsubitems": True,
-    "qdmpy.shared.json2dict._basictype2str": True,
-    "qdmpy.shared.json2dict._indentitems": True,
-    "qdmpy.shared.json2dict._json_remove_comments": True,
-    "qdmpy.shared.json2dict.failfloat": True,
-    "qdmpy.shared.json2dict._defaultdict_from_d": True,
-    "qdmpy.shared.json2dict.recursive_dict_update": True,
+    "dukit.shared.json2dict.json_to_dict": True,
+    "dukit.shared.json2dict.dict_to_json": True,
+    "dukit.shared.json2dict.dict_to_json_str": True,
+    "dukit.shared.json2dict.failfloat": True,
+    "dukit.shared.json2dict.recursive_dict_update": True,
 }
 
 # ============================================================================

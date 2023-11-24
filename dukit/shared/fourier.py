@@ -50,13 +50,20 @@ SI unit measured: Amps: A [for 2D magnetization, A/m for 3D]
 
 More useful: Bohr magnetons per nanometre squared: mu_B nm^-2
 
+```
 mu_B -> 9.274 010 e-24 A m^+2 or J/T
+
 m^2 -> 1e+18 nm^2
 
+
 Measure x amps = x A
+
  def  mu_B  =  9.2_      in units of A m^2
+ 
  => x A = x (1 / 9.2_)   in units of mu_B/m^2
+ 
  => x A = x (1e-18/9.2_) in units of mu_B/nm^2
+```
 """
 
 
@@ -72,7 +79,7 @@ Vacuum permeability
 def unpad_image(
     x: npt.NDArray, padder: tuple[tuple[int, int], tuple[int, int]]
 ) -> npt.NDArray:
-    """undo a padding defined by `dukit.shared.fourier._shared.pad_image` (it returns
+    """undo a padding defined by `dukit.shared.fourier.pad_image` (it returns
     the padder list)"""
     slices = []
     for c in padder:

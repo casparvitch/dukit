@@ -6,8 +6,9 @@ Most of the functions are not documented, but the API is only 2 funcs:
 
 Functions
 ---------
- - `dukit.driftcorrect.bnv.drift_correct_test`
+ - `dukit.driftcorrect.drift_correct_test`
  - `dukit.driftcorrect.drift_correct_measurement`
+
 """
 
 # ============================================================================
@@ -72,7 +73,6 @@ def read_and_drift_correct(
     image_seq: list | tuple | npt.NDArray,
     system: dukit.shared.systems.System,
     ignore_ref: bool = False,
-    norm: str = "div",
     mask: npt.NDArray[np.bool_]
     | None = None,  # True where(i) you want to incl im in accum
     roi_start_x: int = -1,
@@ -83,7 +83,7 @@ def read_and_drift_correct(
     roi = roi_start_x, roi_start_y, roi_end_x, roi_end_y
     first = True
     for i in tqdm(image_seq):
-        sig, ref, _ = system.read_image(base_path + stub(i), ignore_ref, norm)
+        sig, ref, _ = system.read_image(base_path + stub(i), ignore_ref, "div")
         if first:
             first = False
             refr_pl = np.sum(sig, axis=0)
@@ -148,7 +148,7 @@ def drift_correct_measurement(
         from directory. I.e. directory + stub(X) for filepath ass. with 'X'
     output_file : str
         Output will be stored in directory + output file
-    system : `dukit.shared.systems.System` object
+    system : dukit.shared.systems.System object
         Used for reading in files
     output_file : str
         Where to save the drift-corrected binary
@@ -219,13 +219,13 @@ def drift_correct_test(
     stub: Callable[[int], str],
     system: dukit.shared.systems.System,
     ignore_ref:bool=False,
-    norm:str="div",
     roi_start_x: int = -1,
     roi_start_y: int = -1,
     roi_end_x: int = -1,
     roi_end_y: int = -1,
 ):
     """
+    Test the drift correction on a subset (comparison_nums) of the measurements.
 
     Arguments
     ---------
@@ -241,17 +241,18 @@ def drift_correct_test(
     stub : function
         Function that takes image num and returns path to that measurement
         from directory. I.e. directory + stub(X) for filepath ass. with 'X'
-    system : `dukit.shared.systems.System` object
+    system : dukit.shared.systems.System object
         Used for reading in files
     ignore_ref : bool = False
-    norm : str = "div"
     roi_X : int
         Define roi, here a feature in PL that is used from cross-correlation.
 
     Returns
     -------
-    crop_fig, crop_axs
-        Matplotlib figure and axes, for further editing/saving etc.
+    crop_fig : plt.Figure
+        For further editing/saving etc.
+    crop_axs : plt.Axes
+        For further editing/saving etc.
     """
 
     # prep fig
@@ -264,7 +265,7 @@ def drift_correct_test(
     image_seq = list(range(start_num, end_num + 1))
     first = True
     for i in image_seq:
-        sig, _, _ = system.read_image(directory + stub(i), ignore_ref, norm)
+        sig, _, _ = system.read_image(directory + stub(i), ignore_ref, "div")
         pl = np.sum(np.sum(sig, axis=-1), axis=-1)
         accum_pl = dukit.shared.misc.crop_roi(pl, *roi)
         if first:

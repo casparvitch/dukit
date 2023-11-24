@@ -4,16 +4,16 @@ This sub-package holds classes and functions to define (microscope) systems.
 
 Classes
 -------
- - `dukit.system.systems.System`
- - `dukit.system.systems.MelbSystem`
- - `dukit.system.systems.LVControl`
- - `dukit.system.systems.PyControl`
- - `dukit.system.systems.Zyla`
- - `dukit.system.systems.CryoWidefield`
- - `dukit.system.systems.LegacyCryoWidefield`
- - `dukit.system.systems.Argus`
- - `dukit.system.systems.LegacyArgus`
- - `dukit.system.systems.PyCryoWidefield`
+ - `dukit.shared.systems.System`
+ - `dukit.shared.systems.MelbSystem`
+ - `dukit.shared.systems.LVControl`
+ - `dukit.shared.systems.PyControl`
+ - `dukit.shared.systems.Zyla`
+ - `dukit.shared.systems.CryoWidefield`
+ - `dukit.shared.systems.LegacyCryoWidefield`
+ - `dukit.shared.systems.Argus`
+ - `dukit.shared.systems.LegacyArgus`
+ - `dukit.shared.systems.PyCryoWidefield`
 
 """
 
@@ -21,16 +21,16 @@ Classes
 
 __author__ = "Sam Scholten"
 __pdoc__ = {
-    "dukit.system.systems.System": True,
-    "dukit.system.systems.MelbSystem": True,
-    "dukit.system.systems.LVControl": True,
-    "dukit.system.systems.PyControl": True,
-    "dukit.system.systems.Zyla": True,
-    "dukit.system.systems.CryoWidefield": True,
-    "dukit.system.systems.LegacyCryoWidefield": True,
-    "dukit.system.systems.Argus": True,
-    "dukit.system.systems.LegacyArgus": True,
-    "dukit.system.systems.PyCryoWidefield": True,
+    "dukit.shared.systems.System": True,
+    "dukit.shared.systems.MelbSystem": True,
+    "dukit.shared.systems.LVControl": True,
+    "dukit.shared.systems.PyControl": True,
+    "dukit.shared.systems.Zyla": True,
+    "dukit.shared.systems.CryoWidefield": True,
+    "dukit.shared.systems.LegacyCryoWidefield": True,
+    "dukit.shared.systems.Argus": True,
+    "dukit.shared.systems.LegacyArgus": True,
+    "dukit.shared.systems.PyCryoWidefield": True,
 }
 
 # ============================================================================
