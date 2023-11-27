@@ -1,5 +1,33 @@
 # -*- coding: utf-8 -*-
-"""Always lowest in import heirarchy"""
+"""Always lowest in import heirarchy
+
+dukit_warn, mpl_set_run_config, crop_roi, crop_sweep, \
+    rebin_image_stack, smooth_image_stack, sum_spatially
+Functions
+---------
+ - `dukit.shared.dukit_warn`
+ - `dukit.shared.mpl_set_run_config`
+ - `dukit.shared.crop_roi`
+ - `dukit.shared.crop_sweep`
+ - `dukit.shared.rebin_image_stack`
+ - `dukit.shared.smooth_image_stack`
+ - `dukit.shared.sum_spatially`
+"""
+
+# ============================================================================
+
+__author__ = "Sam Scholten"
+__pdoc__ = {
+    "dukit.shared.dukit_warn": True,
+    "dukit.shared.mpl_set_run_config": True,
+    "dukit.shared.crop_roi": True,
+    "dukit.shared.crop_sweep": True,
+    "dukit.shared.rebin_image_stack": True,
+    "dukit.shared.smooth_image_stack": True,
+    "dukit.shared.sum_spatially": True,
+}
+
+# ============================================================================
 
 import warnings
 import numpy as np
@@ -7,35 +35,38 @@ import numpy.typing as npt
 from scipy.ndimage import gaussian_filter
 import matplotlib as mpl
 
+# ============================================================================
+
 from dukit.shared.rebin import rebin
 
 # ============================================================================
 
 DEFAULT_RCPARAMS = {
-            "figure.constrained_layout.use": False,
-            "figure.figsize": [6.4, 4.8],
-            "figure.dpi": 80,
-            "figure.max_open_warning": 30,
-            "lines.linewidth": 0.8,
-            "lines.markersize" : 3,
-            "xtick.labelsize": 10,
-            "xtick.major.size": 4,
-            "xtick.direction": "in",
-            "ytick.labelsize" : 10,
-            "ytick.direction": "in",
-            "ytick.major.size": 4,
-            "legend.fontsize": "small",
-            "legend.loc": "lower left",
-            "scalebar.location": "lower right",
-            "scalebar.width_fraction": 0.015,
-            "scalebar.box_alpha": 0.5,
-            "scalebar.scale_loc": "top",
-            "scalebar.sep": 1,
-            "axes.formatter.useoffset": False,
-            "axes.formatter.use_mathtext": True,
-            "errorbar.capsize": 3.0
+    "figure.constrained_layout.use": False,
+    "figure.figsize": [6.4, 4.8],
+    "figure.dpi": 80,
+    "figure.max_open_warning": 30,
+    "lines.linewidth": 0.8,
+    "lines.markersize": 3,
+    "xtick.labelsize": 10,
+    "xtick.major.size": 4,
+    "xtick.direction": "in",
+    "ytick.labelsize": 10,
+    "ytick.direction": "in",
+    "ytick.major.size": 4,
+    "legend.fontsize": "small",
+    "legend.loc": "lower left",
+    "scalebar.location": "lower right",
+    "scalebar.width_fraction": 0.015,
+    "scalebar.box_alpha": 0.5,
+    "scalebar.scale_loc": "top",
+    "scalebar.sep": 1,
+    "axes.formatter.useoffset": False,
+    "axes.formatter.use_mathtext": True,
+    "errorbar.capsize": 3.0
 }
 """Set of rcparams we've casually decided are reasonable."""
+
 
 # ============================================================================
 
@@ -51,7 +82,7 @@ class _DUKITWarning(Warning):
 
 # ============================================================================
 
-def mpl_run_config(default: bool=True, **kwargs):
+def mpl_set_run_config(default: bool = True, **kwargs):
     """
     Set the matplotlib runtime configuration (rcparams).
 
@@ -68,11 +99,12 @@ def mpl_run_config(default: bool=True, **kwargs):
     else:
         mpl.rcParams.update(**kwargs)
 
+
 # ============================================================================
 
 
 def crop_roi(
-    seq: npt.ArrayLike, start_x: int, start_y: int, end_x: int, end_y: int
+        seq: npt.ArrayLike, roi_coords: tuple[int, int, int, int]
 ) -> npt.NDArray:
     """
 
@@ -80,18 +112,9 @@ def crop_roi(
     ----------
     seq : array-like
         Image or image-stack you want to crop
-    start_x : int
-        Top left of crop, x idx (from left of image)
-        If -1 then set to edge.
-    start_y : int
-        Top left of crop, y idx (from top of image)
-        If -1 then set to edge.
-    end_x : int
-        Bottom right of crop, x idx (from left of image)
-        If -1 then set to edge.
-    end_y : int
-        Bottom right of crop, y idx (from top of image)
-        If -1 then set to edge.
+    roi_coords: 4-tuple
+        start_x: int, start_y: int, end_x: int, end_y: int
+        If any are -1, then it sets to the edge of image.
 
     Returns
     -------
@@ -99,14 +122,14 @@ def crop_roi(
         Image or image-stack cropped.
     """
     seq = np.asarray(seq)
-    roi = _define_roi(seq, start_x, start_y, end_x, end_y)
+    roi = _define_roi(seq, roi_coords)
     if len(np.shape(seq)) == 2:
         return seq[roi[0], roi[1]].copy()
     return seq[:, roi[0], roi[1]]
 
 
 def _define_roi(
-    img: npt.ArrayLike, start_x: int, start_y: int, end_x: int, end_y: int
+        img: npt.ArrayLike, roi_coords: tuple[int, int, int, int]
 ) -> tuple[npt.NDArray, npt.NDArray]:
     """
     Returns
@@ -120,7 +143,7 @@ def _define_roi(
     except ValueError:  # not enough values to unpack -> 2d image not 3d
         size_h, size_w = np.shape(img)
     start_x, start_y, end_x, end_y = _check_start_end_rectangle(
-        start_x, start_y, end_x, end_y, size_w, size_h
+            *roi_coords, size_w, size_h
     )
     return _define_area_roi(start_x, start_y, end_x, end_y)
 
@@ -129,7 +152,7 @@ def _define_roi(
 
 
 def _define_area_roi(
-    start_x: int, start_y: int, end_x: int, end_y: int
+        start_x: int, start_y: int, end_x: int, end_y: int
 ) -> tuple[npt.NDArray, npt.NDArray]:
     """
     Returns
@@ -148,12 +171,12 @@ def _define_area_roi(
 
 
 def _check_start_end_rectangle(
-    start_x: int,
-    start_y: int,
-    end_x: int,
-    end_y: int,
-    full_size_w: int,
-    full_size_h: int,
+        start_x: int,
+        start_y: int,
+        end_x: int,
+        end_y: int,
+        full_size_w: int,
+        full_size_h: int,
 ) -> tuple[int, int, int, int]:
     """Restricts roi params to be within image dimensions."""
     start_x = max(start_x, 0)
@@ -164,38 +187,38 @@ def _check_start_end_rectangle(
         end_y = full_size_h - 1
     if start_x >= end_x:
         dukit_warn(
-            f"Rectangle ends [{end_x}] before it starts [{start_x}] (in x), "
-            + "swapping them"
+                f"Rectangle ends [{end_x}] before it starts [{start_x}] (in x), "
+                + "swapping them"
         )
         start_x, end_x = end_x, start_x
     if start_y >= end_y:
         dukit_warn(
-            f"Rectangle ends [{end_y}] before it starts [{start_y}] (in y), "
-            + "swapping them"
+                f"Rectangle ends [{end_y}] before it starts [{start_y}] (in y), "
+                + "swapping them"
         )
         start_y, end_y = end_y, start_y
     if start_x >= full_size_w:
         dukit_warn(
-            f"Rectangle starts [{start_x}] outside image [{full_size_w}] "
-            + "(too large in x), setting to zero."
+                f"Rectangle starts [{start_x}] outside image [{full_size_w}] "
+                + "(too large in x), setting to zero."
         )
         start_x = 0
 
     if start_y >= full_size_h:
         dukit_warn(
-            f"Rectangle starts outside [{start_y}] image [{full_size_h}] "
-            + "(too large in y), setting to zero."
+                f"Rectangle starts outside [{start_y}] image [{full_size_h}] "
+                + "(too large in y), setting to zero."
         )
         start_y = 0
 
     if end_x >= full_size_w:
         dukit_warn(
-            f"Rectangle too big in x [{end_x}], cropping to image [{full_size_w}].\n"
+                f"Rectangle too big in x [{end_x}], cropping to image [{full_size_w}].\n"
         )
         end_x = full_size_w - 1
     if end_y >= full_size_h:
         dukit_warn(
-            f"Rectangle too big in y [{end_y}], cropping to image [{full_size_h}].\n"
+                f"Rectangle too big in y [{end_y}], cropping to image [{full_size_h}].\n"
         )
         end_y = full_size_h - 1
 
@@ -206,12 +229,12 @@ def _check_start_end_rectangle(
 
 
 def crop_sweep(
-    sweep_arr: npt.NDArray,
-    sig: npt.NDArray,
-    ref: npt.NDArray,
-    sig_norm: npt.NDArray,
-    rem_start=1,
-    rem_end=0,
+        sweep_arr: npt.NDArray,
+        sig: npt.NDArray,
+        ref: npt.NDArray,
+        sig_norm: npt.NDArray,
+        rem_start=1,
+        rem_end=0,
 ) -> tuple[npt.NDArray, npt.NDArray, npt.NDArray, npt.NDArray]:
     """
     Crop spectral dimension. Usually used to remove first one/few points of e.g. ODMR.
@@ -249,7 +272,7 @@ def crop_sweep(
 
 
 def smooth_image_stack(
-    stack: npt.NDArray, sigma: tuple[float, float] | float, truncate: float = 4.0
+        stack: npt.NDArray, sigma: tuple[float, float] | float, truncate: float = 4.0
 ) -> npt.NDArray:
     """
     Smooth image stack in spatial dimensions with gaussian.
@@ -277,7 +300,7 @@ def smooth_image_stack(
 
 
 def rebin_image_stack(
-    stack: npt.NDArray, additional_bins: tuple[int, int] | int
+        stack: npt.NDArray, additional_bins: tuple[int, int] | int
 ) -> npt.NDArray:
     """
     Rebin image stack in spatial dimensions.
@@ -298,10 +321,19 @@ def rebin_image_stack(
         return stack
     if isinstance(additional_bins, tuple):
         return rebin(
-            stack, factor=(1, additional_bins[1], additional_bins[0]), func=np.mean
+                stack, factor=(1, additional_bins[1], additional_bins[0]), func=np.mean
         )
     return rebin(
-        stack,
-        factor=(1, additional_bins, additional_bins),
-        func=np.mean,
+            stack,
+            factor=(1, additional_bins, additional_bins),
+            func=np.mean,
     )
+
+
+# ============================================================================
+def sum_spatially(seq: npt.ArrayLike) -> npt.NDArray:
+    """Sum over 0th (spectral) dim of seq if 3D, else return as is."""
+    seq = np.asarray(seq)
+    if len(np.shape(seq)) == 3:
+        return np.sum(seq, axis=0)
+    return seq

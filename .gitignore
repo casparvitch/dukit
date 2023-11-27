@@ -130,6 +130,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+dukit_conda_env/
 
 # Spyder project settings
 .spyderproject
@@ -232,3 +233,10 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+
+/.doit.db.dat
+/.doit.db.bak
+/.doit.db.dir
+
+*.png
+*.dot

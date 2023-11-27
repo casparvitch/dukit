@@ -122,7 +122,6 @@ def plot_image_on_ax(
     c_map: str = "viridis",
     c_range: tuple[float, float] | tuple[None, None] = (None, None),
     c_label: str = "label",
-    opath: str = "",
     show_scalebar: bool = True,
     raw_pixel_size: float = float("nan"),
     applied_binning: tuple[int, int] | int = 0,
@@ -150,8 +149,6 @@ def plot_image_on_ax(
         Range of values in image_data to map to colors
     c_label : str
         Label for colormap axis
-    opath: str  = "",
-        If given saves figure here.
     show_scalebar: bool = True
         Show the scalebar(s)?
     raw_pixel_size: float = float("nan")
@@ -216,9 +213,6 @@ def plot_image_on_ax(
     if not show_tick_marks:
         ax.get_xaxis().set_ticks([])
         ax.get_yaxis().set_ticks([])
-
-    if opath:
-        fig.savefig(opath)
 
     return fig, ax
 
@@ -339,6 +333,9 @@ def get_colormap_range(
          with elements (preferably ints) in [0, 100].
          Changing to 'min_max_symmetric_about_mean' c_range.""",
     }
+    if not c_range_type:
+        c_range_type = "min_max_symmetric_about_mean"
+        c_range_vals = ()
 
     if c_range_type not in ["percentile", "min_max"]:
         auto_sym_zero = False

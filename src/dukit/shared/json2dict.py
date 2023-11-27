@@ -7,8 +7,7 @@ Functions
  - `dukit.shared.json2dict.json_to_dict`
  - `dukit.shared.json2dict.dict_to_json`
  - `dukit.shared.json2dict.dict_to_json_str`
- - `dukit.shared.json2dict.failfloat`
- - `dukit.shared.json2dict.recursive_dict_update`
+ - `dukit.shared.json2dict.fail_float`
 """
 
 # ============================================================================
@@ -19,8 +18,8 @@ __pdoc__ = {
     "dukit.shared.json2dict.json_to_dict": True,
     "dukit.shared.json2dict.dict_to_json": True,
     "dukit.shared.json2dict.dict_to_json_str": True,
-    "dukit.shared.json2dict.failfloat": True,
-    "dukit.shared.json2dict.recursive_dict_update": True,
+    "dukit.shared.json2dict.fail_float": True,
+    # "dukit.shared.json2dict.recursive_dict_update": True,
 }
 
 # ============================================================================
@@ -35,10 +34,11 @@ import numpy as np
 
 from dukit.shared.misc import dukit_warn
 
+
 # ============================================================================
 
 
-def json_to_dict(filepath: str , hook="od") -> dict:
+def json_to_dict(filepath: str, hook="od") -> dict:
     """read the json file at filepath into a dict"""
     _, pattern = os.path.splitext(filepath)
     if pattern != ".json":
@@ -61,32 +61,18 @@ def json_to_dict(filepath: str , hook="od") -> dict:
 
 
 def dict_to_json(
-    dictionary: dict,
-    filename: str | None,
-    path_to_dir: str  | None = None,
+        dictionary: dict,
+        filepath: str,
 ) -> None:
     """save the dict as a json in a pretty way"""
-    if filename is not None:
-        # FIXME this pattern here below with CWD is weird.
-        # ensure json pattern
-        root, pattern = os.path.splitext(filename)
-        if pattern != ".json":
-            dukit_warn("reformatted save filename to '.json' pattern")
-            pattern = ".json"
-        filename = root + pattern
-        # get cwd
-        cwd = os.getcwd()
-        if path_to_dir is None:
-            filepath = os.path.join(cwd, filename)
-        elif not os.path.isdir(path_to_dir):
-            dukit_warn("path_to_dir was not a valid directory, instead "
-                       + "saving to current working directory")
-            filepath = os.path.join(cwd, filename)
-        else:
-            filepath = os.path.join(path_to_dir, filename)
 
-        with open(filepath, "w", encoding="utf-8") as fip:
-            fip.write(_prettyjson(dictionary))
+    root, pattern = os.path.splitext(filepath)
+    if pattern != ".json":
+        dukit_warn(f"Reformatting save filepath ({filepath}) to '.json' pattern.")
+        pattern = ".json"
+    path = root + pattern
+    with open(path, "w", encoding="utf-8") as fip:
+        fip.write(_prettyjson(dictionary))
 
 
 # ============================================================================
@@ -109,7 +95,7 @@ def _prettyjson(obj, indent=4, maxlinelength=80):
     """
 
     items, _ = _getsubitems(
-        obj, itemkey="", islast=True, maxlinelength=maxlinelength
+            obj, itemkey="", islast=True, maxlinelength=maxlinelength
     )
     res = _indentitems(items, indent, indentcurrent=0)
     return res
@@ -158,7 +144,7 @@ def _getsubitems(obj, itemkey, islast, maxlinelength):
                 itemkey_ = _basictype2str(k)
             # inner = (items, indent)
             inner, can_concat_ = _getsubitems(
-                obj[k], itemkey_, islast_, maxlinelength
+                    obj[k], itemkey_, islast_, maxlinelength
             )
             # inner can be a string or a list
             subitems.extend(inner)
@@ -262,7 +248,7 @@ def _json_remove_comments(string, strip_space=True):
 
     for match in re.finditer(tokenizer, string):
         if not (in_multi or in_single):
-            tmp = string[index : match.start()]  # noqa: E203
+            tmp = string[index: match.start()]  # noqa: E203
             if not in_string and strip_space:
                 # replace white space as defined in standard
                 tmp = re.sub("[ \t\n\r]+", "", tmp)
@@ -280,7 +266,7 @@ def _json_remove_comments(string, strip_space=True):
 
             # start of string or unescaped quote character to end string
             if not in_string or (
-                escaped is None or len(escaped.group()) % 2 == 0
+                    escaped is None or len(escaped.group()) % 2 == 0
             ):  # noqa
                 in_string = not in_string
             index -= 1  # include " character in next catch
@@ -296,7 +282,7 @@ def _json_remove_comments(string, strip_space=True):
         elif val in "\r\n" and not (in_multi or in_string) and in_single:
             in_single = False
         elif not (
-            (in_multi or in_single) or (val in " \r\n\t" and strip_space)
+                (in_multi or in_single) or (val in " \r\n\t" and strip_space)
         ):  # noqa
             new_str.append(val)
 
@@ -313,7 +299,7 @@ def _json_remove_comments(string, strip_space=True):
 # ============================================================================
 
 
-def failfloat(a):
+def fail_float(a):
     """Used in particular for reading the metadata to convert all numbers into
     floats and leave strings as strings.
     """
@@ -336,18 +322,18 @@ def _defaultdict_from_d(d):
 # ============================================================================
 
 
-def recursive_dict_update(to_be_updated_dict, updating_dict):
-    """
-    Recursively updates to_be_updated_dict with values from updating_dict (to all dict depths).
-    """
-    if not isinstance(to_be_updated_dict, abc.Mapping):
-        return updating_dict
-    for key, val in updating_dict.items():
-        if isinstance(val, abc.Mapping):
-            # avoids KeyError by returning {}
-            to_be_updated_dict[key] = recursive_dict_update(
-                to_be_updated_dict.get(key, {}), val
-            )
-        else:
-            to_be_updated_dict[key] = val
-    return to_be_updated_dict
+# def recursive_dict_update(to_be_updated_dict, updating_dict):
+#     """
+#     Recursively updates to_be_updated_dict with values from updating_dict (to all dict depths).
+#     """
+#     if not isinstance(to_be_updated_dict, abc.Mapping):
+#         return updating_dict
+#     for key, val in updating_dict.items():
+#         if isinstance(val, abc.Mapping):
+#             # avoids KeyError by returning {}
+#             to_be_updated_dict[key] = recursive_dict_update(
+#                     to_be_updated_dict.get(key, {}), val
+#             )
+#         else:
+#             to_be_updated_dict[key] = val
+#     return to_be_updated_dict

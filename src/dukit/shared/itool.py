@@ -170,7 +170,7 @@ def get_background(
     # Discuss masking -> if polygons provided, background is calculated but with
     # polygon regions masked -> background calculated without these.
     # also used for interpolation method.
-    method_required_settings: dict[[str], list] = {
+    method_required_settings: dict[str, list] = {
         "fix_zero": ["zero"],
         "three_point": ["points"],
         "mean": [],
@@ -181,7 +181,7 @@ def get_background(
         "gaussian_filter": ["sigma"],
         "gaussian_then_poly": ["order"],
     }
-    method_fns: dict[[str], Callable] = {
+    method_fns: dict[str, Callable] = {
         "fix_zero": _zero_background,
         "three_point": _three_point_background,
         "mean": _mean_background,
@@ -239,7 +239,6 @@ def mu_sigma_inside_polygons(
     return np.mean(image), np.std(image)
 
 
-# ============================================================================
 # ============================================================================
 
 
@@ -360,7 +359,7 @@ def _three_point_background(
                     except IndexError:
                         continue
 
-        return np.mean([sample for sample in _sample_generator(image, sample_size, yx)])
+        return np.mean(list(_sample_generator(image, sample_size, yx)))
 
     points = np.array(
         [np.append(p, _mean_sample(image, sample_size, (p[1], p[0]))) for p in points]

@@ -118,8 +118,8 @@ import numpy as np
 from numpy.lib.stride_tricks import as_strided
 
 __author__ = "Sebastien Brisard"
-__version__ = "1.0.1"
-__release__ = __version__
+# __version__ = "1.0.1"
+# __release__ = __version__
 
 
 def rebin(a, factor, func=None):
