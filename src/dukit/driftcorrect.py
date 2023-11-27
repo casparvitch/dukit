@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 This module holds tools for measurement (lateral) drift correction.
-Requires a `dukit.shared.systems.System` for reading files from disk.
+Requires a `dukit.systems.System` for reading files from disk.
 Most of the functions are not documented, but the API is only 2 funcs:
 
 Functions
@@ -31,9 +31,9 @@ import matplotlib.pyplot as plt
 
 # ============================================================================
 
-import dukit.shared.plot
-import dukit.shared.misc
-import dukit.shared.systems
+import dukit.json2dict
+import dukit.itool
+import dukit.systems
 
 # ============================================================================
 
@@ -71,7 +71,7 @@ def read_and_drift_correct(
     base_path: str,
     stub: Callable[[int], str],
     image_seq: list | tuple | npt.NDArray,
-    system: dukit.shared.systems.System,
+    system: dukit.systems.System,
     ignore_ref: bool = False,
     mask: npt.NDArray[np.bool_]
     | None = None,  # True where(i) you want to incl im in accum
@@ -100,13 +100,13 @@ def read_and_drift_correct(
         prev_ref = ref
 
         this_sig, _ = _drift_correct_stack(
-            dukit.shared.misc.crop_roi(refr_pl, *roi),
-            dukit.shared.misc.crop_roi(this_pl, *roi),
+            dukit.itool.crop_roi(refr_pl, *roi),
+            dukit.itool.crop_roi(this_pl, *roi),
             this_sig,
         )
         this_ref, _ = _drift_correct_stack(
-            dukit.shared.misc.crop_roi(refr_pl, *roi),
-            dukit.shared.misc.crop_roi(this_pl, *roi),
+            dukit.itool.crop_roi(refr_pl, *roi),
+            dukit.itool.crop_roi(this_pl, *roi),
             this_ref,
         )
 
@@ -125,7 +125,7 @@ def drift_correct_measurement(
     start_num: int,
     end_num: int,
     stub: Callable[[int], str],
-    system: dukit.shared.systems.System,
+    system: dukit.systems.System,
     output_file: str,
     roi_start_x: int = -1,
     roi_start_y: int = -1,
@@ -148,7 +148,7 @@ def drift_correct_measurement(
         from directory. I.e. directory + stub(X) for filepath ass. with 'X'
     output_file : str
         Output will be stored in directory + output file
-    system : dukit.shared.systems.System object
+    system : dukit.systems.System object
         Used for reading in files
     output_file : str
         Where to save the drift-corrected binary
@@ -172,14 +172,16 @@ def drift_correct_measurement(
         mask=image_nums_mask,
     )
 
-    if isinstance(system, dukit.shared.systems.LVControl):
-        s = sig.transpose([0, 2, 1])
-        r = ref.transpose([0, 2, 1])
+    if isinstance(system, dukit.systems.LVControl):
+        # below don't seem necessary now??
+        # s = sig.transpose([0, 2, 1])
+        # r = ref.transpose([0, 2, 1])
+        s, r = sig, ref
 
         output = []
-        for f in range(s.shape[0]):
-            output.append(s[f, ::])
-            output.append(r[f, ::])
+        for f in range(s.shape[-1]):
+            output.append(s[:,:, f])
+            output.append(r[:,:, f])
         output_array = np.array(output).flatten()
 
         with open(output_file, "wb") as fid:
@@ -217,7 +219,7 @@ def drift_correct_test(
     end_num: int,
     comparison_nums: list | tuple | npt.NDArray,
     stub: Callable[[int], str],
-    system: dukit.shared.systems.System,
+    system: dukit.systems.System,
     ignore_ref:bool=False,
     roi_start_x: int = -1,
     roi_start_y: int = -1,
@@ -241,7 +243,7 @@ def drift_correct_test(
     stub : function
         Function that takes image num and returns path to that measurement
         from directory. I.e. directory + stub(X) for filepath ass. with 'X'
-    system : dukit.shared.systems.System object
+    system : dukit.systems.System object
         Used for reading in files
     ignore_ref : bool = False
     roi_X : int
@@ -266,8 +268,8 @@ def drift_correct_test(
     first = True
     for i in image_seq:
         sig, _, _ = system.read_image(directory + stub(i), ignore_ref, "div")
-        pl = np.sum(np.sum(sig, axis=-1), axis=-1)
-        accum_pl = dukit.shared.misc.crop_roi(pl, *roi)
+        pl = np.sum(np.sum(sig, axis=0), axis=-0)
+        accum_pl = dukit.itool.crop_roi(pl, *roi)
         if first:
             first = False
             prev_accum_pl = accum_pl.copy()
@@ -283,10 +285,10 @@ def drift_correct_test(
 
     # plot cropped sig frames in left column
     for i, frame, ax in zip(comparison_nums, raw_comp_frames, axs[:, 0]):
-        dukit.shared.plot.plot_image_on_ax(
+        dukit.itool.plot_image_on_ax(
             fig,
             ax,
-            dukit.shared.misc.crop_roi(frame, *roi),
+            dukit.itool.crop_roi(frame, *roi),
             title=f"raw   {i}",
             c_range=(None, None),
             c_label="Counts",
@@ -303,8 +305,8 @@ def drift_correct_test(
     ]
     for frame in raw_comp_frames[1:]:
         corrected_frame, shift_calc = _drift_correct_single(
-            dukit.shared.misc.crop_roi(refr_frame, *roi),
-            dukit.shared.misc.crop_roi(frame, *roi),
+            dukit.itool.crop_roi(refr_frame, *roi),
+            dukit.itool.crop_roi(frame, *roi),
             frame,
         )
         corrected_frames.append(corrected_frame)
@@ -314,10 +316,10 @@ def drift_correct_test(
     for i, frame, shift_calc, ax in zip(
         comparison_nums, corrected_frames, shift_calcs, axs[:, 1]
     ):
-        dukit.shared.plot.plot_image_on_ax(
+        dukit.itool.plot_image_on_ax(
             fig,
             ax,
-            dukit.shared.misc.crop_roi(frame, *roi),
+            dukit.itool.crop_roi(frame, *roi),
             title=f"shftd {i}: {shift_calc}",
             c_range=(None, None),
             c_label="Counts",

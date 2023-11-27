@@ -11,18 +11,50 @@ from import_deps import PyModule, ModuleSet
 def task_prospector():
     """Run prospector static analysis"""
     return {
+        "file_dep": ["dukit.prospector.yaml"],
         "actions": [
-            'prospector --profile dukit.prospector.yaml -o grouped:prospector.log',
-        ]
+            'prospector --profile %(dependencies)s -o grouped:%(targets)s',
+        ],
+        "targets": ["prospector.log"]
     }
+
 
 def task_mz_test():
     """mz_test"""
     return {
+        "file_dep": ["examples/magnetization/mz_test.py"],
         "actions": [
-            "python3 examples/magnetization/mz_test.py"
+            "python3 %(dependencies)s"
         ]
     }
+
+
+def task_cprof():
+    """Run cProfile on mz_test"""
+    return {
+        "file_dep": ["examples/magnetization/mz_test.py"],
+        "actions": [
+            "python3 -m cProfile -o %(targets)s %(dependencies)s"],
+        "targets": ["output.prof"]
+    }
+
+
+def task_snakeviz():
+    """Run snakeviz on profiled mz_test"""
+    return {
+        "file_dep": ["output.prof"],
+        "actions": ["snakeviz %(dependencies)s"],
+    }
+
+
+def task_docs():
+    """Build docs"""
+    return {
+        "actions": [
+            "pdoc3 --output-dir docs/ " +
+            "--html --template-dir docs/ --force src/dukit/"],
+    }
+
 
 # === START IMPORT GRAPHING
 def task_imports():
@@ -49,17 +81,18 @@ def task_dot():
     def module_to_dot(imports, targets):
         graph = pygraphviz.AGraph(strict=False, directed=True)
         graph.node_attr['color'] = 'black'
-        graph.node_attr['style'] = 'rounded'
+        graph.node_attr['style'] = 'solid'
         for source, sinks in imports.items():
             for sink in sinks:
                 graph.add_edge(source, sink)
         graph.write(targets[0])
+
     return {
-            'targets': ['dukit.dot'],
-            'actions': [module_to_dot],
-            'getargs': {'imports': ('imports', 'modules')},
-            'clean': True,
-        }
+        'targets': ['dukit.dot'],
+        'actions': [module_to_dot],
+        'getargs': {'imports': ('imports', 'modules')},
+        'clean': True,
+    }
 
 
 def task_draw():

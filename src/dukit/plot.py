@@ -1,31 +1,31 @@
 # -*- coding: utf-8 -*-
 """
-This module holds functions for plotting initial processing images and fit results.
+This module holds functions for plotting.
 
 Functions
 ---------
- - `dukit.plot.pl.roi_pl_image`
- - `dukit.plot.pl.aoi_pl_image`
- - `dukit.plot.pl.roi_avg_fits`
- - `dukit.plot.pl.aoi_spectra`
- - `dukit.plot.pl.aoi_spectra_fit`
- - `dukit.plot.pl.pl_param_image`
- - `dukit.plot.pl.pl_param_images`
- - `dukit.plot.pl._add_patch_rect`
+ - `dukit.plot.roi_pl_image`
+ - `dukit.plot.aoi_pl_image`
+ - `dukit.plot.roi_avg_fits`
+ - `dukit.plot.aoi_spectra`
+ - `dukit.plot.aoi_spectra_fit`
+ - `dukit.plot.pl_param_image`
+ - `dukit.plot.pl_param_images`
+ - `dukit.plot._add_patch_rect`
 """
 
 # ============================================================================
 
 __author__ = "Sam Scholten"
 __pdoc__ = {
-    "dukit.plot.pl.roi_pl_image": True,
-    "dukit.plot.pl.aoi_pl_image": True,
-    "dukit.plot.pl.roi_avg_fits": True,
-    "dukit.plot.pl.aoi_spectra": True,
-    "dukit.plot.pl.aoi_spectra_fit": True,
-    "dukit.plot.pl.pl_param_image": True,
-    "dukit.plot.pl.pl_param_images": True,
-    "dukit.plot.pl._add_patch_rect": True,
+    "dukit.plot.roi_pl_image": True,
+    "dukit.plot.aoi_pl_image": True,
+    "dukit.plot.roi_avg_fits": True,
+    "dukit.plot.aoi_spectra": True,
+    "dukit.plot.aoi_spectra_fit": True,
+    "dukit.plot.pl_param_image": True,
+    "dukit.plot.pl_param_images": True,
+    "dukit.plot._add_patch_rect": True,
 }
 
 # ============================================================================
@@ -40,17 +40,13 @@ import numpy.typing as npt
 
 # ============================================================================
 
-import dukit.pl
-import dukit.shared.plot
-import dukit.shared.json2dict
-import dukit.shared.misc
-# import dukit.shared.plot
-# import dukit.shared.json2dict
-# import dukit.shared.misc
+import dukit.json2dict
+import dukit.warn
+import dukit.itool
 
 # ===========================================================================
 
-AOI_COLORS = [
+AOI_COLORS: list[str] = [
     "blue",
     "tab:brown",
     "purple",
@@ -60,7 +56,7 @@ AOI_COLORS = [
     "cyan",
 ]
 
-FIT_BACKEND_COLORS = {
+FIT_BACKEND_COLORS: dict[str, dict[str, str]] = {
     "scipyfit": {
         "ROIfit_linecolor": "mediumblue",
         "residual_linecolor": "black",
@@ -103,7 +99,7 @@ def roi_pl_image(
     opath : str
         If supplied, saves figure here.
     **kwargs
-        Plotting options passed to `dukit.shared.plot.plot_image_on_ax`
+        Plotting options passed to `dukit.itool.plot_image_on_ax`
     Returns
     -------
     fig : plt.Figure
@@ -113,11 +109,11 @@ def roi_pl_image(
 
     fig, ax = plt.subplots()
     if "c_range_type" in kwargs and "c_range_vals" in kwargs:
-        c_range = dukit.shared.plot.get_colormap_range(
+        c_range = dukit.itool.get_colormap_range(
                 kwargs["c_range_type"], kwargs["c_range_vals"], pl_image
         )
     else:
-        c_range = dukit.shared.plot.get_colormap_range("min_max", (), pl_image)
+        c_range = dukit.itool.get_colormap_range("min_max", (), pl_image)
 
     if "c_map" in kwargs:
         c_map = kwargs["c_map"]
@@ -125,7 +121,7 @@ def roi_pl_image(
     else:
         c_map = "grey"
 
-    fig, ax = dukit.shared.plot.plot_image_on_ax(
+    fig, ax = dukit.itool.plot_image_on_ax(
             fig,
             ax,
             pl_image,
@@ -162,7 +158,7 @@ def aoi_pl_image(
     opath : str
         If supplied, saves figure here.
     **kwargs
-        Plotting options passed to `dukit.shared.plot.plot_image_on_ax`
+        Plotting options passed to `dukit.itool.plot_image_on_ax`
 
     Returns
     -------
@@ -173,11 +169,11 @@ def aoi_pl_image(
     """
     fig, ax = plt.subplots()
     if "c_range_type" in kwargs and "c_range_vals" in kwargs:
-        c_range = dukit.shared.plot.get_colormap_range(
+        c_range = dukit.itool.get_colormap_range(
                 kwargs["c_range_type"], kwargs["c_range_vals"], pl_image
         )
     else:
-        c_range = dukit.shared.plot.get_colormap_range("min_max", (), pl_image)
+        c_range = dukit.itool.get_colormap_range("min_max", (), pl_image)
 
     if "c_map" in kwargs:
         c_map = kwargs["c_map"]
@@ -185,7 +181,7 @@ def aoi_pl_image(
     else:
         c_map = "grey"
 
-    fig, ax = dukit.shared.plot.plot_image_on_ax(
+    fig, ax = dukit.itool.plot_image_on_ax(
             fig,
             ax,
             pl_image,
@@ -212,14 +208,14 @@ def aoi_pl_image(
 # ============================================================================
 
 
-def roi_avg_fits(roi_results: dict[str, dukit.pl.common.RoiAvgFit],
+def roi_avg_fits(roi_results: dict[str, dukit.share.RoiAvgFit],
                  opath: str = ""):
     """
     Plots fit of spectrum averaged across ROI, as well as corresponding residual values.
 
     Arguments
     ---------
-    roi_results : dict[str, dukit.pl.common.RoiAvgFit
+    roi_results : dict[str, dukit.share.RoiAvgFit
         dict["fit_backend"] => RoiAvgFit
     opath : str
         If given, save figure here.
@@ -538,7 +534,7 @@ def aoi_spectra(
         output_dict["AOI_ref_avg" + "_" + str(i)] = ref_avgs[i]
 
     if specpath:
-        dukit.shared.json2dict.dict_to_json(
+        dukit.json2dict.dict_to_json(
                 output_dict,
                 specpath,
         )
@@ -855,7 +851,7 @@ def pl_param_image(
     opath : str
         If given, tries to save figure here.
     **kwargs
-        Plotting options passed to `dukit.shared.plot.plot_image_on_ax`
+        Plotting options passed to `dukit.itool.plot_image_on_ax`
 
     Returns
     -------
@@ -864,7 +860,7 @@ def pl_param_image(
 
     image = pixel_fit_params[param_name + "_" + str(param_number)]
     if param_name == "residual" and errorplot:
-        dukit.shared.misc.dukit_warn(
+        dukit.warn.warn(
                 "residual doesn't have an error, can't plot residual sigma (ret. None)."
         )
         return None
@@ -875,14 +871,14 @@ def pl_param_image(
         c_label = fit_model.get_param_unit(param_name, param_number)
 
     if "c_range_type" in kwargs and "c_range_vals" in kwargs:
-        c_range = dukit.shared.plot.get_colormap_range(
+        c_range = dukit.itool.get_colormap_range(
                 kwargs["c_range_type"], kwargs["c_range_vals"], image
         )
     else:
-        c_range = dukit.shared.plot.get_colormap_range("min_max", (), image)
+        c_range = dukit.itool.get_colormap_range("min_max", (), image)
 
     fig, ax = plt.subplots()
-    fig, ax = dukit.shared.plot.plot_image_on_ax(
+    fig, ax = dukit.itool.plot_image_on_ax(
             fig,
             ax,
             image,
@@ -929,7 +925,7 @@ def pl_param_images(
     opath : str
         If given, tries to save figure here.
     **kwargs
-        Plotting options passed to `dukit.shared.plot.plot_image_on_ax`
+        Plotting options passed to `dukit.itool.plot_image_on_ax`
 
     Returns
     -------
@@ -940,14 +936,14 @@ def pl_param_images(
 
     # if no fit completed
     if pixel_fit_params is None:
-        dukit.shared.misc.dukit_warn(
+        dukit.warn.warn(
                 "'pixel_fit_params' arg to function 'pl_param_images' is 'None'.\n"
                 + "Probably no pixel fitting completed."  # noqa: W503
         )
         return None
 
     if param_name == "residual" and errorplot:
-        dukit.shared.misc.dukit_warn(
+        dukit.warn.warn(
                 "residual doesn't have an error, can't plot residual sigma (ret. None)."
         )
         return None
@@ -1030,15 +1026,15 @@ def pl_param_images(
                 c_label = fit_model.get_param_unit(param_name, param_number)
 
             if "c_range_type" in kwargs and "c_range_vals" in kwargs:
-                c_range = dukit.shared.plot.get_colormap_range(
+                c_range = dukit.itool.get_colormap_range(
                         kwargs["c_range_type"], kwargs["c_range_vals"], image_data
                 )
             else:
-                c_range = dukit.shared.plot.get_colormap_range(
+                c_range = dukit.itool.get_colormap_range(
                         "min_max", (), image_data
                 )
 
-            fig, ax = dukit.shared.plot.plot_image_on_ax(
+            fig, ax = dukit.itool.plot_image_on_ax(
                     fig,
                     ax,
                     image_data,
@@ -1114,7 +1110,7 @@ def _get_aois(
     aois: list = (
         []
         if not aoi_coords
-        else [dukit.shared.misc._define_area_roi(*aoi) for aoi in aoi_coords]
+        else [dukit.itool._define_area_roi(*aoi) for aoi in aoi_coords]
     )
 
     if len(image_shape) == 3:
@@ -1123,7 +1119,7 @@ def _get_aois(
         shp = image_shape
     aois.insert(
             0,
-            dukit.shared.misc._define_area_roi(
+            dukit.itool._define_area_roi(
                     shp[0] // 2, shp[1] // 2, shp[0] // 2 + 1, shp[1] // 2 + 1
             ),
     )

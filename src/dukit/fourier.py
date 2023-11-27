@@ -4,18 +4,18 @@ Shared FFTW tooling.
 
 Functions
 ---------
- - `dukit.shared.fourier.unpad_image`
- - `dukit.shared.fourier.pad_image`
- - `dukit.shared.fourier.define_k_vectors`
- - `dukit.shared.fourier.set_naninf_to_zero`
- - `dukit.shared.fourier.hanning_filter_kspace`
- - `dukit.shared.fourier.define_magnetization_transformation`
- - `dukit.shared.fourier.define_current_transform`
+ - `dukit.fourier.unpad_image`
+ - `dukit.fourier.pad_image`
+ - `dukit.fourier.define_k_vectors`
+ - `dukit.fourier.set_naninf_to_zero`
+ - `dukit.fourier.hanning_filter_kspace`
+ - `dukit.fourier.define_magnetization_transformation`
+ - `dukit.fourier.define_current_transform`
 
 Constants
 ---------
- - `dukit.shared.fourier.MAG_UNIT_CONV`
- - `dukit.shared.fourier.MU_0`
+ - `dukit.fourier.MAG_UNIT_CONV`
+ - `dukit.fourier.MU_0`
 """
 
 
@@ -23,15 +23,15 @@ Constants
 
 __author__ = "Sam Scholten"
 __pdoc__ = {
-    "dukit.shared.fourier.unpad_image": True,
-    "dukit.shared.fourier.pad_image": True,
-    "dukit.shared.fourier.define_k_vectors": True,
-    "dukit.shared.fourier.set_naninf_to_zero": True,
-    "dukit.shared.fourier.hanning_filter_kspace": True,
-    "dukit.shared.fourier.MAG_UNIT_CONV": True,
-    "dukit.shared.fourier.MU_0": True,
-    "dukit.shared.fourier.define_magnetization_transformation": True,
-    "dukit.shared.fourier.define_current_transform": True,
+    "dukit.fourier.unpad_image": True,
+    "dukit.fourier.pad_image": True,
+    "dukit.fourier.define_k_vectors": True,
+    "dukit.fourier.set_naninf_to_zero": True,
+    "dukit.fourier.hanning_filter_kspace": True,
+    "dukit.fourier.MAG_UNIT_CONV": True,
+    "dukit.fourier.MU_0": True,
+    "dukit.fourier.define_magnetization_transformation": True,
+    "dukit.fourier.define_current_transform": True,
 }
 
 # ============================================================================
@@ -42,7 +42,7 @@ import numpy.typing as npt
 
 # ============================================================================
 
-MAG_UNIT_CONV = 1e-18 / 9.274010e-24
+MAG_UNIT_CONV: float = 1e-18 / 9.274010e-24
 """
 Convert unit for magnetization to something more helpful.
 
@@ -67,7 +67,7 @@ Measure x amps = x A
 """
 
 
-MU_0 = 1.25663706212 * 1e-6
+MU_0: float = 1.25663706212 * 1e-6
 """
 Vacuum permeability
 """
@@ -79,7 +79,7 @@ Vacuum permeability
 def unpad_image(
     x: npt.NDArray, padder: tuple[tuple[int, int], tuple[int, int]]
 ) -> npt.NDArray:
-    """undo a padding defined by `dukit.shared.fourier.pad_image` (it returns
+    """undo a padding defined by `dukit.fourier.pad_image` (it returns
     the padder list)"""
     slices = []
     for c in padder:

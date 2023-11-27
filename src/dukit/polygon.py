@@ -4,7 +4,10 @@ This module holds the Polygon class: a class to compute if a point
 lies inside/outside/on-side of a polygon. Also defined is a function
 (polygon_gui) that can be called to select a polygon region on an image.
 
-For use check examples: examples/scripts/
+For use check examples.
+
+Apologies for lack of typing, I don't understand sufficiently and it
+currently *just works*.
 
 Polygon-GUI
 -----------
@@ -43,22 +46,21 @@ http://code.activestate.com/recipes/578381-a-point-in-polygon-program-sw-sloan-a
 
 Classes
 -------
- - `dukit.shared.polygon.Polygon`
+ - `dukit.polygon.Polygon`
 
 Functions
 ---------
- - `qdmpy.shared.polygon.polygon_gui`
- - `qdmpy.shared.polygon.Polygon`
- - `qdmpy.shared.polygon.PolygonSelectionWidget`
+ - `qdmpy.polygon.polygon_gui`
+ - `qdmpy.polygon.PolygonSelectionWidget`
 """
 
 # ============================================================================
 
 __author__ = "Sam Scholten"
 __pdoc__ = {
-    "dukit.shared.polygon.polygon_selector": True,
-    "dukit.shared.polygon.Polygon": True,
-    "dukit.shared.polygon.PolygonSelectionWidget": True,
+    "dukit.polygon.polygon_selector": True,
+    "dukit.polygon.Polygon": True,
+    "dukit.polygon.PolygonSelectionWidget": True,
 }
 
 # ============================================================================
@@ -73,14 +75,13 @@ from numba import jit
 
 # ============================================================================
 
-from dukit.shared.json2dict import json_to_dict, dict_to_json
-import dukit.shared.widget
-from dukit.shared.misc import dukit_warn
-from dukit.shared.fourier import pad_image
+from dukit.json2dict import json_to_dict, dict_to_json
+from dukit.warn import warn
+from dukit.fourier import pad_image
 
 # ============================================================================
 
-CMAP_OPTIONS = [
+CMAP_OPTIONS: list(str) = [
     "viridis",
     "plasma",
     "inferno",
@@ -422,7 +423,7 @@ def polygon_selector(
         if "image_shape" in polys:
             shp = polys["image_shape"]
             if shp[0] != image.shape[0] or shp[1] != image.shape[1]:
-                dukit_warn(
+                warn(
                     "Image shape loaded polygons were defined on does not match current"
                     " image."
                 )

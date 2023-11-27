@@ -4,10 +4,10 @@ json2dict; functions for loading json files to dicts and the inverse.
 
 Functions
 ---------
- - `dukit.shared.json2dict.json_to_dict`
- - `dukit.shared.json2dict.dict_to_json`
- - `dukit.shared.json2dict.dict_to_json_str`
- - `dukit.shared.json2dict.fail_float`
+ - `dukit.json2dict.json_to_dict`
+ - `dukit.json2dict.dict_to_json`
+ - `dukit.json2dict.dict_to_json_str`
+ - `dukit.json2dict.fail_float`
 """
 
 # ============================================================================
@@ -15,45 +15,35 @@ Functions
 
 __author__ = "Sam Scholten"
 __pdoc__ = {
-    "dukit.shared.json2dict.json_to_dict": True,
-    "dukit.shared.json2dict.dict_to_json": True,
-    "dukit.shared.json2dict.dict_to_json_str": True,
-    "dukit.shared.json2dict.fail_float": True,
-    # "dukit.shared.json2dict.recursive_dict_update": True,
+    "dukit.json2dict.json_to_dict": True,
+    "dukit.json2dict.dict_to_json": True,
+    "dukit.json2dict.dict_to_json_str": True,
+    "dukit.json2dict.fail_float": True,
 }
 
 # ============================================================================
 
 import os
-from collections import OrderedDict, defaultdict, abc
 import re
 import simplejson as json
 import numpy as np
 
 # ============================================================================
 
-from dukit.shared.misc import dukit_warn
+from dukit.warn import warn
 
 
 # ============================================================================
 
-
-def json_to_dict(filepath: str, hook="od") -> dict:
+def json_to_dict(filepath: str) -> dict:
     """read the json file at filepath into a dict"""
     _, pattern = os.path.splitext(filepath)
     if pattern != ".json":
-        dukit_warn("input options file did not have a json pattern/suffix")
+        warn("input options file did not have a json pattern/suffix")
 
     with open(filepath, "r", encoding="utf-8") as fip:
-        if hook == "od":
-            oph = OrderedDict
-        elif hook == "dd":
-            oph = _defaultdict_from_d  # type: ignore
-        else:
-            raise RuntimeError("bad choice for dict hook")
-
         jstring = _json_remove_comments(fip.read())
-        dct = json.loads(jstring, object_pairs_hook=oph)
+        dct = json.loads(jstring, object_pairs_hook=dict)
         return dct.copy()
 
 
@@ -68,7 +58,7 @@ def dict_to_json(
 
     root, pattern = os.path.splitext(filepath)
     if pattern != ".json":
-        dukit_warn(f"Reformatting save filepath ({filepath}) to '.json' pattern.")
+        warn(f"Reformatting save filepath ({filepath}) to '.json' pattern.")
         pattern = ".json"
     path = root + pattern
     with open(path, "w", encoding="utf-8") as fip:
@@ -104,7 +94,7 @@ def _prettyjson(obj, indent=4, maxlinelength=80):
 # ============================================================================
 
 
-def _getsubitems(obj, itemkey, islast, maxlinelength):
+def _getsubitems(obj, itemkey:str, islast:bool, maxlinelength:int):
     items = []
     # assume we can concatenate inner content unless a child node returns an
     # expanded list
@@ -197,7 +187,7 @@ def _getsubitems(obj, itemkey, islast, maxlinelength):
 # ============================================================================
 
 
-def _basictype2str(obj):
+def _basictype2str(obj)->str:
     """This is a filter on objects that get sent to the json. Some types
     can't be stored literally in json files, so we can adjust for that here.
     """
@@ -308,32 +298,4 @@ def fail_float(a):
     except ValueError:
         return a
 
-
 # ============================================================================
-
-
-def _defaultdict_from_d(d):
-    """converts d to a defaultdict, with default value of None for all keys"""
-    dd = defaultdict(lambda: None)
-    dd.update(d)
-    return dd
-
-
-# ============================================================================
-
-
-# def recursive_dict_update(to_be_updated_dict, updating_dict):
-#     """
-#     Recursively updates to_be_updated_dict with values from updating_dict (to all dict depths).
-#     """
-#     if not isinstance(to_be_updated_dict, abc.Mapping):
-#         return updating_dict
-#     for key, val in updating_dict.items():
-#         if isinstance(val, abc.Mapping):
-#             # avoids KeyError by returning {}
-#             to_be_updated_dict[key] = recursive_dict_update(
-#                     to_be_updated_dict.get(key, {}), val
-#             )
-#         else:
-#             to_be_updated_dict[key] = val
-#     return to_be_updated_dict

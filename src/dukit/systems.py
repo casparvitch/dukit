@@ -4,16 +4,16 @@ This sub-package holds classes and functions to define (microscope) systems.
 
 Classes
 -------
- - `dukit.shared.systems.System`
- - `dukit.shared.systems.MelbSystem`
- - `dukit.shared.systems.LVControl`
- - `dukit.shared.systems.PyControl`
- - `dukit.shared.systems.Zyla`
- - `dukit.shared.systems.CryoWidefield`
- - `dukit.shared.systems.LegacyCryoWidefield`
- - `dukit.shared.systems.Argus`
- - `dukit.shared.systems.LegacyArgus`
- - `dukit.shared.systems.PyCryoWidefield`
+ - `dukit.systems.System`
+ - `dukit.systems.MelbSystem`
+ - `dukit.systems.LVControl`
+ - `dukit.systems.PyControl`
+ - `dukit.systems.Zyla`
+ - `dukit.systems.CryoWidefield`
+ - `dukit.systems.LegacyCryoWidefield`
+ - `dukit.systems.Argus`
+ - `dukit.systems.LegacyArgus`
+ - `dukit.systems.PyCryoWidefield`
 
 """
 
@@ -21,16 +21,16 @@ Classes
 
 __author__ = "Sam Scholten"
 __pdoc__ = {
-    "dukit.shared.systems.System": True,
-    "dukit.shared.systems.MelbSystem": True,
-    "dukit.shared.systems.LVControl": True,
-    "dukit.shared.systems.PyControl": True,
-    "dukit.shared.systems.Zyla": True,
-    "dukit.shared.systems.CryoWidefield": True,
-    "dukit.shared.systems.LegacyCryoWidefield": True,
-    "dukit.shared.systems.Argus": True,
-    "dukit.shared.systems.LegacyArgus": True,
-    "dukit.shared.systems.PyCryoWidefield": True,
+    "dukit.systems.System": True,
+    "dukit.systems.MelbSystem": True,
+    "dukit.systems.LVControl": True,
+    "dukit.systems.PyControl": True,
+    "dukit.systems.Zyla": True,
+    "dukit.systems.CryoWidefield": True,
+    "dukit.systems.LegacyCryoWidefield": True,
+    "dukit.systems.Argus": True,
+    "dukit.systems.LegacyArgus": True,
+    "dukit.systems.PyCryoWidefield": True,
 }
 
 # ============================================================================
@@ -42,8 +42,8 @@ import numpy.typing as npt
 
 # ============================================================================
 
-from dukit.shared.json2dict import json_to_dict
-from dukit.shared.misc import dukit_warn
+from dukit.json2dict import json_to_dict
+from dukit.warn import warn
 
 
 # ============================================================================
@@ -186,11 +186,11 @@ class System:
         Returns
         -------
         sig : np array, 3D
-            Format: [sweep values, y, x]. Not cropped etc.
+            Format: [y, x, sweep_vals]. Not cropped etc.
         ref : np array, 3D
-            Format: [sweep values, y, x]. Not cropped etc.
+            Format: [y, x, sweep_vals]. Not cropped etc.
         sig_norm : np array, 3D
-            Format: [sweep values, y, x]. Not cropped etc.
+            Format: [y, x, sweep_vals]. Not cropped etc.
 
         Notes
         -----
@@ -199,7 +199,7 @@ class System:
         elif norm == "div":
             sig_norm = sig / ref
         elif norm == "true_sub":
-            sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=0)
+            sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=-1)
         """
         raise NotImplementedError
 
@@ -304,18 +304,18 @@ class MelbSystem(System):
             raise ValueError("bad norm option, use one of ['sub', 'div', 'true_sub']")
         # now chop up into sig, ref & normalise
         if used_ref:
-            sig = img[::2, :, :]
-            ref = img[1::2, :, :]
+            sig = img[:, :, ::2]
+            ref = img[:, :, 1::2]
             if norm == "sub":
                 sig_norm = 1 + (sig - ref) / (sig + ref)
             elif norm == "div":
                 sig_norm = sig / ref
             else:
-                sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=0)
+                sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=-1)
         else:
             sig = img
             ref = np.ones_like(img)
-            sig_norm = sig / np.nanmax(sig, axis=0)
+            sig_norm = sig / np.nanmax(sig, axis=-1)
         return sig, ref, sig_norm
 
 
@@ -334,7 +334,7 @@ class LVControl(MelbSystem):
         with open(filepath, mode="r", encoding="utf-8") as fid:
             ret: npt.NDArray[np.float32] = np.fromfile(fid, dtype=np.float32)
             raw_data: npt.NDArray[np.float32] = ret[2:]
-            prod: int = int(np.prod(ret[:2]))
+            # prod: int = int(np.prod(ret[:2])) # for the record: this is array shape
 
         # reshape into something more useable
         img, used_ref = self._reshape_raw(
@@ -467,7 +467,8 @@ class LVControl(MelbSystem):
                 used_ref = True
         # Transpose the dataset to get the correct x and y orientations ([y, x])
         # will work for non-square images
-        return image.transpose([0, 2, 1]).astype(np.float64), used_ref
+        # also put freqs last
+        return image.transpose([2, 1, 0]).astype(np.float64), used_ref
 
     def get_bias_field(
             self, filepath: str, auto_read: bool = False
@@ -491,7 +492,7 @@ class LVControl(MelbSystem):
             if not found:
                 return False, (None, None, None)
         if len(bias_field) != 3:
-            dukit_warn(
+            warn(
                     f"Found {len(bias_field)} bias field params in metadata, "
                     + "this shouldn't happen (expected 3)."
             )
@@ -521,9 +522,10 @@ class PyControl(MelbSystem):
         if norm not in ["div", "sub", "true_sub"]:
             raise ValueError("bad norm option, use one of ['sub', 'div', 'true_sub']")
 
-        image = np.load(filepath + ".npy")
+        # TODO test if moving freqs to last is working here? also the ::2 below.
+        image = np.load(filepath + ".npy").transpose([1, 2, 0])
         if ignore_ref and self._read_metadata(filepath)["Measurement"]["ref_bool"]:
-            return self._chop_into_sig_ref(image[::2], False, norm)
+            return self._chop_into_sig_ref(image[:, :, ::2], False, norm)
         if not self._read_metadata(filepath)["Measurement"]["ref_bool"]:
             return self._chop_into_sig_ref(image, False, norm)
         return self._chop_into_sig_ref(image, True, norm)
@@ -547,10 +549,10 @@ class PyControl(MelbSystem):
         Reads metaspool text file into a metadata dictionary.
         Filepath argument is the filepath of the (binary) dataset.
         """
-        return json_to_dict(filepath + "_metadata.json", hook="dd")
+        return json_to_dict(filepath + "_metadata.json")
 
     def get_bias_field(
-            self, filepath: str, auto_read:bool = False
+            self, filepath: str, auto_read: bool = False
     ) -> tuple[bool, tuple[float | None, float | None, float | None]]:
         if not auto_read:
             super().get_bias_field(filepath, auto_read)
@@ -567,7 +569,7 @@ class PyControl(MelbSystem):
             else:
                 return False, (None, None, None)
         if len(bias_field) != 3:
-            dukit_warn(
+            warn(
                     f"Found {len(bias_field)} bias field params in metadata, "
                     + "this shouldn't happen (expected 3)."
             )

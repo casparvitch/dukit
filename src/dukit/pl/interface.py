@@ -32,8 +32,6 @@ __pdoc__ = {
 
 # ============================================================================
 
-import dukit.shared.misc
-from dukit.shared.misc import dukit_warn
 # import dukit.pl.model
 # import dukit.pl.fastmodel
 # import dukit.pl.funcs
@@ -41,14 +39,14 @@ from dukit.shared.misc import dukit_warn
 
 # ============================================================================
 
-CPUFIT_AVAILABLE = False
+CPUFIT_AVAILABLE: bool = False
 try:
     import pycpufit.cpufit as cf
     CPUFIT_AVAILABLE = True
 except:
     pass
 
-GPUFIT_AVAILABLE = False
+GPUFIT_AVAILABLE: bool = False
 try:
     import pygpufit.gpufit as gf
     GPUFIT_AVAILABLE = True

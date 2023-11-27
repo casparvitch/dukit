@@ -10,6 +10,7 @@ with open(dirname(str(__file__)) + "/../TEST_DATA_PATH.py", encoding="utf-8") as
 
 DIR = TEST_DATA_PATH + "mz_test/"  # type: ignore
 FILEPATH = DIR + "ODMR - Pulsed_10"
+FIG_FORMAT = "png"
 ADDITIONAL_BINS = 4
 ADDITIONAL_SMOOTH = 0.0
 ROI_COORDS = (65, 65, 190, 190)  # start_x, start_y, ...
@@ -44,13 +45,13 @@ pl_img_crop = dukit.sum_spatially(sig)
 _ = dukit.plot.roi_pl_image(
         pl_img,
         ROI_COORDS,
-        opath=OUTPUT_DIR + "pl_full.svg",
+        opath=OUTPUT_DIR + f"pl_full.{FIG_FORMAT}",
         show_tick_marks=True,
 )
 _ = dukit.plot.aoi_pl_image(
         pl_img_crop,
         *AOI_COORDS,
-        opath=OUTPUT_DIR + "pl_full.svg",
+        opath=OUTPUT_DIR + f"pl_full.{FIG_FORMAT}",
         show_tick_marks=True,
 )
 _ = dukit.plot.aoi_spectra(
@@ -58,7 +59,7 @@ _ = dukit.plot.aoi_spectra(
         ref,
         sweep_arr,
         specpath=OUTPUT_DIR + "aoi_specta.json",
-        opath=OUTPUT_DIR + "aoi_spectra.svg",
+        opath=OUTPUT_DIR + f"aoi_spectra.{FIG_FORMAT}",
         *AOI_COORDS,
 )
 

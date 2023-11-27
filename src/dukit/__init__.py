@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 TODO full docs.
+
+Import/dep graph
+----------------
+
+![](../../dukit.png)
 """
 
-# === SHARED
-from dukit.shared.systems import (
+
+from dukit.systems import (
     System,
     MelbSystem,
     LVControl,
@@ -16,27 +21,42 @@ from dukit.shared.systems import (
     LegacyArgus,
     PyCryoWidefield,
 )
-from dukit.shared.misc import (
+from dukit.itool import (
+    mpl_set_run_config,
     crop_sweep,
     crop_roi,
     smooth_image_stack,
     rebin_image_stack,
-    mpl_set_run_config,
-    sum_spatially
+    sum_spatially,
+    get_im_filtered,
+    get_background,
+    get_colormap_range,
+    plot_image,
+    plot_image_on_ax,
+    mask_polygons,
+    get_im_filtered,
+    get_background,
+    mu_sigma_inside_polygons,
 )
-from dukit.shared.plot import get_colormap_range, plot_image, plot_image_on_ax
-from dukit.shared.itool import get_im_filtered, get_background
-from dukit.shared.linecut import LinecutSelectionWidget, BulkLinecutWidget
-from dukit.shared.polygon import Polygon, PolygonSelectionWidget, polygon_selector
 
-# === DRIFTCORRECT
+from dukit.widget import LineSelector, PolygonSelector, LinecutSelectionWidget, \
+    BulkLinecutWidget
+from dukit.polygon import Polygon, PolygonSelectionWidget, polygon_selector
+
+from dukit.geom import get_unvs, get_unv_frames, NV_AXES_111, NV_AXES_100_100, \
+    NV_AXES_100_110
+
+from dukit.fourier import define_k_vectors, hanning_filter_kspace, \
+    define_current_transform, define_magnetization_transformation, pad_image, \
+    unpad_image, MAG_UNIT_CONV, MU_0
+
 from dukit.driftcorrect import drift_correct_test, drift_correct_measurement
 
-# === MAGSIM
 from dukit.magsim import SandboxMagSim, ComparisonMagSim
 
-# === PLOT
+from dukit.share import RoiAvgFit, AoiAvgFit
+
 import dukit.plot
 
-# === PhotoLuminescence
-import dukit.pl # clean up interface later
+# === PL fitting etc.
+# import dukit.pl # clean up interface later

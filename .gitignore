@@ -238,5 +238,7 @@ fabric.properties
 /.doit.db.bak
 /.doit.db.dir
 
-*.png
 *.dot
+*.prof
+docs/*.js
+docs/*.html

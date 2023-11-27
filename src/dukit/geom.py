@@ -10,14 +10,14 @@ TODO come back and check this is sufficient for ham fit / dc_odmr etc.
 
 Functions
 ---------
- - `dukit.shared.geom.get_unvs`
- - `dukit.shared.geom.get_unv_frames`
+ - `dukit.geom.get_unvs`
+ - `dukit.geom.get_unv_frames`
 
 Constants
 ---------
- - `dukit.shared.geom.NV_AXES_100_110`
- - `dukit.shared.geom.NV_AXES_100_100`
- - `dukit.shared.geom.NV_AXES_111`
+ - `dukit.geom.NV_AXES_100_110`
+ - `dukit.geom.NV_AXES_100_100`
+ - `dukit.geom.NV_AXES_100_110`
 """
 
 
@@ -25,11 +25,11 @@ Constants
 
 __author__ = "Sam Scholten"
 __pdoc__ = {
-    "dukit.shared.geom.get_unvs": True,
-    "dukit.shared.geom.get_unv_frames": True,
-    "dukit.shared.geom.NV_AXES_100_110": True,
-    "dukit.shared.geom.NV_AXES_100_100": True,
-    "dukit.shared.geom.NV_AXES_111": True,
+    "dukit.geom.get_unvs": True,
+    "dukit.geom.get_unv_frames": True,
+    "dukit.geom.NV_AXES_100_110": True,
+    "dukit.geom.NV_AXES_100_100": True,
+    "dukit.geom.NV_AXES_100_110": True,
 }
 
 # ============================================================================
@@ -47,7 +47,7 @@ import numpy.linalg as LA  # noqa: N812
 #   generality the orientations for <111> etc.
 
 # nv orientations (unit vectors) wrt lab frame [x, y, z]
-NV_AXES_100_110 = [
+NV_AXES_100_110: list[dict] = [
     {"nv_number": 0, "ori": (np.sqrt(2 / 3), 0, np.sqrt(1 / 3))},
     {"nv_number": 1, "ori": (-np.sqrt(2 / 3), 0, np.sqrt(1 / 3))},
     {"nv_number": 2, "ori": (0, np.sqrt(2 / 3), -np.sqrt(1 / 3))},
@@ -72,7 +72,7 @@ Purple plane corresponds to top (or bottom) face of diamond, orange planes corre
 edge faces.
 """
 
-NV_AXES_100_100 = [
+NV_AXES_100_100: list[dict] = [
     {"nv_number": 0, "ori": (np.sqrt(1 / 3), np.sqrt(1 / 3), np.sqrt(1 / 3))},
     {
         "nv_number": 1,
@@ -105,7 +105,7 @@ CVD Diamonds are usually <100>, <110>. HPHT usually <100>, <100>.
 Purple plane: top face of diamond, orange plane: edge faces.
 """
 
-NV_AXES_111 = [
+NV_AXES_111: list[dict] = [
     {"nv_number": 0, "ori": (0, 0, 1)},
     {"nv_number": 1, "ori": (np.nan, np.nan, np.nan)},
     {"nv_number": 2, "ori": (np.nan, np.nan, np.nan)},

@@ -4,6 +4,9 @@
 TODO needs documenting/cleaning
 Basically add some examples HERE of how to use this subpkg.
 
+Apologies for lack of type information, I don't understand everything
+sufficiently and it currently *just works*.
+
 Classes
 -------
  - `dukit.magsim.MagSim`
@@ -36,10 +39,9 @@ from scipy.ndimage import gaussian_filter
 
 # ============================================================================
 
-import dukit.shared.fourier
-import dukit.shared.polygon
-import dukit.shared.json2dict
-import dukit.shared.plot
+import dukit.itool
+import dukit.json2dict
+import dukit.polygon
 
 # ============================================================================
 
@@ -81,7 +83,7 @@ class MagSim:
         if not isinstance(path, str):
             raise ValueError("path was not a str/pathlib.PurePath object.")
         elif path.endswith("json"):
-            return dukit.shared.json2dict.json_to_dict(path)
+            return dukit.json2dict.json_to_dict(path)
         elif path.endswith("pickle"):
             with open(path, "rb") as f:
                 return pickle.load(f)
@@ -92,7 +94,7 @@ class MagSim:
         if not isinstance(path, str,):
             raise ValueError("path was not a str/pathlib.PurePath object.")
         elif path.endswith("json"):
-            dukit.shared.json2dict.dict_to_json(dictionary, path)
+            dukit.json2dict.dict_to_json(dictionary, path)
         elif path.endswith("pickle"):
             with open(path, "wb") as f:
                 pickle.dump(dictionary, f, pickle.HIGHEST_PROTOCOL)
@@ -148,7 +150,7 @@ class MagSim:
         fig.colorbar(img, cax=cax)
         ax.set_title(prompt)
 
-        psw = dukit.shared.polygon.PolygonSelectionWidget(
+        psw = dukit.polygon.PolygonSelectionWidget(
             ax, base_scale=base_scale, style=kwargs
         )
 
@@ -265,7 +267,7 @@ class MagSim:
             desc="defining magnets...",
             total=len(self.polygon_nodes),
         ):
-            polygon = dukit.shared.polygon.Polygon(p[:, 0], p[:, 1])
+            polygon = dukit.polygon.Polygon(p[:, 0], p[:, 1])
             in_or_out = polygon.is_inside(grid_y, grid_x)
             # 2021-08-04 changed from > 0 -> only defined __inside__ polygon
             self.mag[self.unit_vectors_lst[i]][
@@ -301,21 +303,21 @@ class MagSim:
         # e.g. if we wanted to average over an nv-depth distribution that would be easy
 
         # get shape so we can define kvecs
-        shp = dukit.shared.fourier.pad_image(
+        shp = dukit.fourier.pad_image(
             np.empty(np.shape(self.mag[self.unit_vectors_lst[0]])),
             pad_mode,
             pad_factor,
         )[0].shape
 
-        ky, kx, k = dukit.shared.fourier.define_k_vectors(
+        ky, kx, k = dukit.fourier.define_k_vectors(
             shp, self.pixel_size, k_vector_epsilon=k_vector_epsilon
         )
 
-        d_matrix = dukit.shared.fourier.define_magnetization_transformation(
+        d_matrix = dukit.fourier.define_magnetization_transformation(
             ky, kx, k, standoff=standoff, nv_layer_thickness=nv_layer_thickness
         )
 
-        d_matrix = dukit.shared.fourier.set_naninf_to_zero(d_matrix)
+        d_matrix = dukit.fourier.set_naninf_to_zero(d_matrix)
 
         self.bfield = [
             np.zeros((self.ny, self.nx)),
@@ -324,7 +326,7 @@ class MagSim:
         ]
 
         # convert to A from mu_b / nm^2 magnetization units
-        m_scale = 1 / dukit.shared.fourier.MAG_UNIT_CONV
+        m_scale = 1 / dukit.fourier.MAG_UNIT_CONV
 
         unique_uvs = dd(list)
         for i, uv in enumerate(self.unit_vectors_lst):
@@ -344,9 +346,9 @@ class MagSim:
                 self.mag[uv] * uv[2] * m_scale,
             )
 
-            mx_pad, p = dukit.shared.fourier.pad_image(mx, pad_mode, pad_factor)
-            my_pad, _ = dukit.shared.fourier.pad_image(my, pad_mode, pad_factor)
-            mz_pad, _ = dukit.shared.fourier.pad_image(mz, pad_mode, pad_factor)
+            mx_pad, p = dukit.fourier.pad_image(mx, pad_mode, pad_factor)
+            my_pad, _ = dukit.fourier.pad_image(my, pad_mode, pad_factor)
+            mz_pad, _ = dukit.fourier.pad_image(mz, pad_mode, pad_factor)
 
             fft_mx = numpy_fft.fftshift(numpy_fft.fft2(mx_pad))
             fft_my = numpy_fft.fftshift(numpy_fft.fft2(my_pad))
@@ -366,19 +368,19 @@ class MagSim:
 
             # take back to real space, unpad & convert bfield to Gauss (from Tesla)
             self.bfield[0] += (
-                dukit.shared.fourier.unpad_image(
+                dukit.fourier.unpad_image(
                     numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[0])).real, p
                 )
                 * 1e4
             )
             self.bfield[1] += (
-                dukit.shared.fourier.unpad_image(
+                dukit.fourier.unpad_image(
                     numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[1])).real, p
                 )
                 * 1e4
             )
             self.bfield[2] += (
-                dukit.shared.fourier.unpad_image(
+                dukit.fourier.unpad_image(
                     numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[2])).real, p
                 )
                 * 1e4
@@ -431,7 +433,7 @@ class MagSim:
             polys = self.polygon_nodes
         else:
             polys = None
-        dukit.shared.plot.plot_image_on_ax(
+        dukit.itool.plot_image_on_ax(
             fig,
             ax,
             mag_image,
@@ -475,7 +477,7 @@ class MagSim:
 
         fig, axs = plt.subplots(figsize=figsize, nrows=nrows, ncols=ncols)
 
-        dukit.shared.plot.plot_image_on_ax(
+        dukit.itool.plot_image_on_ax(
             fig,
             axs[0] if isinstance(axs, np.ndarray) else axs,
             np.sum(mag_images, axis=0),
@@ -496,7 +498,7 @@ class MagSim:
 
             title = str(uvs)  # below is just copies of the same unv?
             # title = ", ".join([str(self.unit_vectors_lst[uv]) for uv in unique_uvs[uvs]])
-            dukit.shared.plot.plot_image_on_ax(
+            dukit.itool.plot_image_on_ax(
                 fig,
                 axs[i + 1] if isinstance(axs, np.ndarray) else axs,
                 mag,
@@ -534,7 +536,7 @@ class MagSim:
         fig, ax = plt.subplots()
         proj_name = f"({projection[0]:.2f},{projection[1]:.2f},{projection[2]:.2f})"
         c_label_ = f"B . {proj_name}, (G)" if c_label is None else c_label
-        dukit.shared.plot.plot_image_on_ax(
+        dukit.itool.plot_image_on_ax(
             fig,
             ax,
             self.get_bfield_im(projection),
@@ -560,7 +562,7 @@ class MagSim:
 
     def crop_polygons(self, crop_polygon_nodes):
         crop_polygons = [
-            dukit.shared.polygon.Polygon(crop_nodes[:, 0], crop_nodes[:, 1])
+            dukit.polygon.Polygon(crop_nodes[:, 0], crop_nodes[:, 1])
             for crop_nodes in crop_polygon_nodes
         ]
         keep_idxs = []
@@ -609,7 +611,7 @@ class MagSim:
         if self.mag is None:
             raise AttributeError("You haven't defined mag yet! (use define_magnets).")
         crop_polygons = [
-            dukit.shared.polygon.Polygon(crop_nodes[:, 0], crop_nodes[:, 1])
+            dukit.polygon.Polygon(crop_nodes[:, 0], crop_nodes[:, 1])
             for crop_nodes in crop_polygon_nodes
         ]
         grid_y, grid_x = np.meshgrid(range(self.ny), range(self.nx), indexing="ij")
@@ -791,7 +793,7 @@ class ComparisonMagSim(MagSim):
 
         fig, axs = plt.subplots(figsize=figsize, nrows=nrows, ncols=ncols)
 
-        dukit.shared.plot.plot_image_on_ax(
+        dukit.itool.plot_image_on_ax(
             fig,
             axs[0],
             self.base_image,
@@ -803,7 +805,7 @@ class ComparisonMagSim(MagSim):
             polygon_patch_params=None,
             raw_pixel_size=self.pixel_size,
         )
-        dukit.shared.plot.plot_image_on_ax(
+        dukit.itool.plot_image_on_ax(
             fig,
             axs[1],
             bfield_proj,
