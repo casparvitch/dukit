@@ -242,7 +242,7 @@ class System:
 
         hardware_binning = self.get_hardware_binning(filepath)
 
-        if self._pixel_size < 0:
+        if not self._pixel_size < 0:
             return hardware_binning * self._pixel_size
 
         f_obj = self._obj_ref_focal_length / self._obj_mag

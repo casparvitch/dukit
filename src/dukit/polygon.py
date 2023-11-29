@@ -50,7 +50,8 @@ Classes
 
 Functions
 ---------
- - `qdmpy.polygon.polygon_gui`
+ - `qdmpy.polygon.load_polygon_nodes`
+ - `qdmpy.polygon.polygon_selector`
  - `qdmpy.polygon.PolygonSelectionWidget`
 """
 
@@ -58,6 +59,7 @@ Functions
 
 __author__ = "Sam Scholten"
 __pdoc__ = {
+    "dukit.polygon.load_polygon_nodes": True,
     "dukit.polygon.polygon_selector": True,
     "dukit.polygon.Polygon": True,
     "dukit.polygon.PolygonSelectionWidget": True,
@@ -72,16 +74,18 @@ from matplotlib.lines import Line2D
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numba
 from numba import jit
+import dill as pickle
 
 # ============================================================================
 
 from dukit.json2dict import json_to_dict, dict_to_json
 from dukit.warn import warn
 from dukit.fourier import pad_image
+import dukit.widget
 
 # ============================================================================
 
-CMAP_OPTIONS: list(str) = [
+CMAP_OPTIONS: list[str] = [
     "viridis",
     "plasma",
     "inferno",
@@ -553,7 +557,7 @@ class PolygonSelectionWidget:
 
         vsr = 7.5 * self.mp["markersize"]  # linear scaling on what our select radius is
         self.ax = ax
-        self.polys = qdmpy.shared.widget.PolygonSelector(
+        self.polys = dukit.widget.PolygonSelector(
             ax,
             self.onselect,
             lineprops=self.lp,
@@ -597,3 +601,35 @@ class PolygonSelectionWidget:
             self.polys.lines.append(new_line_dict)  # list of line dicts
 
         self.polys.draw_polygon()
+
+# ============================================================================
+
+def load_polygon_nodes(poly_path_or_dict : str | dict) -> list[npt.NDArray]:
+    """
+    Loads polygon nodes from json file.
+
+    Arguments
+    ---------
+    poly_path_or_dict : str | dict
+        Path to json or pickle/dill file containing polygon nodes, or directly as a dict
+
+    Returns
+    -------
+    list[npt.NDArray]
+        List of polygons, each polygon is an array of nodes.
+    """
+    def _load_dict(path:str):
+        if path.endswith("json"):
+            return json_to_dict(path)
+        elif path.endswith("pickle"):
+            with open(path, "rb") as f:
+                return pickle.load(f)
+        else:
+            raise ValueError("polygon_nodes path did not end in 'json' or 'pickle'")
+
+    if isinstance(poly_path_or_dict, dict):
+        return [np.array(p) for p in poly_path_or_dict["nodes"]]
+    elif isinstance(poly_path_or_dict, str):
+        return [np.array(p) for p in _load_dict(poly_path_or_dict)["nodes"]]
+    else:
+        raise TypeError("polygons argument was not a dict or string?")

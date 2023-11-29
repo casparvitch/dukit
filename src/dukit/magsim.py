@@ -29,7 +29,7 @@ import numpy as np
 import numpy.linalg as LA  # noqa: N812
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid1 import make_axes_locatable, axes_size
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 from tqdm.autonotebook import tqdm
 
 import dill as pickle

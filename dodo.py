@@ -7,6 +7,12 @@ import pathlib
 import pygraphviz
 from import_deps import PyModule, ModuleSet
 
+def task_install():
+    """Install dukit in editable mode"""
+    return {
+        "actions": ["pip install -e ."],
+        "verbosity": 2
+    }
 
 def task_prospector():
     """Run prospector static analysis"""
@@ -15,7 +21,8 @@ def task_prospector():
         "actions": [
             'prospector --profile %(dependencies)s -o grouped:%(targets)s',
         ],
-        "targets": ["prospector.log"]
+        "targets": ["prospector.log"],
+        "verbosity": 2
     }
 
 
@@ -25,9 +32,19 @@ def task_mz_test():
         "file_dep": ["examples/magnetization/mz_test.py"],
         "actions": [
             "python3 %(dependencies)s"
-        ]
+        ],
+        "verbosity": 2
     }
 
+def task_mz_polys():
+    """mz_test"""
+    return {
+        "file_dep": ["examples/magnetization/mz_draw_polys.py"],
+        "actions": [
+            "python3 %(dependencies)s"
+        ],
+        "verbosity": 2
+    }
 
 def task_cprof():
     """Run cProfile on mz_test"""

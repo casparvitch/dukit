@@ -4,6 +4,8 @@ import sys
 import sysconfig
 import setuptools
 
+exec(open('src/dukit/_version.py').read()) # read __version__
+
 # odd bug with develop (editable) installs, see: https://github.com/pypa/pip/issues/7953
 site.ENABLE_USER_SITE = "--user" in sys.argv[1:]
 
@@ -17,7 +19,7 @@ required = [
     "tqdm",
     "simplejson",
     "pyfftw",
-    "dill",  # for magsim
+    "dill",  # for magsim, polygons
     "PyQt6",  # Needed for gui widget stuff
     "scikit-image",
 ]
@@ -30,7 +32,7 @@ arch = sysconfig.get_platform().replace("-", "_").replace(".", "_")
 if __name__ == "__main__":
     setuptools.setup(
         name="dukit",
-        version="0.0.1",
+        version=__version__,
         author="Sam Scholten",
         author_email="samcaspar@gmail.com",
         description="🦆🔬 Defect μscopy toolkit",

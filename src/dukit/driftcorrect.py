@@ -59,8 +59,8 @@ def _drift_correct_stack(
     tform = EuclideanTransform(translation=[-shift_calc[1], -shift_calc[0]])
 
     reg_sig_norm = np.empty(move_sig_norm.shape)
-    for i in range(move_sig_norm.shape[0]):
-        reg_sig_norm[i, :, :] = warp(move_sig_norm[i, :, :], tform, mode="edge")
+    for i in range(move_sig_norm.shape[-1]):
+        reg_sig_norm[:, :, i] = warp(move_sig_norm[:, :, i], tform, mode="edge")
     return reg_sig_norm, tuple(shift_calc)
 
 
