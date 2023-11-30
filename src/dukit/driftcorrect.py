@@ -72,21 +72,17 @@ def read_and_drift_correct(
     stub: Callable[[int], str],
     image_seq: list | tuple | npt.NDArray,
     system: dukit.systems.System,
+    roi_coords:tuple[int,int,int,int],
     ignore_ref: bool = False,
     mask: npt.NDArray[np.bool_]
     | None = None,  # True where(i) you want to incl im in accum
-    roi_start_x: int = -1,
-    roi_start_y: int = -1,
-    roi_end_x: int = -1,
-    roi_end_y: int = -1,
 ) -> tuple[npt.NDArray, npt.NDArray]:
-    roi = roi_start_x, roi_start_y, roi_end_x, roi_end_y
     first = True
     for i in tqdm(image_seq):
         sig, ref, _ = system.read_image(base_path + stub(i), ignore_ref, "div")
         if first:
             first = False
-            refr_pl = np.sum(sig, axis=0)
+            refr_pl = np.sum(sig, axis=-1)
             accum_sig = sig.copy()
             accum_ref = ref.copy()
             prev_sig = sig.copy()
@@ -95,18 +91,18 @@ def read_and_drift_correct(
 
         this_sig = sig - prev_sig
         this_ref = ref - prev_ref
-        this_pl = np.sum(this_sig, axis=0)
+        this_pl = np.sum(this_sig, axis=-1)
         prev_sig = sig
         prev_ref = ref
 
         this_sig, _ = _drift_correct_stack(
-            dukit.itool.crop_roi(refr_pl, *roi),
-            dukit.itool.crop_roi(this_pl, *roi),
+            dukit.itool.crop_roi(refr_pl, roi_coords),
+            dukit.itool.crop_roi(this_pl, roi_coords),
             this_sig,
         )
         this_ref, _ = _drift_correct_stack(
-            dukit.itool.crop_roi(refr_pl, *roi),
-            dukit.itool.crop_roi(this_pl, *roi),
+            dukit.itool.crop_roi(refr_pl, roi_coords),
+            dukit.itool.crop_roi(this_pl, roi_coords),
             this_ref,
         )
 
@@ -127,10 +123,7 @@ def drift_correct_measurement(
     stub: Callable[[int], str],
     system: dukit.systems.System,
     output_file: str,
-    roi_start_x: int = -1,
-    roi_start_y: int = -1,
-    roi_end_x: int = -1,
-    roi_end_y: int = -1,
+    feature_roi_coords: tuple[int, int, int, int],
     image_nums_mask=None,
 ):
     """
@@ -153,8 +146,11 @@ def drift_correct_measurement(
     output_file : str
         Where to save the drift-corrected binary
         Format is based on 'system'.
-    roi_X : int
+    feature_roi_coords : tuple[int, int, int, int]
         Define roi, here a feature in PL that is used from cross-correlation.
+        start_x, start_y, end_x, end_y. -1 to use edge of image on that side.
+        Here the ROI is only used as a PL 'feature'/'window' for
+        cross-correlation drift correction, not for cropping output etc.
     image_nums_mask : 1D ndarray
         Same shape as list(range(start_num, end_num + 1)).
         Where false, don't include that image in accumulation.
@@ -165,10 +161,7 @@ def drift_correct_measurement(
         stub,
         list(range(start_num, end_num + 1)),
         system,
-        roi_start_x=roi_start_x,
-        roi_start_y=roi_start_y,
-        roi_end_x=roi_end_x,
-        roi_end_y=roi_end_y,
+        feature_roi_coords,
         mask=image_nums_mask,
     )
 
@@ -180,8 +173,8 @@ def drift_correct_measurement(
 
         output = []
         for f in range(s.shape[-1]):
-            output.append(s[:,:, f])
-            output.append(r[:,:, f])
+            output.append(s[:, :, f])
+            output.append(r[:, :, f])
         output_array = np.array(output).flatten()
 
         with open(output_file, "wb") as fid:
@@ -191,16 +184,6 @@ def drift_correct_measurement(
         lines = []
         with open(directory + stub(start_num) + "_metaSpool.txt", "r") as fid:
             for line in fid:
-                # assume no binning eh
-                # if line.startswith("Binning:"):
-                #     old_binning = int(re.match(r"Binning: (\d+)\n", line)[1])
-                #     new_binning = (
-                #         old_binning
-                #         if not additional_bins
-                #         else old_binning * additional_bins
-                #     )
-                #     lines.append(f"Binning: {new_binning}\n")
-                # else:
                 lines.append(line)
 
         with open(output_file + "_metaSpool.txt", "w") as fid:
@@ -220,11 +203,8 @@ def drift_correct_test(
     comparison_nums: list | tuple | npt.NDArray,
     stub: Callable[[int], str],
     system: dukit.systems.System,
-    ignore_ref:bool=False,
-    roi_start_x: int = -1,
-    roi_start_y: int = -1,
-    roi_end_x: int = -1,
-    roi_end_y: int = -1,
+    feature_roi_coords: tuple[int, int, int, int],
+    ignore_ref: bool = False,
 ):
     """
     Test the drift correction on a subset (comparison_nums) of the measurements.
@@ -246,8 +226,11 @@ def drift_correct_test(
     system : dukit.systems.System object
         Used for reading in files
     ignore_ref : bool = False
-    roi_X : int
+    feature_roi_coords : tuple[int, int, int, int]
         Define roi, here a feature in PL that is used from cross-correlation.
+        start_x, start_y, end_x, end_y. -1 to use edge of image on that side.
+        Here the ROI is only used as a PL 'feature'/'window' for
+        cross-correlation drift correction, not for cropping output etc.
 
     Returns
     -------
@@ -260,7 +243,6 @@ def drift_correct_test(
     # prep fig
     nrows = len(comparison_nums)
     fig, axs = plt.subplots(nrows=nrows, ncols=2, figsize=(10, 4 * nrows))
-    roi = roi_start_x, roi_start_y, roi_end_x, roi_end_y
 
     # read in all frames, only pull out (non-accum) pl frames we want to compare
     raw_comp_frames = []
@@ -268,8 +250,8 @@ def drift_correct_test(
     first = True
     for i in image_seq:
         sig, _, _ = system.read_image(directory + stub(i), ignore_ref, "div")
-        pl = np.sum(np.sum(sig, axis=0), axis=-0)
-        accum_pl = dukit.itool.crop_roi(pl, *roi)
+        pl = np.sum(sig, axis=-1)
+        accum_pl = dukit.itool.crop_roi(pl, (-1, -1, -1, -1)) # don't crop here
         if first:
             first = False
             prev_accum_pl = accum_pl.copy()
@@ -288,11 +270,12 @@ def drift_correct_test(
         dukit.itool.plot_image_on_ax(
             fig,
             ax,
-            dukit.itool.crop_roi(frame, *roi),
+            dukit.itool.crop_roi(frame, feature_roi_coords),
             title=f"raw   {i}",
             c_range=(None, None),
             c_label="Counts",
             c_map="gray",
+            show_tick_marks=True,
         )
 
     # do cross-corr on comparison frames
@@ -305,8 +288,8 @@ def drift_correct_test(
     ]
     for frame in raw_comp_frames[1:]:
         corrected_frame, shift_calc = _drift_correct_single(
-            dukit.itool.crop_roi(refr_frame, *roi),
-            dukit.itool.crop_roi(frame, *roi),
+            dukit.itool.crop_roi(refr_frame, feature_roi_coords),
+            dukit.itool.crop_roi(frame, feature_roi_coords),
             frame,
         )
         corrected_frames.append(corrected_frame)
@@ -319,10 +302,12 @@ def drift_correct_test(
         dukit.itool.plot_image_on_ax(
             fig,
             ax,
-            dukit.itool.crop_roi(frame, *roi),
+            dukit.itool.crop_roi(frame, feature_roi_coords),
             title=f"shftd {i}: {shift_calc}",
             c_range=(None, None),
             c_label="Counts",
+            show_tick_marks=True,
+            c_map="gray"
         )
 
     return fig, axs

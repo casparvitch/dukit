@@ -36,6 +36,7 @@ import dukit.share
 import dukit.itool
 import dukit.pl.model
 
+
 # ==========================================================================
 
 
@@ -122,7 +123,9 @@ def fit_roi_avg_pl(
     elif norm == "sub":
         sig_norm = 1 + (sig - ref) / (sig + ref)
     elif norm == "true_sub":
-        sig_norm = (sig - ref) / np.nanmax(sig - ref)
+        sig_norm = (sig - ref) / np.nanmax(sig - ref).reshape(
+                sig.shape[:-1] + (1,)
+            ),
 
     avg_sig_norm = np.nanmean(sig_norm, axis=(0, 1))
     avg_sig = np.nanmean(sig, axis=(0, 1))
@@ -282,7 +285,9 @@ def fit_aois_pl(
         elif norm == "sub":
             avg_sig_norm = np.nanmean(1 + (s - r) / (s + r), axis=(0, 1))
         elif norm == "true_sub":
-            avg_sig_norm = np.nanmean((s - r) / np.nanmax(s - r), axis=(0, 1))
+            avg_sig_norm = np.nanmean((s - r) / np.nanmax(s - r).reshape(
+                s.shape[:-1] + (1,)
+            ), axis=(0, 1))
 
         avg_sig = np.nanmean(s, axis=(0, 1))
         avg_ref = np.nanmean(r, axis=(0, 1))
@@ -445,7 +450,7 @@ def fit_all_pixels_pl(
     names = list(fit_model.get_param_odict().keys())
     fit_image_results = {
         name: array
-        for name, array in zip(names, dukit.pl.common._iterframe(results_arr))
+        for name, array in zip(names, dukit.itool._iterframe(results_arr))
     }
 
     # add residual_0 image
@@ -508,11 +513,13 @@ def _gen_cf_guesses_bounds(
     bound_lst = []
 
     for param_name in fit_model.get_param_odict():
-        param_key, param_num_str = param_name.split("_")
+        split_param = param_name.split("_")
+        param_num_str = int(split_param[-1])
+        param_key = "_".join(split_param[:-1])
         param_num = int(param_num_str)  # i.e. pos_0
         try:
             param_lst.append(init_guesses[param_key][param_num])
-        except (TypeError, KeyError):
+        except (TypeError, KeyError, IndexError):
             param_lst.append(init_guesses[param_key])
         if len(np.array(init_bounds[param_key]).shape) == 2:
             bound_lst.append(init_bounds[param_key][param_num][0])

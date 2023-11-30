@@ -5,6 +5,9 @@ TODO full docs.
 Import/dep graph
 ----------------
 
+Maybe move to devdocs, and instead here list the API in something like nice sections,
+maybe even with some quick description of how to use em.
+
 ![](../../dukit.png)
 """
 
@@ -102,5 +105,5 @@ from dukit.field import (
     NVEnsemble,
     VBEnsemble,
     SpinPair,
-    CSpinPair,
+    CPairEnsemble,
 )

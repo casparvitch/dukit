@@ -400,11 +400,30 @@ def aoi_spectra(
     # pre-process data to plot
     sig_avgs = []
     ref_avgs = []
+    sub_norms = []
+    div_norms = []
+    true_sub_norms = []
     for i, aoi in enumerate(aois):
-        sig_avg = np.nanmean(sig[aoi[0], aoi[1], :], axis=(0, 1))
-        ref_avg = np.nanmean(ref[aoi[0], aoi[1], :], axis=(0, 1))
+        sig_aoi = sig[aoi[0], aoi[1], :]
+        ref_aoi = ref[aoi[0], aoi[1], :]
+        sig_avg = np.nanmean(sig_aoi, axis=(0, 1))
+        ref_avg = np.nanmean(ref_aoi, axis=(0, 1))
+        sub_norm = np.nanmean(
+            1 + (sig_aoi - ref_aoi) / (sig_aoi + ref_aoi), axis=(0, 1)
+        )
+        div_norm = np.nanmean(sig_aoi / ref_aoi, axis=(0, 1))
+        true_sub_norm = np.nanmean(
+            (sig_aoi - ref_aoi)
+            / np.nanmax(sig_aoi - ref_aoi, axis=-1).reshape(
+                sig_aoi.shape[:-1] + (1,)
+            ),
+            axis=(0, 1),
+        )
         sig_avgs.append(sig_avg)
         ref_avgs.append(ref_avg)
+        sub_norms.append(sub_norm)
+        div_norms.append(div_norm)
+        true_sub_norms.append(true_sub_norm)
 
     figsize = mpl.rcParams["figure.figsize"].copy()
     num_wide = 3 if len(aois) < 3 else len(aois)
@@ -463,7 +482,7 @@ def aoi_spectra(
         # plot subtraction norm
         axs[1, 0].plot(
             sweep_arr,
-            1 + (sig_avgs[i] - ref_avgs[i]) / (sig_avgs[i] + ref_avgs[i]),
+            sub_norms[i],
             label="AOI " + str(i + 1),
             c=AOI_COLORS[i],
             ls=linestyles[i],
@@ -473,16 +492,14 @@ def aoi_spectra(
         )
         axs[1, 0].legend()
         axs[1, 0].grid(True)
-        axs[1, 0].set_title(
-            "Sub. Norm. (Michelson contrast, 1 + (sig - ref / sig +" " ref) )"
-        )
+        axs[1, 0].set_title("sub: 1 + (sig - ref / sig +" " ref)")
         axs[1, 0].set_xlabel("Sweep parameter")
         axs[1, 0].set_ylabel("pl (a.u.)")
 
         # plot division norm
         axs[1, 1].plot(
             sweep_arr,
-            sig_avgs[i] / ref_avgs[i],
+            div_norms[i],
             label="AOI " + str(i),
             c=AOI_COLORS[i],
             ls=linestyles[i],
@@ -492,14 +509,14 @@ def aoi_spectra(
         )
         axs[1, 1].legend()
         axs[1, 1].grid(True)
-        axs[1, 1].set_title("Div. Norm. (Weber contrast, sig / ref)")
+        axs[1, 1].set_title("div: sig / ref")
         axs[1, 1].set_xlabel("Sweep parameter")
         axs[1, 1].set_ylabel("pl (a.u.)")
 
         # plot true-sub norm
         axs[1, 2].plot(
             sweep_arr,
-            (sig_avgs[i] - ref_avgs[i]) - np.nanmax(sig_avgs[i] - ref_avgs[i], axis=0),
+            true_sub_norms[i],
             label="AOI " + str(i),
             c=AOI_COLORS[i],
             ls=linestyles[i],
@@ -509,7 +526,7 @@ def aoi_spectra(
         )
         axs[1, 2].legend()
         axs[1, 2].grid(True)
-        axs[1, 2].set_title("True-sub Norm. (sig - ref / mx)")
+        axs[1, 2].set_title("True-sub: (sig - ref) / mx")
         axs[1, 2].set_xlabel("Sweep parameter")
         axs[1, 2].set_ylabel("pl (a.u.)")
 
@@ -719,7 +736,7 @@ def pl_param_image(
     errorplot: bool = False,
     opath: str = "",
     **kwargs,
-):
+) -> tuple[plt.Figure, plt.Axes]:
     """
     Plots an image corresponding to a single parameter in pixel_fit_params.
 
@@ -794,7 +811,6 @@ def pl_param_image(
 # ============================================================================
 
 
-# TODO add fit_model type
 def pl_param_images(
     fit_model: dukit.pl.FitModel,
     pixel_fit_params: dict,
@@ -873,7 +889,15 @@ def pl_param_images(
 
     if nk == 1:
         # just one image, so plot normally
-        fig = pl_param_image(fit_model, pixel_fit_params, param_name, 0, errorplot)
+        fig, axs = pl_param_image(
+            fit_model,
+            pixel_fit_params,
+            param_name,
+            0,
+            c_range_type,
+            c_range_values,
+            errorplot,
+        )
     else:
         if nk <= 8:
             num_columns = 4
@@ -949,7 +973,7 @@ def pl_param_images(
         if opath:
             fig.savefig(opath)
 
-    return fig, ax
+    return fig, axs
 
 
 # ============================================================================
@@ -979,6 +1003,10 @@ def _add_patch_rect(
         Color of label and edge of annotation. Default: "b".
     """
     start_x, start_y, end_x, end_y = aoi_coord
+    start_x = 0 if start_x < 0 else start_x
+    start_y = 0 if start_y < 0 else start_y
+    end_x = ax.get_xlim()[1] if end_x < 0 else end_x
+    end_y = ax.get_ylim()[1] if end_y < 0 else end_y
     rect = patches.Rectangle(
         (start_x, start_y),
         int(end_x - start_x),
@@ -1069,7 +1097,9 @@ def b_defects(
         fig.savefig(opath)
     return fig, axs
 
+
 # ============================================================================
+
 
 def dshifts(
     dshifts: tuple[npt.ArrayLike],
@@ -1119,7 +1149,9 @@ def dshifts(
     # axs index: axs[row, col]
     for i, dshift in enumerate(dshifts):
         if "c_range" not in kwargs and c_range_type and c_range_values:
-            c_range = dukit.itool.get_colormap_range(c_range_type, c_range_values, dshift)
+            c_range = dukit.itool.get_colormap_range(
+                c_range_type, c_range_values, dshift
+            )
         else:
             c_range = dukit.itool.get_colormap_range("min_max", (), dshift)
 

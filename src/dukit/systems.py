@@ -88,15 +88,15 @@ class System:
     """Bias magnetic field azimuthal angle (deg)."""
 
     def __init__(
-            self,
-            pixel_size: float | None = None,
-            sensor_pixel_pitch: float | None = None,
-            obj_mag: float | None = None,
-            obj_ref_focal_length: float | None = None,
-            camera_tube_lens: float | None = None,
-            bias_mag: float | None = None,
-            bias_theta: float | None = None,
-            bias_phi: float | None = None,
+        self,
+        pixel_size: float | None = None,
+        sensor_pixel_pitch: float | None = None,
+        obj_mag: float | None = None,
+        obj_ref_focal_length: float | None = None,
+        camera_tube_lens: float | None = None,
+        bias_mag: float | None = None,
+        bias_theta: float | None = None,
+        bias_phi: float | None = None,
     ):
         """
         Initialize the `System`, optionally supply known bias field and override
@@ -125,49 +125,49 @@ class System:
             Azimuthal angle (deg) of bias field.
         """
         for att, param in zip(
-                [
-                    "_pixel_size",
-                    "_sensor_pixel_pitch",
-                    "_obj_mag",
-                    "_obj_ref_focal_length",
-                    "_camera_tube_lens",
-                    "_bias_mag",
-                    "_bias_theta",
-                    "_bias_phi",
-                ],
-                [
-                    pixel_size,
-                    sensor_pixel_pitch,
-                    obj_mag,
-                    obj_ref_focal_length,
-                    camera_tube_lens,
-                    bias_mag,
-                    bias_theta,
-                    bias_phi,
-                ],
+            [
+                "_pixel_size",
+                "_sensor_pixel_pitch",
+                "_obj_mag",
+                "_obj_ref_focal_length",
+                "_camera_tube_lens",
+                "_bias_mag",
+                "_bias_theta",
+                "_bias_phi",
+            ],
+            [
+                pixel_size,
+                sensor_pixel_pitch,
+                obj_mag,
+                obj_ref_focal_length,
+                camera_tube_lens,
+                bias_mag,
+                bias_theta,
+                bias_phi,
+            ],
         ):
             if param is not None:
                 setattr(self, att, param)
             # check we have sufficient info to calculate pixel size.
             if self._pixel_size < 0 and np.all(
-                    [
-                        i < 0
-                        for i in [
+                [
+                    i < 0
+                    for i in [
                         self._sensor_pixel_pitch,
                         self._obj_mag,
                         self._obj_ref_focal_length,
                         self._camera_tube_lens,
                     ]
-                    ]
+                ]
             ):
                 raise ValueError(
-                        "System must have a pixel_size defined, or all of: "
-                        + "sensor_pixel_pitch, obj_mag, obj_ref_focal_length, "
-                        + "camera_tube_lens."
+                    "System must have a pixel_size defined, or all of: "
+                    + "sensor_pixel_pitch, obj_mag, obj_ref_focal_length, "
+                    + "camera_tube_lens."
                 )
 
     def read_image(
-            self, filepath: str, ignore_ref: bool = False, norm: str = "div"
+        self, filepath: str, ignore_ref: bool = False, norm: str = "div"
     ) -> tuple[
         npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
     ]:
@@ -199,7 +199,7 @@ class System:
         elif norm == "div":
             sig_norm = sig / ref
         elif norm == "true_sub":
-            sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=-1)
+            sig_norm = (sig - ref) / np.nanmax(sig - ref).reshape(sig.shape[:-1]+(1,))
         """
         raise NotImplementedError
 
@@ -252,7 +252,7 @@ class System:
         return hardware_binning * camera_pixel_size
 
     def get_bias_field(
-            self, filepath: str, auto_read: bool = False
+        self, filepath: str, auto_read: bool = False
     ) -> tuple[bool, tuple[float | None, float | None, float | None]]:
         """
         Method to get magnet bias field from experiment metadata,
@@ -276,14 +276,47 @@ class System:
         """
         if None in [self._bias_mag, self._bias_theta, self._bias_phi]:
             raise ValueError(
-                    "Bias field not set in System init, " +
-                    "and you didn't ask to auto_read"
+                "Bias field not set in System init, "
+                + "and you didn't ask to auto_read"
             )
         return False, (
             self._bias_mag,
             radians(self._bias_theta),
             radians(self._bias_phi),
         )
+
+    @staticmethod
+    def norm(sig: npt.NDArray, ref: npt.NDArray, norm: str = "div") -> npt.NDArray:
+        """
+
+        Parameters
+        ----------
+        sig : npt.NDArray
+            signal
+        ref : npt.NDArray
+            reference
+        norm : str = "div"
+            normalisation method in ["div", "sub", "true_sub"]
+
+        Returns
+        -------
+        sig_norm : npt.NDArray
+            normalised signal
+        """
+        if norm not in ["div", "sub", "true_sub"]:
+            raise ValueError("bad norm option, use one of ['sub', 'div', 'true_sub']")
+        if np.mean(sig) > 2 * np.mean(ref):
+            # probably didn't use_ref
+            warn("In renorm assuming not used_ref, norming sig by highest val.")
+            return sig / np.nanmax(sig, axis=-1)
+        if norm == "sub":
+            return 1 + (sig - ref) / (sig + ref)
+        elif norm == "div":
+            return sig / ref
+        else:
+            return (sig - ref) / np.nanmax(sig - ref, axis=-1).reshape(
+                sig.shape[:-1] + (1,)
+            )
 
 
 # ============================================================================
@@ -294,28 +327,23 @@ class MelbSystem(System):
 
     name = "Unknown Melbourne System"
 
-    @staticmethod
     def _chop_into_sig_ref(
-            img: npt.NDArray[np.float64], used_ref: bool, norm: str
+        self, img: npt.NDArray[np.float64], used_ref: bool, norm: str
     ) -> tuple[
         npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
     ]:
         if norm not in ["div", "sub", "true_sub"]:
             raise ValueError("bad norm option, use one of ['sub', 'div', 'true_sub']")
+
         # now chop up into sig, ref & normalise
         if used_ref:
             sig = img[:, :, ::2]
             ref = img[:, :, 1::2]
-            if norm == "sub":
-                sig_norm = 1 + (sig - ref) / (sig + ref)
-            elif norm == "div":
-                sig_norm = sig / ref
-            else:
-                sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=-1)
+            sig_norm = self.norm(sig, ref, norm)
         else:
             sig = img
             ref = np.ones_like(img)
-            sig_norm = sig / np.nanmax(sig, axis=-1)
+            sig_norm = self.norm(sig, ref, norm)
         return sig, ref, sig_norm
 
 
@@ -326,7 +354,7 @@ class LVControl(MelbSystem):
 
     # TODO test this one
     def read_image(
-            self, filepath: str, ignore_ref: bool = False, norm: str = "div"
+        self, filepath: str, ignore_ref: bool = False, norm: str = "div"
     ) -> tuple[
         npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
     ]:
@@ -338,7 +366,7 @@ class LVControl(MelbSystem):
 
         # reshape into something more useable
         img, used_ref = self._reshape_raw(
-                raw_data, len(self.read_sweep_arr(filepath)), filepath, ignore_ref
+            raw_data, len(self.read_sweep_arr(filepath)), filepath, ignore_ref
         )
 
         # now chop up into sig, ref & normalise
@@ -346,9 +374,9 @@ class LVControl(MelbSystem):
 
     def read_sweep_arr(self, filepath: str) -> npt.NDArray[np.float64]:
         with open(
-                filepath + "_metaSpool.txt",
-                "r",
-                encoding="utf-8",
+            filepath + "_metaSpool.txt",
+            "r",
+            encoding="utf-8",
         ) as fid:
             sweep_str = fid.readline().rstrip().split("\t")
         return np.array([float(i) for i in sweep_str], dtype=np.float64)
@@ -371,10 +399,10 @@ class LVControl(MelbSystem):
             # then any text except newlines and tabs
             # (match the two text regions)
             matches = re.findall(
-                    # r"^([a-zA-Z0-9_ /+()#-]+):([a-zA-Z0-9_ /+()#-]+)",
-                    r"([^\t\n]+):\s([^\t\n]+)",
-                    rest_str,
-                    re.MULTILINE,
+                # r"^([a-zA-Z0-9_ /+()#-]+):([a-zA-Z0-9_ /+()#-]+)",
+                r"([^\t\n]+):\s([^\t\n]+)",
+                rest_str,
+                re.MULTILINE,
             )
 
             def fail_float(a):
@@ -391,11 +419,11 @@ class LVControl(MelbSystem):
         return metadata
 
     def _reshape_raw(
-            self,
-            raw_data: npt.NDArray[np.float32],
-            sweep_len: int,
-            filepath: str,
-            ignore_ref: bool,
+        self,
+        raw_data: npt.NDArray[np.float32],
+        sweep_len: int,
+        filepath: str,
+        ignore_ref: bool,
     ) -> tuple[npt.NDArray[np.float64], bool]:
         """
         Reshapes raw data into more useful shape, according to image size in metadata.
@@ -430,12 +458,12 @@ class LVControl(MelbSystem):
         try:
             if not ignore_ref:
                 image = np.reshape(
-                        raw_data,
-                        [
-                            sweep_len,
-                            int(metadata["AOIHeight"]),
-                            int(metadata["AOIWidth"]),
-                        ],
+                    raw_data,
+                    [
+                        sweep_len,
+                        int(metadata["AOIHeight"]),
+                        int(metadata["AOIWidth"]),
+                    ],
                 )
                 used_ref = False  # if we succeed here there's no ref
             else:
@@ -446,23 +474,23 @@ class LVControl(MelbSystem):
             if ignore_ref:
                 used_ref = False
                 image = np.reshape(
-                        raw_data,
-                        [
-                            2 * sweep_len,
-                            int(metadata["AOIHeight"]),
-                            int(metadata["AOIWidth"]),
-                        ],
+                    raw_data,
+                    [
+                        2 * sweep_len,
+                        int(metadata["AOIHeight"]),
+                        int(metadata["AOIWidth"]),
+                    ],
                 )[
-                        ::2
-                        ]  # hmmm disregard ref -> use every second element.
+                    ::2
+                ]  # hmmm disregard ref -> use every second element.
             else:
                 image = np.reshape(
-                        raw_data,
-                        [
-                            2 * sweep_len,
-                            int(metadata["AOIHeight"]),
-                            int(metadata["AOIWidth"]),
-                        ],
+                    raw_data,
+                    [
+                        2 * sweep_len,
+                        int(metadata["AOIHeight"]),
+                        int(metadata["AOIWidth"]),
+                    ],
                 )
                 used_ref = True
         # Transpose the dataset to get the correct x and y orientations ([y, x])
@@ -471,7 +499,7 @@ class LVControl(MelbSystem):
         return image.transpose([2, 1, 0]).astype(np.float64), used_ref
 
     def get_bias_field(
-            self, filepath: str, auto_read: bool = False
+        self, filepath: str, auto_read: bool = False
     ) -> tuple[bool, tuple[float | None, float | None, float | None]]:
         if not auto_read:
             super().get_bias_field(filepath, auto_read)
@@ -493,8 +521,8 @@ class LVControl(MelbSystem):
                 return False, (None, None, None)
         if len(bias_field) != 3:
             warn(
-                    f"Found {len(bias_field)} bias field params in metadata, "
-                    + "this shouldn't happen (expected 3)."
+                f"Found {len(bias_field)} bias field params in metadata, "
+                + "this shouldn't happen (expected 3)."
             )
             return False, (None, None, None)
         onoff_str = metadata.get("Mag on/off", "")
@@ -515,7 +543,7 @@ class PyControl(MelbSystem):
     name = "Unknown Python controlled System"
 
     def read_image(
-            self, filepath: str, ignore_ref: bool = False, norm: str = "div"
+        self, filepath: str, ignore_ref: bool = False, norm: str = "div"
     ) -> tuple[
         npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
     ]:
@@ -532,8 +560,8 @@ class PyControl(MelbSystem):
 
     def read_sweep_arr(self, filepath: str) -> npt.NDArray[np.float64]:
         return np.ndarray(
-                json_to_dict(filepath + ".json")["freq_list"],
-                dtype=np.float64,
+            json_to_dict(filepath + ".json")["freq_list"],
+            dtype=np.float64,
         )  # TODO name won't work for tau sweeps
 
     def get_hardware_binning(self, filepath: str) -> int:
@@ -552,7 +580,7 @@ class PyControl(MelbSystem):
         return json_to_dict(filepath + "_metadata.json")
 
     def get_bias_field(
-            self, filepath: str, auto_read: bool = False
+        self, filepath: str, auto_read: bool = False
     ) -> tuple[bool, tuple[float | None, float | None, float | None]]:
         if not auto_read:
             super().get_bias_field(filepath, auto_read)
@@ -570,8 +598,8 @@ class PyControl(MelbSystem):
                 return False, (None, None, None)
         if len(bias_field) != 3:
             warn(
-                    f"Found {len(bias_field)} bias field params in metadata, "
-                    + "this shouldn't happen (expected 3)."
+                f"Found {len(bias_field)} bias field params in metadata, "
+                + "this shouldn't happen (expected 3)."
             )
             return False, (None, None, None)
 
@@ -659,5 +687,6 @@ class PyCryoWidefield(PyControl):
 
     name = "Py Cryo Widefield"
     _pixel_size = 59.6e-9
+
 
 # ============================================================================

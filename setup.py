@@ -10,7 +10,7 @@ exec(open('src/dukit/_version.py').read()) # read __version__
 site.ENABLE_USER_SITE = "--user" in sys.argv[1:]
 
 required = [
-    "setuptools-git",  # see link at bottom: lets us specify pkg data to keep/upload/etc.
+    "setuptools-git",  # see link at bottom: lets us specify pkg data to keep/upload/etc
     "numpy",
     "matplotlib>=3.4.0",
     "scipy>=1.7",  # requires scipy.stats.qmc for magsim
@@ -20,7 +20,6 @@ required = [
     "simplejson",
     "pyfftw",
     "dill",  # for magsim, polygons
-    "PyQt6",  # Needed for gui widget stuff
     "scikit-image",
 ]
 

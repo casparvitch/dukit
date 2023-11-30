@@ -26,6 +26,7 @@ __pdoc__ = {
 from collections import defaultdict as dd
 from copy import copy
 import numpy as np
+import numpy.typing as npt
 import numpy.linalg as LA  # noqa: N812
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -57,6 +58,7 @@ class MagSim:
     ny: int = 0
     nx: int = 0
     pixel_size: float = float("nan")
+    base_image: npt.NDArray  # 2D, needs to be defined by __init__
 
     def _load_polys(self, polys, check_size=False):
         """polys: either path to json/pickle, or dict containing 'nodes' key."""
@@ -79,7 +81,8 @@ class MagSim:
                 raise TypeError("polygons argument was not a dict or string?")
         return None
 
-    def _load_dict(self, path):
+    @staticmethod
+    def _load_dict(path):
         if not isinstance(path, str):
             raise ValueError("path was not a str/pathlib.PurePath object.")
         elif path.endswith("json"):
@@ -90,8 +93,12 @@ class MagSim:
         else:
             raise ValueError("path did not end in 'json' or 'pickle'")
 
-    def _save_dict(self, path, dictionary):
-        if not isinstance(path, str,):
+    @staticmethod
+    def _save_dict(path, dictionary):
+        if not isinstance(
+            path,
+            str,
+        ):
             raise ValueError("path was not a str/pathlib.PurePath object.")
         elif path.endswith("json"):
             dukit.json2dict.dict_to_json(dictionary, path)
@@ -101,7 +108,8 @@ class MagSim:
         else:
             raise ValueError("path did not end in 'json' or 'pickle'")
 
-    def _load_image(self, image):
+    @staticmethod
+    def _load_image(image):
         if image is not None:
             if isinstance(image, np.ndarray):
                 return image
@@ -124,7 +132,11 @@ class MagSim:
         fig, ax = plt.subplots()
         image = self.base_image if image is None else image
 
-        if mean_plus_minus is not None and isinstance(mean_plus_minus, (float, int)):
+        if (
+            mean_plus_minus is not None
+            and isinstance(mean_plus_minus, (float, int))
+            and not isinstance(self, SandboxMagSim)
+        ):
             mean = np.mean(image)
             vmin, vmax = mean - mean_plus_minus, mean + mean_plus_minus
         else:
@@ -156,7 +168,6 @@ class MagSim:
 
         if polygon_nodes is not None:
             psw.load_nodes(polygon_nodes)
-
         plt.show(block=True)
         psw.disconnect()
 
@@ -291,7 +302,7 @@ class MagSim:
     def run(
         self,
         standoff,
-        resolution=None, # NOTE res is given as a sigma not a fwhm. !should! be fwhm.
+        resolution=None,  # NOTE res is given as a sigma not a fwhm. !should! be fwhm.
         pad_mode="mean",
         pad_factor=2,
         k_vector_epsilon=1e-6,
@@ -408,7 +419,8 @@ class MagSim:
             raise AttributeError("simulation not run yet.")
         # access bfield_sensor_plane, project onto projection
 
-        # reshape bfield to be [bx, by, bz] for each pixel of image (as 1 stacked ndarray)
+        # reshape bfield to be [bx, by, bz] for each pixel of image
+        # (as 1 stacked ndarray)
         bfield_reshaped = np.stack(self.bfield, axis=-1)
 
         proj_vec = np.array(projection)
@@ -455,7 +467,8 @@ class MagSim:
         c_range=None,
     ):
         # use single colorbar, different plots
-        # https://matplotlib.org/stable/gallery/subplots_axes_and_figures/colorbar_placement.html
+        # https://matplotlib.org/stable/gallery/subplots_axes_and figures\
+        #   /colorbar_placement.html
         # calculate c_range smartly.
         if self.magnetizations_lst is None:
             raise AttributeError("no magnetizations_lst found, define it first aye.")
@@ -497,7 +510,8 @@ class MagSim:
                 polys = None
 
             title = str(uvs)  # below is just copies of the same unv?
-            # title = ", ".join([str(self.unit_vectors_lst[uv]) for uv in unique_uvs[uvs]])
+            # title = ", ".join([str(self.unit_vectors_lst[uv])
+            #   for uv in unique_uvs[uvs]])
             dukit.itool.plot_image_on_ax(
                 fig,
                 axs[i + 1] if isinstance(axs, np.ndarray) else axs,
@@ -550,14 +564,17 @@ class MagSim:
         )
         return fig, ax
 
-    def _get_mag_unit_str(self):
+    @staticmethod
+    def _get_mag_unit_str():
         return r"M ($\mu_B$ nm$^{-2}$)"
 
-    def _get_dist_scaling(self):
+    @staticmethod
+    def _get_dist_scaling():
         # nm = 1e-9
         return 1e-9
 
-    def _get_dist_unit_str(self):
+    @staticmethod
+    def _get_dist_unit_str():
         return "m"
 
     def crop_polygons(self, crop_polygon_nodes):
@@ -631,7 +648,8 @@ class MagSim:
         pass  # overriden in TilingMagSim
 
     def crop_magnetization_gui(self, **kwargs):
-        # crops magnetization, polygons and domain_label_pts (i.e. run after define_magnets)
+        # crops magnetization, polygons and domain_label_pts
+        # (i.e. run after define_magnets)
         unique_uvs = dd(list)
         for i, uv in enumerate(self.unit_vectors_lst):
             unique_uvs[uv].append(i)
@@ -837,7 +855,7 @@ def _is_convex_polygon(polygon_nodes):
                     in other ways, including the `n < 3` check.
         SOURCE:
             https://stackoverflow.com/questions/471962/ \
-                how-do-i-efficiently-determine-if-a-polygon-is-convex-non-convex-or-complex
+            how-do-i-efficiently-determine-if-a-polygon-is-convex-non-convex-or-complex
         """
     polygon_nodes = polygon_nodes[:-1]  # don't use first/last point twice
     try:  # needed for any bad points or direction changes

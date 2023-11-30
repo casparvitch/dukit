@@ -40,10 +40,13 @@ __pdoc__ = {
     "dukit.itool.get_aois": True,
 }
 
+from itertools import product
+
 # ============================================================================
 
 import numpy as np
 import numpy.typing as npt
+from numpy import typing as npt
 from numpy.polynomial.polynomial import polyval2d
 from scipy.optimize import least_squares
 from scipy.interpolate import griddata
@@ -262,7 +265,7 @@ def get_background(
         "gaussian_filter": _filtered_background,
         "gaussian_then_poly": _gaussian_then_poly,
     }
-    image = np.ma.array(image, mask=np.zeros(image.shape))
+    image = np.ma.array(image, mask=np.zeros(np.shape(image)))
     if len(image.shape) != 2:
         raise ValueError("image is not a 2D array")
     if not isinstance(method, str):
@@ -1005,7 +1008,7 @@ def get_colormap_range(
 
     if c_range_type == "strict_range":
         if (
-            not isinstance(c_range_vals, tuple)
+            not isinstance(c_range_vals, (float, int))
             or len(c_range_vals) != 2  # noqa: W503
             or (not isinstance(c_range_vals[0], (float, int)))  # noqa: W503
             or (not isinstance(c_range_vals[1], (float, int)))  # noqa: W503
@@ -1028,7 +1031,7 @@ def get_colormap_range(
 
     elif c_range_type.startswith("percentile"):
         if (
-            not isinstance(c_range_vals, tuple)
+            not isinstance(c_range_vals, (list, tuple))
             or len(c_range_vals) != 2  # noqa: W503
             or not isinstance(c_range_vals[0], (float, int))
             or not isinstance(c_range_vals[1], (float, int))
@@ -1370,7 +1373,7 @@ def smooth_image_stack(
     smooth_stack : ndarray
         Image stack smoothed in spatial dimensions.
     """
-    if isinstance(sigma, tuple):
+    if isinstance(sigma, (list, tuple)):
         return gaussian_filter(stack, sigma=(sigma[1], sigma[0], 0), truncate=truncate)
     return gaussian_filter(stack, sigma=(sigma, sigma, 0), truncate=truncate)
 
@@ -1398,7 +1401,7 @@ def rebin_image_stack(
     """
     if not additional_bins:
         return stack
-    if isinstance(additional_bins, tuple):
+    if isinstance(additional_bins, (tuple, list)):
         return dukit.rebin.rebin(
             stack, factor=(additional_bins[1], additional_bins[0], 1), func=np.mean
         )
@@ -1439,3 +1442,19 @@ def get_aois(
     )
     return tuple(aois)
 
+# ============================================================================
+
+def _iterslice(x: npt.NDArray, axis: int = 0):
+    """Iterate through array x in slices along axis 'axis' (defaults to 0).
+    E.g. iterslice(shape(y,x,freqs), axis=-1) will give iter. of 1d freq slices."""
+    sub = [range(s) for s in x.shape]
+    sub[axis] = (slice(None),)
+    for p in product(*sub):
+        yield x[p]
+
+# ============================================================================
+
+def _iterframe(x_3d: npt.NDArray):
+    """iterframe(shape(y,x,freqs)) will give iter. of 2d y,x frames."""
+    for frame in range(x_3d.shape[2]):
+        yield x_3d[:, :, frame]

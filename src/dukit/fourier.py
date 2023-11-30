@@ -135,7 +135,8 @@ def define_k_vectors(
     raw_pixel_size : float
         I.e. camera pixel size
     applied_binning : 2-tuple of ints or int
-        Binning that has been applied.
+        Binning that has been applied. 2-tuple for asymmetric binning
+        NOTE sorry untested in fourier currently
     k_vector_epsilon : float
         Add an epsilon value to the k-vectors to avoid some issues with 1/0.
 

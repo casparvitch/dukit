@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import logging
 
+# this script assumes bunch of things in the default kwargs,
+# e.g. that you want a div normalisation.
+
 with open(
     os.path.dirname(str(__file__)) + "/../TEST_DATA_PATH.py", encoding="utf-8"
 ) as fid:
@@ -14,20 +17,22 @@ with open(
 DIR = TEST_DATA_PATH + "mz_test/"  # type: ignore
 FILEPATH = DIR + "ODMR - Pulsed_10"
 FIG_FORMAT = "png"
+
+# ADDITIONAL_BINS = (4, 2) # asymmetric: (x, y)
 ADDITIONAL_BINS = 4
-ADDITIONAL_SMOOTH = 0.0
-ROI_COORDS = (65, 65, 190, 190)  # start_x, start_y, ...
+ADDITIONAL_SMOOTH = 0  # can be asymmetric, but best not.
+
+ROI_COORDS = (65, 65, 190, 190)  # start_x, start_y, ... for 4x binning
+# ROI_COORDS = (-1, -1, -1, -1) # full ROI
 AOI_COORDS = ((30, 40, 40, 45), (20, 20, 24, 24), (50, 50, 51, 51))
 # AOI_COORDS = ((30, 40 , 40, 45),)
 
 # to see how to create these see mz_draw_polys.py
-POLY_PATH = (
-    FILEPATH + "_oldpolys.json"
-)
+POLY_PATH = FILEPATH + "_oldpolys.json"  # for 4x binning & ROI crop above
 polygon_nodes = dukit.load_polygon_nodes(POLY_PATH)
 ANNOTATE_POLYS = True
 
-FIT_BACKEND = "cpufit"
+FIT_BACKEND = "scipyfit"
 FIT_MODEL = dukit.LinearLorentzians(2)
 GUESSES = {"pos": [2720, 3020], "amp": -0.004, "fwhm": 20, "c": 1.0, "m": 0.0}
 BOUNDS = {
@@ -51,7 +56,7 @@ with open(OUTPUT_DIR + "dukit_version.txt", "w") as fid:
 
 FIT_RES_DIR = OUTPUT_DIR + "/data/"
 # set below to "" or None or False to *not* load prev fit
-PREV_FIT = "" # FIT_RES_DIR[:]
+PREV_FIT = ""  # FIT_RES_DIR[:]
 
 # === START SCRIPT
 
@@ -60,6 +65,12 @@ sys = dukit.CryoWidefield()
 sweep_arr = sys.read_sweep_arr(FILEPATH)
 sig, ref, sig_norm = sys.read_image(FILEPATH)
 raw_pixel_size = sys.get_raw_pixel_size(FILEPATH)
+
+# === SMOOTH
+if ADDITIONAL_SMOOTH:
+    sig = dukit.smooth_image_stack(sig, ADDITIONAL_SMOOTH)
+    ref = dukit.smooth_image_stack(ref, ADDITIONAL_SMOOTH)
+    sig_norm = sys.norm(sig, ref)
 
 # === REBIN & CROP
 sig_rebinned = dukit.rebin_image_stack(sig, ADDITIONAL_BINS)
@@ -163,7 +174,7 @@ _ = dukit.plot.pl_param_images(
     opath=OUTPUT_DIR + f"sigma_pl_pos.{FIG_FORMAT}",
     raw_pixel_size=raw_pixel_size,
     applied_binning=ADDITIONAL_BINS,
-    errorplot=True
+    errorplot=True,
 )
 
 defect = dukit.NVEnsemble()
@@ -221,3 +232,4 @@ _ = dukit.plot.dshifts(
 )
 
 plt.show()
+

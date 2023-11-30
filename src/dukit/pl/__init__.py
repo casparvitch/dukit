@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+TODO full docs.
+
+"""
+
 from dukit.pl.model import (
     FitModel,
     ConstStretchedExp,

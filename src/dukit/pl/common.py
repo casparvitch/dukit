@@ -23,7 +23,7 @@ __pdoc__ = {
 import numpy as np
 import numpy.typing as npt
 from scipy.linalg import svd
-from itertools import product
+
 
 # ============================================================================
 
@@ -76,10 +76,9 @@ def gen_init_guesses(
 
         if guess is not None:
             init_guesses[param_key] = guess
-            init_bounds[param_key] = np.asarray(bounds)
+            init_bounds[param_key] = np.array(bounds)
         else:
             raise RuntimeError(f"Not sure why your guess for {param_key} is None?")
-
     return init_guesses, init_bounds
 
 
@@ -102,37 +101,35 @@ def bounds_from_range(
 
     Returns
     -------
-    bounds : tuple
+    bounds : list of lists
         bounds for each parameter. Dimension depends on dimension of param guess.
     """
-    if isinstance(guess, (list, tuple)) and len(guess) > 1:
+    if isinstance(guess, (list, tuple, np.ndarray)) and len(list(guess)) > 1:
         # separate bounds for each fn of this type
-        if isinstance(rang, (list, tuple)) and len(rang) > 1:
-            bounds = (
-                (each_guess - each_range, each_guess + each_range)
+        if isinstance(rang, (list, tuple, np.ndarray)) and len(list(rang)) > 1:
+            bounds = [
+                [each_guess - each_range, each_guess + each_range]
                 for each_guess, each_range in zip(guess, rang)
-            )
+            ]
         # separate guess for each fn of this type, all with same range
         else:
-            bounds = (
-                (
+            bounds = [
+                [
                     each_guess - rang,
                     each_guess + rang,
-                )
+                ]
                 for each_guess in guess
-            )
+            ]
     else:
-        if isinstance(rang, (list, tuple)):
-            if len(rang) == 1:
-                rang = rang[0]
-            else:
-                raise RuntimeError("param range len should match guess len")
-        # param guess and range are just single vals (easy!)
-        bounds = (
+        if isinstance(rang, (list, tuple, np.ndarray)) and len(list(rang)) == 1:
+            rang = rang[0]
+        if isinstance(guess, (list, tuple, np.ndarray)) and len(list(guess)) == 1:
+            guess = guess[0]
+        bounds = [
             guess - rang,
             guess + rang,
-        )
-    return list(bounds)
+        ]
+    return bounds
 
 
 # ============================================================================
@@ -175,19 +172,3 @@ def calc_sigmas(
     pcov *= s_sq
     return np.sqrt(np.diag(pcov))  # array of standard deviations
 
-# ============================================================================
-
-def _iterslice(x: npt.NDArray, axis: int = 0):
-    """Iterate through array x in slices along axis 'axis' (defaults to 0).
-    E.g. iterslice(shape(y,x,freqs), axis=-1) will give iter. of 1d freq slices."""
-    sub = [range(s) for s in x.shape]
-    sub[axis] = (slice(None),)
-    for p in product(*sub):
-        yield x[p]
-
-# ============================================================================
-
-def _iterframe(x_3d: npt.NDArray):
-    """iterframe(shape(y,x,freqs)) will give iter. of 2d y,x frames."""
-    for frame in range(x_3d.shape[2]):
-        yield x_3d[:, :, frame]

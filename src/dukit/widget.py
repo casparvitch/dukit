@@ -340,7 +340,8 @@ class _SelectorWidget(AxesWidget):
                 self.update()
                 return
             for (state, modifier) in self.state_modifier_keys.items():
-                if modifier in key:
+                # if modifier in key:
+                if modifier == key:
                     self.state.add(state)
             self._on_key_press(event)
 
@@ -353,7 +354,8 @@ class _SelectorWidget(AxesWidget):
         if self.active:
             key = event.key or ""
             for (state, modifier) in self.state_modifier_keys.items():
-                if modifier in key:
+                # if modifier in key:
+                if modifier == key:
                     self.state.discard(state)
             self._on_key_release(event)
 
@@ -821,22 +823,24 @@ class PolygonSelector(_SelectorWidget):
             else:
                 scale_factor = 1
 
-            center_x, center_y = (np.mean(self._xs), np.mean(self._ys))
-            for k, _ in enumerate(self._xs):
-                self._xs[k] = (self._xs[k] - center_x) * scale_factor + center_x
-                self._ys[k] = (self._ys[k] - center_y) * scale_factor + center_y
+            if self._xs and self._ys:
+                center_x, center_y = (np.mean(self._xs), np.mean(self._ys))
+                for k, _ in enumerate(self._xs):
+                    self._xs[k] = (self._xs[k] - center_x) * scale_factor + center_x
+                    self._ys[k] = (self._ys[k] - center_y) * scale_factor + center_y
 
             # update past lines
             for line in self.lines:
-                new_xs = []
-                new_ys = []
-                cx_line, cy_line = (np.mean(line["xs"]), np.mean(line["ys"]))
-                for k, _ in enumerate(line["xs"]):
-                    new_xs.append((line["xs"][k] - cx_line) * scale_factor + cx_line)
-                    new_ys.append((line["ys"][k] - cy_line) * scale_factor + cy_line)
-                line["xs"] = new_xs
-                line["ys"] = new_ys
-                line["line_obj"].set_data(new_xs, new_ys)
+                if line["xs"] and line["ys"]:
+                    new_xs = []
+                    new_ys = []
+                    cx_line, cy_line = (np.mean(line["xs"]), np.mean(line["ys"]))
+                    for k, _ in enumerate(line["xs"]):
+                        new_xs.append((line["xs"][k] - cx_line) * scale_factor + cx_line)
+                        new_ys.append((line["ys"][k] - cy_line) * scale_factor + cy_line)
+                    line["xs"] = new_xs
+                    line["ys"] = new_ys
+                    line["line_obj"].set_data(new_xs, new_ys)
         else:
             return
 
@@ -1320,7 +1324,23 @@ class BulkLinecutWidget:
         self.canvas.draw_idle()
 
     def disconnect(self, path=None):
-        if path is not None:
+        if path is None:
+            print()
+            print("xlabels:")
+            print(self.xlabels)
+            print()
+            print("profiles xdata:")
+            print(np.transpose(
+                    [prof.get_xdata() for prof in self.profiles]
+                ).tolist())
+            print("profiles ydata:")
+            print(np.transpose(
+                    [prof.get_ydata() for prof in self.profiles]
+                ).tolist())
+            print("integrals:")
+            print(self.integrals)
+            print()
+        else:
             output_dict = {
                 "xlabels": self.xlabels,
                 "integrals": self.integrals,
@@ -1331,7 +1351,7 @@ class BulkLinecutWidget:
                     [prof.get_ydata() for prof in self.profiles]
                 ).tolist(),
             }
-        dukit.json2dict.dict_to_json(output_dict, path)
+            dukit.json2dict.dict_to_json(output_dict, path)
         self.line_selector.disconnect_events()
         self.canvas.draw_idle()
 
@@ -1413,9 +1433,13 @@ class LinecutSelectionWidget:
             i_lst = []
             j_lst = []
             for n in range(len(idxs) - 1):
-                i0, i1 = idxs[n], idxs[n + 1]
-                j0, j1 = jdxs[n], jdxs[n + 1]
-                num = int(np.sqrt((i1 - i0) ** 2 + (j1 - j0) ** 2) * 2)  # *2 to be safe
+                try:
+                    i0, i1 = idxs[n], idxs[n + 1]
+                    j0, j1 = jdxs[n], jdxs[n + 1]
+                    # *2 in there to be safe
+                    num = int(np.sqrt((i1 - i0) ** 2 + (j1 - j0) ** 2) * 2)
+                except:
+                    num = 0
                 if not num:
                     continue
 
@@ -1463,14 +1487,22 @@ class LinecutSelectionWidget:
         self.pts = verts  # list of vertices `[(Ax1, Ay1), (Ax2, Ay2)]`
         self.canvas.draw_idle()
 
-    def disconnect(self):
+    def disconnect(self, path=None):
+        if path is None:
+            print()
+            print("profile xdata:")
+            print(self.profile.get_xdata())
+            print("profile ydata:")
+            print(self.profile.get_ydata())
+            print("integral:")
+            print(self.integral)
+            print()
+        else:
+            output_dict = {
+                "profile_x": self.profile.get_xdata(),
+                "profile_y": self.profile.get_ydata(),
+                "integral": self.integral,
+            }
+            dukit.json2dict.dict_to_json(output_dict, path)
         self.line_selector.disconnect_events()
         self.canvas.draw_idle()
-        print()
-        print("profile xdata:")
-        print(self.profile.get_xdata())
-        print("profile ydata:")
-        print(self.profile.get_ydata())
-        print("integral:")
-        print(self.integral)
-        print()

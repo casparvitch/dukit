@@ -154,6 +154,6 @@ class SpinPair(Defect):
     ) -> tuple[npt.ArrayLike] | tuple[float, ...]:
         return (res_freq / self.gamma,)
 
-class CSpinPair(SpinPair):
-    gamma = 28.0e3  # MHz/T
 
+class CPairEnsemble(SpinPair):
+    gamma = 28.0e3  # MHz/T

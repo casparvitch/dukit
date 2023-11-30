@@ -51,7 +51,7 @@ def fit_roi_avg_pl(
     bounds_dict: dict,
     norm: str = "div",
     method: str = "trf",
-    verbose=0,
+    verbose: int =0,
     gtol: float = 1e-12,
     xtol: float = 1e-12,
     ftol: float = 1e-12,
@@ -84,7 +84,7 @@ def fit_roi_avg_pl(
     -------------------------------------------------
     method: str = "trf"
         Fit method, "trf", "dogbox" or "lm"
-    verbose=0
+    verbose: int =0
         Verbosity of fit -> probably want to keep at 0
     gtol: float = 1e-12
         Tolerance for termination by the change of the independent variables.
@@ -115,7 +115,9 @@ def fit_roi_avg_pl(
     elif norm == "sub":
         sig_norm = 1 + (sig - ref) / (sig + ref)
     elif norm == "true_sub":
-        sig_norm = (sig - ref) / np.nanmax(sig - ref)
+        sig_norm = (sig - ref) / np.nanmax(sig - ref).reshape(
+                sig.shape[:-1] + (1,)
+            ),
 
     avg_sig_norm = np.nanmean(sig_norm, axis=(0, 1))
     avg_sig = np.nanmean(sig, axis=(0, 1))
@@ -248,7 +250,7 @@ def fit_aois_pl(
         elif norm == "sub":
             pl_vec = np.nanmean(1 + (s - r) / (s + r), axis=(0, 1))
         elif norm == "true_sub":
-            pl_vec = np.nanmean((s - r) / np.nanmax(s - r), axis=(0, 1))
+            pl_vec = np.nanmean((s - r) / np.nanmax(s - r).reshape(*s.shape[:-1] + (1,)), axis=(0, 1))
         aoi_pl_vecs.append(pl_vec)
         sig_ref_signorms.append(
             (np.nanmean(s, axis=(0, 1)), np.nanmean(r, axis=(0, 1)), pl_vec)
@@ -397,7 +399,7 @@ def fit_all_pixels_pl(
     # call into the library (measure time)
     t0 = timer()
     results_lst = Parallel(n_jobs=n_jobs, verbose=joblib_verbosity)(
-        delayed(_spfitter)(
+            delayed(_spfitter)(
             fit_model,
             sweep_arr,
             pl_vec,
@@ -411,7 +413,7 @@ def fit_all_pixels_pl(
             loss=loss,
             jac=jac,
         )
-        for pl_vec in dukit.pl.common._iterslice(sig_norm, axis=-1)
+            for pl_vec in dukit.itool._iterslice(sig_norm, axis=-1)
     )
     t1 = timer()
     dt = timedelta(seconds=t1 - t0).total_seconds()
@@ -424,7 +426,7 @@ def fit_all_pixels_pl(
     names.extend([f"sigma_{n}" for n in names])
     names.append("residual_0")
     fit_image_results = {
-        name: array for name, array in zip(names, dukit.pl.common._iterframe(results_arr))
+        name: array for name, array in zip(names, dukit.itool._iterframe(results_arr))
     }
 
     return fit_image_results
@@ -495,13 +497,14 @@ def _gen_sf_guesses_bounds(
     """
     param_lst = []
     bound_lst = []
-
     for param_name in fit_model.get_param_odict():
-        param_key, param_num_str = param_name.split("_")
+        split_param = param_name.split("_")
+        param_num_str = int(split_param[-1])
+        param_key = "_".join(split_param[:-1])
         param_num = int(param_num_str)  # i.e. pos_0
         try:
             param_lst.append(init_guesses[param_key][param_num])
-        except (TypeError, KeyError):
+        except (TypeError, KeyError, IndexError):
             param_lst.append(init_guesses[param_key])
         if len(np.array(init_bounds[param_key]).shape) == 2:
             bound_lst.append(init_bounds[param_key][param_num])
