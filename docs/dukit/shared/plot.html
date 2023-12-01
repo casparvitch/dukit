@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>dukit.shared.plot API documentation</title>
+<meta name="description" content="Shared plotting methods …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML'></script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>dukit.shared.plot</code></h1>
+</header>
+<section id="section-intro">
+<p>Shared plotting methods.</p>
+<h2 id="functions">Functions</h2>
+<ul>
+<li><code><a title="dukit.shared.plot.plot_image" href="#dukit.shared.plot.plot_image">plot_image()</a></code></li>
+<li><code><a title="dukit.shared.plot.plot_image_on_ax" href="#dukit.shared.plot.plot_image_on_ax">plot_image_on_ax()</a></code></li>
+<li><code><a title="dukit.shared.plot.get_colormap_range" href="#dukit.shared.plot.get_colormap_range">get_colormap_range()</a></code></li>
+</ul>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Shared plotting methods.
+
+Functions
+---------
+ - `dukit.shared.plot.plot_image`
+ - `dukit.shared.plot.plot_image_on_ax`
+ - `dukit.shared.plot.get_colormap_range`
+&#34;&#34;&#34;
+
+
+# ============================================================================
+
+__author__ = &#34;Sam Scholten&#34;
+__pdoc__ = {
+    &#34;dukit.shared.plot.plot_image&#34;: True,
+    &#34;dukit.shared.plot.plot_image_on_ax&#34;: True,
+    &#34;dukit.shared.plot.get_colormap_range&#34;: True,
+}
+
+# ============================================================================
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import matplotlib.patches
+import matplotlib.colorbar
+import numpy as np
+import numpy.typing as npt
+from matplotlib_scalebar.scalebar import ScaleBar
+from mpl_toolkits.axes_grid1 import make_axes_locatable, axes_size
+
+# ============================================================================
+
+from dukit.shared.misc import dukit_warn
+
+# ============================================================================
+
+def plot_image(
+    image_data: npt.NDArray,
+    title: str = &#34;title&#34;,
+    c_map: str = &#34;viridis&#34;,
+    c_range: tuple[float, float] | tuple[None, None] = (None, None),
+    c_label: str = &#34;label&#34;,
+    opath: str = &#34;&#34;,
+    show_scalebar: bool = True,
+    raw_pixel_size: float = float(&#34;nan&#34;),
+    applied_binning: tuple[int, int] | int = 0,
+    annotate_polygons: bool = False,
+    polygon_nodes: list | None = None,
+    show_tick_marks: bool = False,
+    polygon_patch_params: dict | None = None,
+) -&gt; tuple[plt.Figure, plt.Axes]:
+    &#34;&#34;&#34;
+    Plots an image given by image_data. Only saves figure if path given.
+
+    Arguments
+    ---------
+    image_data : np array, 3D
+        Data that is plot.
+    title : str
+        Title of figure, as well as name for save files
+    c_map : str
+        Colormap object used to map image_data values to a color.
+    c_range : 2-tuple of floats
+        Range of values in image_data to map to colors
+    c_label : str
+        Label for colormap axis
+    opath: str  = &#34;&#34;,
+        If given saves figure here.
+    show_scalebar: bool = True
+        Show the scalebar(s)?
+    raw_pixel_size: float = float(&#34;nan&#34;)
+        Pixel size from hardware
+    applied_binning: tuple[int, int] | int = 0,
+        Any additional binning that HAS been applied
+    annotate_polygons: bool = False,
+        Annotate the polygons on image?
+    polygon_nodes: list | None = None,
+        List of polygon nodes, see TODO for format
+    show_tick_marks: bool = False
+        Show tick marks on axes
+    polygon_patch_params: dict | None, default = None
+        Passed to mpl.patches.Polygon.
+
+    Returns
+    -------
+    fig : matplotlib Figure object
+    ax : matplotlib Axis object
+    &#34;&#34;&#34;
+
+    fig, ax = plt.subplots()
+
+    fig, ax = plot_image_on_ax(
+        fig,
+        ax,
+        image_data,
+        title,
+        c_map,
+        c_range,
+        c_label,
+        opath=opath,
+        show_scalebar=show_scalebar,
+        raw_pixel_size=raw_pixel_size,
+        applied_binning=applied_binning,
+        annotate_polygons=annotate_polygons,
+        polygon_nodes=polygon_nodes,
+        show_tick_marks=show_tick_marks,
+        polygon_patch_params=polygon_patch_params,
+    )
+    return fig, ax
+
+
+# ============================================================================
+
+
+def plot_image_on_ax(
+    fig: plt.Figure,
+    ax: plt.Axes,
+    image_data: npt.NDArray,
+    title: str = &#34;title&#34;,
+    c_map: str = &#34;viridis&#34;,
+    c_range: tuple[float, float] | tuple[None, None] = (None, None),
+    c_label: str = &#34;label&#34;,
+    opath: str = &#34;&#34;,
+    show_scalebar: bool = True,
+    raw_pixel_size: float = float(&#34;nan&#34;),
+    applied_binning: tuple[int, int] | int = 0,
+    annotate_polygons: bool = False,
+    polygon_nodes: list | None = None,
+    show_tick_marks: bool = False,
+    polygon_patch_params: dict | None = None,
+) -&gt; tuple[plt.Figure, plt.Axes]:
+    &#34;&#34;&#34;
+    Plots an image given by image_data onto given figure and ax.
+
+    Does not save any data.
+
+    Arguments
+    ---------
+    fig : matplotlib Figure object
+    ax : matplotlib Axis object
+    image_data : np array, 3D
+        Data that is plot.
+    title : str
+        Title of figure, as well as name for save files
+    c_map : str
+        Colormap object used to map image_data values to a color.
+    c_range : 2-tuple of floats
+        Range of values in image_data to map to colors
+    c_label : str
+        Label for colormap axis
+    opath: str  = &#34;&#34;,
+        If given saves figure here.
+    show_scalebar: bool = True
+        Show the scalebar(s)?
+    raw_pixel_size: float = float(&#34;nan&#34;)
+        Pixel size from hardware
+    applied_binning: tuple[int, int] | int = 0,
+        Any additional binning that HAS been applied
+    annotate_polygons: bool = False,
+        Annotate the polygons on image?
+    polygon_nodes: list | None = None,
+        List of polygon nodes, see TODO for format
+    show_tick_marks: bool = False
+        Show tick marks on axes
+    polygon_patch_params: dict | None, default = None
+        Passed to mpl.patches.Polygon.
+
+    Returns
+    -------
+    fig : matplotlib Figure object
+    ax : matplotlib Axis object
+    &#34;&#34;&#34;
+
+    imshowed = ax.imshow(image_data, cmap=c_map, vmin=c_range[0], vmax=c_range[1])
+
+    ax.set_title(title)
+
+    cbar = _add_colorbar(imshowed, fig, ax)
+    cbar.ax.set_ylabel(c_label, rotation=270)
+
+    if show_scalebar and raw_pixel_size:
+        if isinstance(applied_binning, tuple):
+            bin_x, bin_y = applied_binning
+            pixel_x = raw_pixel_size * bin_x if bin_x else raw_pixel_size
+            pixel_y = raw_pixel_size * bin_y if bin_y else raw_pixel_size
+            scalebar_x = ScaleBar(pixel_x)
+            scalebar_y = ScaleBar(pixel_y, rotation=&#34;vertical&#34;)
+            ax.add_artist(scalebar_x)
+            ax.add_artist(scalebar_y)
+        else:
+            pixel = (
+                raw_pixel_size * applied_binning if applied_binning else raw_pixel_size
+            )
+            scalebar = ScaleBar(pixel)
+            ax.add_artist(scalebar)
+
+    if polygon_nodes and annotate_polygons:
+        if polygon_patch_params is None:
+            polygon_patch_params = {
+                &#34;facecolor&#34;: None,
+                &#34;edgecolor&#34;: &#34;k&#34;,
+                &#34;linestyle&#34;: &#34;dashed&#34;,
+                &#34;fill&#34;: False,
+            }
+        for poly in polygon_nodes:
+            # polygons reversed to (x,y) indexing for patch
+            ax.add_patch(
+                matplotlib.patches.Polygon(
+                    np.dstack((poly[:, 1], poly[:, 0]))[0],
+                    **polygon_patch_params,
+                )
+            )
+
+    if not show_tick_marks:
+        ax.get_xaxis().set_ticks([])
+        ax.get_yaxis().set_ticks([])
+
+    if opath:
+        fig.savefig(opath)
+
+    return fig, ax
+
+
+# ============================================================================
+
+
+def _add_colorbar(
+    imshowed: mpl.cm.ScalarMappable,
+    fig: plt.Figure,
+    ax: plt.Axes,
+    aspect: float = 20.0,
+    pad_fraction: float = 1.0,
+    **kwargs
+) -&gt; matplotlib.colorbar.Colorbar:
+    &#34;&#34;&#34;
+    Adds a colorbar to matplotlib axis
+
+    Arguments
+    ---------
+    imshowed : image as returned by ax.imshow
+    fig : matplotlib Figure object
+    ax : matplotlib Axis object
+
+    Returns
+    -------
+    cbar : matplotlib colorbar object
+
+    Optional Arguments
+    ------------------
+    aspect : int
+        Reciprocal of aspect ratio passed to new colorbar axis width. Default: 20.
+    pad_fraction : int
+        Fraction of new colorbar axis width to pad from image. Default: 1.
+
+    **kwargs : other keyword arguments
+        Passed to fig.colorbar.
+
+    &#34;&#34;&#34;
+    divider = make_axes_locatable(ax)
+    width = axes_size.AxesY(ax, aspect=1.0 / aspect)
+    pad = axes_size.Fraction(pad_fraction, width)
+    cax = divider.append_axes(&#34;right&#34;, size=width, pad=pad)
+    cbar = fig.colorbar(imshowed, cax=cax, **kwargs)
+    tick_locator = mpl.ticker.MaxNLocator(nbins=5)
+    cbar.locator = tick_locator
+    cbar.update_ticks()
+    cbar.ax.get_yaxis().labelpad = 15
+    cbar.ax.linewidth = 0.5  # type: ignore
+    return cbar
+
+
+# ============================================================================
+
+
+def get_colormap_range(
+    c_range_type: str,
+    c_range_vals: tuple[float, ...],
+    image: npt.NDArray,
+    auto_sym_zero: bool = True,
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;
+    Produce a colormap range to plot image from, using the options in c_range_dict.
+
+    Arguments
+    ---------
+    c_range_type : str
+         - &#34;min_max&#34; : map between minimum and maximum values in image.
+         - &#34;deviation_from_mean&#34; : requires c_range_vals be a 1-tuple float
+           between 0 and 1 &#39;dev&#39;. Maps between (1 - dev) * mean and (1 + dev) * mean.
+         - &#34;min_max_symmetric_about_mean&#34; : map symmetrically about mean, capturing all
+            values in image (default).
+         - &#34;min_max_symmetric_about_zero&#34; : map symmetrically about zero, capturing all
+            values in image.
+         - &#34;percentile&#34; : requires c_range_vals be a 2-tuple w vals between 0 and 100.
+            Maps the range between those percentiles of the data.
+         - &#34;percentile_symmetric_about_zero&#34; : requires c_range_vals be a 2-tuple
+            w vals between 0 and 100. Maps symmetrically about zero, capturing
+            all values between those percentiles in the data (plus perhaps a bit more to
+            ensure symmety)
+         - &#34;strict_range&#34; : requiresc_range_vals 2-tuple.
+            Maps colors directly between the values given.
+         - &#34;mean_plus_minus&#34; : mean plus or minus this value.
+            c_range_vals must be a 1-tuple float
+    c_range_vals : tuple
+        See above for allowed options
+    auto_sym_zero : bool, default=True
+        Try and make symmetric around zero, if logical?
+
+    image : array-like
+        2D array (image) that fn returns colormap range for.
+
+    Returns
+    -------
+    c_range : list length 2
+        i.e. [min value to map to a color, max value to map to a color]
+    &#34;&#34;&#34;
+
+    # mostly these are just checking that the input values are valid
+
+    warning_messages = {
+        &#34;deviation_from_mean&#34;: &#34;&#34;&#34;Invalid c_range_dict[&#39;values&#39;] encountered.
+        For c_range type &#39;deviation_from_mean&#39;, c_range_dict[&#39;values&#39;] must be a float,
+        between 0 and 1. Changing to &#39;min_max_symmetric_about_mean&#39; c_range.&#34;&#34;&#34;,
+        &#34;strict_range&#34;: &#34;&#34;&#34;Invalid c_range_dict[&#39;values&#39;] encountered.
+        For c_range type &#39;strict_range&#39;, c_range_dict[&#39;values&#39;] must be a a list of 
+        length 2, with elements that are floats or ints.
+        Changing to &#39;min_max_symmetric_about_mean&#39; c_range.&#34;&#34;&#34;,
+        &#34;mean_plus_minus&#34;: &#34;&#34;&#34;Invalid c_range_dict[&#39;values&#39;] encountered.
+        For c_range type &#39;mean_plus_minus&#39;, c_range_dict[&#39;values&#39;] must be an int or 
+        float. Changing to &#39;min_max_symmetric_about_mean&#39; c_range.&#34;&#34;&#34;,
+        &#34;percentile&#34;: &#34;&#34;&#34;Invalid c_range_dict[&#39;values&#39;] encountered.
+        For c_range type &#39;percentile&#39;, c_range_dict[&#39;values&#39;] must be a list of length 2,
+         with elements (preferably ints) in [0, 100].
+         Changing to &#39;min_max_symmetric_about_mean&#39; c_range.&#34;&#34;&#34;,
+        &#34;percentile_symmetric_about_zero&#34;: &#34;&#34;&#34;Invalid c_range_dict[&#39;values&#39;] encountered.
+        For c_range type &#39;percentile&#39;, c_range_dict[&#39;values&#39;] must be a list of length 2,
+         with elements (preferably ints) in [0, 100].
+         Changing to &#39;min_max_symmetric_about_mean&#39; c_range.&#34;&#34;&#34;,
+    }
+
+    if c_range_type not in [&#34;percentile&#34;, &#34;min_max&#34;]:
+        auto_sym_zero = False
+
+    if auto_sym_zero and np.any(image &lt; 0) and np.any(image &gt; 0):
+        if c_range_type == &#34;min_max&#34;:
+            c_range_type = &#34;min_max_symmetric_about_zero&#34;
+        elif c_range_type == &#34;percentile&#34;:
+            c_range_type = &#34;percentile_symmetric_about_zero&#34;
+
+    range_calculator_dict = {
+        &#34;min_max&#34;: _min_max,
+        &#34;deviation_from_mean&#34;: _deviation_from_mean,
+        &#34;min_max_symmetric_about_mean&#34;: _min_max_sym_mean,
+        &#34;min_max_symmetric_about_zero&#34;: _min_max_sym_zero,
+        &#34;percentile&#34;: _percentile,
+        &#34;percentile_symmetric_about_zero&#34;: _percentile_sym_zero,
+        &#34;strict_range&#34;: _strict_range,
+        &#34;mean_plus_minus&#34;: _mean_plus_minus,
+    }
+
+    if c_range_type == &#34;strict_range&#34;:
+        if (
+            not isinstance(c_range_vals, (list, tuple))
+            or len(c_range_vals) != 2  # noqa: W503
+            or (not isinstance(c_range_vals[0], (float, int)))  # noqa: W503
+            or (not isinstance(c_range_vals[1], (float, int)))  # noqa: W503
+            or c_range_vals[0] &gt; c_range_vals[1]  # noqa: W503
+        ):
+            dukit_warn(warning_messages[c_range_type])
+            return _min_max_sym_mean(image, ())
+    elif c_range_type == &#34;mean_plus_minus&#34;:
+        if not isinstance(c_range_vals[0], float):
+            dukit_warn(warning_messages[c_range_type])
+            return _min_max_sym_mean(image, ())
+    elif c_range_type == &#34;deviation_from_mean&#34;:
+        if (
+            not isinstance(c_range_vals, (float, int))
+            or c_range_vals &lt; 0  # noqa: W503
+            or c_range_vals &gt; 1  # noqa: W503
+        ):
+            dukit_warn(warning_messages[c_range_type])
+            return _min_max_sym_mean(image, ())
+
+    elif c_range_type.startswith(&#34;percentile&#34;):
+        if (
+            not isinstance(c_range_vals, tuple)
+            or len(c_range_vals) != 2  # noqa: W503
+            or not isinstance(c_range_vals[0], float)
+            or not isinstance(c_range_vals[1], float)
+            or not 100 &gt;= c_range_vals[0] &gt;= 0
+            or not 100 &gt;= c_range_vals[1] &gt;= 0
+        ):
+            dukit_warn(warning_messages[c_range_type])
+            return _min_max_sym_mean(image, ())
+    return range_calculator_dict[c_range_type](image, c_range_vals)
+
+
+# ============================
+
+
+def _min_max(
+    image: npt.NDArray, c_range_values: tuple[float, ...]
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;
+    Map between minimum and maximum values in image
+
+    Arguments
+    ---------
+    image : np array, 3D
+        image data being shown as ax.imshow
+    c_range_values : tuple[float, ...]
+        See `qdmpy.plot.common.get_colormap_range`
+    &#34;&#34;&#34;
+    return np.nanmin(image), np.nanmax(image)
+
+
+def _strict_range(
+    image: npt.NDArray, c_range_values: tuple[float, ...]
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;
+    Map between c_range_values
+
+    Arguments
+    ---------
+    image : np array, 3D
+        image data being shown as ax.imshow
+    c_range_values : tuple[float, ...]
+        See `qdmpy.plot.common.get_colormap_range`
+    &#34;&#34;&#34;
+    return c_range_values[0], c_range_values[1]
+
+
+def _min_max_sym_mean(
+    image: npt.NDArray, c_range_values: tuple[float, ...]
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;
+    Map symmetrically about mean, capturing all values in image.
+
+    Arguments
+    ---------
+    image : np array, 3D
+        image data being shown as ax.imshow
+    c_range_values : tuple[float, ...]
+        See `qdmpy.plot.common.get_colormap_range`
+    &#34;&#34;&#34;
+    minimum = np.nanmin(image)
+    maximum = np.nanmax(image)
+    mean = np.mean(image)
+    max_distance_from_mean = np.max([abs(maximum - mean), abs(minimum - mean)])
+    return mean - max_distance_from_mean, mean + max_distance_from_mean
+
+
+def _min_max_sym_zero(
+    image: npt.NDArray, c_range_values: tuple[float, ...]
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;
+    Map symmetrically about zero, capturing all values in image.
+
+    Arguments
+    ---------
+    image : np array, 3D
+        image data being shown as ax.imshow
+    c_range_values : tuple[float, ...]
+        See `qdmpy.plot.common.get_colormap_range`
+    &#34;&#34;&#34;
+    min_abs = np.abs(np.nanmin(image))
+    max_abs = np.abs(np.nanmax(image))
+    larger = np.nanmax([min_abs, max_abs])
+    return -larger, larger
+
+
+def _deviation_from_mean(
+    image: npt.NDArray, c_range_values: tuple[float, ...]
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;
+    Map a (decimal) deviation from mean,
+    i.e. between (1 - dev) * mean and (1 + dev) * mean
+
+    Arguments
+    ---------
+    image : np array, 3D
+        image data being shown as ax.imshow
+    c_range_values : tuple[float, ...]
+        See `qdmpy.plot.common.get_colormap_range`
+    &#34;&#34;&#34;
+    return (1 - c_range_values[0]) * np.mean(image), (1 + c_range_values[0]) * np.mean(
+        image
+    )
+
+
+def _percentile(
+    image: npt.NDArray, c_range_values: tuple[float, ...]
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;
+    Maps the range between two percentiles of the data.
+
+    Arguments
+    ---------
+    image : np array, 3D
+        image data being shown as ax.imshow
+    c_range_values : tuple[float, ...]
+        See `qdmpy.plot.common.get_colormap_range`
+    &#34;&#34;&#34;
+    return tuple(np.nanpercentile(image, c_range_values))
+
+
+def _percentile_sym_zero(
+    image: npt.NDArray, c_range_values: tuple[float, ...]
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;
+    Maps the range between two percentiles of the data, but ensuring symmetry about zero
+
+    Arguments
+    ---------
+    image : np array, 3D
+        image data being shown as ax.imshow
+    c_range_values : tuple[float, ...]
+        See `qdmpy.plot.common.get_colormap_range`
+    &#34;&#34;&#34;
+    plow, phigh = np.nanpercentile(image, c_range_values)  # e.g. [10, 90]
+    val = max(abs(plow), abs(phigh))
+    return -val, val
+
+
+def _mean_plus_minus(
+    image: npt.NDArray, c_range_values: tuple[float, ...]
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;
+    Maps the range to mean +- value given in c_range_values
+
+    Arguments
+    ---------
+    image : np array, 3D
+        image data being shown as ax.imshow
+    c_range_values : tuple[float, ...]
+        See `qdmpy.plot.common.get_colormap_range`
+    &#34;&#34;&#34;
+    mean = np.mean(image)
+    return mean - c_range_values, mean + c_range_values
+
+
+# ============================================================================</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="dukit.shared.plot.get_colormap_range"><code class="name flex">
+<span>def <span class="ident">get_colormap_range</span></span>(<span>c_range_type: str, c_range_vals: tuple[float, ...], image: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], auto_sym_zero: bool = True) -> tuple[float, float]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Produce a colormap range to plot image from, using the options in c_range_dict.</p>
+<h2 id="arguments">Arguments</h2>
+<dl>
+<dt><strong><code>c_range_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>
+<ul>
+<li>"min_max" : map between minimum and maximum values in image.</li>
+<li>"deviation_from_mean" : requires c_range_vals be a 1-tuple float
+between 0 and 1 'dev'. Maps between (1 - dev) * mean and (1 + dev) * mean.</li>
+<li>"min_max_symmetric_about_mean" : map symmetrically about mean, capturing all
+values in image (default).</li>
+<li>"min_max_symmetric_about_zero" : map symmetrically about zero, capturing all
+values in image.</li>
+<li>"percentile" : requires c_range_vals be a 2-tuple w vals between 0 and 100.
+Maps the range between those percentiles of the data.</li>
+<li>"percentile_symmetric_about_zero" : requires c_range_vals be a 2-tuple
+w vals between 0 and 100. Maps symmetrically about zero, capturing
+all values between those percentiles in the data (plus perhaps a bit more to
+ensure symmety)</li>
+<li>"strict_range" : requiresc_range_vals 2-tuple.
+Maps colors directly between the values given.</li>
+<li>"mean_plus_minus" : mean plus or minus this value.
+c_range_vals must be a 1-tuple float</li>
+</ul>
+</dd>
+<dt><strong><code>c_range_vals</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>See above for allowed options</dd>
+<dt><strong><code>auto_sym_zero</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
+<dd>Try and make symmetric around zero, if logical?</dd>
+<dt><strong><code>image</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>2D array (image) that fn returns colormap range for.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>c_range</code></strong> :&ensp;<code>list length 2</code></dt>
+<dd>i.e. [min value to map to a color, max value to map to a color]</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_colormap_range(
+    c_range_type: str,
+    c_range_vals: tuple[float, ...],
+    image: npt.NDArray,
+    auto_sym_zero: bool = True,
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;
+    Produce a colormap range to plot image from, using the options in c_range_dict.
+
+    Arguments
+    ---------
+    c_range_type : str
+         - &#34;min_max&#34; : map between minimum and maximum values in image.
+         - &#34;deviation_from_mean&#34; : requires c_range_vals be a 1-tuple float
+           between 0 and 1 &#39;dev&#39;. Maps between (1 - dev) * mean and (1 + dev) * mean.
+         - &#34;min_max_symmetric_about_mean&#34; : map symmetrically about mean, capturing all
+            values in image (default).
+         - &#34;min_max_symmetric_about_zero&#34; : map symmetrically about zero, capturing all
+            values in image.
+         - &#34;percentile&#34; : requires c_range_vals be a 2-tuple w vals between 0 and 100.
+            Maps the range between those percentiles of the data.
+         - &#34;percentile_symmetric_about_zero&#34; : requires c_range_vals be a 2-tuple
+            w vals between 0 and 100. Maps symmetrically about zero, capturing
+            all values between those percentiles in the data (plus perhaps a bit more to
+            ensure symmety)
+         - &#34;strict_range&#34; : requiresc_range_vals 2-tuple.
+            Maps colors directly between the values given.
+         - &#34;mean_plus_minus&#34; : mean plus or minus this value.
+            c_range_vals must be a 1-tuple float
+    c_range_vals : tuple
+        See above for allowed options
+    auto_sym_zero : bool, default=True
+        Try and make symmetric around zero, if logical?
+
+    image : array-like
+        2D array (image) that fn returns colormap range for.
+
+    Returns
+    -------
+    c_range : list length 2
+        i.e. [min value to map to a color, max value to map to a color]
+    &#34;&#34;&#34;
+
+    # mostly these are just checking that the input values are valid
+
+    warning_messages = {
+        &#34;deviation_from_mean&#34;: &#34;&#34;&#34;Invalid c_range_dict[&#39;values&#39;] encountered.
+        For c_range type &#39;deviation_from_mean&#39;, c_range_dict[&#39;values&#39;] must be a float,
+        between 0 and 1. Changing to &#39;min_max_symmetric_about_mean&#39; c_range.&#34;&#34;&#34;,
+        &#34;strict_range&#34;: &#34;&#34;&#34;Invalid c_range_dict[&#39;values&#39;] encountered.
+        For c_range type &#39;strict_range&#39;, c_range_dict[&#39;values&#39;] must be a a list of 
+        length 2, with elements that are floats or ints.
+        Changing to &#39;min_max_symmetric_about_mean&#39; c_range.&#34;&#34;&#34;,
+        &#34;mean_plus_minus&#34;: &#34;&#34;&#34;Invalid c_range_dict[&#39;values&#39;] encountered.
+        For c_range type &#39;mean_plus_minus&#39;, c_range_dict[&#39;values&#39;] must be an int or 
+        float. Changing to &#39;min_max_symmetric_about_mean&#39; c_range.&#34;&#34;&#34;,
+        &#34;percentile&#34;: &#34;&#34;&#34;Invalid c_range_dict[&#39;values&#39;] encountered.
+        For c_range type &#39;percentile&#39;, c_range_dict[&#39;values&#39;] must be a list of length 2,
+         with elements (preferably ints) in [0, 100].
+         Changing to &#39;min_max_symmetric_about_mean&#39; c_range.&#34;&#34;&#34;,
+        &#34;percentile_symmetric_about_zero&#34;: &#34;&#34;&#34;Invalid c_range_dict[&#39;values&#39;] encountered.
+        For c_range type &#39;percentile&#39;, c_range_dict[&#39;values&#39;] must be a list of length 2,
+         with elements (preferably ints) in [0, 100].
+         Changing to &#39;min_max_symmetric_about_mean&#39; c_range.&#34;&#34;&#34;,
+    }
+
+    if c_range_type not in [&#34;percentile&#34;, &#34;min_max&#34;]:
+        auto_sym_zero = False
+
+    if auto_sym_zero and np.any(image &lt; 0) and np.any(image &gt; 0):
+        if c_range_type == &#34;min_max&#34;:
+            c_range_type = &#34;min_max_symmetric_about_zero&#34;
+        elif c_range_type == &#34;percentile&#34;:
+            c_range_type = &#34;percentile_symmetric_about_zero&#34;
+
+    range_calculator_dict = {
+        &#34;min_max&#34;: _min_max,
+        &#34;deviation_from_mean&#34;: _deviation_from_mean,
+        &#34;min_max_symmetric_about_mean&#34;: _min_max_sym_mean,
+        &#34;min_max_symmetric_about_zero&#34;: _min_max_sym_zero,
+        &#34;percentile&#34;: _percentile,
+        &#34;percentile_symmetric_about_zero&#34;: _percentile_sym_zero,
+        &#34;strict_range&#34;: _strict_range,
+        &#34;mean_plus_minus&#34;: _mean_plus_minus,
+    }
+
+    if c_range_type == &#34;strict_range&#34;:
+        if (
+            not isinstance(c_range_vals, (list, tuple))
+            or len(c_range_vals) != 2  # noqa: W503
+            or (not isinstance(c_range_vals[0], (float, int)))  # noqa: W503
+            or (not isinstance(c_range_vals[1], (float, int)))  # noqa: W503
+            or c_range_vals[0] &gt; c_range_vals[1]  # noqa: W503
+        ):
+            dukit_warn(warning_messages[c_range_type])
+            return _min_max_sym_mean(image, ())
+    elif c_range_type == &#34;mean_plus_minus&#34;:
+        if not isinstance(c_range_vals[0], float):
+            dukit_warn(warning_messages[c_range_type])
+            return _min_max_sym_mean(image, ())
+    elif c_range_type == &#34;deviation_from_mean&#34;:
+        if (
+            not isinstance(c_range_vals, (float, int))
+            or c_range_vals &lt; 0  # noqa: W503
+            or c_range_vals &gt; 1  # noqa: W503
+        ):
+            dukit_warn(warning_messages[c_range_type])
+            return _min_max_sym_mean(image, ())
+
+    elif c_range_type.startswith(&#34;percentile&#34;):
+        if (
+            not isinstance(c_range_vals, tuple)
+            or len(c_range_vals) != 2  # noqa: W503
+            or not isinstance(c_range_vals[0], float)
+            or not isinstance(c_range_vals[1], float)
+            or not 100 &gt;= c_range_vals[0] &gt;= 0
+            or not 100 &gt;= c_range_vals[1] &gt;= 0
+        ):
+            dukit_warn(warning_messages[c_range_type])
+            return _min_max_sym_mean(image, ())
+    return range_calculator_dict[c_range_type](image, c_range_vals)</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.plot.plot_image"><code class="name flex">
+<span>def <span class="ident">plot_image</span></span>(<span>image_data: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], title: str = 'title', c_map: str = 'viridis', c_range: tuple[float, float] | tuple[None, None] = (None, None), c_label: str = 'label', opath: str = '', show_scalebar: bool = True, raw_pixel_size: float = nan, applied_binning: tuple[int, int] | int = 0, annotate_polygons: bool = False, polygon_nodes: list | None = None, show_tick_marks: bool = False, polygon_patch_params: dict | None = None) -> tuple[matplotlib.figure.Figure, matplotlib.axes._axes.Axes]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Plots an image given by image_data. Only saves figure if path given.</p>
+<h2 id="arguments">Arguments</h2>
+<dl>
+<dt><strong><code>image_data</code></strong> :&ensp;<code>np array, 3D</code></dt>
+<dd>Data that is plot.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
+<dd>Title of figure, as well as name for save files</dd>
+<dt><strong><code>c_map</code></strong> :&ensp;<code>str</code></dt>
+<dd>Colormap object used to map image_data values to a color.</dd>
+<dt><strong><code>c_range</code></strong> :&ensp;<code>2-tuple</code> of <code>floats</code></dt>
+<dd>Range of values in image_data to map to colors</dd>
+<dt><strong><code>c_label</code></strong> :&ensp;<code>str</code></dt>
+<dd>Label for colormap axis</dd>
+<dt><strong><code>opath</code></strong> :&ensp;<code>str
+= "",</code></dt>
+<dd>If given saves figure here.</dd>
+<dt><strong><code>show_scalebar</code></strong> :&ensp;<code>bool = True</code></dt>
+<dd>Show the scalebar(s)?</dd>
+<dt><strong><code>raw_pixel_size</code></strong> :&ensp;<code>float = float("nan")</code></dt>
+<dd>Pixel size from hardware</dd>
+<dt><strong><code>applied_binning</code></strong> :&ensp;<code>tuple[int, int] | int = 0,</code></dt>
+<dd>Any additional binning that HAS been applied</dd>
+<dt><strong><code>annotate_polygons</code></strong> :&ensp;<code>bool = False,</code></dt>
+<dd>Annotate the polygons on image?</dd>
+<dt><strong><code>polygon_nodes</code></strong> :&ensp;<code>list | None = None,</code></dt>
+<dd>List of polygon nodes, see TODO for format</dd>
+<dt><strong><code>show_tick_marks</code></strong> :&ensp;<code>bool = False</code></dt>
+<dd>Show tick marks on axes</dd>
+<dt><strong><code>polygon_patch_params</code></strong> :&ensp;<code>dict | None</code>, default <code>= None</code></dt>
+<dd>Passed to mpl.patches.Polygon.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fig</code></strong> :&ensp;<code>matplotlib Figure object</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>ax</code></strong> :&ensp;<code>matplotlib Axis object</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_image(
+    image_data: npt.NDArray,
+    title: str = &#34;title&#34;,
+    c_map: str = &#34;viridis&#34;,
+    c_range: tuple[float, float] | tuple[None, None] = (None, None),
+    c_label: str = &#34;label&#34;,
+    opath: str = &#34;&#34;,
+    show_scalebar: bool = True,
+    raw_pixel_size: float = float(&#34;nan&#34;),
+    applied_binning: tuple[int, int] | int = 0,
+    annotate_polygons: bool = False,
+    polygon_nodes: list | None = None,
+    show_tick_marks: bool = False,
+    polygon_patch_params: dict | None = None,
+) -&gt; tuple[plt.Figure, plt.Axes]:
+    &#34;&#34;&#34;
+    Plots an image given by image_data. Only saves figure if path given.
+
+    Arguments
+    ---------
+    image_data : np array, 3D
+        Data that is plot.
+    title : str
+        Title of figure, as well as name for save files
+    c_map : str
+        Colormap object used to map image_data values to a color.
+    c_range : 2-tuple of floats
+        Range of values in image_data to map to colors
+    c_label : str
+        Label for colormap axis
+    opath: str  = &#34;&#34;,
+        If given saves figure here.
+    show_scalebar: bool = True
+        Show the scalebar(s)?
+    raw_pixel_size: float = float(&#34;nan&#34;)
+        Pixel size from hardware
+    applied_binning: tuple[int, int] | int = 0,
+        Any additional binning that HAS been applied
+    annotate_polygons: bool = False,
+        Annotate the polygons on image?
+    polygon_nodes: list | None = None,
+        List of polygon nodes, see TODO for format
+    show_tick_marks: bool = False
+        Show tick marks on axes
+    polygon_patch_params: dict | None, default = None
+        Passed to mpl.patches.Polygon.
+
+    Returns
+    -------
+    fig : matplotlib Figure object
+    ax : matplotlib Axis object
+    &#34;&#34;&#34;
+
+    fig, ax = plt.subplots()
+
+    fig, ax = plot_image_on_ax(
+        fig,
+        ax,
+        image_data,
+        title,
+        c_map,
+        c_range,
+        c_label,
+        opath=opath,
+        show_scalebar=show_scalebar,
+        raw_pixel_size=raw_pixel_size,
+        applied_binning=applied_binning,
+        annotate_polygons=annotate_polygons,
+        polygon_nodes=polygon_nodes,
+        show_tick_marks=show_tick_marks,
+        polygon_patch_params=polygon_patch_params,
+    )
+    return fig, ax</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.plot.plot_image_on_ax"><code class="name flex">
+<span>def <span class="ident">plot_image_on_ax</span></span>(<span>fig: matplotlib.figure.Figure, ax: matplotlib.axes._axes.Axes, image_data: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], title: str = 'title', c_map: str = 'viridis', c_range: tuple[float, float] | tuple[None, None] = (None, None), c_label: str = 'label', opath: str = '', show_scalebar: bool = True, raw_pixel_size: float = nan, applied_binning: tuple[int, int] | int = 0, annotate_polygons: bool = False, polygon_nodes: list | None = None, show_tick_marks: bool = False, polygon_patch_params: dict | None = None) -> tuple[matplotlib.figure.Figure, matplotlib.axes._axes.Axes]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Plots an image given by image_data onto given figure and ax.</p>
+<p>Does not save any data.</p>
+<h2 id="arguments">Arguments</h2>
+<dl>
+<dt><strong><code>fig</code></strong> :&ensp;<code>matplotlib Figure object</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>ax</code></strong> :&ensp;<code>matplotlib Axis object</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>image_data</code></strong> :&ensp;<code>np array, 3D</code></dt>
+<dd>Data that is plot.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
+<dd>Title of figure, as well as name for save files</dd>
+<dt><strong><code>c_map</code></strong> :&ensp;<code>str</code></dt>
+<dd>Colormap object used to map image_data values to a color.</dd>
+<dt><strong><code>c_range</code></strong> :&ensp;<code>2-tuple</code> of <code>floats</code></dt>
+<dd>Range of values in image_data to map to colors</dd>
+<dt><strong><code>c_label</code></strong> :&ensp;<code>str</code></dt>
+<dd>Label for colormap axis</dd>
+<dt><strong><code>opath</code></strong> :&ensp;<code>str
+= "",</code></dt>
+<dd>If given saves figure here.</dd>
+<dt><strong><code>show_scalebar</code></strong> :&ensp;<code>bool = True</code></dt>
+<dd>Show the scalebar(s)?</dd>
+<dt><strong><code>raw_pixel_size</code></strong> :&ensp;<code>float = float("nan")</code></dt>
+<dd>Pixel size from hardware</dd>
+<dt><strong><code>applied_binning</code></strong> :&ensp;<code>tuple[int, int] | int = 0,</code></dt>
+<dd>Any additional binning that HAS been applied</dd>
+<dt><strong><code>annotate_polygons</code></strong> :&ensp;<code>bool = False,</code></dt>
+<dd>Annotate the polygons on image?</dd>
+<dt><strong><code>polygon_nodes</code></strong> :&ensp;<code>list | None = None,</code></dt>
+<dd>List of polygon nodes, see TODO for format</dd>
+<dt><strong><code>show_tick_marks</code></strong> :&ensp;<code>bool = False</code></dt>
+<dd>Show tick marks on axes</dd>
+<dt><strong><code>polygon_patch_params</code></strong> :&ensp;<code>dict | None</code>, default <code>= None</code></dt>
+<dd>Passed to mpl.patches.Polygon.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fig</code></strong> :&ensp;<code>matplotlib Figure object</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>ax</code></strong> :&ensp;<code>matplotlib Axis object</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_image_on_ax(
+    fig: plt.Figure,
+    ax: plt.Axes,
+    image_data: npt.NDArray,
+    title: str = &#34;title&#34;,
+    c_map: str = &#34;viridis&#34;,
+    c_range: tuple[float, float] | tuple[None, None] = (None, None),
+    c_label: str = &#34;label&#34;,
+    opath: str = &#34;&#34;,
+    show_scalebar: bool = True,
+    raw_pixel_size: float = float(&#34;nan&#34;),
+    applied_binning: tuple[int, int] | int = 0,
+    annotate_polygons: bool = False,
+    polygon_nodes: list | None = None,
+    show_tick_marks: bool = False,
+    polygon_patch_params: dict | None = None,
+) -&gt; tuple[plt.Figure, plt.Axes]:
+    &#34;&#34;&#34;
+    Plots an image given by image_data onto given figure and ax.
+
+    Does not save any data.
+
+    Arguments
+    ---------
+    fig : matplotlib Figure object
+    ax : matplotlib Axis object
+    image_data : np array, 3D
+        Data that is plot.
+    title : str
+        Title of figure, as well as name for save files
+    c_map : str
+        Colormap object used to map image_data values to a color.
+    c_range : 2-tuple of floats
+        Range of values in image_data to map to colors
+    c_label : str
+        Label for colormap axis
+    opath: str  = &#34;&#34;,
+        If given saves figure here.
+    show_scalebar: bool = True
+        Show the scalebar(s)?
+    raw_pixel_size: float = float(&#34;nan&#34;)
+        Pixel size from hardware
+    applied_binning: tuple[int, int] | int = 0,
+        Any additional binning that HAS been applied
+    annotate_polygons: bool = False,
+        Annotate the polygons on image?
+    polygon_nodes: list | None = None,
+        List of polygon nodes, see TODO for format
+    show_tick_marks: bool = False
+        Show tick marks on axes
+    polygon_patch_params: dict | None, default = None
+        Passed to mpl.patches.Polygon.
+
+    Returns
+    -------
+    fig : matplotlib Figure object
+    ax : matplotlib Axis object
+    &#34;&#34;&#34;
+
+    imshowed = ax.imshow(image_data, cmap=c_map, vmin=c_range[0], vmax=c_range[1])
+
+    ax.set_title(title)
+
+    cbar = _add_colorbar(imshowed, fig, ax)
+    cbar.ax.set_ylabel(c_label, rotation=270)
+
+    if show_scalebar and raw_pixel_size:
+        if isinstance(applied_binning, tuple):
+            bin_x, bin_y = applied_binning
+            pixel_x = raw_pixel_size * bin_x if bin_x else raw_pixel_size
+            pixel_y = raw_pixel_size * bin_y if bin_y else raw_pixel_size
+            scalebar_x = ScaleBar(pixel_x)
+            scalebar_y = ScaleBar(pixel_y, rotation=&#34;vertical&#34;)
+            ax.add_artist(scalebar_x)
+            ax.add_artist(scalebar_y)
+        else:
+            pixel = (
+                raw_pixel_size * applied_binning if applied_binning else raw_pixel_size
+            )
+            scalebar = ScaleBar(pixel)
+            ax.add_artist(scalebar)
+
+    if polygon_nodes and annotate_polygons:
+        if polygon_patch_params is None:
+            polygon_patch_params = {
+                &#34;facecolor&#34;: None,
+                &#34;edgecolor&#34;: &#34;k&#34;,
+                &#34;linestyle&#34;: &#34;dashed&#34;,
+                &#34;fill&#34;: False,
+            }
+        for poly in polygon_nodes:
+            # polygons reversed to (x,y) indexing for patch
+            ax.add_patch(
+                matplotlib.patches.Polygon(
+                    np.dstack((poly[:, 1], poly[:, 0]))[0],
+                    **polygon_patch_params,
+                )
+            )
+
+    if not show_tick_marks:
+        ax.get_xaxis().set_ticks([])
+        ax.get_yaxis().set_ticks([])
+
+    if opath:
+        fig.savefig(opath)
+
+    return fig, ax</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#functions">Functions</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="dukit.shared" href="index.html">dukit.shared</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="dukit.shared.plot.get_colormap_range" href="#dukit.shared.plot.get_colormap_range">get_colormap_range</a></code></li>
+<li><code><a title="dukit.shared.plot.plot_image" href="#dukit.shared.plot.plot_image">plot_image</a></code></li>
+<li><code><a title="dukit.shared.plot.plot_image_on_ax" href="#dukit.shared.plot.plot_image_on_ax">plot_image_on_ax</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

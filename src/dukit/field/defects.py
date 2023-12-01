@@ -3,8 +3,8 @@
 This module holds Defect objects, which are used to represent spin defects
 and their properties, and for extracting 'useful' info from ODMR data.
 
-Functions
----------
+Classes
+-------
  - `dukit.field.defects.Defect`
  - `dukit.field.defects.SpinOne`
  - `dukit.field.defects.NVEnsemble`

@@ -1,0 +1,2288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>dukit.shared.systems API documentation</title>
+<meta name="description" content="This sub-package holds classes and functions to define (microscope) systems …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML'></script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>dukit.shared.systems</code></h1>
+</header>
+<section id="section-intro">
+<p>This sub-package holds classes and functions to define (microscope) systems.</p>
+<h2 id="classes">Classes</h2>
+<ul>
+<li><code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code></li>
+<li><code><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></code></li>
+<li><code><a title="dukit.shared.systems.PyControl" href="#dukit.shared.systems.PyControl">PyControl</a></code></li>
+<li><code><a title="dukit.shared.systems.Zyla" href="#dukit.shared.systems.Zyla">Zyla</a></code></li>
+<li><code><a title="dukit.shared.systems.CryoWidefield" href="#dukit.shared.systems.CryoWidefield">CryoWidefield</a></code></li>
+<li><code><a title="dukit.shared.systems.LegacyCryoWidefield" href="#dukit.shared.systems.LegacyCryoWidefield">LegacyCryoWidefield</a></code></li>
+<li><code><a title="dukit.shared.systems.Argus" href="#dukit.shared.systems.Argus">Argus</a></code></li>
+<li><code><a title="dukit.shared.systems.LegacyArgus" href="#dukit.shared.systems.LegacyArgus">LegacyArgus</a></code></li>
+<li><code><a title="dukit.shared.systems.PyCryoWidefield" href="#dukit.shared.systems.PyCryoWidefield">PyCryoWidefield</a></code></li>
+</ul>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+This sub-package holds classes and functions to define (microscope) systems.
+
+Classes
+-------
+ - `dukit.shared.systems.System`
+ - `dukit.shared.systems.MelbSystem`
+ - `dukit.shared.systems.LVControl`
+ - `dukit.shared.systems.PyControl`
+ - `dukit.shared.systems.Zyla`
+ - `dukit.shared.systems.CryoWidefield`
+ - `dukit.shared.systems.LegacyCryoWidefield`
+ - `dukit.shared.systems.Argus`
+ - `dukit.shared.systems.LegacyArgus`
+ - `dukit.shared.systems.PyCryoWidefield`
+
+&#34;&#34;&#34;
+
+# ============================================================================
+
+__author__ = &#34;Sam Scholten&#34;
+__pdoc__ = {
+    &#34;dukit.shared.systems.System&#34;: True,
+    &#34;dukit.shared.systems.MelbSystem&#34;: True,
+    &#34;dukit.shared.systems.LVControl&#34;: True,
+    &#34;dukit.shared.systems.PyControl&#34;: True,
+    &#34;dukit.shared.systems.Zyla&#34;: True,
+    &#34;dukit.shared.systems.CryoWidefield&#34;: True,
+    &#34;dukit.shared.systems.LegacyCryoWidefield&#34;: True,
+    &#34;dukit.shared.systems.Argus&#34;: True,
+    &#34;dukit.shared.systems.LegacyArgus&#34;: True,
+    &#34;dukit.shared.systems.PyCryoWidefield&#34;: True,
+}
+
+# ============================================================================
+
+import re
+from math import radians
+import numpy as np
+import numpy.typing as npt
+
+# ============================================================================
+
+from dukit.shared.json2dict import json_to_dict
+from dukit.shared.misc import dukit_warn
+
+# ============================================================================
+
+
+class System:
+    &#34;&#34;&#34;Abstract class defining what is expected for a system.&#34;&#34;&#34;
+
+    name: str = &#34;Unknown System&#34;
+    &#34;&#34;&#34;Name of the system.&#34;&#34;&#34;
+
+    _pixel_size: float | None = None
+    &#34;&#34;&#34;Specified pixel size (m) (float). 
+    If None then obj mag etc. attributes are used to calc. pixel size instead.
+    Either _pixel_size or those attributes must be set!
+    &#34;&#34;&#34;
+
+    _sensor_pixel_pitch: float = -1.0
+    &#34;&#34;&#34;Pixel size (m) at camera
+    &#34;&#34;&#34;
+
+    _obj_mag: float = -1.0
+    &#34;&#34;&#34;Magnification of objective lens (in general a float).
+    &#34;&#34;&#34;
+
+    _obj_ref_focal_length: float = -1.0
+    &#34;&#34;&#34;Reference focal length for objective manufacturer (m). (float).
+    200e-3 for Nikon or Leica.
+    For Olympus use 180e-3, for Zeiss 165e-3.
+    &#34;&#34;&#34;
+
+    _camera_tube_lens: float = -1.0
+    &#34;&#34;&#34;Tube lens that focuses collimated beam from sample onto the camera.
+    A float length in metres.
+    &#34;&#34;&#34;
+
+    _bias_mag: float | None = None
+    &#34;&#34;&#34;Bias magnetic field strength (T).&#34;&#34;&#34;
+    _bias_theta: float | None = None
+    &#34;&#34;&#34;Bias magnetic field polar angle (deg).&#34;&#34;&#34;
+    _bias_phi: float | None = None
+    &#34;&#34;&#34;Bias magnetic field azimuthal angle (deg).&#34;&#34;&#34;
+
+    def __init__(
+        self,
+        pixel_size: float | None = None,
+        sensor_pixel_pitch: float | None = None,
+        obj_mag: float | None = None,
+        obj_ref_focal_length: float | None = None,
+        camera_tube_lens: float | None = None,
+        bias_mag: float | None = None,
+        bias_theta: float | None = None,
+        bias_phi: float | None = None,
+    ):
+        &#34;&#34;&#34;
+        Initialize the `System`, optionally supply known bias field and override
+        the `System`-defined microscope distances/etc.
+
+        Parameters
+        ----------
+        pixel_size: float | None, default=None
+            Define pixel size manually. If set, below 4 params are disregarded.
+            Either pixel_size or the below 4 must be defined either in init
+            or hard-coded into System (sub-)class. Given in metres.
+        sensor_pixel_pitch: float | None, default=None
+            Effective pixel &#39;size&#39; at camera sensor. Given in metres.
+        obj_mag: float | None, default=None
+            Magnification of objective used. Usually you will supply an int.
+        obj_ref_focal_length: float | None, default=None
+            Reference focal length from objective manufacturer (in metres).
+            200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.
+        camera_tube_lens: float | None, default=None
+            Tube lens length (m) used to focus light onto camera.
+        bias_mag: float | None, default=None
+            Magnitude of bias field (if known, else None) in Teslas.
+        bias_theta: float | None, default=None
+            Polar angle (deg) of bias field.
+        bias_phi: float | None, default=None
+            Azimuthal angle (deg) of bias field.
+        &#34;&#34;&#34;
+        for att, param in zip(
+            [
+                &#34;_pixel_size&#34;,
+                &#34;_sensor_pixel_pitch&#34;,
+                &#34;_obj_mag&#34;,
+                &#34;_obj_ref_focal_length&#34;,
+                &#34;_camera_tube_lens&#34;,
+                &#34;_bias_mag&#34;,
+                &#34;_bias_theta&#34;,
+                &#34;_bias_phi&#34;,
+            ],
+            [
+                pixel_size,
+                sensor_pixel_pitch,
+                obj_mag,
+                obj_ref_focal_length,
+                camera_tube_lens,
+                bias_mag,
+                bias_theta,
+                bias_phi,
+            ],
+        ):
+            if param is not None:
+                setattr(self, att, param)
+            # check we have sufficient info to calculate pixel size.
+            if self._pixel_size is not None and np.all(
+                [
+                    i &lt; 0
+                    for i in [
+                        self._sensor_pixel_pitch,
+                        self._obj_mag,
+                        self._obj_ref_focal_length,
+                        self._camera_tube_lens,
+                    ]
+                ]
+            ):
+                raise ValueError(
+                    &#34;System must have a pixel_size defined, or all of: &#34;
+                    + &#34;sensor_pixel_pitch, obj_mag, obj_ref_focal_length, &#34;
+                    + &#34;camera_tube_lens.&#34;
+                )
+
+    def read_image(
+        self, filepath: str, ignore_ref: bool, norm: str = &#34;div&#34;
+    ) -&gt; tuple[
+        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+    ]:
+        &#34;&#34;&#34;
+        Method that must be defined to read raw data in from filepath.
+
+        Parameters
+        ----------
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+        ignore_ref : bool
+            Ignore any reference measurements. (i.e. no-RF lock-in)
+        norm : str
+            Normalisation method. &#34;div&#34;, &#34;sub&#34; or &#34;true_sub&#34;. (latter for T1 datasets)
+
+        Returns
+        -------
+        sig : np array, 3D
+            Format: [sweep values, y, x]. Not cropped etc.
+        ref : np array, 3D
+            Format: [sweep values, y, x]. Not cropped etc.
+        sig_norm : np array, 3D
+            Format: [sweep values, y, x]. Not cropped etc.
+
+        Notes
+        -----
+        if norm == &#34;sub&#34;:
+            sig_norm = 1 + (sig - ref) / (sig + ref)
+        elif norm == &#34;div&#34;:
+            sig_norm = sig / ref
+        elif norm == &#34;true_sub&#34;:
+            sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=0)
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_hardware_binning(self, filepath: str) -&gt; int:
+        &#34;&#34;&#34;
+        Method that must be defined to define the camera binning from metadata
+
+        Arguments
+        ---------
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+    def read_sweep_arr(self, filepath: str) -&gt; npt.NDArray[np.float64]:
+        &#34;&#34;&#34;
+        Method that must be defined to read sweep_arr in from filepath.
+
+        Arguments
+        ---------
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+
+        Returns
+        -------
+        sweep_arr : np array, 1D
+            List of sweep value, either freq (MHz) or taus (s).
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_raw_pixel_size(self, filepath: str) -&gt; float:
+        &#34;&#34;&#34;
+        Get raw (from camera, without additional binning) pixel size.
+
+        Arguments
+        ---------
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+        &#34;&#34;&#34;
+
+        hardware_binning = self.get_hardware_binning(filepath)
+
+        if self._pixel_size is not None:
+            return hardware_binning * self._pixel_size
+
+        f_obj = self._obj_ref_focal_length / self._obj_mag
+
+        camera_pixel_size = self._sensor_pixel_pitch * f_obj / self._camera_tube_lens
+
+        return hardware_binning * camera_pixel_size
+
+    def get_bias_field(
+        self, filepath: str
+    ) -&gt; tuple[bool, tuple[float | None, float | None, float | None]]:
+        &#34;&#34;&#34;
+        Method to get magnet bias field from experiment metadata,
+        i.e. if set with programmable electromagnet. Default: False, (None, None, None).
+
+        Arguments
+        ---------
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+
+        Returns
+        -------
+        bias_on : bool
+            Was programmable bias field used?
+        bias_field : tuple
+            Tuple representing vector bias field
+                (B_mag (Tesla), B_theta (rad), B_phi (rad))
+        &#34;&#34;&#34;
+        return False, (
+            self._bias_mag,
+            radians(self._bias_theta) if self._bias_theta is not None else None,
+            radians(self._bias_phi) if self._bias_phi is not None else None,
+        )
+
+
+# ============================================================================
+
+
+class MelbSystem(System):
+    &#34;&#34;&#34;Some shared methods for melbourne systems.&#34;&#34;&#34;
+
+    name = &#34;Unknown Melbourne System&#34;
+
+    @staticmethod
+    def _chop_into_sig_ref(
+        img: npt.NDArray[np.float64], used_ref: bool, norm: str
+    ) -&gt; tuple[
+        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+    ]:
+        if norm not in [&#34;div&#34;, &#34;sub&#34;, &#34;true_sub&#34;]:
+            raise ValueError(&#34;bad norm option, use one of [&#39;sub&#39;, &#39;div&#39;, &#39;true_sub&#39;]&#34;)
+        # now chop up into sig, ref &amp; normalise
+        if used_ref:
+            sig = img[::2, :, :]
+            ref = img[1::2, :, :]
+            if norm == &#34;sub&#34;:
+                sig_norm = 1 + (sig - ref) / (sig + ref)
+            elif norm == &#34;div&#34;:
+                sig_norm = sig / ref
+            else:
+                sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=0)
+        else:
+            sig = img
+            ref = img
+            sig_norm = sig / np.nanmax(sig, axis=0)
+        return sig, ref, sig_norm
+
+
+class LVControl(MelbSystem):
+    &#34;&#34;&#34;Older Labview-based control software, save formats etc.&#34;&#34;&#34;
+
+    name = &#34;Unknown Labview controlled System&#34;
+
+    # TODO test this one
+    def read_image(
+        self, filepath: str, ignore_ref: bool = False, norm: str = &#34;div&#34;
+    ) -&gt; tuple[
+        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+    ]:
+        # read from disk
+        with open(filepath, mode=&#34;r&#34;, encoding=&#34;utf-8&#34;) as fid:
+            ret: npt.NDArray[np.float32] = np.fromfile(fid, dtype=np.float32)
+            raw_data: npt.NDArray[np.float32] = ret[2:]
+            prod: int = int(np.prod(ret[:2]))
+            sweep_len: int = int(np.prod(raw_data.shape) // prod)
+
+        # reshape into something more useable
+        img, used_ref = self._reshape_raw(raw_data, sweep_len, filepath, ignore_ref)
+
+        # now chop up into sig, ref &amp; normalise
+        return self._chop_into_sig_ref(img, used_ref, norm)
+
+    def read_sweep_arr(self, filepath: str) -&gt; npt.NDArray[np.float64]:
+        with open(
+            filepath + &#34;_metaSpool.txt&#34;,
+            &#34;r&#34;,
+            encoding=&#34;utf-8&#34;,
+        ) as fid:
+            sweep_str = fid.readline().rstrip().split(&#34;\t&#34;)
+        return np.array([float(i) for i in sweep_str], dtype=np.float64)
+
+    def get_hardware_binning(self, filepath: str) -&gt; int:
+        metadata = self._read_metadata(filepath)
+        return int(metadata[&#34;Binning&#34;])
+
+    def _read_metadata(self, filepath: str) -&gt; dict:
+        &#34;&#34;&#34;
+        Reads metaspool text file into a metadata dictionary.
+        Filepath argument is the filepath of the (binary) dataset.
+        &#34;&#34;&#34;
+        with open(filepath + &#34;_metaSpool.txt&#34;, &#34;r&#34;, encoding=&#34;utf-8&#34;) as fid:
+            # skip the sweep list (freqs or taus)
+            _ = fid.readline().rstrip().split(&#34;\t&#34;)
+            # ok now read the metadata
+            rest_str = fid.read()
+            # any text except newlines and tabs, followed by a colon and a space
+            # then any text except newlines and tabs
+            # (match the two text regions)
+            matches = re.findall(
+                # r&#34;^([a-zA-Z0-9_ /+()#-]+):([a-zA-Z0-9_ /+()#-]+)&#34;,
+                r&#34;([^\t\n]+):\s([^\t\n]+)&#34;,
+                rest_str,
+                re.MULTILINE,
+            )
+
+            def fail_float(a):
+                try:
+                    return float(a)
+                except ValueError:
+                    if a == &#34;FALSE&#34;:
+                        return False
+                    if a == &#34;TRUE&#34;:
+                        return True
+                    return a
+
+            metadata = {a: fail_float(b) for (a, b) in matches}
+        return metadata
+
+    def _reshape_raw(
+        self,
+        raw_data: npt.NDArray[np.float32],
+        sweep_len: int,
+        filepath: str,
+        ignore_ref: bool,
+    ) -&gt; tuple[npt.NDArray[np.float64], bool]:
+        &#34;&#34;&#34;
+        Reshapes raw data into more useful shape, according to image size in metadata.
+        Unimelb-specific data reshaping procedure (relies upon metadata)
+
+        Arguments
+        ---------
+        raw_data : np array, 1D (unshaped)
+            Raw unshaped data read from binary file
+        sweep_len : int
+            Length of sweep list
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+        ignore_ref : bool
+            Ignore any reference measurements. (i.e. no-RF lock-in)
+
+        Returns
+        -------
+        image : np array, 3D
+            Format: [sweep values, y, x]. Has not been seperated into sig/ref etc. and
+            has not been rebinned. Unwanted sweep values not removed.
+        used_ref : bool
+            Was a reference (e.g. no-MW measurement) loaded?
+        &#34;&#34;&#34;
+
+        metadata = self._read_metadata(filepath)
+
+        # NOTE AOIHeight and AOIWidth are saved by labview the opposite
+        #  of what you&#39;d expect
+        # -&gt; LV rotates to give image as you&#39;d expect standing in lab
+        # -&gt; thus, we ensure all images in this processing code matches LV orientation
+        try:
+            if not ignore_ref:
+                image = np.reshape(
+                    raw_data,
+                    [
+                        sweep_len,
+                        int(metadata[&#34;AOIHeight&#34;]),
+                        int(metadata[&#34;AOIWidth&#34;]),
+                    ],
+                )
+                used_ref = False  # if we succeed here there&#39;s no ref
+            else:
+                raise ValueError
+        except ValueError:
+            # if the ref is used then there&#39;s 2* the number of sweeps
+            # i.e. auto-detect reference existence
+            if ignore_ref:
+                used_ref = False
+                image = np.reshape(
+                    raw_data,
+                    [
+                        2 * sweep_len,
+                        int(metadata[&#34;AOIHeight&#34;]),
+                        int(metadata[&#34;AOIWidth&#34;]),
+                    ],
+                )[
+                    ::2
+                ]  # hmmm disregard ref -&gt; use every second element.
+            else:
+                image = np.reshape(
+                    raw_data,
+                    [
+                        sweep_len,
+                        int(metadata[&#34;AOIHeight&#34;]),
+                        int(metadata[&#34;AOIWidth&#34;]),
+                    ],
+                )
+                used_ref = True
+        # Transpose the dataset to get the correct x and y orientations ([y, x])
+        # will work for non-square images
+        return image.transpose([0, 2, 1]).astype(np.float64), used_ref
+
+    def get_bias_field(
+        self, filepath: str
+    ) -&gt; tuple[bool, tuple[float | None, float | None, float | None]]:
+        &#34;&#34;&#34;get bias on (bool) and field as tuple (mag (G), theta (rad), phi (rad))&#34;&#34;&#34;
+        metadata = self._read_metadata(filepath)
+
+        key_ars = [
+            [&#34;Field Strength (G)&#34;],
+            [&#34;Theta (deg)&#34;],
+            [&#34;Phi (def)&#34;, &#34;Phi (deg)&#34;],
+        ]
+        bias_field = []
+        for arr in key_ars:
+            found = False
+            for key in arr:
+                if key in metadata:
+                    bias_field.append(metadata[key])
+                    found = True
+            if not found:
+                return False, (None, None, None)
+        if len(bias_field) != 3:
+            dukit_warn(
+                f&#34;Found {len(bias_field)} bias field params in metadata, &#34;
+                + &#34;this shouldn&#39;t happen (expected 3).&#34;
+            )
+            return False, (None, None, None)
+        onoff_str = metadata.get(&#34;Mag on/off&#34;, &#34;&#34;)
+        bias_on = onoff_str == &#34; TRUE&#34;
+        return bias_on, (
+            bias_field[0] * 1e-4,  # convert G to T
+            radians(bias_field[1]),
+            radians(bias_field[2]),
+        )
+
+
+# ============================================================================
+
+
+class PyControl(MelbSystem):
+    &#34;&#34;&#34;Newer systems, using python control software -&gt; new API&#34;&#34;&#34;
+
+    name = &#34;Unknown Python controlled System&#34;
+
+    def read_image(
+        self, filepath: str, ignore_ref: bool = False, norm: str = &#34;div&#34;
+    ) -&gt; tuple[
+        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+    ]:
+        if norm not in [&#34;div&#34;, &#34;sub&#34;, &#34;true_sub&#34;]:
+            raise ValueError(&#34;bad norm option, use one of [&#39;sub&#39;, &#39;div&#39;, &#39;true_sub&#39;]&#34;)
+
+        image = np.load(filepath + &#34;.npy&#34;)
+        if ignore_ref and self._read_metadata(filepath)[&#34;Measurement&#34;][&#34;ref_bool&#34;]:
+            return self._chop_into_sig_ref(image[::2], False, norm)
+        if not self._read_metadata(filepath)[&#34;Measurement&#34;][&#34;ref_bool&#34;]:
+            return self._chop_into_sig_ref(image, False, norm)
+        return self._chop_into_sig_ref(image, True, norm)
+
+    def read_sweep_arr(self, filepath: str) -&gt; npt.NDArray[np.float64]:
+        return np.ndarray(
+            json_to_dict(filepath + &#34;.json&#34;)[&#34;freq_list&#34;],
+            dtype=np.float64,
+        )  # TODO name won&#39;t work for tau sweeps
+
+    def get_hardware_binning(self, filepath: str) -&gt; int:
+        metadata = self._read_metadata(filepath)
+
+        binning = metadata[&#34;Devices&#34;][&#34;camera&#34;][&#34;bin&#34;]
+        if binning[0] != binning[1]:
+            raise ValueError(&#34;dukit not setup to handle anisotropic binning.&#34;)
+        return int(binning[0])
+
+    def _read_metadata(self, filepath: str):
+        &#34;&#34;&#34;
+        Reads metaspool text file into a metadata dictionary.
+        Filepath argument is the filepath of the (binary) dataset.
+        &#34;&#34;&#34;
+        return json_to_dict(filepath + &#34;_metadata.json&#34;, hook=&#34;dd&#34;)
+
+    def get_bias_field(
+        self, filepath: str
+    ) -&gt; tuple[bool, tuple[float | None, float | None, float | None]]:
+        &#34;&#34;&#34;get bias on (bool) and field as tuple (mag (G), theta (rad), phi (rad))&#34;&#34;&#34;
+        metadata = self._read_metadata(filepath)
+        keys = [
+            &#34;bnorm&#34;,  # update with units?
+            &#34;theta&#34;,
+            &#34;phi&#34;,
+        ]
+        bias_field = []
+        for key in keys:
+            if key in metadata[&#34;Devices&#34;][&#34;null&#34;]:
+                bias_field.append(metadata[&#34;Devices&#34;][&#34;null&#34;][key])
+            else:
+                return False, (None, None, None)
+        if len(bias_field) != 3:
+            dukit_warn(
+                f&#34;Found {len(bias_field)} bias field params in metadata, &#34;
+                + &#34;this shouldn&#39;t happen (expected 3).&#34;
+            )
+            return False, (None, None, None)
+
+        return True, (
+            bias_field[0] / 1000,  # convert mT to T
+            radians(bias_field[1]),
+            radians(bias_field[2]),
+        )
+
+
+# ============================================================================
+
+
+class Zyla(LVControl):
+    &#34;&#34;&#34;
+    Specific system details for the Zyla QDM.
+    &#34;&#34;&#34;
+
+    name = &#34;Zyla&#34;
+    _obj_mag = 4
+    _obj_ref_focal_length = 200e-3
+    _camera_tube_lens = 300e-3
+    _sensor_pixel_pitch = 6.5e-6
+
+
+class CryoWidefield(LVControl):
+    &#34;&#34;&#34;
+    Specific system details for Cryogenic (Attocube) widefield QDM.
+    &#34;&#34;&#34;
+
+    name = &#34;Cryo Widefield&#34;
+    _pixel_size = 59.6e-9
+
+
+class LegacyCryoWidefield(LVControl):
+    &#34;&#34;&#34;
+    Specific system details for cryogenic (Attocube) widefield QDM.
+    - Legacy binning version
+    &#34;&#34;&#34;
+
+    name = &#34;Legacy Cryo Widefield&#34;
+    _pixel_size = 59.6e-9
+
+    def determine_binning(self, filepath: str):
+        &#34;&#34;&#34;silly old binning convention -&gt; change when labview updated to new binning&#34;&#34;&#34;
+        bin_conversion = [1, 2, 3, 4, 8]
+        metadata = self._read_metadata(filepath)
+        return bin_conversion[int(metadata[&#34;Binning&#34;])]
+
+
+class Argus(LVControl):
+    &#34;&#34;&#34;
+    Specific system details for Argus room-temperature widefield QDM.
+    &#34;&#34;&#34;
+
+    name = &#34;Argus&#34;
+    _obj_mag = 40
+    _obj_ref_focal_length = 200e-3
+    _camera_tube_lens = 300e-3
+    _sensor_pixel_pitch = 6.5e-6
+
+
+class LegacyArgus(LVControl):
+    &#34;&#34;&#34;
+    System for Argus with old binning convention
+    &#34;&#34;&#34;
+
+    name = &#34;Legacy Argus&#34;
+    _obj_mag = 40
+    _obj_ref_focal_length = 200e-3
+    _camera_tube_lens = 300e-3
+    _sensor_pixel_pitch = 6.5e-6
+
+    def determine_binning(self, filepath: str):
+        &#34;&#34;&#34;Silly old binning convention -&gt; change when labview updated to new binning&#34;&#34;&#34;
+        bin_conversion = [1, 2, 3, 4, 8]
+        metadata = self._read_metadata(filepath)
+        return int(bin_conversion[metadata[&#34;Binning&#34;]])
+
+
+class PyCryoWidefield(PyControl):
+    &#34;&#34;&#34;
+    Specific system details for Cryogenic (Attocube) widefield QDM.
+    &#34;&#34;&#34;
+
+    name = &#34;Py Cryo Widefield&#34;
+    _pixel_size = 59.6e-9
+
+
+# ============================================================================</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="dukit.shared.systems.Argus"><code class="flex name class">
+<span>class <span class="ident">Argus</span></span>
+<span>(</span><span>pixel_size: float | None = None, sensor_pixel_pitch: float | None = None, obj_mag: float | None = None, obj_ref_focal_length: float | None = None, camera_tube_lens: float | None = None, bias_mag: float | None = None, bias_theta: float | None = None, bias_phi: float | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Specific system details for Argus room-temperature widefield QDM.</p>
+<p>Initialize the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>, optionally supply known bias field and override
+the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>-defined microscope distances/etc.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pixel_size</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Define pixel size manually. If set, below 4 params are disregarded.
+Either pixel_size or the below 4 must be defined either in init
+or hard-coded into System (sub-)class. Given in metres.</dd>
+<dt><strong><code>sensor_pixel_pitch</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Effective pixel 'size' at camera sensor. Given in metres.</dd>
+<dt><strong><code>obj_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnification of objective used. Usually you will supply an int.</dd>
+<dt><strong><code>obj_ref_focal_length</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Reference focal length from objective manufacturer (in metres).
+200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.</dd>
+<dt><strong><code>camera_tube_lens</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Tube lens length (m) used to focus light onto camera.</dd>
+<dt><strong><code>bias_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnitude of bias field (if known, else None) in Teslas.</dd>
+<dt><strong><code>bias_theta</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Polar angle (deg) of bias field.</dd>
+<dt><strong><code>bias_phi</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Azimuthal angle (deg) of bias field.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Argus(LVControl):
+    &#34;&#34;&#34;
+    Specific system details for Argus room-temperature widefield QDM.
+    &#34;&#34;&#34;
+
+    name = &#34;Argus&#34;
+    _obj_mag = 40
+    _obj_ref_focal_length = 200e-3
+    _camera_tube_lens = 300e-3
+    _sensor_pixel_pitch = 6.5e-6</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></li>
+<li><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></li>
+<li><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.LVControl.get_bias_field" href="#dukit.shared.systems.LVControl.get_bias_field">get_bias_field</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.get_hardware_binning" href="#dukit.shared.systems.System.get_hardware_binning">get_hardware_binning</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.get_raw_pixel_size" href="#dukit.shared.systems.System.get_raw_pixel_size">get_raw_pixel_size</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.read_image" href="#dukit.shared.systems.System.read_image">read_image</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.read_sweep_arr" href="#dukit.shared.systems.System.read_sweep_arr">read_sweep_arr</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.System.name" href="#dukit.shared.systems.System.name">name</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="dukit.shared.systems.CryoWidefield"><code class="flex name class">
+<span>class <span class="ident">CryoWidefield</span></span>
+<span>(</span><span>pixel_size: float | None = None, sensor_pixel_pitch: float | None = None, obj_mag: float | None = None, obj_ref_focal_length: float | None = None, camera_tube_lens: float | None = None, bias_mag: float | None = None, bias_theta: float | None = None, bias_phi: float | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Specific system details for Cryogenic (Attocube) widefield QDM.</p>
+<p>Initialize the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>, optionally supply known bias field and override
+the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>-defined microscope distances/etc.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pixel_size</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Define pixel size manually. If set, below 4 params are disregarded.
+Either pixel_size or the below 4 must be defined either in init
+or hard-coded into System (sub-)class. Given in metres.</dd>
+<dt><strong><code>sensor_pixel_pitch</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Effective pixel 'size' at camera sensor. Given in metres.</dd>
+<dt><strong><code>obj_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnification of objective used. Usually you will supply an int.</dd>
+<dt><strong><code>obj_ref_focal_length</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Reference focal length from objective manufacturer (in metres).
+200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.</dd>
+<dt><strong><code>camera_tube_lens</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Tube lens length (m) used to focus light onto camera.</dd>
+<dt><strong><code>bias_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnitude of bias field (if known, else None) in Teslas.</dd>
+<dt><strong><code>bias_theta</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Polar angle (deg) of bias field.</dd>
+<dt><strong><code>bias_phi</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Azimuthal angle (deg) of bias field.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CryoWidefield(LVControl):
+    &#34;&#34;&#34;
+    Specific system details for Cryogenic (Attocube) widefield QDM.
+    &#34;&#34;&#34;
+
+    name = &#34;Cryo Widefield&#34;
+    _pixel_size = 59.6e-9</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></li>
+<li><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></li>
+<li><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.LVControl.get_bias_field" href="#dukit.shared.systems.LVControl.get_bias_field">get_bias_field</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.get_hardware_binning" href="#dukit.shared.systems.System.get_hardware_binning">get_hardware_binning</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.get_raw_pixel_size" href="#dukit.shared.systems.System.get_raw_pixel_size">get_raw_pixel_size</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.read_image" href="#dukit.shared.systems.System.read_image">read_image</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.read_sweep_arr" href="#dukit.shared.systems.System.read_sweep_arr">read_sweep_arr</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.System.name" href="#dukit.shared.systems.System.name">name</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="dukit.shared.systems.LVControl"><code class="flex name class">
+<span>class <span class="ident">LVControl</span></span>
+<span>(</span><span>pixel_size: float | None = None, sensor_pixel_pitch: float | None = None, obj_mag: float | None = None, obj_ref_focal_length: float | None = None, camera_tube_lens: float | None = None, bias_mag: float | None = None, bias_theta: float | None = None, bias_phi: float | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Older Labview-based control software, save formats etc.</p>
+<p>Initialize the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>, optionally supply known bias field and override
+the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>-defined microscope distances/etc.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pixel_size</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Define pixel size manually. If set, below 4 params are disregarded.
+Either pixel_size or the below 4 must be defined either in init
+or hard-coded into System (sub-)class. Given in metres.</dd>
+<dt><strong><code>sensor_pixel_pitch</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Effective pixel 'size' at camera sensor. Given in metres.</dd>
+<dt><strong><code>obj_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnification of objective used. Usually you will supply an int.</dd>
+<dt><strong><code>obj_ref_focal_length</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Reference focal length from objective manufacturer (in metres).
+200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.</dd>
+<dt><strong><code>camera_tube_lens</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Tube lens length (m) used to focus light onto camera.</dd>
+<dt><strong><code>bias_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnitude of bias field (if known, else None) in Teslas.</dd>
+<dt><strong><code>bias_theta</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Polar angle (deg) of bias field.</dd>
+<dt><strong><code>bias_phi</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Azimuthal angle (deg) of bias field.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LVControl(MelbSystem):
+    &#34;&#34;&#34;Older Labview-based control software, save formats etc.&#34;&#34;&#34;
+
+    name = &#34;Unknown Labview controlled System&#34;
+
+    # TODO test this one
+    def read_image(
+        self, filepath: str, ignore_ref: bool = False, norm: str = &#34;div&#34;
+    ) -&gt; tuple[
+        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+    ]:
+        # read from disk
+        with open(filepath, mode=&#34;r&#34;, encoding=&#34;utf-8&#34;) as fid:
+            ret: npt.NDArray[np.float32] = np.fromfile(fid, dtype=np.float32)
+            raw_data: npt.NDArray[np.float32] = ret[2:]
+            prod: int = int(np.prod(ret[:2]))
+            sweep_len: int = int(np.prod(raw_data.shape) // prod)
+
+        # reshape into something more useable
+        img, used_ref = self._reshape_raw(raw_data, sweep_len, filepath, ignore_ref)
+
+        # now chop up into sig, ref &amp; normalise
+        return self._chop_into_sig_ref(img, used_ref, norm)
+
+    def read_sweep_arr(self, filepath: str) -&gt; npt.NDArray[np.float64]:
+        with open(
+            filepath + &#34;_metaSpool.txt&#34;,
+            &#34;r&#34;,
+            encoding=&#34;utf-8&#34;,
+        ) as fid:
+            sweep_str = fid.readline().rstrip().split(&#34;\t&#34;)
+        return np.array([float(i) for i in sweep_str], dtype=np.float64)
+
+    def get_hardware_binning(self, filepath: str) -&gt; int:
+        metadata = self._read_metadata(filepath)
+        return int(metadata[&#34;Binning&#34;])
+
+    def _read_metadata(self, filepath: str) -&gt; dict:
+        &#34;&#34;&#34;
+        Reads metaspool text file into a metadata dictionary.
+        Filepath argument is the filepath of the (binary) dataset.
+        &#34;&#34;&#34;
+        with open(filepath + &#34;_metaSpool.txt&#34;, &#34;r&#34;, encoding=&#34;utf-8&#34;) as fid:
+            # skip the sweep list (freqs or taus)
+            _ = fid.readline().rstrip().split(&#34;\t&#34;)
+            # ok now read the metadata
+            rest_str = fid.read()
+            # any text except newlines and tabs, followed by a colon and a space
+            # then any text except newlines and tabs
+            # (match the two text regions)
+            matches = re.findall(
+                # r&#34;^([a-zA-Z0-9_ /+()#-]+):([a-zA-Z0-9_ /+()#-]+)&#34;,
+                r&#34;([^\t\n]+):\s([^\t\n]+)&#34;,
+                rest_str,
+                re.MULTILINE,
+            )
+
+            def fail_float(a):
+                try:
+                    return float(a)
+                except ValueError:
+                    if a == &#34;FALSE&#34;:
+                        return False
+                    if a == &#34;TRUE&#34;:
+                        return True
+                    return a
+
+            metadata = {a: fail_float(b) for (a, b) in matches}
+        return metadata
+
+    def _reshape_raw(
+        self,
+        raw_data: npt.NDArray[np.float32],
+        sweep_len: int,
+        filepath: str,
+        ignore_ref: bool,
+    ) -&gt; tuple[npt.NDArray[np.float64], bool]:
+        &#34;&#34;&#34;
+        Reshapes raw data into more useful shape, according to image size in metadata.
+        Unimelb-specific data reshaping procedure (relies upon metadata)
+
+        Arguments
+        ---------
+        raw_data : np array, 1D (unshaped)
+            Raw unshaped data read from binary file
+        sweep_len : int
+            Length of sweep list
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+        ignore_ref : bool
+            Ignore any reference measurements. (i.e. no-RF lock-in)
+
+        Returns
+        -------
+        image : np array, 3D
+            Format: [sweep values, y, x]. Has not been seperated into sig/ref etc. and
+            has not been rebinned. Unwanted sweep values not removed.
+        used_ref : bool
+            Was a reference (e.g. no-MW measurement) loaded?
+        &#34;&#34;&#34;
+
+        metadata = self._read_metadata(filepath)
+
+        # NOTE AOIHeight and AOIWidth are saved by labview the opposite
+        #  of what you&#39;d expect
+        # -&gt; LV rotates to give image as you&#39;d expect standing in lab
+        # -&gt; thus, we ensure all images in this processing code matches LV orientation
+        try:
+            if not ignore_ref:
+                image = np.reshape(
+                    raw_data,
+                    [
+                        sweep_len,
+                        int(metadata[&#34;AOIHeight&#34;]),
+                        int(metadata[&#34;AOIWidth&#34;]),
+                    ],
+                )
+                used_ref = False  # if we succeed here there&#39;s no ref
+            else:
+                raise ValueError
+        except ValueError:
+            # if the ref is used then there&#39;s 2* the number of sweeps
+            # i.e. auto-detect reference existence
+            if ignore_ref:
+                used_ref = False
+                image = np.reshape(
+                    raw_data,
+                    [
+                        2 * sweep_len,
+                        int(metadata[&#34;AOIHeight&#34;]),
+                        int(metadata[&#34;AOIWidth&#34;]),
+                    ],
+                )[
+                    ::2
+                ]  # hmmm disregard ref -&gt; use every second element.
+            else:
+                image = np.reshape(
+                    raw_data,
+                    [
+                        sweep_len,
+                        int(metadata[&#34;AOIHeight&#34;]),
+                        int(metadata[&#34;AOIWidth&#34;]),
+                    ],
+                )
+                used_ref = True
+        # Transpose the dataset to get the correct x and y orientations ([y, x])
+        # will work for non-square images
+        return image.transpose([0, 2, 1]).astype(np.float64), used_ref
+
+    def get_bias_field(
+        self, filepath: str
+    ) -&gt; tuple[bool, tuple[float | None, float | None, float | None]]:
+        &#34;&#34;&#34;get bias on (bool) and field as tuple (mag (G), theta (rad), phi (rad))&#34;&#34;&#34;
+        metadata = self._read_metadata(filepath)
+
+        key_ars = [
+            [&#34;Field Strength (G)&#34;],
+            [&#34;Theta (deg)&#34;],
+            [&#34;Phi (def)&#34;, &#34;Phi (deg)&#34;],
+        ]
+        bias_field = []
+        for arr in key_ars:
+            found = False
+            for key in arr:
+                if key in metadata:
+                    bias_field.append(metadata[key])
+                    found = True
+            if not found:
+                return False, (None, None, None)
+        if len(bias_field) != 3:
+            dukit_warn(
+                f&#34;Found {len(bias_field)} bias field params in metadata, &#34;
+                + &#34;this shouldn&#39;t happen (expected 3).&#34;
+            )
+            return False, (None, None, None)
+        onoff_str = metadata.get(&#34;Mag on/off&#34;, &#34;&#34;)
+        bias_on = onoff_str == &#34; TRUE&#34;
+        return bias_on, (
+            bias_field[0] * 1e-4,  # convert G to T
+            radians(bias_field[1]),
+            radians(bias_field[2]),
+        )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></li>
+<li><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.Argus" href="#dukit.shared.systems.Argus">Argus</a></li>
+<li><a title="dukit.shared.systems.CryoWidefield" href="#dukit.shared.systems.CryoWidefield">CryoWidefield</a></li>
+<li><a title="dukit.shared.systems.LegacyArgus" href="#dukit.shared.systems.LegacyArgus">LegacyArgus</a></li>
+<li><a title="dukit.shared.systems.LegacyCryoWidefield" href="#dukit.shared.systems.LegacyCryoWidefield">LegacyCryoWidefield</a></li>
+<li><a title="dukit.shared.systems.Zyla" href="#dukit.shared.systems.Zyla">Zyla</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="dukit.shared.systems.LVControl.get_bias_field"><code class="name flex">
+<span>def <span class="ident">get_bias_field</span></span>(<span>self, filepath: str) -> tuple[bool, tuple[float | None, float | None, float | None]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>get bias on (bool) and field as tuple (mag (G), theta (rad), phi (rad))</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_bias_field(
+    self, filepath: str
+) -&gt; tuple[bool, tuple[float | None, float | None, float | None]]:
+    &#34;&#34;&#34;get bias on (bool) and field as tuple (mag (G), theta (rad), phi (rad))&#34;&#34;&#34;
+    metadata = self._read_metadata(filepath)
+
+    key_ars = [
+        [&#34;Field Strength (G)&#34;],
+        [&#34;Theta (deg)&#34;],
+        [&#34;Phi (def)&#34;, &#34;Phi (deg)&#34;],
+    ]
+    bias_field = []
+    for arr in key_ars:
+        found = False
+        for key in arr:
+            if key in metadata:
+                bias_field.append(metadata[key])
+                found = True
+        if not found:
+            return False, (None, None, None)
+    if len(bias_field) != 3:
+        dukit_warn(
+            f&#34;Found {len(bias_field)} bias field params in metadata, &#34;
+            + &#34;this shouldn&#39;t happen (expected 3).&#34;
+        )
+        return False, (None, None, None)
+    onoff_str = metadata.get(&#34;Mag on/off&#34;, &#34;&#34;)
+    bias_on = onoff_str == &#34; TRUE&#34;
+    return bias_on, (
+        bias_field[0] * 1e-4,  # convert G to T
+        radians(bias_field[1]),
+        radians(bias_field[2]),
+    )</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.MelbSystem.get_hardware_binning" href="#dukit.shared.systems.System.get_hardware_binning">get_hardware_binning</a></code></li>
+<li><code><a title="dukit.shared.systems.MelbSystem.get_raw_pixel_size" href="#dukit.shared.systems.System.get_raw_pixel_size">get_raw_pixel_size</a></code></li>
+<li><code><a title="dukit.shared.systems.MelbSystem.read_image" href="#dukit.shared.systems.System.read_image">read_image</a></code></li>
+<li><code><a title="dukit.shared.systems.MelbSystem.read_sweep_arr" href="#dukit.shared.systems.System.read_sweep_arr">read_sweep_arr</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.System.name" href="#dukit.shared.systems.System.name">name</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="dukit.shared.systems.LegacyArgus"><code class="flex name class">
+<span>class <span class="ident">LegacyArgus</span></span>
+<span>(</span><span>pixel_size: float | None = None, sensor_pixel_pitch: float | None = None, obj_mag: float | None = None, obj_ref_focal_length: float | None = None, camera_tube_lens: float | None = None, bias_mag: float | None = None, bias_theta: float | None = None, bias_phi: float | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>System for Argus with old binning convention</p>
+<p>Initialize the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>, optionally supply known bias field and override
+the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>-defined microscope distances/etc.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pixel_size</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Define pixel size manually. If set, below 4 params are disregarded.
+Either pixel_size or the below 4 must be defined either in init
+or hard-coded into System (sub-)class. Given in metres.</dd>
+<dt><strong><code>sensor_pixel_pitch</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Effective pixel 'size' at camera sensor. Given in metres.</dd>
+<dt><strong><code>obj_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnification of objective used. Usually you will supply an int.</dd>
+<dt><strong><code>obj_ref_focal_length</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Reference focal length from objective manufacturer (in metres).
+200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.</dd>
+<dt><strong><code>camera_tube_lens</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Tube lens length (m) used to focus light onto camera.</dd>
+<dt><strong><code>bias_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnitude of bias field (if known, else None) in Teslas.</dd>
+<dt><strong><code>bias_theta</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Polar angle (deg) of bias field.</dd>
+<dt><strong><code>bias_phi</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Azimuthal angle (deg) of bias field.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LegacyArgus(LVControl):
+    &#34;&#34;&#34;
+    System for Argus with old binning convention
+    &#34;&#34;&#34;
+
+    name = &#34;Legacy Argus&#34;
+    _obj_mag = 40
+    _obj_ref_focal_length = 200e-3
+    _camera_tube_lens = 300e-3
+    _sensor_pixel_pitch = 6.5e-6
+
+    def determine_binning(self, filepath: str):
+        &#34;&#34;&#34;Silly old binning convention -&gt; change when labview updated to new binning&#34;&#34;&#34;
+        bin_conversion = [1, 2, 3, 4, 8]
+        metadata = self._read_metadata(filepath)
+        return int(bin_conversion[metadata[&#34;Binning&#34;]])</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></li>
+<li><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></li>
+<li><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="dukit.shared.systems.LegacyArgus.determine_binning"><code class="name flex">
+<span>def <span class="ident">determine_binning</span></span>(<span>self, filepath: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Silly old binning convention -&gt; change when labview updated to new binning</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def determine_binning(self, filepath: str):
+    &#34;&#34;&#34;Silly old binning convention -&gt; change when labview updated to new binning&#34;&#34;&#34;
+    bin_conversion = [1, 2, 3, 4, 8]
+    metadata = self._read_metadata(filepath)
+    return int(bin_conversion[metadata[&#34;Binning&#34;]])</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.LVControl.get_bias_field" href="#dukit.shared.systems.LVControl.get_bias_field">get_bias_field</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.get_hardware_binning" href="#dukit.shared.systems.System.get_hardware_binning">get_hardware_binning</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.get_raw_pixel_size" href="#dukit.shared.systems.System.get_raw_pixel_size">get_raw_pixel_size</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.read_image" href="#dukit.shared.systems.System.read_image">read_image</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.read_sweep_arr" href="#dukit.shared.systems.System.read_sweep_arr">read_sweep_arr</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.System.name" href="#dukit.shared.systems.System.name">name</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="dukit.shared.systems.LegacyCryoWidefield"><code class="flex name class">
+<span>class <span class="ident">LegacyCryoWidefield</span></span>
+<span>(</span><span>pixel_size: float | None = None, sensor_pixel_pitch: float | None = None, obj_mag: float | None = None, obj_ref_focal_length: float | None = None, camera_tube_lens: float | None = None, bias_mag: float | None = None, bias_theta: float | None = None, bias_phi: float | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Specific system details for cryogenic (Attocube) widefield QDM.
+- Legacy binning version</p>
+<p>Initialize the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>, optionally supply known bias field and override
+the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>-defined microscope distances/etc.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pixel_size</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Define pixel size manually. If set, below 4 params are disregarded.
+Either pixel_size or the below 4 must be defined either in init
+or hard-coded into System (sub-)class. Given in metres.</dd>
+<dt><strong><code>sensor_pixel_pitch</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Effective pixel 'size' at camera sensor. Given in metres.</dd>
+<dt><strong><code>obj_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnification of objective used. Usually you will supply an int.</dd>
+<dt><strong><code>obj_ref_focal_length</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Reference focal length from objective manufacturer (in metres).
+200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.</dd>
+<dt><strong><code>camera_tube_lens</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Tube lens length (m) used to focus light onto camera.</dd>
+<dt><strong><code>bias_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnitude of bias field (if known, else None) in Teslas.</dd>
+<dt><strong><code>bias_theta</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Polar angle (deg) of bias field.</dd>
+<dt><strong><code>bias_phi</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Azimuthal angle (deg) of bias field.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LegacyCryoWidefield(LVControl):
+    &#34;&#34;&#34;
+    Specific system details for cryogenic (Attocube) widefield QDM.
+    - Legacy binning version
+    &#34;&#34;&#34;
+
+    name = &#34;Legacy Cryo Widefield&#34;
+    _pixel_size = 59.6e-9
+
+    def determine_binning(self, filepath: str):
+        &#34;&#34;&#34;silly old binning convention -&gt; change when labview updated to new binning&#34;&#34;&#34;
+        bin_conversion = [1, 2, 3, 4, 8]
+        metadata = self._read_metadata(filepath)
+        return bin_conversion[int(metadata[&#34;Binning&#34;])]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></li>
+<li><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></li>
+<li><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="dukit.shared.systems.LegacyCryoWidefield.determine_binning"><code class="name flex">
+<span>def <span class="ident">determine_binning</span></span>(<span>self, filepath: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>silly old binning convention -&gt; change when labview updated to new binning</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def determine_binning(self, filepath: str):
+    &#34;&#34;&#34;silly old binning convention -&gt; change when labview updated to new binning&#34;&#34;&#34;
+    bin_conversion = [1, 2, 3, 4, 8]
+    metadata = self._read_metadata(filepath)
+    return bin_conversion[int(metadata[&#34;Binning&#34;])]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.LVControl.get_bias_field" href="#dukit.shared.systems.LVControl.get_bias_field">get_bias_field</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.get_hardware_binning" href="#dukit.shared.systems.System.get_hardware_binning">get_hardware_binning</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.get_raw_pixel_size" href="#dukit.shared.systems.System.get_raw_pixel_size">get_raw_pixel_size</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.read_image" href="#dukit.shared.systems.System.read_image">read_image</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.read_sweep_arr" href="#dukit.shared.systems.System.read_sweep_arr">read_sweep_arr</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.System.name" href="#dukit.shared.systems.System.name">name</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="dukit.shared.systems.MelbSystem"><code class="flex name class">
+<span>class <span class="ident">MelbSystem</span></span>
+<span>(</span><span>pixel_size: float | None = None, sensor_pixel_pitch: float | None = None, obj_mag: float | None = None, obj_ref_focal_length: float | None = None, camera_tube_lens: float | None = None, bias_mag: float | None = None, bias_theta: float | None = None, bias_phi: float | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Some shared methods for melbourne systems.</p>
+<p>Initialize the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>, optionally supply known bias field and override
+the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>-defined microscope distances/etc.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pixel_size</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Define pixel size manually. If set, below 4 params are disregarded.
+Either pixel_size or the below 4 must be defined either in init
+or hard-coded into System (sub-)class. Given in metres.</dd>
+<dt><strong><code>sensor_pixel_pitch</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Effective pixel 'size' at camera sensor. Given in metres.</dd>
+<dt><strong><code>obj_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnification of objective used. Usually you will supply an int.</dd>
+<dt><strong><code>obj_ref_focal_length</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Reference focal length from objective manufacturer (in metres).
+200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.</dd>
+<dt><strong><code>camera_tube_lens</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Tube lens length (m) used to focus light onto camera.</dd>
+<dt><strong><code>bias_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnitude of bias field (if known, else None) in Teslas.</dd>
+<dt><strong><code>bias_theta</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Polar angle (deg) of bias field.</dd>
+<dt><strong><code>bias_phi</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Azimuthal angle (deg) of bias field.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MelbSystem(System):
+    &#34;&#34;&#34;Some shared methods for melbourne systems.&#34;&#34;&#34;
+
+    name = &#34;Unknown Melbourne System&#34;
+
+    @staticmethod
+    def _chop_into_sig_ref(
+        img: npt.NDArray[np.float64], used_ref: bool, norm: str
+    ) -&gt; tuple[
+        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+    ]:
+        if norm not in [&#34;div&#34;, &#34;sub&#34;, &#34;true_sub&#34;]:
+            raise ValueError(&#34;bad norm option, use one of [&#39;sub&#39;, &#39;div&#39;, &#39;true_sub&#39;]&#34;)
+        # now chop up into sig, ref &amp; normalise
+        if used_ref:
+            sig = img[::2, :, :]
+            ref = img[1::2, :, :]
+            if norm == &#34;sub&#34;:
+                sig_norm = 1 + (sig - ref) / (sig + ref)
+            elif norm == &#34;div&#34;:
+                sig_norm = sig / ref
+            else:
+                sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=0)
+        else:
+            sig = img
+            ref = img
+            sig_norm = sig / np.nanmax(sig, axis=0)
+        return sig, ref, sig_norm</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></li>
+<li><a title="dukit.shared.systems.PyControl" href="#dukit.shared.systems.PyControl">PyControl</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.System.get_bias_field" href="#dukit.shared.systems.System.get_bias_field">get_bias_field</a></code></li>
+<li><code><a title="dukit.shared.systems.System.get_hardware_binning" href="#dukit.shared.systems.System.get_hardware_binning">get_hardware_binning</a></code></li>
+<li><code><a title="dukit.shared.systems.System.get_raw_pixel_size" href="#dukit.shared.systems.System.get_raw_pixel_size">get_raw_pixel_size</a></code></li>
+<li><code><a title="dukit.shared.systems.System.name" href="#dukit.shared.systems.System.name">name</a></code></li>
+<li><code><a title="dukit.shared.systems.System.read_image" href="#dukit.shared.systems.System.read_image">read_image</a></code></li>
+<li><code><a title="dukit.shared.systems.System.read_sweep_arr" href="#dukit.shared.systems.System.read_sweep_arr">read_sweep_arr</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="dukit.shared.systems.PyControl"><code class="flex name class">
+<span>class <span class="ident">PyControl</span></span>
+<span>(</span><span>pixel_size: float | None = None, sensor_pixel_pitch: float | None = None, obj_mag: float | None = None, obj_ref_focal_length: float | None = None, camera_tube_lens: float | None = None, bias_mag: float | None = None, bias_theta: float | None = None, bias_phi: float | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Newer systems, using python control software -&gt; new API</p>
+<p>Initialize the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>, optionally supply known bias field and override
+the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>-defined microscope distances/etc.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pixel_size</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Define pixel size manually. If set, below 4 params are disregarded.
+Either pixel_size or the below 4 must be defined either in init
+or hard-coded into System (sub-)class. Given in metres.</dd>
+<dt><strong><code>sensor_pixel_pitch</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Effective pixel 'size' at camera sensor. Given in metres.</dd>
+<dt><strong><code>obj_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnification of objective used. Usually you will supply an int.</dd>
+<dt><strong><code>obj_ref_focal_length</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Reference focal length from objective manufacturer (in metres).
+200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.</dd>
+<dt><strong><code>camera_tube_lens</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Tube lens length (m) used to focus light onto camera.</dd>
+<dt><strong><code>bias_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnitude of bias field (if known, else None) in Teslas.</dd>
+<dt><strong><code>bias_theta</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Polar angle (deg) of bias field.</dd>
+<dt><strong><code>bias_phi</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Azimuthal angle (deg) of bias field.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PyControl(MelbSystem):
+    &#34;&#34;&#34;Newer systems, using python control software -&gt; new API&#34;&#34;&#34;
+
+    name = &#34;Unknown Python controlled System&#34;
+
+    def read_image(
+        self, filepath: str, ignore_ref: bool = False, norm: str = &#34;div&#34;
+    ) -&gt; tuple[
+        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+    ]:
+        if norm not in [&#34;div&#34;, &#34;sub&#34;, &#34;true_sub&#34;]:
+            raise ValueError(&#34;bad norm option, use one of [&#39;sub&#39;, &#39;div&#39;, &#39;true_sub&#39;]&#34;)
+
+        image = np.load(filepath + &#34;.npy&#34;)
+        if ignore_ref and self._read_metadata(filepath)[&#34;Measurement&#34;][&#34;ref_bool&#34;]:
+            return self._chop_into_sig_ref(image[::2], False, norm)
+        if not self._read_metadata(filepath)[&#34;Measurement&#34;][&#34;ref_bool&#34;]:
+            return self._chop_into_sig_ref(image, False, norm)
+        return self._chop_into_sig_ref(image, True, norm)
+
+    def read_sweep_arr(self, filepath: str) -&gt; npt.NDArray[np.float64]:
+        return np.ndarray(
+            json_to_dict(filepath + &#34;.json&#34;)[&#34;freq_list&#34;],
+            dtype=np.float64,
+        )  # TODO name won&#39;t work for tau sweeps
+
+    def get_hardware_binning(self, filepath: str) -&gt; int:
+        metadata = self._read_metadata(filepath)
+
+        binning = metadata[&#34;Devices&#34;][&#34;camera&#34;][&#34;bin&#34;]
+        if binning[0] != binning[1]:
+            raise ValueError(&#34;dukit not setup to handle anisotropic binning.&#34;)
+        return int(binning[0])
+
+    def _read_metadata(self, filepath: str):
+        &#34;&#34;&#34;
+        Reads metaspool text file into a metadata dictionary.
+        Filepath argument is the filepath of the (binary) dataset.
+        &#34;&#34;&#34;
+        return json_to_dict(filepath + &#34;_metadata.json&#34;, hook=&#34;dd&#34;)
+
+    def get_bias_field(
+        self, filepath: str
+    ) -&gt; tuple[bool, tuple[float | None, float | None, float | None]]:
+        &#34;&#34;&#34;get bias on (bool) and field as tuple (mag (G), theta (rad), phi (rad))&#34;&#34;&#34;
+        metadata = self._read_metadata(filepath)
+        keys = [
+            &#34;bnorm&#34;,  # update with units?
+            &#34;theta&#34;,
+            &#34;phi&#34;,
+        ]
+        bias_field = []
+        for key in keys:
+            if key in metadata[&#34;Devices&#34;][&#34;null&#34;]:
+                bias_field.append(metadata[&#34;Devices&#34;][&#34;null&#34;][key])
+            else:
+                return False, (None, None, None)
+        if len(bias_field) != 3:
+            dukit_warn(
+                f&#34;Found {len(bias_field)} bias field params in metadata, &#34;
+                + &#34;this shouldn&#39;t happen (expected 3).&#34;
+            )
+            return False, (None, None, None)
+
+        return True, (
+            bias_field[0] / 1000,  # convert mT to T
+            radians(bias_field[1]),
+            radians(bias_field[2]),
+        )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></li>
+<li><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.PyCryoWidefield" href="#dukit.shared.systems.PyCryoWidefield">PyCryoWidefield</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="dukit.shared.systems.PyControl.get_bias_field"><code class="name flex">
+<span>def <span class="ident">get_bias_field</span></span>(<span>self, filepath: str) -> tuple[bool, tuple[float | None, float | None, float | None]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>get bias on (bool) and field as tuple (mag (G), theta (rad), phi (rad))</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_bias_field(
+    self, filepath: str
+) -&gt; tuple[bool, tuple[float | None, float | None, float | None]]:
+    &#34;&#34;&#34;get bias on (bool) and field as tuple (mag (G), theta (rad), phi (rad))&#34;&#34;&#34;
+    metadata = self._read_metadata(filepath)
+    keys = [
+        &#34;bnorm&#34;,  # update with units?
+        &#34;theta&#34;,
+        &#34;phi&#34;,
+    ]
+    bias_field = []
+    for key in keys:
+        if key in metadata[&#34;Devices&#34;][&#34;null&#34;]:
+            bias_field.append(metadata[&#34;Devices&#34;][&#34;null&#34;][key])
+        else:
+            return False, (None, None, None)
+    if len(bias_field) != 3:
+        dukit_warn(
+            f&#34;Found {len(bias_field)} bias field params in metadata, &#34;
+            + &#34;this shouldn&#39;t happen (expected 3).&#34;
+        )
+        return False, (None, None, None)
+
+    return True, (
+        bias_field[0] / 1000,  # convert mT to T
+        radians(bias_field[1]),
+        radians(bias_field[2]),
+    )</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.MelbSystem.get_hardware_binning" href="#dukit.shared.systems.System.get_hardware_binning">get_hardware_binning</a></code></li>
+<li><code><a title="dukit.shared.systems.MelbSystem.get_raw_pixel_size" href="#dukit.shared.systems.System.get_raw_pixel_size">get_raw_pixel_size</a></code></li>
+<li><code><a title="dukit.shared.systems.MelbSystem.read_image" href="#dukit.shared.systems.System.read_image">read_image</a></code></li>
+<li><code><a title="dukit.shared.systems.MelbSystem.read_sweep_arr" href="#dukit.shared.systems.System.read_sweep_arr">read_sweep_arr</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.System.name" href="#dukit.shared.systems.System.name">name</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="dukit.shared.systems.PyCryoWidefield"><code class="flex name class">
+<span>class <span class="ident">PyCryoWidefield</span></span>
+<span>(</span><span>pixel_size: float | None = None, sensor_pixel_pitch: float | None = None, obj_mag: float | None = None, obj_ref_focal_length: float | None = None, camera_tube_lens: float | None = None, bias_mag: float | None = None, bias_theta: float | None = None, bias_phi: float | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Specific system details for Cryogenic (Attocube) widefield QDM.</p>
+<p>Initialize the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>, optionally supply known bias field and override
+the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>-defined microscope distances/etc.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pixel_size</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Define pixel size manually. If set, below 4 params are disregarded.
+Either pixel_size or the below 4 must be defined either in init
+or hard-coded into System (sub-)class. Given in metres.</dd>
+<dt><strong><code>sensor_pixel_pitch</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Effective pixel 'size' at camera sensor. Given in metres.</dd>
+<dt><strong><code>obj_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnification of objective used. Usually you will supply an int.</dd>
+<dt><strong><code>obj_ref_focal_length</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Reference focal length from objective manufacturer (in metres).
+200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.</dd>
+<dt><strong><code>camera_tube_lens</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Tube lens length (m) used to focus light onto camera.</dd>
+<dt><strong><code>bias_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnitude of bias field (if known, else None) in Teslas.</dd>
+<dt><strong><code>bias_theta</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Polar angle (deg) of bias field.</dd>
+<dt><strong><code>bias_phi</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Azimuthal angle (deg) of bias field.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PyCryoWidefield(PyControl):
+    &#34;&#34;&#34;
+    Specific system details for Cryogenic (Attocube) widefield QDM.
+    &#34;&#34;&#34;
+
+    name = &#34;Py Cryo Widefield&#34;
+    _pixel_size = 59.6e-9</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.PyControl" href="#dukit.shared.systems.PyControl">PyControl</a></li>
+<li><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></li>
+<li><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.shared.systems.PyControl" href="#dukit.shared.systems.PyControl">PyControl</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.PyControl.get_bias_field" href="#dukit.shared.systems.PyControl.get_bias_field">get_bias_field</a></code></li>
+<li><code><a title="dukit.shared.systems.PyControl.get_hardware_binning" href="#dukit.shared.systems.System.get_hardware_binning">get_hardware_binning</a></code></li>
+<li><code><a title="dukit.shared.systems.PyControl.get_raw_pixel_size" href="#dukit.shared.systems.System.get_raw_pixel_size">get_raw_pixel_size</a></code></li>
+<li><code><a title="dukit.shared.systems.PyControl.read_image" href="#dukit.shared.systems.System.read_image">read_image</a></code></li>
+<li><code><a title="dukit.shared.systems.PyControl.read_sweep_arr" href="#dukit.shared.systems.System.read_sweep_arr">read_sweep_arr</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.System.name" href="#dukit.shared.systems.System.name">name</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="dukit.shared.systems.System"><code class="flex name class">
+<span>class <span class="ident">System</span></span>
+<span>(</span><span>pixel_size: float | None = None, sensor_pixel_pitch: float | None = None, obj_mag: float | None = None, obj_ref_focal_length: float | None = None, camera_tube_lens: float | None = None, bias_mag: float | None = None, bias_theta: float | None = None, bias_phi: float | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Abstract class defining what is expected for a system.</p>
+<p>Initialize the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>, optionally supply known bias field and override
+the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>-defined microscope distances/etc.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pixel_size</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Define pixel size manually. If set, below 4 params are disregarded.
+Either pixel_size or the below 4 must be defined either in init
+or hard-coded into System (sub-)class. Given in metres.</dd>
+<dt><strong><code>sensor_pixel_pitch</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Effective pixel 'size' at camera sensor. Given in metres.</dd>
+<dt><strong><code>obj_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnification of objective used. Usually you will supply an int.</dd>
+<dt><strong><code>obj_ref_focal_length</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Reference focal length from objective manufacturer (in metres).
+200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.</dd>
+<dt><strong><code>camera_tube_lens</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Tube lens length (m) used to focus light onto camera.</dd>
+<dt><strong><code>bias_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnitude of bias field (if known, else None) in Teslas.</dd>
+<dt><strong><code>bias_theta</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Polar angle (deg) of bias field.</dd>
+<dt><strong><code>bias_phi</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Azimuthal angle (deg) of bias field.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class System:
+    &#34;&#34;&#34;Abstract class defining what is expected for a system.&#34;&#34;&#34;
+
+    name: str = &#34;Unknown System&#34;
+    &#34;&#34;&#34;Name of the system.&#34;&#34;&#34;
+
+    _pixel_size: float | None = None
+    &#34;&#34;&#34;Specified pixel size (m) (float). 
+    If None then obj mag etc. attributes are used to calc. pixel size instead.
+    Either _pixel_size or those attributes must be set!
+    &#34;&#34;&#34;
+
+    _sensor_pixel_pitch: float = -1.0
+    &#34;&#34;&#34;Pixel size (m) at camera
+    &#34;&#34;&#34;
+
+    _obj_mag: float = -1.0
+    &#34;&#34;&#34;Magnification of objective lens (in general a float).
+    &#34;&#34;&#34;
+
+    _obj_ref_focal_length: float = -1.0
+    &#34;&#34;&#34;Reference focal length for objective manufacturer (m). (float).
+    200e-3 for Nikon or Leica.
+    For Olympus use 180e-3, for Zeiss 165e-3.
+    &#34;&#34;&#34;
+
+    _camera_tube_lens: float = -1.0
+    &#34;&#34;&#34;Tube lens that focuses collimated beam from sample onto the camera.
+    A float length in metres.
+    &#34;&#34;&#34;
+
+    _bias_mag: float | None = None
+    &#34;&#34;&#34;Bias magnetic field strength (T).&#34;&#34;&#34;
+    _bias_theta: float | None = None
+    &#34;&#34;&#34;Bias magnetic field polar angle (deg).&#34;&#34;&#34;
+    _bias_phi: float | None = None
+    &#34;&#34;&#34;Bias magnetic field azimuthal angle (deg).&#34;&#34;&#34;
+
+    def __init__(
+        self,
+        pixel_size: float | None = None,
+        sensor_pixel_pitch: float | None = None,
+        obj_mag: float | None = None,
+        obj_ref_focal_length: float | None = None,
+        camera_tube_lens: float | None = None,
+        bias_mag: float | None = None,
+        bias_theta: float | None = None,
+        bias_phi: float | None = None,
+    ):
+        &#34;&#34;&#34;
+        Initialize the `System`, optionally supply known bias field and override
+        the `System`-defined microscope distances/etc.
+
+        Parameters
+        ----------
+        pixel_size: float | None, default=None
+            Define pixel size manually. If set, below 4 params are disregarded.
+            Either pixel_size or the below 4 must be defined either in init
+            or hard-coded into System (sub-)class. Given in metres.
+        sensor_pixel_pitch: float | None, default=None
+            Effective pixel &#39;size&#39; at camera sensor. Given in metres.
+        obj_mag: float | None, default=None
+            Magnification of objective used. Usually you will supply an int.
+        obj_ref_focal_length: float | None, default=None
+            Reference focal length from objective manufacturer (in metres).
+            200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.
+        camera_tube_lens: float | None, default=None
+            Tube lens length (m) used to focus light onto camera.
+        bias_mag: float | None, default=None
+            Magnitude of bias field (if known, else None) in Teslas.
+        bias_theta: float | None, default=None
+            Polar angle (deg) of bias field.
+        bias_phi: float | None, default=None
+            Azimuthal angle (deg) of bias field.
+        &#34;&#34;&#34;
+        for att, param in zip(
+            [
+                &#34;_pixel_size&#34;,
+                &#34;_sensor_pixel_pitch&#34;,
+                &#34;_obj_mag&#34;,
+                &#34;_obj_ref_focal_length&#34;,
+                &#34;_camera_tube_lens&#34;,
+                &#34;_bias_mag&#34;,
+                &#34;_bias_theta&#34;,
+                &#34;_bias_phi&#34;,
+            ],
+            [
+                pixel_size,
+                sensor_pixel_pitch,
+                obj_mag,
+                obj_ref_focal_length,
+                camera_tube_lens,
+                bias_mag,
+                bias_theta,
+                bias_phi,
+            ],
+        ):
+            if param is not None:
+                setattr(self, att, param)
+            # check we have sufficient info to calculate pixel size.
+            if self._pixel_size is not None and np.all(
+                [
+                    i &lt; 0
+                    for i in [
+                        self._sensor_pixel_pitch,
+                        self._obj_mag,
+                        self._obj_ref_focal_length,
+                        self._camera_tube_lens,
+                    ]
+                ]
+            ):
+                raise ValueError(
+                    &#34;System must have a pixel_size defined, or all of: &#34;
+                    + &#34;sensor_pixel_pitch, obj_mag, obj_ref_focal_length, &#34;
+                    + &#34;camera_tube_lens.&#34;
+                )
+
+    def read_image(
+        self, filepath: str, ignore_ref: bool, norm: str = &#34;div&#34;
+    ) -&gt; tuple[
+        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+    ]:
+        &#34;&#34;&#34;
+        Method that must be defined to read raw data in from filepath.
+
+        Parameters
+        ----------
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+        ignore_ref : bool
+            Ignore any reference measurements. (i.e. no-RF lock-in)
+        norm : str
+            Normalisation method. &#34;div&#34;, &#34;sub&#34; or &#34;true_sub&#34;. (latter for T1 datasets)
+
+        Returns
+        -------
+        sig : np array, 3D
+            Format: [sweep values, y, x]. Not cropped etc.
+        ref : np array, 3D
+            Format: [sweep values, y, x]. Not cropped etc.
+        sig_norm : np array, 3D
+            Format: [sweep values, y, x]. Not cropped etc.
+
+        Notes
+        -----
+        if norm == &#34;sub&#34;:
+            sig_norm = 1 + (sig - ref) / (sig + ref)
+        elif norm == &#34;div&#34;:
+            sig_norm = sig / ref
+        elif norm == &#34;true_sub&#34;:
+            sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=0)
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_hardware_binning(self, filepath: str) -&gt; int:
+        &#34;&#34;&#34;
+        Method that must be defined to define the camera binning from metadata
+
+        Arguments
+        ---------
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+    def read_sweep_arr(self, filepath: str) -&gt; npt.NDArray[np.float64]:
+        &#34;&#34;&#34;
+        Method that must be defined to read sweep_arr in from filepath.
+
+        Arguments
+        ---------
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+
+        Returns
+        -------
+        sweep_arr : np array, 1D
+            List of sweep value, either freq (MHz) or taus (s).
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_raw_pixel_size(self, filepath: str) -&gt; float:
+        &#34;&#34;&#34;
+        Get raw (from camera, without additional binning) pixel size.
+
+        Arguments
+        ---------
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+        &#34;&#34;&#34;
+
+        hardware_binning = self.get_hardware_binning(filepath)
+
+        if self._pixel_size is not None:
+            return hardware_binning * self._pixel_size
+
+        f_obj = self._obj_ref_focal_length / self._obj_mag
+
+        camera_pixel_size = self._sensor_pixel_pitch * f_obj / self._camera_tube_lens
+
+        return hardware_binning * camera_pixel_size
+
+    def get_bias_field(
+        self, filepath: str
+    ) -&gt; tuple[bool, tuple[float | None, float | None, float | None]]:
+        &#34;&#34;&#34;
+        Method to get magnet bias field from experiment metadata,
+        i.e. if set with programmable electromagnet. Default: False, (None, None, None).
+
+        Arguments
+        ---------
+        filepath : str or Pathlib etc. object
+            Path to measurement file
+
+        Returns
+        -------
+        bias_on : bool
+            Was programmable bias field used?
+        bias_field : tuple
+            Tuple representing vector bias field
+                (B_mag (Tesla), B_theta (rad), B_phi (rad))
+        &#34;&#34;&#34;
+        return False, (
+            self._bias_mag,
+            radians(self._bias_theta) if self._bias_theta is not None else None,
+            radians(self._bias_phi) if self._bias_phi is not None else None,
+        )</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="dukit.shared.systems.System.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Name of the system.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="dukit.shared.systems.System.get_bias_field"><code class="name flex">
+<span>def <span class="ident">get_bias_field</span></span>(<span>self, filepath: str) -> tuple[bool, tuple[float | None, float | None, float | None]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to get magnet bias field from experiment metadata,
+i.e. if set with programmable electromagnet. Default: False, (None, None, None).</p>
+<h2 id="arguments">Arguments</h2>
+<dl>
+<dt><strong><code>filepath</code></strong> :&ensp;<code>str</code> or <code>Pathlib etc. object</code></dt>
+<dd>Path to measurement file</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bias_on</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Was programmable bias field used?</dd>
+<dt><strong><code>bias_field</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>Tuple representing vector bias field
+(B_mag (Tesla), B_theta (rad), B_phi (rad))</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_bias_field(
+    self, filepath: str
+) -&gt; tuple[bool, tuple[float | None, float | None, float | None]]:
+    &#34;&#34;&#34;
+    Method to get magnet bias field from experiment metadata,
+    i.e. if set with programmable electromagnet. Default: False, (None, None, None).
+
+    Arguments
+    ---------
+    filepath : str or Pathlib etc. object
+        Path to measurement file
+
+    Returns
+    -------
+    bias_on : bool
+        Was programmable bias field used?
+    bias_field : tuple
+        Tuple representing vector bias field
+            (B_mag (Tesla), B_theta (rad), B_phi (rad))
+    &#34;&#34;&#34;
+    return False, (
+        self._bias_mag,
+        radians(self._bias_theta) if self._bias_theta is not None else None,
+        radians(self._bias_phi) if self._bias_phi is not None else None,
+    )</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.systems.System.get_hardware_binning"><code class="name flex">
+<span>def <span class="ident">get_hardware_binning</span></span>(<span>self, filepath: str) -> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method that must be defined to define the camera binning from metadata</p>
+<h2 id="arguments">Arguments</h2>
+<dl>
+<dt><strong><code>filepath</code></strong> :&ensp;<code>str</code> or <code>Pathlib etc. object</code></dt>
+<dd>Path to measurement file</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_hardware_binning(self, filepath: str) -&gt; int:
+    &#34;&#34;&#34;
+    Method that must be defined to define the camera binning from metadata
+
+    Arguments
+    ---------
+    filepath : str or Pathlib etc. object
+        Path to measurement file
+    &#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.systems.System.get_raw_pixel_size"><code class="name flex">
+<span>def <span class="ident">get_raw_pixel_size</span></span>(<span>self, filepath: str) -> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get raw (from camera, without additional binning) pixel size.</p>
+<h2 id="arguments">Arguments</h2>
+<dl>
+<dt><strong><code>filepath</code></strong> :&ensp;<code>str</code> or <code>Pathlib etc. object</code></dt>
+<dd>Path to measurement file</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_raw_pixel_size(self, filepath: str) -&gt; float:
+    &#34;&#34;&#34;
+    Get raw (from camera, without additional binning) pixel size.
+
+    Arguments
+    ---------
+    filepath : str or Pathlib etc. object
+        Path to measurement file
+    &#34;&#34;&#34;
+
+    hardware_binning = self.get_hardware_binning(filepath)
+
+    if self._pixel_size is not None:
+        return hardware_binning * self._pixel_size
+
+    f_obj = self._obj_ref_focal_length / self._obj_mag
+
+    camera_pixel_size = self._sensor_pixel_pitch * f_obj / self._camera_tube_lens
+
+    return hardware_binning * camera_pixel_size</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.systems.System.read_image"><code class="name flex">
+<span>def <span class="ident">read_image</span></span>(<span>self, filepath: str, ignore_ref: bool, norm: str = 'div') -> tuple[numpy.ndarray[typing.Any, numpy.dtype[numpy.float64]], numpy.ndarray[typing.Any, numpy.dtype[numpy.float64]], numpy.ndarray[typing.Any, numpy.dtype[numpy.float64]]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method that must be defined to read raw data in from filepath.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>filepath</code></strong> :&ensp;<code>str</code> or <code>Pathlib etc. object</code></dt>
+<dd>Path to measurement file</dd>
+<dt><strong><code>ignore_ref</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Ignore any reference measurements. (i.e. no-RF lock-in)</dd>
+<dt><strong><code>norm</code></strong> :&ensp;<code>str</code></dt>
+<dd>Normalisation method. "div", "sub" or "true_sub". (latter for T1 datasets)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>sig</code></strong> :&ensp;<code>np array, 3D</code></dt>
+<dd>Format: [sweep values, y, x]. Not cropped etc.</dd>
+<dt><strong><code>ref</code></strong> :&ensp;<code>np array, 3D</code></dt>
+<dd>Format: [sweep values, y, x]. Not cropped etc.</dd>
+<dt><strong><code>sig_norm</code></strong> :&ensp;<code>np array, 3D</code></dt>
+<dd>Format: [sweep values, y, x]. Not cropped etc.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>if norm == "sub":
+sig_norm = 1 + (sig - ref) / (sig + ref)
+elif norm == "div":
+sig_norm = sig / ref
+elif norm == "true_sub":
+sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=0)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_image(
+    self, filepath: str, ignore_ref: bool, norm: str = &#34;div&#34;
+) -&gt; tuple[
+    npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+]:
+    &#34;&#34;&#34;
+    Method that must be defined to read raw data in from filepath.
+
+    Parameters
+    ----------
+    filepath : str or Pathlib etc. object
+        Path to measurement file
+    ignore_ref : bool
+        Ignore any reference measurements. (i.e. no-RF lock-in)
+    norm : str
+        Normalisation method. &#34;div&#34;, &#34;sub&#34; or &#34;true_sub&#34;. (latter for T1 datasets)
+
+    Returns
+    -------
+    sig : np array, 3D
+        Format: [sweep values, y, x]. Not cropped etc.
+    ref : np array, 3D
+        Format: [sweep values, y, x]. Not cropped etc.
+    sig_norm : np array, 3D
+        Format: [sweep values, y, x]. Not cropped etc.
+
+    Notes
+    -----
+    if norm == &#34;sub&#34;:
+        sig_norm = 1 + (sig - ref) / (sig + ref)
+    elif norm == &#34;div&#34;:
+        sig_norm = sig / ref
+    elif norm == &#34;true_sub&#34;:
+        sig_norm = (sig - ref) / np.nanmax(sig - ref, axis=0)
+    &#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.systems.System.read_sweep_arr"><code class="name flex">
+<span>def <span class="ident">read_sweep_arr</span></span>(<span>self, filepath: str) -> numpy.ndarray[typing.Any, numpy.dtype[numpy.float64]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method that must be defined to read sweep_arr in from filepath.</p>
+<h2 id="arguments">Arguments</h2>
+<dl>
+<dt><strong><code>filepath</code></strong> :&ensp;<code>str</code> or <code>Pathlib etc. object</code></dt>
+<dd>Path to measurement file</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>sweep_arr</code></strong> :&ensp;<code>np array, 1D</code></dt>
+<dd>List of sweep value, either freq (MHz) or taus (s).</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_sweep_arr(self, filepath: str) -&gt; npt.NDArray[np.float64]:
+    &#34;&#34;&#34;
+    Method that must be defined to read sweep_arr in from filepath.
+
+    Arguments
+    ---------
+    filepath : str or Pathlib etc. object
+        Path to measurement file
+
+    Returns
+    -------
+    sweep_arr : np array, 1D
+        List of sweep value, either freq (MHz) or taus (s).
+    &#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="dukit.shared.systems.Zyla"><code class="flex name class">
+<span>class <span class="ident">Zyla</span></span>
+<span>(</span><span>pixel_size: float | None = None, sensor_pixel_pitch: float | None = None, obj_mag: float | None = None, obj_ref_focal_length: float | None = None, camera_tube_lens: float | None = None, bias_mag: float | None = None, bias_theta: float | None = None, bias_phi: float | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Specific system details for the Zyla QDM.</p>
+<p>Initialize the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>, optionally supply known bias field and override
+the <code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code>-defined microscope distances/etc.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pixel_size</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Define pixel size manually. If set, below 4 params are disregarded.
+Either pixel_size or the below 4 must be defined either in init
+or hard-coded into System (sub-)class. Given in metres.</dd>
+<dt><strong><code>sensor_pixel_pitch</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Effective pixel 'size' at camera sensor. Given in metres.</dd>
+<dt><strong><code>obj_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnification of objective used. Usually you will supply an int.</dd>
+<dt><strong><code>obj_ref_focal_length</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Reference focal length from objective manufacturer (in metres).
+200e-3 for Nikon or Leica. For Olympus use 180e-3, for Zeiss 165e-3.</dd>
+<dt><strong><code>camera_tube_lens</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Tube lens length (m) used to focus light onto camera.</dd>
+<dt><strong><code>bias_mag</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Magnitude of bias field (if known, else None) in Teslas.</dd>
+<dt><strong><code>bias_theta</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Polar angle (deg) of bias field.</dd>
+<dt><strong><code>bias_phi</code></strong> :&ensp;<code>float | None</code>, default=<code>None</code></dt>
+<dd>Azimuthal angle (deg) of bias field.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Zyla(LVControl):
+    &#34;&#34;&#34;
+    Specific system details for the Zyla QDM.
+    &#34;&#34;&#34;
+
+    name = &#34;Zyla&#34;
+    _obj_mag = 4
+    _obj_ref_focal_length = 200e-3
+    _camera_tube_lens = 300e-3
+    _sensor_pixel_pitch = 6.5e-6</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></li>
+<li><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></li>
+<li><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.LVControl.get_bias_field" href="#dukit.shared.systems.LVControl.get_bias_field">get_bias_field</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.get_hardware_binning" href="#dukit.shared.systems.System.get_hardware_binning">get_hardware_binning</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.get_raw_pixel_size" href="#dukit.shared.systems.System.get_raw_pixel_size">get_raw_pixel_size</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.read_image" href="#dukit.shared.systems.System.read_image">read_image</a></code></li>
+<li><code><a title="dukit.shared.systems.LVControl.read_sweep_arr" href="#dukit.shared.systems.System.read_sweep_arr">read_sweep_arr</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.shared.systems.System.name" href="#dukit.shared.systems.System.name">name</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#classes">Classes</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="dukit.shared" href="index.html">dukit.shared</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="dukit.shared.systems.Argus" href="#dukit.shared.systems.Argus">Argus</a></code></h4>
+</li>
+<li>
+<h4><code><a title="dukit.shared.systems.CryoWidefield" href="#dukit.shared.systems.CryoWidefield">CryoWidefield</a></code></h4>
+</li>
+<li>
+<h4><code><a title="dukit.shared.systems.LVControl" href="#dukit.shared.systems.LVControl">LVControl</a></code></h4>
+<ul class="">
+<li><code><a title="dukit.shared.systems.LVControl.get_bias_field" href="#dukit.shared.systems.LVControl.get_bias_field">get_bias_field</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dukit.shared.systems.LegacyArgus" href="#dukit.shared.systems.LegacyArgus">LegacyArgus</a></code></h4>
+<ul class="">
+<li><code><a title="dukit.shared.systems.LegacyArgus.determine_binning" href="#dukit.shared.systems.LegacyArgus.determine_binning">determine_binning</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dukit.shared.systems.LegacyCryoWidefield" href="#dukit.shared.systems.LegacyCryoWidefield">LegacyCryoWidefield</a></code></h4>
+<ul class="">
+<li><code><a title="dukit.shared.systems.LegacyCryoWidefield.determine_binning" href="#dukit.shared.systems.LegacyCryoWidefield.determine_binning">determine_binning</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dukit.shared.systems.MelbSystem" href="#dukit.shared.systems.MelbSystem">MelbSystem</a></code></h4>
+</li>
+<li>
+<h4><code><a title="dukit.shared.systems.PyControl" href="#dukit.shared.systems.PyControl">PyControl</a></code></h4>
+<ul class="">
+<li><code><a title="dukit.shared.systems.PyControl.get_bias_field" href="#dukit.shared.systems.PyControl.get_bias_field">get_bias_field</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dukit.shared.systems.PyCryoWidefield" href="#dukit.shared.systems.PyCryoWidefield">PyCryoWidefield</a></code></h4>
+</li>
+<li>
+<h4><code><a title="dukit.shared.systems.System" href="#dukit.shared.systems.System">System</a></code></h4>
+<ul class="">
+<li><code><a title="dukit.shared.systems.System.get_bias_field" href="#dukit.shared.systems.System.get_bias_field">get_bias_field</a></code></li>
+<li><code><a title="dukit.shared.systems.System.get_hardware_binning" href="#dukit.shared.systems.System.get_hardware_binning">get_hardware_binning</a></code></li>
+<li><code><a title="dukit.shared.systems.System.get_raw_pixel_size" href="#dukit.shared.systems.System.get_raw_pixel_size">get_raw_pixel_size</a></code></li>
+<li><code><a title="dukit.shared.systems.System.name" href="#dukit.shared.systems.System.name">name</a></code></li>
+<li><code><a title="dukit.shared.systems.System.read_image" href="#dukit.shared.systems.System.read_image">read_image</a></code></li>
+<li><code><a title="dukit.shared.systems.System.read_sweep_arr" href="#dukit.shared.systems.System.read_sweep_arr">read_sweep_arr</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dukit.shared.systems.Zyla" href="#dukit.shared.systems.Zyla">Zyla</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

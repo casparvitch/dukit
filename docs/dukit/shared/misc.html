@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>dukit.shared.misc API documentation</title>
+<meta name="description" content="Always lowest in import heirarchy" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML'></script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>dukit.shared.misc</code></h1>
+</header>
+<section id="section-intro">
+<p>Always lowest in import heirarchy</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#34;&#34;&#34;Always lowest in import heirarchy&#34;&#34;&#34;
+
+import warnings
+import numpy as np
+import numpy.typing as npt
+from scipy.ndimage import gaussian_filter
+import matplotlib as mpl
+
+from dukit.shared.rebin import rebin
+
+# ============================================================================
+
+DEFAULT_RCPARAMS = {
+            &#34;figure.constrained_layout.use&#34;: False,
+            &#34;figure.figsize&#34;: [6.4, 4.8],
+            &#34;figure.dpi&#34;: 80,
+            &#34;figure.max_open_warning&#34;: 30,
+            &#34;lines.linewidth&#34;: 0.8,
+            &#34;lines.markersize&#34; : 3,
+            &#34;xtick.labelsize&#34;: 10,
+            &#34;xtick.major.size&#34;: 4,
+            &#34;xtick.direction&#34;: &#34;in&#34;,
+            &#34;ytick.labelsize&#34; : 10,
+            &#34;ytick.direction&#34;: &#34;in&#34;,
+            &#34;ytick.major.size&#34;: 4,
+            &#34;legend.fontsize&#34;: &#34;small&#34;,
+            &#34;legend.loc&#34;: &#34;lower left&#34;,
+            &#34;scalebar.location&#34;: &#34;lower right&#34;,
+            &#34;scalebar.width_fraction&#34;: 0.015,
+            &#34;scalebar.box_alpha&#34;: 0.5,
+            &#34;scalebar.scale_loc&#34;: &#34;top&#34;,
+            &#34;scalebar.sep&#34;: 1,
+            &#34;axes.formatter.useoffset&#34;: False,
+            &#34;axes.formatter.use_mathtext&#34;: True,
+            &#34;errorbar.capsize&#34;: 3.0
+}
+&#34;&#34;&#34;Set of rcparams we&#39;ve casually decided are reasonable.&#34;&#34;&#34;
+
+# ============================================================================
+
+
+def dukit_warn(msg: str):
+    &#34;&#34;&#34;Throw a custom _DUKITWarning with message &#39;msg&#39;.&#34;&#34;&#34;
+    warnings.warn(msg, _DUKITWarning)
+
+
+class _DUKITWarning(Warning):
+    &#34;&#34;&#34;allows us to separate dukit warnings from those in other packages.&#34;&#34;&#34;
+
+
+# ============================================================================
+
+def mpl_run_config(default: bool=True, **kwargs):
+    &#34;&#34;&#34;
+    Set the matplotlib runtime configuration (rcparams).
+
+    Parameters
+    ----------
+    default : bool
+        Use dukit default rcparams?
+    kwargs
+        kwargs to pass to rcparams, see
+        https://matplotlib.org/stable/users/explain/customizing.html
+    &#34;&#34;&#34;
+    if default:
+        mpl.rcParams.update(DEFAULT_RCPARAMS)
+    else:
+        mpl.rcParams.update(**kwargs)
+
+# ============================================================================
+
+
+def crop_roi(
+    seq: npt.ArrayLike, start_x: int, start_y: int, end_x: int, end_y: int
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;
+
+    Parameters
+    ----------
+    seq : array-like
+        Image or image-stack you want to crop
+    start_x : int
+        Top left of crop, x idx (from left of image)
+        If -1 then set to edge.
+    start_y : int
+        Top left of crop, y idx (from top of image)
+        If -1 then set to edge.
+    end_x : int
+        Bottom right of crop, x idx (from left of image)
+        If -1 then set to edge.
+    end_y : int
+        Bottom right of crop, y idx (from top of image)
+        If -1 then set to edge.
+
+    Returns
+    -------
+    seq_cropped : np.ndarray
+        Image or image-stack cropped.
+    &#34;&#34;&#34;
+    seq = np.asarray(seq)
+    roi = _define_roi(seq, start_x, start_y, end_x, end_y)
+    if len(np.shape(seq)) == 2:
+        return seq[roi[0], roi[1]].copy()
+    return seq[:, roi[0], roi[1]]
+
+
+def _define_roi(
+    img: npt.ArrayLike, start_x: int, start_y: int, end_x: int, end_y: int
+) -&gt; tuple[npt.NDArray, npt.NDArray]:
+    &#34;&#34;&#34;
+    Returns
+    -------
+    roi : 2-tuple of ndarrays
+        Meshgrid that can be used to index into arrays,
+        e.g. sig[sweep_param, roi[0], roi[1]]
+    &#34;&#34;&#34;
+    try:
+        size_h, size_w = np.shape(img)[1:]
+    except ValueError:  # not enough values to unpack -&gt; 2d image not 3d
+        size_h, size_w = np.shape(img)
+    start_x, start_y, end_x, end_y = _check_start_end_rectangle(
+        start_x, start_y, end_x, end_y, size_w, size_h
+    )
+    return _define_area_roi(start_x, start_y, end_x, end_y)
+
+
+# ============================================================================
+
+
+def _define_area_roi(
+    start_x: int, start_y: int, end_x: int, end_y: int
+) -&gt; tuple[npt.NDArray, npt.NDArray]:
+    &#34;&#34;&#34;
+    Returns
+    -------
+    roi : 2-tuple of ndarrays
+        Meshgrid that can be used to index into arrays,
+        e.g. sig[sweep_param, roi[0], roi[1]]
+    &#34;&#34;&#34;
+    x: npt.NDArray = np.linspace(start_x, end_x, end_x - start_x + 1, dtype=int)
+    y: npt.NDArray = np.linspace(start_y, end_y, end_y - start_y + 1, dtype=int)
+    xv, yv = np.meshgrid(x, y)
+    return yv, xv
+
+
+# ============================================================================
+
+
+def _check_start_end_rectangle(
+    start_x: int,
+    start_y: int,
+    end_x: int,
+    end_y: int,
+    full_size_w: int,
+    full_size_h: int,
+) -&gt; tuple[int, int, int, int]:
+    &#34;&#34;&#34;Restricts roi params to be within image dimensions.&#34;&#34;&#34;
+    start_x = max(start_x, 0)
+    start_y = max(start_y, 0)
+    if end_x &lt; 0:
+        end_x = full_size_w - 1
+    if end_y &lt; 0:
+        end_y = full_size_h - 1
+    if start_x &gt;= end_x:
+        dukit_warn(
+            f&#34;Rectangle ends [{end_x}] before it starts [{start_x}] (in x), &#34;
+            + &#34;swapping them&#34;
+        )
+        start_x, end_x = end_x, start_x
+    if start_y &gt;= end_y:
+        dukit_warn(
+            f&#34;Rectangle ends [{end_y}] before it starts [{start_y}] (in y), &#34;
+            + &#34;swapping them&#34;
+        )
+        start_y, end_y = end_y, start_y
+    if start_x &gt;= full_size_w:
+        dukit_warn(
+            f&#34;Rectangle starts [{start_x}] outside image [{full_size_w}] &#34;
+            + &#34;(too large in x), setting to zero.&#34;
+        )
+        start_x = 0
+
+    if start_y &gt;= full_size_h:
+        dukit_warn(
+            f&#34;Rectangle starts outside [{start_y}] image [{full_size_h}] &#34;
+            + &#34;(too large in y), setting to zero.&#34;
+        )
+        start_y = 0
+
+    if end_x &gt;= full_size_w:
+        dukit_warn(
+            f&#34;Rectangle too big in x [{end_x}], cropping to image [{full_size_w}].\n&#34;
+        )
+        end_x = full_size_w - 1
+    if end_y &gt;= full_size_h:
+        dukit_warn(
+            f&#34;Rectangle too big in y [{end_y}], cropping to image [{full_size_h}].\n&#34;
+        )
+        end_y = full_size_h - 1
+
+    return start_x, start_y, end_x, end_y
+
+
+# ============================================================================
+
+
+def crop_sweep(
+    sweep_arr: npt.NDArray,
+    sig: npt.NDArray,
+    ref: npt.NDArray,
+    sig_norm: npt.NDArray,
+    rem_start=1,
+    rem_end=0,
+) -&gt; tuple[npt.NDArray, npt.NDArray, npt.NDArray, npt.NDArray]:
+    &#34;&#34;&#34;
+    Crop spectral dimension. Usually used to remove first one/few points of e.g. ODMR.
+
+    Parameters
+    ----------
+    sweep_arr, sig, ref, sig_norm : npdarray&#39;s
+        ndarrays to be cropped in spectral dimension. (sweep_arr only has spec dim).
+    rem_start, rem_end : int
+        How many pts to remove from start &amp; end of spectral dimension.
+
+    Returns
+    -------
+    sweep_arr, sig, ref, sig_norm : npdarray&#39;s
+        All as input, put with spectral dimension cropped to arr[rem_start:-rem_end]
+    &#34;&#34;&#34;
+    end = -rem_end if rem_end &gt; 0 else None
+
+    if rem_start &lt; 0:
+        dukit_warn(&#34;rem_start must be &gt;=0, setting to zero now.&#34;)
+        rem_start = 0
+    if rem_end &lt; 0:
+        dukit_warn(&#34;rem_end must be &gt;=0, setting to zero now.&#34;)
+        rem_end = 0
+
+    return (
+        sweep_arr[rem_start:end].copy(),
+        sig[rem_start:end].copy(),
+        ref[rem_start:end].copy(),
+        sig_norm[rem_start:end].copy(),
+    )
+
+
+# ============================================================================
+
+
+def smooth_image_stack(
+    stack: npt.NDArray, sigma: tuple[float, float] | float, truncate: float = 4.0
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;
+    Smooth image stack in spatial dimensions with gaussian.
+
+    Parameters
+    ----------
+    stack : ndarray
+    sigma : 2-tuple of floats or float
+        If float, then symmetric smoothing in each dim, otherwise tuple(x, y)
+    truncate : float, default=4.0
+        Truncate the filter at this many standard deviations.
+        See scipy.ndimage.gaussian_filter.
+
+    Returns
+    -------
+    smooth_stack : ndarray
+        Image stack smoothed in spatial dimensions.
+    &#34;&#34;&#34;
+    if isinstance(sigma, tuple):
+        return gaussian_filter(stack, sigma=(0, sigma[1], sigma[0]), truncate=truncate)
+    return gaussian_filter(stack, sigma=(0, sigma, sigma), truncate=truncate)
+
+
+# ============================================================================
+
+
+def rebin_image_stack(
+    stack: npt.NDArray, additional_bins: tuple[int, int] | int
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;
+    Rebin image stack in spatial dimensions.
+
+    Parameters
+    ----------
+    stack : ndarray
+    additional_bins : 2-tuple of ints, or int
+        Binning in-plane.  Make it a power of 2.
+        Binning in x then y if 2-tuple, else symmetric.
+
+    Returns
+    -------
+    smooth_stack : ndarray
+        Image stack smoothed in spatial dimensions.
+    &#34;&#34;&#34;
+    if not additional_bins:
+        return stack
+    if isinstance(additional_bins, tuple):
+        return rebin(
+            stack, factor=(1, additional_bins[1], additional_bins[0]), func=np.mean
+        )
+    return rebin(
+        stack,
+        factor=(1, additional_bins, additional_bins),
+        func=np.mean,
+    )</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-variables">Global variables</h2>
+<dl>
+<dt id="dukit.shared.misc.DEFAULT_RCPARAMS"><code class="name">var <span class="ident">DEFAULT_RCPARAMS</span></code></dt>
+<dd>
+<div class="desc"><p>Set of rcparams we've casually decided are reasonable.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="dukit.shared.misc.crop_roi"><code class="name flex">
+<span>def <span class="ident">crop_roi</span></span>(<span>seq: Union[numpy._typing._array_like._SupportsArray[numpy.dtype], numpy._typing._nested_sequence._NestedSequence[numpy._typing._array_like._SupportsArray[numpy.dtype]], bool, int, float, complex, str, bytes, numpy._typing._nested_sequence._NestedSequence[Union[bool, int, float, complex, str, bytes]]], start_x: int, start_y: int, end_x: int, end_y: int) -> numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]]</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>seq</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Image or image-stack you want to crop</dd>
+<dt><strong><code>start_x</code></strong> :&ensp;<code>int</code></dt>
+<dd>Top left of crop, x idx (from left of image)
+If -1 then set to edge.</dd>
+<dt><strong><code>start_y</code></strong> :&ensp;<code>int</code></dt>
+<dd>Top left of crop, y idx (from top of image)
+If -1 then set to edge.</dd>
+<dt><strong><code>end_x</code></strong> :&ensp;<code>int</code></dt>
+<dd>Bottom right of crop, x idx (from left of image)
+If -1 then set to edge.</dd>
+<dt><strong><code>end_y</code></strong> :&ensp;<code>int</code></dt>
+<dd>Bottom right of crop, y idx (from top of image)
+If -1 then set to edge.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>seq_cropped</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Image or image-stack cropped.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def crop_roi(
+    seq: npt.ArrayLike, start_x: int, start_y: int, end_x: int, end_y: int
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;
+
+    Parameters
+    ----------
+    seq : array-like
+        Image or image-stack you want to crop
+    start_x : int
+        Top left of crop, x idx (from left of image)
+        If -1 then set to edge.
+    start_y : int
+        Top left of crop, y idx (from top of image)
+        If -1 then set to edge.
+    end_x : int
+        Bottom right of crop, x idx (from left of image)
+        If -1 then set to edge.
+    end_y : int
+        Bottom right of crop, y idx (from top of image)
+        If -1 then set to edge.
+
+    Returns
+    -------
+    seq_cropped : np.ndarray
+        Image or image-stack cropped.
+    &#34;&#34;&#34;
+    seq = np.asarray(seq)
+    roi = _define_roi(seq, start_x, start_y, end_x, end_y)
+    if len(np.shape(seq)) == 2:
+        return seq[roi[0], roi[1]].copy()
+    return seq[:, roi[0], roi[1]]</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.misc.crop_sweep"><code class="name flex">
+<span>def <span class="ident">crop_sweep</span></span>(<span>sweep_arr: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], sig: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], ref: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], sig_norm: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], rem_start=1, rem_end=0) -> tuple[numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Crop spectral dimension. Usually used to remove first one/few points of e.g. ODMR.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>sweep_arr</code></strong>, <strong><code>sig</code></strong>, <strong><code>ref</code></strong>, <strong><code>sig_norm</code></strong> :&ensp;<code>npdarray's</code></dt>
+<dd>ndarrays to be cropped in spectral dimension. (sweep_arr only has spec dim).</dd>
+<dt><strong><code>rem_start</code></strong>, <strong><code>rem_end</code></strong> :&ensp;<code>int</code></dt>
+<dd>How many pts to remove from start &amp; end of spectral dimension.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>sweep_arr</code></strong>, <strong><code>sig</code></strong>, <strong><code>ref</code></strong>, <strong><code>sig_norm</code></strong> :&ensp;<code>npdarray's</code></dt>
+<dd>All as input, put with spectral dimension cropped to arr[rem_start:-rem_end]</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def crop_sweep(
+    sweep_arr: npt.NDArray,
+    sig: npt.NDArray,
+    ref: npt.NDArray,
+    sig_norm: npt.NDArray,
+    rem_start=1,
+    rem_end=0,
+) -&gt; tuple[npt.NDArray, npt.NDArray, npt.NDArray, npt.NDArray]:
+    &#34;&#34;&#34;
+    Crop spectral dimension. Usually used to remove first one/few points of e.g. ODMR.
+
+    Parameters
+    ----------
+    sweep_arr, sig, ref, sig_norm : npdarray&#39;s
+        ndarrays to be cropped in spectral dimension. (sweep_arr only has spec dim).
+    rem_start, rem_end : int
+        How many pts to remove from start &amp; end of spectral dimension.
+
+    Returns
+    -------
+    sweep_arr, sig, ref, sig_norm : npdarray&#39;s
+        All as input, put with spectral dimension cropped to arr[rem_start:-rem_end]
+    &#34;&#34;&#34;
+    end = -rem_end if rem_end &gt; 0 else None
+
+    if rem_start &lt; 0:
+        dukit_warn(&#34;rem_start must be &gt;=0, setting to zero now.&#34;)
+        rem_start = 0
+    if rem_end &lt; 0:
+        dukit_warn(&#34;rem_end must be &gt;=0, setting to zero now.&#34;)
+        rem_end = 0
+
+    return (
+        sweep_arr[rem_start:end].copy(),
+        sig[rem_start:end].copy(),
+        ref[rem_start:end].copy(),
+        sig_norm[rem_start:end].copy(),
+    )</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.misc.dukit_warn"><code class="name flex">
+<span>def <span class="ident">dukit_warn</span></span>(<span>msg: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Throw a custom _DUKITWarning with message 'msg'.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dukit_warn(msg: str):
+    &#34;&#34;&#34;Throw a custom _DUKITWarning with message &#39;msg&#39;.&#34;&#34;&#34;
+    warnings.warn(msg, _DUKITWarning)</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.misc.mpl_run_config"><code class="name flex">
+<span>def <span class="ident">mpl_run_config</span></span>(<span>default: bool = True, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the matplotlib runtime configuration (rcparams).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>default</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Use dukit default rcparams?</dd>
+<dt><strong><code>kwargs</code></strong></dt>
+<dd>kwargs to pass to rcparams, see
+<a href="https://matplotlib.org/stable/users/explain/customizing.html">https://matplotlib.org/stable/users/explain/customizing.html</a></dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mpl_run_config(default: bool=True, **kwargs):
+    &#34;&#34;&#34;
+    Set the matplotlib runtime configuration (rcparams).
+
+    Parameters
+    ----------
+    default : bool
+        Use dukit default rcparams?
+    kwargs
+        kwargs to pass to rcparams, see
+        https://matplotlib.org/stable/users/explain/customizing.html
+    &#34;&#34;&#34;
+    if default:
+        mpl.rcParams.update(DEFAULT_RCPARAMS)
+    else:
+        mpl.rcParams.update(**kwargs)</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.misc.rebin_image_stack"><code class="name flex">
+<span>def <span class="ident">rebin_image_stack</span></span>(<span>stack: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], additional_bins: tuple[int, int] | int) -> numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Rebin image stack in spatial dimensions.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>stack</code></strong> :&ensp;<code>ndarray</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>additional_bins</code></strong> :&ensp;<code>2-tuple</code> of <code>ints,</code> or <code>int</code></dt>
+<dd>Binning in-plane.
+Make it a power of 2.
+Binning in x then y if 2-tuple, else symmetric.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>smooth_stack</code></strong> :&ensp;<code>ndarray</code></dt>
+<dd>Image stack smoothed in spatial dimensions.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rebin_image_stack(
+    stack: npt.NDArray, additional_bins: tuple[int, int] | int
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;
+    Rebin image stack in spatial dimensions.
+
+    Parameters
+    ----------
+    stack : ndarray
+    additional_bins : 2-tuple of ints, or int
+        Binning in-plane.  Make it a power of 2.
+        Binning in x then y if 2-tuple, else symmetric.
+
+    Returns
+    -------
+    smooth_stack : ndarray
+        Image stack smoothed in spatial dimensions.
+    &#34;&#34;&#34;
+    if not additional_bins:
+        return stack
+    if isinstance(additional_bins, tuple):
+        return rebin(
+            stack, factor=(1, additional_bins[1], additional_bins[0]), func=np.mean
+        )
+    return rebin(
+        stack,
+        factor=(1, additional_bins, additional_bins),
+        func=np.mean,
+    )</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.misc.smooth_image_stack"><code class="name flex">
+<span>def <span class="ident">smooth_image_stack</span></span>(<span>stack: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], sigma: tuple[float, float] | float, truncate: float = 4.0) -> numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Smooth image stack in spatial dimensions with gaussian.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>stack</code></strong> :&ensp;<code>ndarray</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>sigma</code></strong> :&ensp;<code>2-tuple</code> of <code>floats</code> or <code>float</code></dt>
+<dd>If float, then symmetric smoothing in each dim, otherwise tuple(x, y)</dd>
+<dt><strong><code>truncate</code></strong> :&ensp;<code>float</code>, default=<code>4.0</code></dt>
+<dd>Truncate the filter at this many standard deviations.
+See scipy.ndimage.gaussian_filter.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>smooth_stack</code></strong> :&ensp;<code>ndarray</code></dt>
+<dd>Image stack smoothed in spatial dimensions.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def smooth_image_stack(
+    stack: npt.NDArray, sigma: tuple[float, float] | float, truncate: float = 4.0
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;
+    Smooth image stack in spatial dimensions with gaussian.
+
+    Parameters
+    ----------
+    stack : ndarray
+    sigma : 2-tuple of floats or float
+        If float, then symmetric smoothing in each dim, otherwise tuple(x, y)
+    truncate : float, default=4.0
+        Truncate the filter at this many standard deviations.
+        See scipy.ndimage.gaussian_filter.
+
+    Returns
+    -------
+    smooth_stack : ndarray
+        Image stack smoothed in spatial dimensions.
+    &#34;&#34;&#34;
+    if isinstance(sigma, tuple):
+        return gaussian_filter(stack, sigma=(0, sigma[1], sigma[0]), truncate=truncate)
+    return gaussian_filter(stack, sigma=(0, sigma, sigma), truncate=truncate)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="dukit.shared" href="index.html">dukit.shared</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-variables">Global variables</a></h3>
+<ul class="">
+<li><code><a title="dukit.shared.misc.DEFAULT_RCPARAMS" href="#dukit.shared.misc.DEFAULT_RCPARAMS">DEFAULT_RCPARAMS</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="dukit.shared.misc.crop_roi" href="#dukit.shared.misc.crop_roi">crop_roi</a></code></li>
+<li><code><a title="dukit.shared.misc.crop_sweep" href="#dukit.shared.misc.crop_sweep">crop_sweep</a></code></li>
+<li><code><a title="dukit.shared.misc.dukit_warn" href="#dukit.shared.misc.dukit_warn">dukit_warn</a></code></li>
+<li><code><a title="dukit.shared.misc.mpl_run_config" href="#dukit.shared.misc.mpl_run_config">mpl_run_config</a></code></li>
+<li><code><a title="dukit.shared.misc.rebin_image_stack" href="#dukit.shared.misc.rebin_image_stack">rebin_image_stack</a></code></li>
+<li><code><a title="dukit.shared.misc.smooth_image_stack" href="#dukit.shared.misc.smooth_image_stack">smooth_image_stack</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

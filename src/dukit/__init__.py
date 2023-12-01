@@ -8,6 +8,10 @@ lab at RMIT/UniMelb. For the lab control software see
 On this page we will document the API, for other information see the README.md,
 INSTALL.md and DEVDOCS.md, or click through the sub-package links below.
 
+[Docs here](https://casparvitch.github.io/dukit/dukit/index.html)
+
+[Repository here](https://github.com/casparvitch/dukit)
+
 # DUKIT Public API
 
 ### Systems (`dukit.systems`)

@@ -28,8 +28,7 @@ subclass - see dukit/systems.py for more information.
 
 # API documentation
 
-A full documentation of the API can be built with `doit docs` if you have pydoit
-installed, and/or see the docs folder for instructions.
+[Docs are here](https://casparvitch.github.io/dukit/dukit/index.html)
 
 # Normal usage
 

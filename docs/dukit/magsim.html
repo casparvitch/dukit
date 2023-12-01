@@ -1,0 +1,2806 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>dukit.magsim API documentation</title>
+<meta name="description" content="Interface to mag simulations …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>dukit.magsim</code></h1>
+</header>
+<section id="section-intro">
+<p>Interface to mag simulations.</p>
+<p>TODO needs documenting/cleaning
+Basically add some examples HERE of how to use this subpkg.</p>
+<p>Apologies for lack of type information, I don't understand everything
+sufficiently and it currently <em>just works</em>.</p>
+<h2 id="classes">Classes</h2>
+<ul>
+<li><code><a title="dukit.magsim.MagSim" href="#dukit.magsim.MagSim">MagSim</a></code></li>
+<li><code><a title="dukit.magsim.SandboxMagSim" href="#dukit.magsim.SandboxMagSim">SandboxMagSim</a></code></li>
+<li><code><a title="dukit.magsim.ComparisonMagSim" href="#dukit.magsim.ComparisonMagSim">ComparisonMagSim</a></code></li>
+</ul>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#34;&#34;&#34;Interface to mag simulations.
+
+TODO needs documenting/cleaning
+Basically add some examples HERE of how to use this subpkg.
+
+Apologies for lack of type information, I don&#39;t understand everything
+sufficiently and it currently *just works*.
+
+Classes
+-------
+ - `dukit.magsim.MagSim`
+ - `dukit.magsim.SandboxMagSim`
+ - `dukit.magsim.ComparisonMagSim`
+&#34;&#34;&#34;
+# ============================================================================
+
+__author__ = &#34;Sam Scholten&#34;
+__pdoc__ = {
+    &#34;dukit.magsim.MagSim&#34;: True,
+    &#34;dukit.magsim.SandboxMagSim&#34;: True,
+    &#34;dukit.magsim.ComparisonMagSim&#34;: True,
+}
+# ============================================================================
+
+from collections import defaultdict as dd
+from copy import copy
+import numpy as np
+import numpy.typing as npt
+import numpy.linalg as LA  # noqa: N812
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+from tqdm.autonotebook import tqdm
+
+import dill as pickle
+
+from pyfftw.interfaces import numpy_fft
+from scipy.ndimage import gaussian_filter
+
+# ============================================================================
+
+import dukit.itool
+import dukit.json2dict
+import dukit.polygon
+
+# ============================================================================
+
+
+class MagSim:
+    polygon_nodes = None
+    mag = None
+    template_polygon_nodes = None
+    bfield = None
+    standoff = None
+    magnetizations_lst = None
+    unit_vectors_lst = None
+    ny: int = 0
+    nx: int = 0
+    pixel_size: float = float(&#34;nan&#34;)
+    base_image: npt.NDArray  # 2D, needs to be defined by __init__
+
+    def _load_polys(self, polys, check_size=False):
+        &#34;&#34;&#34;polys: either path to json/pickle, or dict containing &#39;nodes&#39; key.&#34;&#34;&#34;
+        if polys is not None:
+            if isinstance(polys, dict):
+                if check_size and &#34;image_size&#34; in polys:
+                    if (
+                        self.ny != polys[&#34;image_size&#34;][0]
+                        or self.nx != polys[&#34;image_size&#34;][1]
+                    ):
+                        # TODO massage to match?
+                        raise RuntimeError(
+                            &#34;Image size polygons were defined on as passed to&#34;
+                            &#34; add_polygons does &#34; + &#34;not match this MagSim&#39;s mesh.&#34;
+                        )
+                return [np.array(p) for p in polys[&#34;nodes&#34;]]
+            elif isinstance(polys, str):
+                return [np.array(p) for p in self._load_dict(polys)[&#34;nodes&#34;]]
+            else:
+                raise TypeError(&#34;polygons argument was not a dict or string?&#34;)
+        return None
+
+    @staticmethod
+    def _load_dict(path):
+        if not isinstance(path, str):
+            raise ValueError(&#34;path was not a str/pathlib.PurePath object.&#34;)
+        elif path.endswith(&#34;json&#34;):
+            return dukit.json2dict.json_to_dict(path)
+        elif path.endswith(&#34;pickle&#34;):
+            with open(path, &#34;rb&#34;) as f:
+                return pickle.load(f)
+        else:
+            raise ValueError(&#34;path did not end in &#39;json&#39; or &#39;pickle&#39;&#34;)
+
+    @staticmethod
+    def _save_dict(path, dictionary):
+        if not isinstance(
+            path,
+            str,
+        ):
+            raise ValueError(&#34;path was not a str/pathlib.PurePath object.&#34;)
+        elif path.endswith(&#34;json&#34;):
+            dukit.json2dict.dict_to_json(dictionary, path)
+        elif path.endswith(&#34;pickle&#34;):
+            with open(path, &#34;wb&#34;) as f:
+                pickle.dump(dictionary, f, pickle.HIGHEST_PROTOCOL)
+        else:
+            raise ValueError(&#34;path did not end in &#39;json&#39; or &#39;pickle&#39;&#34;)
+
+    @staticmethod
+    def _load_image(image):
+        if image is not None:
+            if isinstance(image, np.ndarray):
+                return image
+            elif isinstance(image, str):
+                return np.loadtxt(image)
+            else:
+                raise TypeError(&#34;image argument must be an np.ndarray or string?&#34;)
+        return None
+
+    def _polygon_gui(
+        self,
+        polygon_nodes=None,
+        mean_plus_minus=None,
+        base_scale=1.25,
+        image=None,
+        cmap=&#34;bwr&#34;,
+        prompt=&#34;Select polygons&#34;,
+        **kwargs,
+    ):
+        fig, ax = plt.subplots()
+        image = self.base_image if image is None else image
+
+        if (
+            mean_plus_minus is not None
+            and isinstance(mean_plus_minus, (float, int))
+            and not isinstance(self, SandboxMagSim)
+        ):
+            mean = np.mean(image)
+            vmin, vmax = mean - mean_plus_minus, mean + mean_plus_minus
+        else:
+            vmin = vmax = None
+
+        img = ax.imshow(image, aspect=&#34;equal&#34;, cmap=cmap, vmin=vmin, vmax=vmax)
+        ax.tick_params(
+            axis=&#34;x&#34;,  # changes apply to the x-axis
+            which=&#34;both&#34;,  # both major and minor ticks are affected
+            bottom=False,  # ticks along the bottom edge are off
+            top=False,  # ticks along the top edge are off
+            labelbottom=False,
+        )
+        ax.tick_params(
+            axis=&#34;y&#34;,  # changes apply to the y-axis
+            which=&#34;both&#34;,  # both major and minor ticks are affected
+            left=False,
+            right=False,
+            labelleft=False,
+        )
+        divider = make_axes_locatable(ax)
+        cax = divider.append_axes(&#34;right&#34;, size=&#34;5%&#34;, pad=0.05)
+        fig.colorbar(img, cax=cax)
+        ax.set_title(prompt)
+
+        psw = dukit.polygon.PolygonSelectionWidget(
+            ax, base_scale=base_scale, style=kwargs
+        )
+
+        if polygon_nodes is not None:
+            psw.load_nodes(polygon_nodes)
+        plt.show(block=True)
+        psw.disconnect()
+
+        pgons = psw.get_polygons_lst()
+        if len(pgons) &lt; 1:
+            raise RuntimeError(&#34;You didn&#39;t define any polygons&#34;)
+
+        pgon_lst = [
+            pgon.get_nodes() for pgon in pgons if np.shape(pgon.get_nodes())[0] &gt; 2
+        ]
+        output_dict = {&#34;nodes&#34;: pgon_lst, &#34;image_shape&#34;: (self.ny, self.nx)}
+
+        return output_dict
+
+    def add_polygons(self, polys=None):
+        &#34;&#34;&#34;polygons is dict (polygons directly) or str (path to)&#34;&#34;&#34;
+        self.polygon_nodes = self._load_polys(polys, check_size=True)
+
+    def select_polygons(
+        self,
+        polygon_nodes=None,
+        output_path=None,
+        mean_plus_minus=None,
+        **kwargs,
+    ):
+        &#34;&#34;&#34;manually select polygons&#34;&#34;&#34;
+        pgon_dict = self._polygon_gui(
+            polygon_nodes=polygon_nodes,
+            mean_plus_minus=mean_plus_minus,
+            **kwargs,
+        )
+        if output_path is not None:
+            self._save_dict(output_path, pgon_dict)
+
+        self.polygon_nodes = [np.array(p) for p in pgon_dict[&#34;nodes&#34;]]
+
+    def save_polygons(self, output_path):
+        if output_path is not None:
+            self._save_dict(
+                output_path,
+                {
+                    &#34;nodes&#34;: self.polygon_nodes,
+                    &#34;image_shape&#34;: (self.ny, self.nx),
+                },
+            )
+
+    def define_magnets(self, magnetizations, unit_vectors):
+        &#34;&#34;&#34;
+        magnetizations: int/float if the same for all polygons, or an iterable of
+            len(polygon_nodes)
+            -&gt; in units of mu_b / nm^2 (or mu_b / PX^2 for SandboxMagSim)
+        unit_vectors: 3-iterable if the same for all polygons (cartesian coords),
+            or an iterable of len(polygon_nodes) each element a 3-iterable
+        &#34;&#34;&#34;
+        # todo: do we want to be able to add _noise_ here too? / other imperfections?
+        if isinstance(magnetizations, (float, int)):
+            self.magnetizations_lst = [
+                magnetizations for m, _ in enumerate(self.polygon_nodes)
+            ]
+        else:
+            if len(magnetizations) != len(self.polygon_nodes):
+                raise ValueError(
+                    f&#34;Number of magnetizations ({len(magnetizations)}) does not match &#34;
+                    + f&#34;number of magnets ({len(self.polygon_nodes)}).&#34;
+                )
+            self.magnetizations_lst = magnetizations
+
+        if isinstance(unit_vectors, (np.ndarray, list, tuple)):
+            if len(np.shape(unit_vectors)) == 1:
+                if len(unit_vectors) == 3:
+                    uv_abs = LA.norm(unit_vectors)
+                    self.unit_vectors_lst = [
+                        tuple(np.array(unit_vectors) / uv_abs)
+                        for m, _ in enumerate(self.polygon_nodes)
+                    ]
+                else:
+                    raise RuntimeError(
+                        &#34;I don&#39;t recognise that shape of unit_vectors.&#34;
+                        f&#34; ({np.shape(unit_vectors)})&#34;
+                    )
+            else:
+                # ensure unit vectors
+                self.unit_vectors_lst = [
+                    tuple(np.array(uv) / LA.norm(uv)) for uv in unit_vectors
+                ]
+        else:
+            raise TypeError(
+                f&#34;unit_vectors wrong type ({type(unit_vectors)}), not&#34;
+                &#34; ndarray/list/tuple. :(&#34;
+            )
+
+        if len(self.magnetizations_lst) != len(self.unit_vectors_lst):
+            raise RuntimeError(
+                f&#34;magnetizations_lst (len: {len(self.magnetizations_lst)}) &#34;
+                + &#34;not the same length as unit_vectors_lst (len:&#34;
+                f&#34; {len(self.unit_vectors_lst)}). :(&#34;
+            )
+
+        # now construct mag
+        self.mag = dd(lambda: np.zeros((self.ny, self.nx)))
+        grid_y, grid_x = np.meshgrid(range(self.ny), range(self.nx), indexing=&#34;ij&#34;)
+
+        for i, p in tqdm(
+            enumerate(self.polygon_nodes),
+            ascii=True,
+            mininterval=1,
+            unit=&#34;polygons&#34;,
+            desc=&#34;defining magnets...&#34;,
+            total=len(self.polygon_nodes),
+        ):
+            polygon = dukit.polygon.Polygon(p[:, 0], p[:, 1])
+            in_or_out = polygon.is_inside(grid_y, grid_x)
+            # 2021-08-04 changed from &gt; 0 -&gt; only defined __inside__ polygon
+            self.mag[self.unit_vectors_lst[i]][
+                in_or_out &gt; 0
+            ] += self.magnetizations_lst[i]
+
+    def save_magnets(self, output_path):
+        output_dict = {
+            &#34;mag&#34;: self.mag,
+            &#34;unit_vectors_lst&#34;: self.unit_vectors_lst,
+            &#34;magnetizations_lst&#34;: self.magnetizations_lst,
+        }
+        self._save_dict(output_path, output_dict)
+
+    def load_magnets(self, path):
+        in_dict = self._load_dict(path)
+        self.mag = in_dict[&#34;mag&#34;]
+        self.unit_vectors_lst = in_dict[&#34;unit_vectors_lst&#34;]
+        self.magnetizations_lst = in_dict[&#34;magnetizations_lst&#34;]
+
+    def run(
+        self,
+        standoff,
+        resolution=None,  # NOTE res is given as a sigma not a fwhm. !should! be fwhm.
+        pad_mode=&#34;mean&#34;,
+        pad_factor=2,
+        k_vector_epsilon=1e-6,
+        nv_layer_thickness=None,
+    ):
+        &#34;&#34;&#34;Everything units of metres.&#34;&#34;&#34;
+        self.standoff = standoff
+        # in future could be generalised to a range of standoffs
+        # e.g. if we wanted to average over an nv-depth distribution that would be easy
+
+        # get shape so we can define kvecs
+        shp = dukit.fourier.pad_image(
+            np.empty(np.shape(self.mag[self.unit_vectors_lst[0]])),
+            pad_mode,
+            pad_factor,
+        )[0].shape
+
+        ky, kx, k = dukit.fourier.define_k_vectors(
+            shp, self.pixel_size, k_vector_epsilon=k_vector_epsilon
+        )
+
+        d_matrix = dukit.fourier.define_magnetization_transformation(
+            ky, kx, k, standoff=standoff, nv_layer_thickness=nv_layer_thickness
+        )
+
+        d_matrix = dukit.fourier.set_naninf_to_zero(d_matrix)
+
+        self.bfield = [
+            np.zeros((self.ny, self.nx)),
+            np.zeros((self.ny, self.nx)),
+            np.zeros((self.ny, self.nx)),
+        ]
+
+        # convert to A from mu_b / nm^2 magnetization units
+        m_scale = 1 / dukit.fourier.MAG_UNIT_CONV
+
+        unique_uvs = dd(list)
+        for i, uv in enumerate(self.unit_vectors_lst):
+            unique_uvs[uv].append(i)
+
+        for uv in tqdm(
+            unique_uvs,
+            ascii=True,
+            mininterval=1,
+            unit=&#34;mag. unit vectors&#34;,
+            desc=&#34;propagating stray field...&#34;,
+            total=len(unique_uvs.keys()),
+        ):
+            mx, my, mz = (
+                self.mag[uv] * uv[0] * m_scale,
+                self.mag[uv] * uv[1] * m_scale,
+                self.mag[uv] * uv[2] * m_scale,
+            )
+
+            mx_pad, p = dukit.fourier.pad_image(mx, pad_mode, pad_factor)
+            my_pad, _ = dukit.fourier.pad_image(my, pad_mode, pad_factor)
+            mz_pad, _ = dukit.fourier.pad_image(mz, pad_mode, pad_factor)
+
+            fft_mx = numpy_fft.fftshift(numpy_fft.fft2(mx_pad))
+            fft_my = numpy_fft.fftshift(numpy_fft.fft2(my_pad))
+            fft_mz = numpy_fft.fftshift(numpy_fft.fft2(mz_pad))
+
+            fft_mag_vec = np.stack((fft_mx, fft_my, fft_mz))
+
+            fft_b_vec = np.einsum(
+                &#34;ij...,j...-&gt;i...&#34;, d_matrix, fft_mag_vec
+            )  # matrix mul b = d * m (d and m are stacked in last 2 dimensions)
+
+            if nv_layer_thickness is not None and standoff:
+                arg = k * nv_layer_thickness / 2
+                nv_thickness_correction = np.sinh(arg) / arg
+                for vec in fft_b_vec:
+                    vec *= nv_thickness_correction
+
+            # take back to real space, unpad &amp; convert bfield to Gauss (from Tesla)
+            self.bfield[0] += (
+                dukit.fourier.unpad_image(
+                    numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[0])).real, p
+                )
+                * 1e4
+            )
+            self.bfield[1] += (
+                dukit.fourier.unpad_image(
+                    numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[1])).real, p
+                )
+                * 1e4
+            )
+            self.bfield[2] += (
+                dukit.fourier.unpad_image(
+                    numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[2])).real, p
+                )
+                * 1e4
+            )
+
+        # for resolution convolve with width=resolution gaussian?
+        # yep but width = sigma = in units of pixels. {so do some maths eh}
+        # just do it after the fft I think.
+        # add noise too? -&gt; add to magnetisation or what?
+        if resolution is not None:
+            # would be faster to do while in k-space already above.
+            sigma = resolution / self.pixel_size
+            # in-place
+            gaussian_filter(self.bfield[0], sigma, output=self.bfield[0])
+            gaussian_filter(self.bfield[1], sigma, output=self.bfield[1])
+            gaussian_filter(self.bfield[2], sigma, output=self.bfield[2])
+
+    # def _scale_for_fft(self, ars):
+    #     &#34;&#34;&#34;Norm arrays so fft doesn&#39;t freak out. NB not used anymore&#34;&#34;&#34;
+    #     mx = np.max(np.abs(ars))
+    #     return [ar / mx for ar in ars], mx
+
+    def get_bfield_im(self, projection=(0, 0, 1)):
+        if self.bfield is None:
+            raise AttributeError(&#34;simulation not run yet.&#34;)
+        # access bfield_sensor_plane, project onto projection
+
+        # reshape bfield to be [bx, by, bz] for each pixel of image
+        # (as 1 stacked ndarray)
+        bfield_reshaped = np.stack(self.bfield, axis=-1)
+
+        proj_vec = np.array(projection)
+
+        return np.apply_along_axis(
+            lambda bvec: np.dot(proj_vec, bvec), -1, bfield_reshaped
+        )
+
+    def get_magnetization_im(self, unit_vector):
+        if self.mag is None:
+            raise AttributeError(&#34;magnetization not defined yet.&#34;)
+        return self.mag[unit_vector]
+
+    def plot_magsim_magnetization(
+        self, unit_vector, annotate_polygons=True, polygon_patch_params=None
+    ):
+        fig, ax = plt.subplots()
+        mag_image = self.get_magnetization_im(unit_vector)
+        mx = np.max(np.abs(mag_image))
+        c_range = (-mx, mx)
+        if annotate_polygons:
+            polys = self.polygon_nodes
+        else:
+            polys = None
+        dukit.itool.plot_image_on_ax(
+            fig,
+            ax,
+            mag_image,
+            str(unit_vector),
+            &#34;PuOr&#34;,
+            c_range,
+            r&#34;M ($\mu_B$ nm$^{-2}$)&#34;,
+            polygon_nodes=polys,
+            polygon_patch_params=polygon_patch_params,
+            raw_pixel_size=self.pixel_size,
+        )
+        return fig, ax
+
+    def plot_magsim_magnetizations(
+        self,
+        annotate_polygons=True,
+        polygon_patch_params=None,
+        cmap=&#34;PuOr&#34;,
+        c_range=None,
+    ):
+        # use single colorbar, different plots
+        # https://matplotlib.org/stable/gallery/subplots_axes_and figures\
+        #   /colorbar_placement.html
+        # calculate c_range smartly.
+        if self.magnetizations_lst is None:
+            raise AttributeError(&#34;no magnetizations_lst found, define it first aye.&#34;)
+
+        unique_uvs = dd(list)
+        for i, uv in enumerate(self.unit_vectors_lst):
+            unique_uvs[uv].append(i)
+
+        mag_images = [self.get_magnetization_im(uv) for uv in unique_uvs]
+
+        if c_range is None:
+            mx = max([np.nanmax(mag) for mag in mag_images])
+            c_range = (-mx, mx)
+
+        figsize = mpl.rcParams[&#34;figure.figsize&#34;].copy()
+        nrows = 1
+        ncols = len(unique_uvs) + 1
+        figsize[0] *= nrows
+
+        fig, axs = plt.subplots(figsize=figsize, nrows=nrows, ncols=ncols)
+
+        dukit.itool.plot_image_on_ax(
+            fig,
+            axs[0] if isinstance(axs, np.ndarray) else axs,
+            np.sum(mag_images, axis=0),
+            &#34;sum&#34;,
+            cmap,
+            c_range,
+            self._get_mag_unit_str(),
+            polygon_nodes=self.polygon_nodes if annotate_polygons else None,
+            polygon_patch_params=polygon_patch_params,
+            raw_pixel_size=self.pixel_size,
+        )
+
+        for i, (mag, uvs) in enumerate(zip(mag_images, unique_uvs)):
+            if annotate_polygons:
+                polys = [self.polygon_nodes[j] for j in unique_uvs[uvs]]
+            else:
+                polys = None
+
+            title = str(uvs)  # below is just copies of the same unv?
+            # title = &#34;, &#34;.join([str(self.unit_vectors_lst[uv])
+            #   for uv in unique_uvs[uvs]])
+            dukit.itool.plot_image_on_ax(
+                fig,
+                axs[i + 1] if isinstance(axs, np.ndarray) else axs,
+                mag,
+                title,
+                cmap,
+                c_range,
+                self._get_mag_unit_str(),
+                polygon_nodes=polys,
+                polygon_patch_params=polygon_patch_params,
+                raw_pixel_size=self.pixel_size,
+            )
+
+        return fig, axs
+
+    def plot_magsim_bfield_at_nvs(
+        self,
+        projection=(0, 0, 1),
+        annotate_polygons=True,
+        polygon_patch_params=None,
+        cmap=&#34;bwr&#34;,
+        strict_range=None,
+        c_label=None,
+    ):
+        if self.bfield is None:
+            raise AttributeError(&#34;No bfield found: no simulation run.&#34;)
+
+        if strict_range is not None:
+            c_range = strict_range
+        else:
+            furthest = np.max(np.abs([np.nanmin(self.bfield), np.nanmax(self.bfield)]))
+            c_range = (-furthest, furthest)
+
+        polys = None if annotate_polygons is None else self.polygon_nodes
+
+        fig, ax = plt.subplots()
+        proj_name = f&#34;({projection[0]:.2f},{projection[1]:.2f},{projection[2]:.2f})&#34;
+        c_label_ = f&#34;B . {proj_name}, (G)&#34; if c_label is None else c_label
+        dukit.itool.plot_image_on_ax(
+            fig,
+            ax,
+            self.get_bfield_im(projection),
+            f&#34;B . {proj_name} at z = {self.standoff}{self._get_dist_unit_str()}&#34;,
+            cmap,
+            c_range,
+            c_label_,
+            polygon_nodes=polys,
+            polygon_patch_params=polygon_patch_params,
+            raw_pixel_size=self.pixel_size,
+        )
+        return fig, ax
+
+    @staticmethod
+    def _get_mag_unit_str():
+        return r&#34;M ($\mu_B$ nm$^{-2}$)&#34;
+
+    @staticmethod
+    def _get_dist_scaling():
+        # nm = 1e-9
+        return 1e-9
+
+    @staticmethod
+    def _get_dist_unit_str():
+        return &#34;m&#34;
+
+    def crop_polygons(self, crop_polygon_nodes):
+        crop_polygons = [
+            dukit.polygon.Polygon(crop_nodes[:, 0], crop_nodes[:, 1])
+            for crop_nodes in crop_polygon_nodes
+        ]
+        keep_idxs = []
+        for idx, p in tqdm(
+            enumerate(self.polygon_nodes),
+            ascii=True,
+            mininterval=1,
+            unit=&#34;polygons&#34;,
+            desc=&#34;cropping polygons...&#34;,
+            total=len(self.polygon_nodes),
+        ):
+            for crop_polygon in crop_polygons:
+                if not np.all(crop_polygon.is_inside(p[:, 0], p[:, 1]) &gt; 0):
+                    break  # don&#39;t append to keep lst
+            else:
+                keep_idxs.append(
+                    idx
+                )  # only executes if loop exits normally (not &#39;break&#39;)
+        self.polygon_nodes = [
+            val for idx, val in enumerate(self.polygon_nodes) if idx in keep_idxs
+        ]
+        if self.magnetizations_lst is not None:
+            self.magnetizations_lst = [
+                val
+                for idx, val in enumerate(self.magnetizations_lst)
+                if idx in keep_idxs
+            ]
+            self.unit_vectors_lst = [
+                val for idx, val in enumerate(self.unit_vectors_lst) if idx in keep_idxs
+            ]
+
+    def crop_polygons_gui(self, show_polygons=True, **kwargs):
+        if show_polygons:
+            pn = self.polygon_nodes
+            n_og_polygons = len(self.polygon_nodes)
+        else:
+            pn = None
+            n_og_polygons = 0
+        pgon_dict = self._polygon_gui(
+            polygon_nodes=pn, prompt=&#34;Select crop polygon&#34;, **kwargs
+        )
+        new_pgons = [np.array(p) for p in pgon_dict[&#34;nodes&#34;][n_og_polygons:]]
+        self.crop_polygons(new_pgons)
+
+    def crop_magnetization(self, crop_polygon_nodes):
+        if self.mag is None:
+            raise AttributeError(&#34;You haven&#39;t defined mag yet! (use define_magnets).&#34;)
+        crop_polygons = [
+            dukit.polygon.Polygon(crop_nodes[:, 0], crop_nodes[:, 1])
+            for crop_nodes in crop_polygon_nodes
+        ]
+        grid_y, grid_x = np.meshgrid(range(self.ny), range(self.nx), indexing=&#34;ij&#34;)
+
+        for polygon in tqdm(
+            crop_polygons,
+            ascii=True,
+            mininterval=1,
+            unit=&#34;polygons&#34;,
+            desc=&#34;cropping magnetization...&#34;,
+            total=len(crop_polygons),
+        ):
+            for key in self.mag:
+                self.mag[key][polygon.is_inside(grid_y, grid_x) &lt; 0] = 0
+
+    def crop_domains(self, crop_polygon_nodes):
+        pass  # overriden in TilingMagSim
+
+    def crop_magnetization_gui(self, **kwargs):
+        # crops magnetization, polygons and domain_label_pts
+        # (i.e. run after define_magnets)
+        unique_uvs = dd(list)
+        for i, uv in enumerate(self.unit_vectors_lst):
+            unique_uvs[uv].append(i)
+        mag_image = np.sum([self.get_magnetization_im(uv) for uv in unique_uvs], axis=0)
+        n_og_polygons = len(self.polygon_nodes)
+        crop_dict = self._polygon_gui(
+            polygon_nodes=self.polygon_nodes,
+            image=mag_image,
+            cmap=&#34;PuOr&#34;,
+            prompt=&#34;Select crop polygon&#34;,
+            **kwargs,
+        )
+        crop_nodes = [np.array(p) for p in crop_dict[&#34;nodes&#34;][n_og_polygons:]]
+        self.crop_magnetization(crop_nodes)
+        self.crop_polygons(crop_nodes)
+        self.crop_domains(crop_nodes)
+
+
+class SandboxMagSim(MagSim):
+    def __init__(self, mesh_shape, fov_dims):
+        &#34;&#34;&#34;Image conventions: first index is height.&#34;&#34;&#34;
+        self.ny, self.nx = mesh_shape
+        self.fov_dims = fov_dims
+        self.base_image = np.full(mesh_shape, np.nan)
+        pxl_y = fov_dims[0] / self.ny
+        pxl_x = fov_dims[1] / self.nx
+        if int(np.floor(pxl_y)) != int(np.floor(pxl_x)):
+            raise ValueError(
+                &#34;fov_dims ratio height:width does not match mesh height:width ratio.&#34;
+            )
+        self.pixel_size = pxl_y
+
+    def add_template_polygons(self, polygons=None):
+        &#34;&#34;&#34;polygons takes precedence.&#34;&#34;&#34;
+        self.template_polygon_nodes = self._load_polys(polygons, check_size=True)
+
+    def rescale_template(self, factor):
+        if self.template_polygon_nodes is None:
+            raise RuntimeError(&#34;Add/define template_polygon_nodes before rescaling.&#34;)
+
+        for polygon in self.template_polygon_nodes:
+            for node in polygon:
+                node[0] *= factor
+                node[1] *= factor
+
+    def adjust_template(self, output_path=None, mean_plus_minus=None, **kwargs):
+        if self.template_polygon_nodes is None:
+            raise AttributeError(&#34;Add template polygons before adjusting.&#34;)
+        pgon_dict = self._polygon_gui(
+            polygon_nodes=self.template_polygon_nodes,
+            mean_plus_minus=mean_plus_minus,
+            prompt=&#34;Adjust template polygons/add new&#34;,
+            **kwargs,
+        )
+        if output_path is not None:
+            self._save_dict(output_path, pgon_dict)
+
+        self.template_polygon_nodes = [np.array(p) for p in pgon_dict[&#34;nodes&#34;]]
+
+    def set_template_as_polygons(self):
+        if self.template_polygon_nodes is None:
+            raise AttributeError(&#34;No template set.&#34;)
+        self.polygon_nodes = self.template_polygon_nodes
+
+
+# define FOV size (height, width), standoff height
+# resolution: increase size of polygon via this (grab it&#39;s image size)
+# -&gt; user cannot scroll etc., define to match some other/bnv image
+# would be best if image is plane-subtracted
+class ComparisonMagSim(MagSim):
+    unscaled_polygon_nodes = None
+
+    def __init__(
+        self,
+        image,  # array-like (image directly) or string (path to)
+        fov_dims,  # (the height, width of the image in m)
+    ):
+        if fov_dims is None:
+            raise ValueError(
+                &#34;You need to supply fov_dims (the height, width of the image in m).&#34;
+            )
+        if (
+            not isinstance(fov_dims, (tuple, list, np.ndarray))
+            or len(fov_dims) != 2
+            or not isinstance(fov_dims[0], (int, float))
+            or not isinstance(fov_dims[1], (int, float))
+        ):
+            raise TypeError(&#34;fov_dims needs to be length 2 array-like of int/floats&#34;)
+
+        # check for path etc. here
+        self.base_image = self._load_image(image)
+
+        self.ny, self.nx = self.base_image.shape
+        pxl_y = fov_dims[0] / self.ny
+        pxl_x = fov_dims[1] / self.nx
+        if pxl_y != pxl_x:
+            raise ValueError(
+                &#34;fov_dims ratio height:width does not match image height:width ratio.&#34;
+            )
+        self.pixel_size = pxl_y
+
+    def rescale(self, factor):
+        if self.polygon_nodes is None:
+            raise RuntimeError(&#34;Add/define polygon_nodes before rescaling.&#34;)
+
+        if self.unscaled_polygon_nodes is None:
+            self.unscaled_polygon_nodes = copy(self.polygon_nodes)
+
+        self.ny *= factor
+        self.nx *= factor
+        self.pixel_size *= 1 / factor
+        for polygon in self.polygon_nodes:
+            for node in polygon:
+                node[0] *= factor
+                node[1] *= factor
+
+    def plot_comparison(
+        self,
+        projection=(0, 0, 1),
+        strict_range=None,
+        annotate_polygons=True,
+        c_label_meas=None,
+        c_label_sim=None,
+    ):
+        # bug: still no annotations on measurement?
+
+        if self.bfield is None:
+            raise AttributeError(&#34;No bfield found: no simulation run.&#34;)
+
+        bfield_proj = self.get_bfield_im(projection)
+
+        if strict_range is not None:
+            c_range = strict_range
+        else:
+            mn = min((np.nanmin(bfield_proj), np.nanmin(self.base_image)))
+            mx = max((np.nanmax(bfield_proj), np.nanmax(self.base_image)))
+            c_range = (mn, mx)
+
+        c_label_meas_ = &#34;B (G)&#34; if c_label_meas is None else c_label_meas
+
+        proj_name = f&#34;({projection[0]:.2f},{projection[1]:.2f},{projection[2]:.2f})&#34;
+        c_label_sim_ = f&#34;B . {proj_name}, (G)&#34; if c_label_sim is None else c_label_sim
+
+        if annotate_polygons is False:
+            unscaled_polys = None
+            scaled_polys = None
+        else:
+            unscaled_polys = (
+                self.polygon_nodes
+                if self.unscaled_polygon_nodes is None
+                else self.unscaled_polygon_nodes
+            )
+            scaled_polys = self.polygon_nodes
+
+        figsize = mpl.rcParams[&#34;figure.figsize&#34;].copy()
+        nrows = 1
+        ncols = 2
+        figsize[0] *= nrows
+
+        fig, axs = plt.subplots(figsize=figsize, nrows=nrows, ncols=ncols)
+
+        dukit.itool.plot_image_on_ax(
+            fig,
+            axs[0],
+            self.base_image,
+            &#34;measurement&#34;,
+            &#34;bwr&#34;,
+            c_range,
+            c_label_meas_,
+            polygon_nodes=unscaled_polys,
+            polygon_patch_params=None,
+            raw_pixel_size=self.pixel_size,
+        )
+        dukit.itool.plot_image_on_ax(
+            fig,
+            axs[1],
+            bfield_proj,
+            &#34;simulated&#34;,
+            &#34;bwr&#34;,
+            c_range,
+            c_label_sim_,
+            polygon_nodes=scaled_polys,
+            polygon_patch_params=None,
+            raw_pixel_size=self.pixel_size,
+        )
+
+        return fig, axs
+
+
+def _is_convex_polygon(polygon_nodes):
+    &#34;&#34;&#34;Return True if the polynomial defined by the sequence of 2D
+        points is &#39;strictly convex&#39;: points are valid, side lengths non-
+        zero, interior angles are strictly between zero and a straight
+        angle, and the polygon does not intersect itself.
+
+        NOTES:  1.  Algorithm: the signed changes of the direction angles
+                    from one side to the next side must be all positive or
+                    all negative, and their sum must equal plus-or-minus
+                    one full turn (2 pi radians). Also check for too few,
+                    invalid, or repeated points.
+                2.  No check is explicitly done for zero internal angles
+                    (180 degree direction-change angle) as this is covered
+                    in other ways, including the `n &lt; 3` check.
+        SOURCE:
+            https://stackoverflow.com/questions/471962/ \
+            how-do-i-efficiently-determine-if-a-polygon-is-convex-non-convex-or-complex
+        &#34;&#34;&#34;
+    polygon_nodes = polygon_nodes[:-1]  # don&#39;t use first/last point twice
+    try:  # needed for any bad points or direction changes
+        # Check for too few points
+        if len(polygon_nodes) &lt; 3:
+            return False
+        # Get starting information
+        old_x, old_y = polygon_nodes[-2]
+        new_x, new_y = polygon_nodes[-1]
+        new_direction = np.arctan2(new_y - old_y, new_x - old_x)
+        angle_sum = 0.0
+        # Check each point (the side ending there, its angle) and accum. angles
+        for ndx, newpoint in enumerate(polygon_nodes):
+            # Update point coordinates and side directions, check side length
+            old_x, old_y, old_direction = new_x, new_y, new_direction
+            new_x, new_y = newpoint
+            new_direction = np.arctan2(new_y - old_y, new_x - old_x)
+            if old_x == new_x and old_y == new_y:
+                return False  # repeated consecutive points
+            # Calculate &amp; check the normalized direction-change angle
+            angle = new_direction - old_direction
+            if angle &lt;= -np.pi:
+                angle += 2 * np.pi  # make it in half-open interval (-Pi, Pi]
+            elif angle &gt; np.pi:
+                angle -= 2 * np.pi
+            if ndx == 0:  # if first time through loop, initialize orientation
+                if angle == 0.0:
+                    return False
+                orientation = 1.0 if angle &gt; 0.0 else -1.0
+            else:  # if other time through loop, check orientation is stable
+                if orientation * angle &lt;= 0.0:  # not both pos. or both neg.
+                    return False
+            # Accumulate the direction-change angle
+            angle_sum += angle
+        # Check that the total number of full turns is plus-or-minus 1
+        return abs(round(angle_sum / (2 * np.pi))) == 1
+    except (ArithmeticError, TypeError, ValueError):
+        return False  # any exception means not a proper convex polygon</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="dukit.magsim.ComparisonMagSim"><code class="flex name class">
+<span>class <span class="ident">ComparisonMagSim</span></span>
+<span>(</span><span>image, fov_dims)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ComparisonMagSim(MagSim):
+    unscaled_polygon_nodes = None
+
+    def __init__(
+        self,
+        image,  # array-like (image directly) or string (path to)
+        fov_dims,  # (the height, width of the image in m)
+    ):
+        if fov_dims is None:
+            raise ValueError(
+                &#34;You need to supply fov_dims (the height, width of the image in m).&#34;
+            )
+        if (
+            not isinstance(fov_dims, (tuple, list, np.ndarray))
+            or len(fov_dims) != 2
+            or not isinstance(fov_dims[0], (int, float))
+            or not isinstance(fov_dims[1], (int, float))
+        ):
+            raise TypeError(&#34;fov_dims needs to be length 2 array-like of int/floats&#34;)
+
+        # check for path etc. here
+        self.base_image = self._load_image(image)
+
+        self.ny, self.nx = self.base_image.shape
+        pxl_y = fov_dims[0] / self.ny
+        pxl_x = fov_dims[1] / self.nx
+        if pxl_y != pxl_x:
+            raise ValueError(
+                &#34;fov_dims ratio height:width does not match image height:width ratio.&#34;
+            )
+        self.pixel_size = pxl_y
+
+    def rescale(self, factor):
+        if self.polygon_nodes is None:
+            raise RuntimeError(&#34;Add/define polygon_nodes before rescaling.&#34;)
+
+        if self.unscaled_polygon_nodes is None:
+            self.unscaled_polygon_nodes = copy(self.polygon_nodes)
+
+        self.ny *= factor
+        self.nx *= factor
+        self.pixel_size *= 1 / factor
+        for polygon in self.polygon_nodes:
+            for node in polygon:
+                node[0] *= factor
+                node[1] *= factor
+
+    def plot_comparison(
+        self,
+        projection=(0, 0, 1),
+        strict_range=None,
+        annotate_polygons=True,
+        c_label_meas=None,
+        c_label_sim=None,
+    ):
+        # bug: still no annotations on measurement?
+
+        if self.bfield is None:
+            raise AttributeError(&#34;No bfield found: no simulation run.&#34;)
+
+        bfield_proj = self.get_bfield_im(projection)
+
+        if strict_range is not None:
+            c_range = strict_range
+        else:
+            mn = min((np.nanmin(bfield_proj), np.nanmin(self.base_image)))
+            mx = max((np.nanmax(bfield_proj), np.nanmax(self.base_image)))
+            c_range = (mn, mx)
+
+        c_label_meas_ = &#34;B (G)&#34; if c_label_meas is None else c_label_meas
+
+        proj_name = f&#34;({projection[0]:.2f},{projection[1]:.2f},{projection[2]:.2f})&#34;
+        c_label_sim_ = f&#34;B . {proj_name}, (G)&#34; if c_label_sim is None else c_label_sim
+
+        if annotate_polygons is False:
+            unscaled_polys = None
+            scaled_polys = None
+        else:
+            unscaled_polys = (
+                self.polygon_nodes
+                if self.unscaled_polygon_nodes is None
+                else self.unscaled_polygon_nodes
+            )
+            scaled_polys = self.polygon_nodes
+
+        figsize = mpl.rcParams[&#34;figure.figsize&#34;].copy()
+        nrows = 1
+        ncols = 2
+        figsize[0] *= nrows
+
+        fig, axs = plt.subplots(figsize=figsize, nrows=nrows, ncols=ncols)
+
+        dukit.itool.plot_image_on_ax(
+            fig,
+            axs[0],
+            self.base_image,
+            &#34;measurement&#34;,
+            &#34;bwr&#34;,
+            c_range,
+            c_label_meas_,
+            polygon_nodes=unscaled_polys,
+            polygon_patch_params=None,
+            raw_pixel_size=self.pixel_size,
+        )
+        dukit.itool.plot_image_on_ax(
+            fig,
+            axs[1],
+            bfield_proj,
+            &#34;simulated&#34;,
+            &#34;bwr&#34;,
+            c_range,
+            c_label_sim_,
+            polygon_nodes=scaled_polys,
+            polygon_patch_params=None,
+            raw_pixel_size=self.pixel_size,
+        )
+
+        return fig, axs</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.magsim.MagSim" href="#dukit.magsim.MagSim">MagSim</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="dukit.magsim.ComparisonMagSim.unscaled_polygon_nodes"><code class="name">var <span class="ident">unscaled_polygon_nodes</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="dukit.magsim.ComparisonMagSim.plot_comparison"><code class="name flex">
+<span>def <span class="ident">plot_comparison</span></span>(<span>self, projection=(0, 0, 1), strict_range=None, annotate_polygons=True, c_label_meas=None, c_label_sim=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_comparison(
+    self,
+    projection=(0, 0, 1),
+    strict_range=None,
+    annotate_polygons=True,
+    c_label_meas=None,
+    c_label_sim=None,
+):
+    # bug: still no annotations on measurement?
+
+    if self.bfield is None:
+        raise AttributeError(&#34;No bfield found: no simulation run.&#34;)
+
+    bfield_proj = self.get_bfield_im(projection)
+
+    if strict_range is not None:
+        c_range = strict_range
+    else:
+        mn = min((np.nanmin(bfield_proj), np.nanmin(self.base_image)))
+        mx = max((np.nanmax(bfield_proj), np.nanmax(self.base_image)))
+        c_range = (mn, mx)
+
+    c_label_meas_ = &#34;B (G)&#34; if c_label_meas is None else c_label_meas
+
+    proj_name = f&#34;({projection[0]:.2f},{projection[1]:.2f},{projection[2]:.2f})&#34;
+    c_label_sim_ = f&#34;B . {proj_name}, (G)&#34; if c_label_sim is None else c_label_sim
+
+    if annotate_polygons is False:
+        unscaled_polys = None
+        scaled_polys = None
+    else:
+        unscaled_polys = (
+            self.polygon_nodes
+            if self.unscaled_polygon_nodes is None
+            else self.unscaled_polygon_nodes
+        )
+        scaled_polys = self.polygon_nodes
+
+    figsize = mpl.rcParams[&#34;figure.figsize&#34;].copy()
+    nrows = 1
+    ncols = 2
+    figsize[0] *= nrows
+
+    fig, axs = plt.subplots(figsize=figsize, nrows=nrows, ncols=ncols)
+
+    dukit.itool.plot_image_on_ax(
+        fig,
+        axs[0],
+        self.base_image,
+        &#34;measurement&#34;,
+        &#34;bwr&#34;,
+        c_range,
+        c_label_meas_,
+        polygon_nodes=unscaled_polys,
+        polygon_patch_params=None,
+        raw_pixel_size=self.pixel_size,
+    )
+    dukit.itool.plot_image_on_ax(
+        fig,
+        axs[1],
+        bfield_proj,
+        &#34;simulated&#34;,
+        &#34;bwr&#34;,
+        c_range,
+        c_label_sim_,
+        polygon_nodes=scaled_polys,
+        polygon_patch_params=None,
+        raw_pixel_size=self.pixel_size,
+    )
+
+    return fig, axs</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.ComparisonMagSim.rescale"><code class="name flex">
+<span>def <span class="ident">rescale</span></span>(<span>self, factor)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rescale(self, factor):
+    if self.polygon_nodes is None:
+        raise RuntimeError(&#34;Add/define polygon_nodes before rescaling.&#34;)
+
+    if self.unscaled_polygon_nodes is None:
+        self.unscaled_polygon_nodes = copy(self.polygon_nodes)
+
+    self.ny *= factor
+    self.nx *= factor
+    self.pixel_size *= 1 / factor
+    for polygon in self.polygon_nodes:
+        for node in polygon:
+            node[0] *= factor
+            node[1] *= factor</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.magsim.MagSim" href="#dukit.magsim.MagSim">MagSim</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.magsim.MagSim.add_polygons" href="#dukit.magsim.MagSim.add_polygons">add_polygons</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.define_magnets" href="#dukit.magsim.MagSim.define_magnets">define_magnets</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.run" href="#dukit.magsim.MagSim.run">run</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.select_polygons" href="#dukit.magsim.MagSim.select_polygons">select_polygons</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="dukit.magsim.MagSim"><code class="flex name class">
+<span>class <span class="ident">MagSim</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MagSim:
+    polygon_nodes = None
+    mag = None
+    template_polygon_nodes = None
+    bfield = None
+    standoff = None
+    magnetizations_lst = None
+    unit_vectors_lst = None
+    ny: int = 0
+    nx: int = 0
+    pixel_size: float = float(&#34;nan&#34;)
+    base_image: npt.NDArray  # 2D, needs to be defined by __init__
+
+    def _load_polys(self, polys, check_size=False):
+        &#34;&#34;&#34;polys: either path to json/pickle, or dict containing &#39;nodes&#39; key.&#34;&#34;&#34;
+        if polys is not None:
+            if isinstance(polys, dict):
+                if check_size and &#34;image_size&#34; in polys:
+                    if (
+                        self.ny != polys[&#34;image_size&#34;][0]
+                        or self.nx != polys[&#34;image_size&#34;][1]
+                    ):
+                        # TODO massage to match?
+                        raise RuntimeError(
+                            &#34;Image size polygons were defined on as passed to&#34;
+                            &#34; add_polygons does &#34; + &#34;not match this MagSim&#39;s mesh.&#34;
+                        )
+                return [np.array(p) for p in polys[&#34;nodes&#34;]]
+            elif isinstance(polys, str):
+                return [np.array(p) for p in self._load_dict(polys)[&#34;nodes&#34;]]
+            else:
+                raise TypeError(&#34;polygons argument was not a dict or string?&#34;)
+        return None
+
+    @staticmethod
+    def _load_dict(path):
+        if not isinstance(path, str):
+            raise ValueError(&#34;path was not a str/pathlib.PurePath object.&#34;)
+        elif path.endswith(&#34;json&#34;):
+            return dukit.json2dict.json_to_dict(path)
+        elif path.endswith(&#34;pickle&#34;):
+            with open(path, &#34;rb&#34;) as f:
+                return pickle.load(f)
+        else:
+            raise ValueError(&#34;path did not end in &#39;json&#39; or &#39;pickle&#39;&#34;)
+
+    @staticmethod
+    def _save_dict(path, dictionary):
+        if not isinstance(
+            path,
+            str,
+        ):
+            raise ValueError(&#34;path was not a str/pathlib.PurePath object.&#34;)
+        elif path.endswith(&#34;json&#34;):
+            dukit.json2dict.dict_to_json(dictionary, path)
+        elif path.endswith(&#34;pickle&#34;):
+            with open(path, &#34;wb&#34;) as f:
+                pickle.dump(dictionary, f, pickle.HIGHEST_PROTOCOL)
+        else:
+            raise ValueError(&#34;path did not end in &#39;json&#39; or &#39;pickle&#39;&#34;)
+
+    @staticmethod
+    def _load_image(image):
+        if image is not None:
+            if isinstance(image, np.ndarray):
+                return image
+            elif isinstance(image, str):
+                return np.loadtxt(image)
+            else:
+                raise TypeError(&#34;image argument must be an np.ndarray or string?&#34;)
+        return None
+
+    def _polygon_gui(
+        self,
+        polygon_nodes=None,
+        mean_plus_minus=None,
+        base_scale=1.25,
+        image=None,
+        cmap=&#34;bwr&#34;,
+        prompt=&#34;Select polygons&#34;,
+        **kwargs,
+    ):
+        fig, ax = plt.subplots()
+        image = self.base_image if image is None else image
+
+        if (
+            mean_plus_minus is not None
+            and isinstance(mean_plus_minus, (float, int))
+            and not isinstance(self, SandboxMagSim)
+        ):
+            mean = np.mean(image)
+            vmin, vmax = mean - mean_plus_minus, mean + mean_plus_minus
+        else:
+            vmin = vmax = None
+
+        img = ax.imshow(image, aspect=&#34;equal&#34;, cmap=cmap, vmin=vmin, vmax=vmax)
+        ax.tick_params(
+            axis=&#34;x&#34;,  # changes apply to the x-axis
+            which=&#34;both&#34;,  # both major and minor ticks are affected
+            bottom=False,  # ticks along the bottom edge are off
+            top=False,  # ticks along the top edge are off
+            labelbottom=False,
+        )
+        ax.tick_params(
+            axis=&#34;y&#34;,  # changes apply to the y-axis
+            which=&#34;both&#34;,  # both major and minor ticks are affected
+            left=False,
+            right=False,
+            labelleft=False,
+        )
+        divider = make_axes_locatable(ax)
+        cax = divider.append_axes(&#34;right&#34;, size=&#34;5%&#34;, pad=0.05)
+        fig.colorbar(img, cax=cax)
+        ax.set_title(prompt)
+
+        psw = dukit.polygon.PolygonSelectionWidget(
+            ax, base_scale=base_scale, style=kwargs
+        )
+
+        if polygon_nodes is not None:
+            psw.load_nodes(polygon_nodes)
+        plt.show(block=True)
+        psw.disconnect()
+
+        pgons = psw.get_polygons_lst()
+        if len(pgons) &lt; 1:
+            raise RuntimeError(&#34;You didn&#39;t define any polygons&#34;)
+
+        pgon_lst = [
+            pgon.get_nodes() for pgon in pgons if np.shape(pgon.get_nodes())[0] &gt; 2
+        ]
+        output_dict = {&#34;nodes&#34;: pgon_lst, &#34;image_shape&#34;: (self.ny, self.nx)}
+
+        return output_dict
+
+    def add_polygons(self, polys=None):
+        &#34;&#34;&#34;polygons is dict (polygons directly) or str (path to)&#34;&#34;&#34;
+        self.polygon_nodes = self._load_polys(polys, check_size=True)
+
+    def select_polygons(
+        self,
+        polygon_nodes=None,
+        output_path=None,
+        mean_plus_minus=None,
+        **kwargs,
+    ):
+        &#34;&#34;&#34;manually select polygons&#34;&#34;&#34;
+        pgon_dict = self._polygon_gui(
+            polygon_nodes=polygon_nodes,
+            mean_plus_minus=mean_plus_minus,
+            **kwargs,
+        )
+        if output_path is not None:
+            self._save_dict(output_path, pgon_dict)
+
+        self.polygon_nodes = [np.array(p) for p in pgon_dict[&#34;nodes&#34;]]
+
+    def save_polygons(self, output_path):
+        if output_path is not None:
+            self._save_dict(
+                output_path,
+                {
+                    &#34;nodes&#34;: self.polygon_nodes,
+                    &#34;image_shape&#34;: (self.ny, self.nx),
+                },
+            )
+
+    def define_magnets(self, magnetizations, unit_vectors):
+        &#34;&#34;&#34;
+        magnetizations: int/float if the same for all polygons, or an iterable of
+            len(polygon_nodes)
+            -&gt; in units of mu_b / nm^2 (or mu_b / PX^2 for SandboxMagSim)
+        unit_vectors: 3-iterable if the same for all polygons (cartesian coords),
+            or an iterable of len(polygon_nodes) each element a 3-iterable
+        &#34;&#34;&#34;
+        # todo: do we want to be able to add _noise_ here too? / other imperfections?
+        if isinstance(magnetizations, (float, int)):
+            self.magnetizations_lst = [
+                magnetizations for m, _ in enumerate(self.polygon_nodes)
+            ]
+        else:
+            if len(magnetizations) != len(self.polygon_nodes):
+                raise ValueError(
+                    f&#34;Number of magnetizations ({len(magnetizations)}) does not match &#34;
+                    + f&#34;number of magnets ({len(self.polygon_nodes)}).&#34;
+                )
+            self.magnetizations_lst = magnetizations
+
+        if isinstance(unit_vectors, (np.ndarray, list, tuple)):
+            if len(np.shape(unit_vectors)) == 1:
+                if len(unit_vectors) == 3:
+                    uv_abs = LA.norm(unit_vectors)
+                    self.unit_vectors_lst = [
+                        tuple(np.array(unit_vectors) / uv_abs)
+                        for m, _ in enumerate(self.polygon_nodes)
+                    ]
+                else:
+                    raise RuntimeError(
+                        &#34;I don&#39;t recognise that shape of unit_vectors.&#34;
+                        f&#34; ({np.shape(unit_vectors)})&#34;
+                    )
+            else:
+                # ensure unit vectors
+                self.unit_vectors_lst = [
+                    tuple(np.array(uv) / LA.norm(uv)) for uv in unit_vectors
+                ]
+        else:
+            raise TypeError(
+                f&#34;unit_vectors wrong type ({type(unit_vectors)}), not&#34;
+                &#34; ndarray/list/tuple. :(&#34;
+            )
+
+        if len(self.magnetizations_lst) != len(self.unit_vectors_lst):
+            raise RuntimeError(
+                f&#34;magnetizations_lst (len: {len(self.magnetizations_lst)}) &#34;
+                + &#34;not the same length as unit_vectors_lst (len:&#34;
+                f&#34; {len(self.unit_vectors_lst)}). :(&#34;
+            )
+
+        # now construct mag
+        self.mag = dd(lambda: np.zeros((self.ny, self.nx)))
+        grid_y, grid_x = np.meshgrid(range(self.ny), range(self.nx), indexing=&#34;ij&#34;)
+
+        for i, p in tqdm(
+            enumerate(self.polygon_nodes),
+            ascii=True,
+            mininterval=1,
+            unit=&#34;polygons&#34;,
+            desc=&#34;defining magnets...&#34;,
+            total=len(self.polygon_nodes),
+        ):
+            polygon = dukit.polygon.Polygon(p[:, 0], p[:, 1])
+            in_or_out = polygon.is_inside(grid_y, grid_x)
+            # 2021-08-04 changed from &gt; 0 -&gt; only defined __inside__ polygon
+            self.mag[self.unit_vectors_lst[i]][
+                in_or_out &gt; 0
+            ] += self.magnetizations_lst[i]
+
+    def save_magnets(self, output_path):
+        output_dict = {
+            &#34;mag&#34;: self.mag,
+            &#34;unit_vectors_lst&#34;: self.unit_vectors_lst,
+            &#34;magnetizations_lst&#34;: self.magnetizations_lst,
+        }
+        self._save_dict(output_path, output_dict)
+
+    def load_magnets(self, path):
+        in_dict = self._load_dict(path)
+        self.mag = in_dict[&#34;mag&#34;]
+        self.unit_vectors_lst = in_dict[&#34;unit_vectors_lst&#34;]
+        self.magnetizations_lst = in_dict[&#34;magnetizations_lst&#34;]
+
+    def run(
+        self,
+        standoff,
+        resolution=None,  # NOTE res is given as a sigma not a fwhm. !should! be fwhm.
+        pad_mode=&#34;mean&#34;,
+        pad_factor=2,
+        k_vector_epsilon=1e-6,
+        nv_layer_thickness=None,
+    ):
+        &#34;&#34;&#34;Everything units of metres.&#34;&#34;&#34;
+        self.standoff = standoff
+        # in future could be generalised to a range of standoffs
+        # e.g. if we wanted to average over an nv-depth distribution that would be easy
+
+        # get shape so we can define kvecs
+        shp = dukit.fourier.pad_image(
+            np.empty(np.shape(self.mag[self.unit_vectors_lst[0]])),
+            pad_mode,
+            pad_factor,
+        )[0].shape
+
+        ky, kx, k = dukit.fourier.define_k_vectors(
+            shp, self.pixel_size, k_vector_epsilon=k_vector_epsilon
+        )
+
+        d_matrix = dukit.fourier.define_magnetization_transformation(
+            ky, kx, k, standoff=standoff, nv_layer_thickness=nv_layer_thickness
+        )
+
+        d_matrix = dukit.fourier.set_naninf_to_zero(d_matrix)
+
+        self.bfield = [
+            np.zeros((self.ny, self.nx)),
+            np.zeros((self.ny, self.nx)),
+            np.zeros((self.ny, self.nx)),
+        ]
+
+        # convert to A from mu_b / nm^2 magnetization units
+        m_scale = 1 / dukit.fourier.MAG_UNIT_CONV
+
+        unique_uvs = dd(list)
+        for i, uv in enumerate(self.unit_vectors_lst):
+            unique_uvs[uv].append(i)
+
+        for uv in tqdm(
+            unique_uvs,
+            ascii=True,
+            mininterval=1,
+            unit=&#34;mag. unit vectors&#34;,
+            desc=&#34;propagating stray field...&#34;,
+            total=len(unique_uvs.keys()),
+        ):
+            mx, my, mz = (
+                self.mag[uv] * uv[0] * m_scale,
+                self.mag[uv] * uv[1] * m_scale,
+                self.mag[uv] * uv[2] * m_scale,
+            )
+
+            mx_pad, p = dukit.fourier.pad_image(mx, pad_mode, pad_factor)
+            my_pad, _ = dukit.fourier.pad_image(my, pad_mode, pad_factor)
+            mz_pad, _ = dukit.fourier.pad_image(mz, pad_mode, pad_factor)
+
+            fft_mx = numpy_fft.fftshift(numpy_fft.fft2(mx_pad))
+            fft_my = numpy_fft.fftshift(numpy_fft.fft2(my_pad))
+            fft_mz = numpy_fft.fftshift(numpy_fft.fft2(mz_pad))
+
+            fft_mag_vec = np.stack((fft_mx, fft_my, fft_mz))
+
+            fft_b_vec = np.einsum(
+                &#34;ij...,j...-&gt;i...&#34;, d_matrix, fft_mag_vec
+            )  # matrix mul b = d * m (d and m are stacked in last 2 dimensions)
+
+            if nv_layer_thickness is not None and standoff:
+                arg = k * nv_layer_thickness / 2
+                nv_thickness_correction = np.sinh(arg) / arg
+                for vec in fft_b_vec:
+                    vec *= nv_thickness_correction
+
+            # take back to real space, unpad &amp; convert bfield to Gauss (from Tesla)
+            self.bfield[0] += (
+                dukit.fourier.unpad_image(
+                    numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[0])).real, p
+                )
+                * 1e4
+            )
+            self.bfield[1] += (
+                dukit.fourier.unpad_image(
+                    numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[1])).real, p
+                )
+                * 1e4
+            )
+            self.bfield[2] += (
+                dukit.fourier.unpad_image(
+                    numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[2])).real, p
+                )
+                * 1e4
+            )
+
+        # for resolution convolve with width=resolution gaussian?
+        # yep but width = sigma = in units of pixels. {so do some maths eh}
+        # just do it after the fft I think.
+        # add noise too? -&gt; add to magnetisation or what?
+        if resolution is not None:
+            # would be faster to do while in k-space already above.
+            sigma = resolution / self.pixel_size
+            # in-place
+            gaussian_filter(self.bfield[0], sigma, output=self.bfield[0])
+            gaussian_filter(self.bfield[1], sigma, output=self.bfield[1])
+            gaussian_filter(self.bfield[2], sigma, output=self.bfield[2])
+
+    # def _scale_for_fft(self, ars):
+    #     &#34;&#34;&#34;Norm arrays so fft doesn&#39;t freak out. NB not used anymore&#34;&#34;&#34;
+    #     mx = np.max(np.abs(ars))
+    #     return [ar / mx for ar in ars], mx
+
+    def get_bfield_im(self, projection=(0, 0, 1)):
+        if self.bfield is None:
+            raise AttributeError(&#34;simulation not run yet.&#34;)
+        # access bfield_sensor_plane, project onto projection
+
+        # reshape bfield to be [bx, by, bz] for each pixel of image
+        # (as 1 stacked ndarray)
+        bfield_reshaped = np.stack(self.bfield, axis=-1)
+
+        proj_vec = np.array(projection)
+
+        return np.apply_along_axis(
+            lambda bvec: np.dot(proj_vec, bvec), -1, bfield_reshaped
+        )
+
+    def get_magnetization_im(self, unit_vector):
+        if self.mag is None:
+            raise AttributeError(&#34;magnetization not defined yet.&#34;)
+        return self.mag[unit_vector]
+
+    def plot_magsim_magnetization(
+        self, unit_vector, annotate_polygons=True, polygon_patch_params=None
+    ):
+        fig, ax = plt.subplots()
+        mag_image = self.get_magnetization_im(unit_vector)
+        mx = np.max(np.abs(mag_image))
+        c_range = (-mx, mx)
+        if annotate_polygons:
+            polys = self.polygon_nodes
+        else:
+            polys = None
+        dukit.itool.plot_image_on_ax(
+            fig,
+            ax,
+            mag_image,
+            str(unit_vector),
+            &#34;PuOr&#34;,
+            c_range,
+            r&#34;M ($\mu_B$ nm$^{-2}$)&#34;,
+            polygon_nodes=polys,
+            polygon_patch_params=polygon_patch_params,
+            raw_pixel_size=self.pixel_size,
+        )
+        return fig, ax
+
+    def plot_magsim_magnetizations(
+        self,
+        annotate_polygons=True,
+        polygon_patch_params=None,
+        cmap=&#34;PuOr&#34;,
+        c_range=None,
+    ):
+        # use single colorbar, different plots
+        # https://matplotlib.org/stable/gallery/subplots_axes_and figures\
+        #   /colorbar_placement.html
+        # calculate c_range smartly.
+        if self.magnetizations_lst is None:
+            raise AttributeError(&#34;no magnetizations_lst found, define it first aye.&#34;)
+
+        unique_uvs = dd(list)
+        for i, uv in enumerate(self.unit_vectors_lst):
+            unique_uvs[uv].append(i)
+
+        mag_images = [self.get_magnetization_im(uv) for uv in unique_uvs]
+
+        if c_range is None:
+            mx = max([np.nanmax(mag) for mag in mag_images])
+            c_range = (-mx, mx)
+
+        figsize = mpl.rcParams[&#34;figure.figsize&#34;].copy()
+        nrows = 1
+        ncols = len(unique_uvs) + 1
+        figsize[0] *= nrows
+
+        fig, axs = plt.subplots(figsize=figsize, nrows=nrows, ncols=ncols)
+
+        dukit.itool.plot_image_on_ax(
+            fig,
+            axs[0] if isinstance(axs, np.ndarray) else axs,
+            np.sum(mag_images, axis=0),
+            &#34;sum&#34;,
+            cmap,
+            c_range,
+            self._get_mag_unit_str(),
+            polygon_nodes=self.polygon_nodes if annotate_polygons else None,
+            polygon_patch_params=polygon_patch_params,
+            raw_pixel_size=self.pixel_size,
+        )
+
+        for i, (mag, uvs) in enumerate(zip(mag_images, unique_uvs)):
+            if annotate_polygons:
+                polys = [self.polygon_nodes[j] for j in unique_uvs[uvs]]
+            else:
+                polys = None
+
+            title = str(uvs)  # below is just copies of the same unv?
+            # title = &#34;, &#34;.join([str(self.unit_vectors_lst[uv])
+            #   for uv in unique_uvs[uvs]])
+            dukit.itool.plot_image_on_ax(
+                fig,
+                axs[i + 1] if isinstance(axs, np.ndarray) else axs,
+                mag,
+                title,
+                cmap,
+                c_range,
+                self._get_mag_unit_str(),
+                polygon_nodes=polys,
+                polygon_patch_params=polygon_patch_params,
+                raw_pixel_size=self.pixel_size,
+            )
+
+        return fig, axs
+
+    def plot_magsim_bfield_at_nvs(
+        self,
+        projection=(0, 0, 1),
+        annotate_polygons=True,
+        polygon_patch_params=None,
+        cmap=&#34;bwr&#34;,
+        strict_range=None,
+        c_label=None,
+    ):
+        if self.bfield is None:
+            raise AttributeError(&#34;No bfield found: no simulation run.&#34;)
+
+        if strict_range is not None:
+            c_range = strict_range
+        else:
+            furthest = np.max(np.abs([np.nanmin(self.bfield), np.nanmax(self.bfield)]))
+            c_range = (-furthest, furthest)
+
+        polys = None if annotate_polygons is None else self.polygon_nodes
+
+        fig, ax = plt.subplots()
+        proj_name = f&#34;({projection[0]:.2f},{projection[1]:.2f},{projection[2]:.2f})&#34;
+        c_label_ = f&#34;B . {proj_name}, (G)&#34; if c_label is None else c_label
+        dukit.itool.plot_image_on_ax(
+            fig,
+            ax,
+            self.get_bfield_im(projection),
+            f&#34;B . {proj_name} at z = {self.standoff}{self._get_dist_unit_str()}&#34;,
+            cmap,
+            c_range,
+            c_label_,
+            polygon_nodes=polys,
+            polygon_patch_params=polygon_patch_params,
+            raw_pixel_size=self.pixel_size,
+        )
+        return fig, ax
+
+    @staticmethod
+    def _get_mag_unit_str():
+        return r&#34;M ($\mu_B$ nm$^{-2}$)&#34;
+
+    @staticmethod
+    def _get_dist_scaling():
+        # nm = 1e-9
+        return 1e-9
+
+    @staticmethod
+    def _get_dist_unit_str():
+        return &#34;m&#34;
+
+    def crop_polygons(self, crop_polygon_nodes):
+        crop_polygons = [
+            dukit.polygon.Polygon(crop_nodes[:, 0], crop_nodes[:, 1])
+            for crop_nodes in crop_polygon_nodes
+        ]
+        keep_idxs = []
+        for idx, p in tqdm(
+            enumerate(self.polygon_nodes),
+            ascii=True,
+            mininterval=1,
+            unit=&#34;polygons&#34;,
+            desc=&#34;cropping polygons...&#34;,
+            total=len(self.polygon_nodes),
+        ):
+            for crop_polygon in crop_polygons:
+                if not np.all(crop_polygon.is_inside(p[:, 0], p[:, 1]) &gt; 0):
+                    break  # don&#39;t append to keep lst
+            else:
+                keep_idxs.append(
+                    idx
+                )  # only executes if loop exits normally (not &#39;break&#39;)
+        self.polygon_nodes = [
+            val for idx, val in enumerate(self.polygon_nodes) if idx in keep_idxs
+        ]
+        if self.magnetizations_lst is not None:
+            self.magnetizations_lst = [
+                val
+                for idx, val in enumerate(self.magnetizations_lst)
+                if idx in keep_idxs
+            ]
+            self.unit_vectors_lst = [
+                val for idx, val in enumerate(self.unit_vectors_lst) if idx in keep_idxs
+            ]
+
+    def crop_polygons_gui(self, show_polygons=True, **kwargs):
+        if show_polygons:
+            pn = self.polygon_nodes
+            n_og_polygons = len(self.polygon_nodes)
+        else:
+            pn = None
+            n_og_polygons = 0
+        pgon_dict = self._polygon_gui(
+            polygon_nodes=pn, prompt=&#34;Select crop polygon&#34;, **kwargs
+        )
+        new_pgons = [np.array(p) for p in pgon_dict[&#34;nodes&#34;][n_og_polygons:]]
+        self.crop_polygons(new_pgons)
+
+    def crop_magnetization(self, crop_polygon_nodes):
+        if self.mag is None:
+            raise AttributeError(&#34;You haven&#39;t defined mag yet! (use define_magnets).&#34;)
+        crop_polygons = [
+            dukit.polygon.Polygon(crop_nodes[:, 0], crop_nodes[:, 1])
+            for crop_nodes in crop_polygon_nodes
+        ]
+        grid_y, grid_x = np.meshgrid(range(self.ny), range(self.nx), indexing=&#34;ij&#34;)
+
+        for polygon in tqdm(
+            crop_polygons,
+            ascii=True,
+            mininterval=1,
+            unit=&#34;polygons&#34;,
+            desc=&#34;cropping magnetization...&#34;,
+            total=len(crop_polygons),
+        ):
+            for key in self.mag:
+                self.mag[key][polygon.is_inside(grid_y, grid_x) &lt; 0] = 0
+
+    def crop_domains(self, crop_polygon_nodes):
+        pass  # overriden in TilingMagSim
+
+    def crop_magnetization_gui(self, **kwargs):
+        # crops magnetization, polygons and domain_label_pts
+        # (i.e. run after define_magnets)
+        unique_uvs = dd(list)
+        for i, uv in enumerate(self.unit_vectors_lst):
+            unique_uvs[uv].append(i)
+        mag_image = np.sum([self.get_magnetization_im(uv) for uv in unique_uvs], axis=0)
+        n_og_polygons = len(self.polygon_nodes)
+        crop_dict = self._polygon_gui(
+            polygon_nodes=self.polygon_nodes,
+            image=mag_image,
+            cmap=&#34;PuOr&#34;,
+            prompt=&#34;Select crop polygon&#34;,
+            **kwargs,
+        )
+        crop_nodes = [np.array(p) for p in crop_dict[&#34;nodes&#34;][n_og_polygons:]]
+        self.crop_magnetization(crop_nodes)
+        self.crop_polygons(crop_nodes)
+        self.crop_domains(crop_nodes)</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="dukit.magsim.ComparisonMagSim" href="#dukit.magsim.ComparisonMagSim">ComparisonMagSim</a></li>
+<li><a title="dukit.magsim.SandboxMagSim" href="#dukit.magsim.SandboxMagSim">SandboxMagSim</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="dukit.magsim.MagSim.base_image"><code class="name">var <span class="ident">base_image</span> : numpy.ndarray[typing.Any, numpy.dtype[+_ScalarType_co]]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dukit.magsim.MagSim.bfield"><code class="name">var <span class="ident">bfield</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dukit.magsim.MagSim.mag"><code class="name">var <span class="ident">mag</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dukit.magsim.MagSim.magnetizations_lst"><code class="name">var <span class="ident">magnetizations_lst</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dukit.magsim.MagSim.nx"><code class="name">var <span class="ident">nx</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dukit.magsim.MagSim.ny"><code class="name">var <span class="ident">ny</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dukit.magsim.MagSim.pixel_size"><code class="name">var <span class="ident">pixel_size</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dukit.magsim.MagSim.polygon_nodes"><code class="name">var <span class="ident">polygon_nodes</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dukit.magsim.MagSim.standoff"><code class="name">var <span class="ident">standoff</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dukit.magsim.MagSim.template_polygon_nodes"><code class="name">var <span class="ident">template_polygon_nodes</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dukit.magsim.MagSim.unit_vectors_lst"><code class="name">var <span class="ident">unit_vectors_lst</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="dukit.magsim.MagSim.add_polygons"><code class="name flex">
+<span>def <span class="ident">add_polygons</span></span>(<span>self, polys=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>polygons is dict (polygons directly) or str (path to)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_polygons(self, polys=None):
+    &#34;&#34;&#34;polygons is dict (polygons directly) or str (path to)&#34;&#34;&#34;
+    self.polygon_nodes = self._load_polys(polys, check_size=True)</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.crop_domains"><code class="name flex">
+<span>def <span class="ident">crop_domains</span></span>(<span>self, crop_polygon_nodes)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def crop_domains(self, crop_polygon_nodes):
+    pass  # overriden in TilingMagSim</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.crop_magnetization"><code class="name flex">
+<span>def <span class="ident">crop_magnetization</span></span>(<span>self, crop_polygon_nodes)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def crop_magnetization(self, crop_polygon_nodes):
+    if self.mag is None:
+        raise AttributeError(&#34;You haven&#39;t defined mag yet! (use define_magnets).&#34;)
+    crop_polygons = [
+        dukit.polygon.Polygon(crop_nodes[:, 0], crop_nodes[:, 1])
+        for crop_nodes in crop_polygon_nodes
+    ]
+    grid_y, grid_x = np.meshgrid(range(self.ny), range(self.nx), indexing=&#34;ij&#34;)
+
+    for polygon in tqdm(
+        crop_polygons,
+        ascii=True,
+        mininterval=1,
+        unit=&#34;polygons&#34;,
+        desc=&#34;cropping magnetization...&#34;,
+        total=len(crop_polygons),
+    ):
+        for key in self.mag:
+            self.mag[key][polygon.is_inside(grid_y, grid_x) &lt; 0] = 0</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.crop_magnetization_gui"><code class="name flex">
+<span>def <span class="ident">crop_magnetization_gui</span></span>(<span>self, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def crop_magnetization_gui(self, **kwargs):
+    # crops magnetization, polygons and domain_label_pts
+    # (i.e. run after define_magnets)
+    unique_uvs = dd(list)
+    for i, uv in enumerate(self.unit_vectors_lst):
+        unique_uvs[uv].append(i)
+    mag_image = np.sum([self.get_magnetization_im(uv) for uv in unique_uvs], axis=0)
+    n_og_polygons = len(self.polygon_nodes)
+    crop_dict = self._polygon_gui(
+        polygon_nodes=self.polygon_nodes,
+        image=mag_image,
+        cmap=&#34;PuOr&#34;,
+        prompt=&#34;Select crop polygon&#34;,
+        **kwargs,
+    )
+    crop_nodes = [np.array(p) for p in crop_dict[&#34;nodes&#34;][n_og_polygons:]]
+    self.crop_magnetization(crop_nodes)
+    self.crop_polygons(crop_nodes)
+    self.crop_domains(crop_nodes)</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.crop_polygons"><code class="name flex">
+<span>def <span class="ident">crop_polygons</span></span>(<span>self, crop_polygon_nodes)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def crop_polygons(self, crop_polygon_nodes):
+    crop_polygons = [
+        dukit.polygon.Polygon(crop_nodes[:, 0], crop_nodes[:, 1])
+        for crop_nodes in crop_polygon_nodes
+    ]
+    keep_idxs = []
+    for idx, p in tqdm(
+        enumerate(self.polygon_nodes),
+        ascii=True,
+        mininterval=1,
+        unit=&#34;polygons&#34;,
+        desc=&#34;cropping polygons...&#34;,
+        total=len(self.polygon_nodes),
+    ):
+        for crop_polygon in crop_polygons:
+            if not np.all(crop_polygon.is_inside(p[:, 0], p[:, 1]) &gt; 0):
+                break  # don&#39;t append to keep lst
+        else:
+            keep_idxs.append(
+                idx
+            )  # only executes if loop exits normally (not &#39;break&#39;)
+    self.polygon_nodes = [
+        val for idx, val in enumerate(self.polygon_nodes) if idx in keep_idxs
+    ]
+    if self.magnetizations_lst is not None:
+        self.magnetizations_lst = [
+            val
+            for idx, val in enumerate(self.magnetizations_lst)
+            if idx in keep_idxs
+        ]
+        self.unit_vectors_lst = [
+            val for idx, val in enumerate(self.unit_vectors_lst) if idx in keep_idxs
+        ]</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.crop_polygons_gui"><code class="name flex">
+<span>def <span class="ident">crop_polygons_gui</span></span>(<span>self, show_polygons=True, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def crop_polygons_gui(self, show_polygons=True, **kwargs):
+    if show_polygons:
+        pn = self.polygon_nodes
+        n_og_polygons = len(self.polygon_nodes)
+    else:
+        pn = None
+        n_og_polygons = 0
+    pgon_dict = self._polygon_gui(
+        polygon_nodes=pn, prompt=&#34;Select crop polygon&#34;, **kwargs
+    )
+    new_pgons = [np.array(p) for p in pgon_dict[&#34;nodes&#34;][n_og_polygons:]]
+    self.crop_polygons(new_pgons)</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.define_magnets"><code class="name flex">
+<span>def <span class="ident">define_magnets</span></span>(<span>self, magnetizations, unit_vectors)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>magnetizations: int/float if the same for all polygons, or an iterable of
+len(polygon_nodes)
+-&gt; in units of mu_b / nm^2 (or mu_b / PX^2 for SandboxMagSim)
+unit_vectors: 3-iterable if the same for all polygons (cartesian coords),
+or an iterable of len(polygon_nodes) each element a 3-iterable</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def define_magnets(self, magnetizations, unit_vectors):
+    &#34;&#34;&#34;
+    magnetizations: int/float if the same for all polygons, or an iterable of
+        len(polygon_nodes)
+        -&gt; in units of mu_b / nm^2 (or mu_b / PX^2 for SandboxMagSim)
+    unit_vectors: 3-iterable if the same for all polygons (cartesian coords),
+        or an iterable of len(polygon_nodes) each element a 3-iterable
+    &#34;&#34;&#34;
+    # todo: do we want to be able to add _noise_ here too? / other imperfections?
+    if isinstance(magnetizations, (float, int)):
+        self.magnetizations_lst = [
+            magnetizations for m, _ in enumerate(self.polygon_nodes)
+        ]
+    else:
+        if len(magnetizations) != len(self.polygon_nodes):
+            raise ValueError(
+                f&#34;Number of magnetizations ({len(magnetizations)}) does not match &#34;
+                + f&#34;number of magnets ({len(self.polygon_nodes)}).&#34;
+            )
+        self.magnetizations_lst = magnetizations
+
+    if isinstance(unit_vectors, (np.ndarray, list, tuple)):
+        if len(np.shape(unit_vectors)) == 1:
+            if len(unit_vectors) == 3:
+                uv_abs = LA.norm(unit_vectors)
+                self.unit_vectors_lst = [
+                    tuple(np.array(unit_vectors) / uv_abs)
+                    for m, _ in enumerate(self.polygon_nodes)
+                ]
+            else:
+                raise RuntimeError(
+                    &#34;I don&#39;t recognise that shape of unit_vectors.&#34;
+                    f&#34; ({np.shape(unit_vectors)})&#34;
+                )
+        else:
+            # ensure unit vectors
+            self.unit_vectors_lst = [
+                tuple(np.array(uv) / LA.norm(uv)) for uv in unit_vectors
+            ]
+    else:
+        raise TypeError(
+            f&#34;unit_vectors wrong type ({type(unit_vectors)}), not&#34;
+            &#34; ndarray/list/tuple. :(&#34;
+        )
+
+    if len(self.magnetizations_lst) != len(self.unit_vectors_lst):
+        raise RuntimeError(
+            f&#34;magnetizations_lst (len: {len(self.magnetizations_lst)}) &#34;
+            + &#34;not the same length as unit_vectors_lst (len:&#34;
+            f&#34; {len(self.unit_vectors_lst)}). :(&#34;
+        )
+
+    # now construct mag
+    self.mag = dd(lambda: np.zeros((self.ny, self.nx)))
+    grid_y, grid_x = np.meshgrid(range(self.ny), range(self.nx), indexing=&#34;ij&#34;)
+
+    for i, p in tqdm(
+        enumerate(self.polygon_nodes),
+        ascii=True,
+        mininterval=1,
+        unit=&#34;polygons&#34;,
+        desc=&#34;defining magnets...&#34;,
+        total=len(self.polygon_nodes),
+    ):
+        polygon = dukit.polygon.Polygon(p[:, 0], p[:, 1])
+        in_or_out = polygon.is_inside(grid_y, grid_x)
+        # 2021-08-04 changed from &gt; 0 -&gt; only defined __inside__ polygon
+        self.mag[self.unit_vectors_lst[i]][
+            in_or_out &gt; 0
+        ] += self.magnetizations_lst[i]</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.get_bfield_im"><code class="name flex">
+<span>def <span class="ident">get_bfield_im</span></span>(<span>self, projection=(0, 0, 1))</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_bfield_im(self, projection=(0, 0, 1)):
+    if self.bfield is None:
+        raise AttributeError(&#34;simulation not run yet.&#34;)
+    # access bfield_sensor_plane, project onto projection
+
+    # reshape bfield to be [bx, by, bz] for each pixel of image
+    # (as 1 stacked ndarray)
+    bfield_reshaped = np.stack(self.bfield, axis=-1)
+
+    proj_vec = np.array(projection)
+
+    return np.apply_along_axis(
+        lambda bvec: np.dot(proj_vec, bvec), -1, bfield_reshaped
+    )</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.get_magnetization_im"><code class="name flex">
+<span>def <span class="ident">get_magnetization_im</span></span>(<span>self, unit_vector)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_magnetization_im(self, unit_vector):
+    if self.mag is None:
+        raise AttributeError(&#34;magnetization not defined yet.&#34;)
+    return self.mag[unit_vector]</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.load_magnets"><code class="name flex">
+<span>def <span class="ident">load_magnets</span></span>(<span>self, path)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_magnets(self, path):
+    in_dict = self._load_dict(path)
+    self.mag = in_dict[&#34;mag&#34;]
+    self.unit_vectors_lst = in_dict[&#34;unit_vectors_lst&#34;]
+    self.magnetizations_lst = in_dict[&#34;magnetizations_lst&#34;]</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.plot_magsim_bfield_at_nvs"><code class="name flex">
+<span>def <span class="ident">plot_magsim_bfield_at_nvs</span></span>(<span>self, projection=(0, 0, 1), annotate_polygons=True, polygon_patch_params=None, cmap='bwr', strict_range=None, c_label=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_magsim_bfield_at_nvs(
+    self,
+    projection=(0, 0, 1),
+    annotate_polygons=True,
+    polygon_patch_params=None,
+    cmap=&#34;bwr&#34;,
+    strict_range=None,
+    c_label=None,
+):
+    if self.bfield is None:
+        raise AttributeError(&#34;No bfield found: no simulation run.&#34;)
+
+    if strict_range is not None:
+        c_range = strict_range
+    else:
+        furthest = np.max(np.abs([np.nanmin(self.bfield), np.nanmax(self.bfield)]))
+        c_range = (-furthest, furthest)
+
+    polys = None if annotate_polygons is None else self.polygon_nodes
+
+    fig, ax = plt.subplots()
+    proj_name = f&#34;({projection[0]:.2f},{projection[1]:.2f},{projection[2]:.2f})&#34;
+    c_label_ = f&#34;B . {proj_name}, (G)&#34; if c_label is None else c_label
+    dukit.itool.plot_image_on_ax(
+        fig,
+        ax,
+        self.get_bfield_im(projection),
+        f&#34;B . {proj_name} at z = {self.standoff}{self._get_dist_unit_str()}&#34;,
+        cmap,
+        c_range,
+        c_label_,
+        polygon_nodes=polys,
+        polygon_patch_params=polygon_patch_params,
+        raw_pixel_size=self.pixel_size,
+    )
+    return fig, ax</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.plot_magsim_magnetization"><code class="name flex">
+<span>def <span class="ident">plot_magsim_magnetization</span></span>(<span>self, unit_vector, annotate_polygons=True, polygon_patch_params=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_magsim_magnetization(
+    self, unit_vector, annotate_polygons=True, polygon_patch_params=None
+):
+    fig, ax = plt.subplots()
+    mag_image = self.get_magnetization_im(unit_vector)
+    mx = np.max(np.abs(mag_image))
+    c_range = (-mx, mx)
+    if annotate_polygons:
+        polys = self.polygon_nodes
+    else:
+        polys = None
+    dukit.itool.plot_image_on_ax(
+        fig,
+        ax,
+        mag_image,
+        str(unit_vector),
+        &#34;PuOr&#34;,
+        c_range,
+        r&#34;M ($\mu_B$ nm$^{-2}$)&#34;,
+        polygon_nodes=polys,
+        polygon_patch_params=polygon_patch_params,
+        raw_pixel_size=self.pixel_size,
+    )
+    return fig, ax</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.plot_magsim_magnetizations"><code class="name flex">
+<span>def <span class="ident">plot_magsim_magnetizations</span></span>(<span>self, annotate_polygons=True, polygon_patch_params=None, cmap='PuOr', c_range=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_magsim_magnetizations(
+    self,
+    annotate_polygons=True,
+    polygon_patch_params=None,
+    cmap=&#34;PuOr&#34;,
+    c_range=None,
+):
+    # use single colorbar, different plots
+    # https://matplotlib.org/stable/gallery/subplots_axes_and figures\
+    #   /colorbar_placement.html
+    # calculate c_range smartly.
+    if self.magnetizations_lst is None:
+        raise AttributeError(&#34;no magnetizations_lst found, define it first aye.&#34;)
+
+    unique_uvs = dd(list)
+    for i, uv in enumerate(self.unit_vectors_lst):
+        unique_uvs[uv].append(i)
+
+    mag_images = [self.get_magnetization_im(uv) for uv in unique_uvs]
+
+    if c_range is None:
+        mx = max([np.nanmax(mag) for mag in mag_images])
+        c_range = (-mx, mx)
+
+    figsize = mpl.rcParams[&#34;figure.figsize&#34;].copy()
+    nrows = 1
+    ncols = len(unique_uvs) + 1
+    figsize[0] *= nrows
+
+    fig, axs = plt.subplots(figsize=figsize, nrows=nrows, ncols=ncols)
+
+    dukit.itool.plot_image_on_ax(
+        fig,
+        axs[0] if isinstance(axs, np.ndarray) else axs,
+        np.sum(mag_images, axis=0),
+        &#34;sum&#34;,
+        cmap,
+        c_range,
+        self._get_mag_unit_str(),
+        polygon_nodes=self.polygon_nodes if annotate_polygons else None,
+        polygon_patch_params=polygon_patch_params,
+        raw_pixel_size=self.pixel_size,
+    )
+
+    for i, (mag, uvs) in enumerate(zip(mag_images, unique_uvs)):
+        if annotate_polygons:
+            polys = [self.polygon_nodes[j] for j in unique_uvs[uvs]]
+        else:
+            polys = None
+
+        title = str(uvs)  # below is just copies of the same unv?
+        # title = &#34;, &#34;.join([str(self.unit_vectors_lst[uv])
+        #   for uv in unique_uvs[uvs]])
+        dukit.itool.plot_image_on_ax(
+            fig,
+            axs[i + 1] if isinstance(axs, np.ndarray) else axs,
+            mag,
+            title,
+            cmap,
+            c_range,
+            self._get_mag_unit_str(),
+            polygon_nodes=polys,
+            polygon_patch_params=polygon_patch_params,
+            raw_pixel_size=self.pixel_size,
+        )
+
+    return fig, axs</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self, standoff, resolution=None, pad_mode='mean', pad_factor=2, k_vector_epsilon=1e-06, nv_layer_thickness=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Everything units of metres.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(
+    self,
+    standoff,
+    resolution=None,  # NOTE res is given as a sigma not a fwhm. !should! be fwhm.
+    pad_mode=&#34;mean&#34;,
+    pad_factor=2,
+    k_vector_epsilon=1e-6,
+    nv_layer_thickness=None,
+):
+    &#34;&#34;&#34;Everything units of metres.&#34;&#34;&#34;
+    self.standoff = standoff
+    # in future could be generalised to a range of standoffs
+    # e.g. if we wanted to average over an nv-depth distribution that would be easy
+
+    # get shape so we can define kvecs
+    shp = dukit.fourier.pad_image(
+        np.empty(np.shape(self.mag[self.unit_vectors_lst[0]])),
+        pad_mode,
+        pad_factor,
+    )[0].shape
+
+    ky, kx, k = dukit.fourier.define_k_vectors(
+        shp, self.pixel_size, k_vector_epsilon=k_vector_epsilon
+    )
+
+    d_matrix = dukit.fourier.define_magnetization_transformation(
+        ky, kx, k, standoff=standoff, nv_layer_thickness=nv_layer_thickness
+    )
+
+    d_matrix = dukit.fourier.set_naninf_to_zero(d_matrix)
+
+    self.bfield = [
+        np.zeros((self.ny, self.nx)),
+        np.zeros((self.ny, self.nx)),
+        np.zeros((self.ny, self.nx)),
+    ]
+
+    # convert to A from mu_b / nm^2 magnetization units
+    m_scale = 1 / dukit.fourier.MAG_UNIT_CONV
+
+    unique_uvs = dd(list)
+    for i, uv in enumerate(self.unit_vectors_lst):
+        unique_uvs[uv].append(i)
+
+    for uv in tqdm(
+        unique_uvs,
+        ascii=True,
+        mininterval=1,
+        unit=&#34;mag. unit vectors&#34;,
+        desc=&#34;propagating stray field...&#34;,
+        total=len(unique_uvs.keys()),
+    ):
+        mx, my, mz = (
+            self.mag[uv] * uv[0] * m_scale,
+            self.mag[uv] * uv[1] * m_scale,
+            self.mag[uv] * uv[2] * m_scale,
+        )
+
+        mx_pad, p = dukit.fourier.pad_image(mx, pad_mode, pad_factor)
+        my_pad, _ = dukit.fourier.pad_image(my, pad_mode, pad_factor)
+        mz_pad, _ = dukit.fourier.pad_image(mz, pad_mode, pad_factor)
+
+        fft_mx = numpy_fft.fftshift(numpy_fft.fft2(mx_pad))
+        fft_my = numpy_fft.fftshift(numpy_fft.fft2(my_pad))
+        fft_mz = numpy_fft.fftshift(numpy_fft.fft2(mz_pad))
+
+        fft_mag_vec = np.stack((fft_mx, fft_my, fft_mz))
+
+        fft_b_vec = np.einsum(
+            &#34;ij...,j...-&gt;i...&#34;, d_matrix, fft_mag_vec
+        )  # matrix mul b = d * m (d and m are stacked in last 2 dimensions)
+
+        if nv_layer_thickness is not None and standoff:
+            arg = k * nv_layer_thickness / 2
+            nv_thickness_correction = np.sinh(arg) / arg
+            for vec in fft_b_vec:
+                vec *= nv_thickness_correction
+
+        # take back to real space, unpad &amp; convert bfield to Gauss (from Tesla)
+        self.bfield[0] += (
+            dukit.fourier.unpad_image(
+                numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[0])).real, p
+            )
+            * 1e4
+        )
+        self.bfield[1] += (
+            dukit.fourier.unpad_image(
+                numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[1])).real, p
+            )
+            * 1e4
+        )
+        self.bfield[2] += (
+            dukit.fourier.unpad_image(
+                numpy_fft.ifft2(numpy_fft.ifftshift(fft_b_vec[2])).real, p
+            )
+            * 1e4
+        )
+
+    # for resolution convolve with width=resolution gaussian?
+    # yep but width = sigma = in units of pixels. {so do some maths eh}
+    # just do it after the fft I think.
+    # add noise too? -&gt; add to magnetisation or what?
+    if resolution is not None:
+        # would be faster to do while in k-space already above.
+        sigma = resolution / self.pixel_size
+        # in-place
+        gaussian_filter(self.bfield[0], sigma, output=self.bfield[0])
+        gaussian_filter(self.bfield[1], sigma, output=self.bfield[1])
+        gaussian_filter(self.bfield[2], sigma, output=self.bfield[2])</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.save_magnets"><code class="name flex">
+<span>def <span class="ident">save_magnets</span></span>(<span>self, output_path)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_magnets(self, output_path):
+    output_dict = {
+        &#34;mag&#34;: self.mag,
+        &#34;unit_vectors_lst&#34;: self.unit_vectors_lst,
+        &#34;magnetizations_lst&#34;: self.magnetizations_lst,
+    }
+    self._save_dict(output_path, output_dict)</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.save_polygons"><code class="name flex">
+<span>def <span class="ident">save_polygons</span></span>(<span>self, output_path)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_polygons(self, output_path):
+    if output_path is not None:
+        self._save_dict(
+            output_path,
+            {
+                &#34;nodes&#34;: self.polygon_nodes,
+                &#34;image_shape&#34;: (self.ny, self.nx),
+            },
+        )</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.MagSim.select_polygons"><code class="name flex">
+<span>def <span class="ident">select_polygons</span></span>(<span>self, polygon_nodes=None, output_path=None, mean_plus_minus=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>manually select polygons</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def select_polygons(
+    self,
+    polygon_nodes=None,
+    output_path=None,
+    mean_plus_minus=None,
+    **kwargs,
+):
+    &#34;&#34;&#34;manually select polygons&#34;&#34;&#34;
+    pgon_dict = self._polygon_gui(
+        polygon_nodes=polygon_nodes,
+        mean_plus_minus=mean_plus_minus,
+        **kwargs,
+    )
+    if output_path is not None:
+        self._save_dict(output_path, pgon_dict)
+
+    self.polygon_nodes = [np.array(p) for p in pgon_dict[&#34;nodes&#34;]]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="dukit.magsim.SandboxMagSim"><code class="flex name class">
+<span>class <span class="ident">SandboxMagSim</span></span>
+<span>(</span><span>mesh_shape, fov_dims)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Image conventions: first index is height.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SandboxMagSim(MagSim):
+    def __init__(self, mesh_shape, fov_dims):
+        &#34;&#34;&#34;Image conventions: first index is height.&#34;&#34;&#34;
+        self.ny, self.nx = mesh_shape
+        self.fov_dims = fov_dims
+        self.base_image = np.full(mesh_shape, np.nan)
+        pxl_y = fov_dims[0] / self.ny
+        pxl_x = fov_dims[1] / self.nx
+        if int(np.floor(pxl_y)) != int(np.floor(pxl_x)):
+            raise ValueError(
+                &#34;fov_dims ratio height:width does not match mesh height:width ratio.&#34;
+            )
+        self.pixel_size = pxl_y
+
+    def add_template_polygons(self, polygons=None):
+        &#34;&#34;&#34;polygons takes precedence.&#34;&#34;&#34;
+        self.template_polygon_nodes = self._load_polys(polygons, check_size=True)
+
+    def rescale_template(self, factor):
+        if self.template_polygon_nodes is None:
+            raise RuntimeError(&#34;Add/define template_polygon_nodes before rescaling.&#34;)
+
+        for polygon in self.template_polygon_nodes:
+            for node in polygon:
+                node[0] *= factor
+                node[1] *= factor
+
+    def adjust_template(self, output_path=None, mean_plus_minus=None, **kwargs):
+        if self.template_polygon_nodes is None:
+            raise AttributeError(&#34;Add template polygons before adjusting.&#34;)
+        pgon_dict = self._polygon_gui(
+            polygon_nodes=self.template_polygon_nodes,
+            mean_plus_minus=mean_plus_minus,
+            prompt=&#34;Adjust template polygons/add new&#34;,
+            **kwargs,
+        )
+        if output_path is not None:
+            self._save_dict(output_path, pgon_dict)
+
+        self.template_polygon_nodes = [np.array(p) for p in pgon_dict[&#34;nodes&#34;]]
+
+    def set_template_as_polygons(self):
+        if self.template_polygon_nodes is None:
+            raise AttributeError(&#34;No template set.&#34;)
+        self.polygon_nodes = self.template_polygon_nodes</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dukit.magsim.MagSim" href="#dukit.magsim.MagSim">MagSim</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="dukit.magsim.SandboxMagSim.add_template_polygons"><code class="name flex">
+<span>def <span class="ident">add_template_polygons</span></span>(<span>self, polygons=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>polygons takes precedence.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_template_polygons(self, polygons=None):
+    &#34;&#34;&#34;polygons takes precedence.&#34;&#34;&#34;
+    self.template_polygon_nodes = self._load_polys(polygons, check_size=True)</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.SandboxMagSim.adjust_template"><code class="name flex">
+<span>def <span class="ident">adjust_template</span></span>(<span>self, output_path=None, mean_plus_minus=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def adjust_template(self, output_path=None, mean_plus_minus=None, **kwargs):
+    if self.template_polygon_nodes is None:
+        raise AttributeError(&#34;Add template polygons before adjusting.&#34;)
+    pgon_dict = self._polygon_gui(
+        polygon_nodes=self.template_polygon_nodes,
+        mean_plus_minus=mean_plus_minus,
+        prompt=&#34;Adjust template polygons/add new&#34;,
+        **kwargs,
+    )
+    if output_path is not None:
+        self._save_dict(output_path, pgon_dict)
+
+    self.template_polygon_nodes = [np.array(p) for p in pgon_dict[&#34;nodes&#34;]]</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.SandboxMagSim.rescale_template"><code class="name flex">
+<span>def <span class="ident">rescale_template</span></span>(<span>self, factor)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rescale_template(self, factor):
+    if self.template_polygon_nodes is None:
+        raise RuntimeError(&#34;Add/define template_polygon_nodes before rescaling.&#34;)
+
+    for polygon in self.template_polygon_nodes:
+        for node in polygon:
+            node[0] *= factor
+            node[1] *= factor</code></pre>
+</details>
+</dd>
+<dt id="dukit.magsim.SandboxMagSim.set_template_as_polygons"><code class="name flex">
+<span>def <span class="ident">set_template_as_polygons</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_template_as_polygons(self):
+    if self.template_polygon_nodes is None:
+        raise AttributeError(&#34;No template set.&#34;)
+    self.polygon_nodes = self.template_polygon_nodes</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dukit.magsim.MagSim" href="#dukit.magsim.MagSim">MagSim</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dukit.magsim.MagSim.add_polygons" href="#dukit.magsim.MagSim.add_polygons">add_polygons</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.define_magnets" href="#dukit.magsim.MagSim.define_magnets">define_magnets</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.run" href="#dukit.magsim.MagSim.run">run</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.select_polygons" href="#dukit.magsim.MagSim.select_polygons">select_polygons</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.css" integrity="sha512-j1u8eUJ4f23xPPxwOrLUPQaCD2dwzNqqmDDcWS4deWsMv2ohLqmXXuP3hU7g8TyzbMSakP/mMqoNBYWj8AEIFg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.js" integrity="sha512-plGUER9JkeEWPPqQBE4sdLqBoQug5Ap+BCGMc7bJ8BXkm+VVj6QzkpBz5Yv2yPkkq+cqg9IpkBaGCas6uDbW8g==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {width: auto;}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#classes">Classes</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="dukit" href="index.html">dukit</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="dukit.magsim.ComparisonMagSim" href="#dukit.magsim.ComparisonMagSim">ComparisonMagSim</a></code></h4>
+<ul class="">
+<li><code><a title="dukit.magsim.ComparisonMagSim.plot_comparison" href="#dukit.magsim.ComparisonMagSim.plot_comparison">plot_comparison</a></code></li>
+<li><code><a title="dukit.magsim.ComparisonMagSim.rescale" href="#dukit.magsim.ComparisonMagSim.rescale">rescale</a></code></li>
+<li><code><a title="dukit.magsim.ComparisonMagSim.unscaled_polygon_nodes" href="#dukit.magsim.ComparisonMagSim.unscaled_polygon_nodes">unscaled_polygon_nodes</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dukit.magsim.MagSim" href="#dukit.magsim.MagSim">MagSim</a></code></h4>
+<ul class="">
+<li><code><a title="dukit.magsim.MagSim.add_polygons" href="#dukit.magsim.MagSim.add_polygons">add_polygons</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.base_image" href="#dukit.magsim.MagSim.base_image">base_image</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.bfield" href="#dukit.magsim.MagSim.bfield">bfield</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.crop_domains" href="#dukit.magsim.MagSim.crop_domains">crop_domains</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.crop_magnetization" href="#dukit.magsim.MagSim.crop_magnetization">crop_magnetization</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.crop_magnetization_gui" href="#dukit.magsim.MagSim.crop_magnetization_gui">crop_magnetization_gui</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.crop_polygons" href="#dukit.magsim.MagSim.crop_polygons">crop_polygons</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.crop_polygons_gui" href="#dukit.magsim.MagSim.crop_polygons_gui">crop_polygons_gui</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.define_magnets" href="#dukit.magsim.MagSim.define_magnets">define_magnets</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.get_bfield_im" href="#dukit.magsim.MagSim.get_bfield_im">get_bfield_im</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.get_magnetization_im" href="#dukit.magsim.MagSim.get_magnetization_im">get_magnetization_im</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.load_magnets" href="#dukit.magsim.MagSim.load_magnets">load_magnets</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.mag" href="#dukit.magsim.MagSim.mag">mag</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.magnetizations_lst" href="#dukit.magsim.MagSim.magnetizations_lst">magnetizations_lst</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.nx" href="#dukit.magsim.MagSim.nx">nx</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.ny" href="#dukit.magsim.MagSim.ny">ny</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.pixel_size" href="#dukit.magsim.MagSim.pixel_size">pixel_size</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.plot_magsim_bfield_at_nvs" href="#dukit.magsim.MagSim.plot_magsim_bfield_at_nvs">plot_magsim_bfield_at_nvs</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.plot_magsim_magnetization" href="#dukit.magsim.MagSim.plot_magsim_magnetization">plot_magsim_magnetization</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.plot_magsim_magnetizations" href="#dukit.magsim.MagSim.plot_magsim_magnetizations">plot_magsim_magnetizations</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.polygon_nodes" href="#dukit.magsim.MagSim.polygon_nodes">polygon_nodes</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.run" href="#dukit.magsim.MagSim.run">run</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.save_magnets" href="#dukit.magsim.MagSim.save_magnets">save_magnets</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.save_polygons" href="#dukit.magsim.MagSim.save_polygons">save_polygons</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.select_polygons" href="#dukit.magsim.MagSim.select_polygons">select_polygons</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.standoff" href="#dukit.magsim.MagSim.standoff">standoff</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.template_polygon_nodes" href="#dukit.magsim.MagSim.template_polygon_nodes">template_polygon_nodes</a></code></li>
+<li><code><a title="dukit.magsim.MagSim.unit_vectors_lst" href="#dukit.magsim.MagSim.unit_vectors_lst">unit_vectors_lst</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dukit.magsim.SandboxMagSim" href="#dukit.magsim.SandboxMagSim">SandboxMagSim</a></code></h4>
+<ul class="">
+<li><code><a title="dukit.magsim.SandboxMagSim.add_template_polygons" href="#dukit.magsim.SandboxMagSim.add_template_polygons">add_template_polygons</a></code></li>
+<li><code><a title="dukit.magsim.SandboxMagSim.adjust_template" href="#dukit.magsim.SandboxMagSim.adjust_template">adjust_template</a></code></li>
+<li><code><a title="dukit.magsim.SandboxMagSim.rescale_template" href="#dukit.magsim.SandboxMagSim.rescale_template">rescale_template</a></code></li>
+<li><code><a title="dukit.magsim.SandboxMagSim.set_template_as_polygons" href="#dukit.magsim.SandboxMagSim.set_template_as_polygons">set_template_as_polygons</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

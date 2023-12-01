@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>dukit.shared.itool API documentation</title>
+<meta name="description" content="This module holds misc image tooling …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML'></script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>dukit.shared.itool</code></h1>
+</header>
+<section id="section-intro">
+<p>This module holds misc image tooling.</p>
+<h2 id="functions">Functions</h2>
+<ul>
+<li><code><a title="dukit.shared.itool.mask_polygons" href="#dukit.shared.itool.mask_polygons">mask_polygons()</a></code></li>
+<li><code><a title="dukit.shared.itool.get_im_filtered" href="#dukit.shared.itool.get_im_filtered">get_im_filtered()</a></code></li>
+<li><code><a title="dukit.shared.itool.get_background" href="#dukit.shared.itool.get_background">get_background()</a></code></li>
+<li><code><a title="dukit.shared.itool.mu_sigma_inside_polygons" href="#dukit.shared.itool.mu_sigma_inside_polygons">mu_sigma_inside_polygons()</a></code></li>
+</ul>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+This module holds misc image tooling.
+
+Functions
+---------
+ - `dukit.shared.itool.mask_polygons`
+ - `dukit.shared.itool.get_im_filtered`
+ - `dukit.shared.itool.get_background`
+ - `dukit.shared.itool.mu_sigma_inside_polygons`
+&#34;&#34;&#34;
+
+# ============================================================================
+
+__author__ = &#34;Sam Scholten&#34;
+__pdoc__ = {
+    &#34;dukit.shared.itool.mask_polygons&#34;: True,
+    &#34;dukit.shared.itool.get_im_filtered&#34;: True,
+    &#34;dukit.shared.itool.get_background&#34;: True,
+    &#34;dukit.shared.itool.mu_sigma_inside_polygons&#34;: True,
+}
+
+# ============================================================================
+
+import numpy as np
+import numpy.typing as npt
+from numpy.polynomial.polynomial import polyval2d
+from scipy.optimize import least_squares
+from scipy.interpolate import griddata
+import scipy.ndimage
+from typing import Callable
+
+# ============================================================================
+
+import dukit.shared.polygon
+from dukit.shared.misc import dukit_warn
+
+# ============================================================================
+
+
+def mask_polygons(
+    image: npt.NDArray, polygons: list | None = None, invert_mask: bool = False
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Mask image for the given polygon regions.
+
+    Arguments
+    ---------
+    image : 2D array-like
+        Image array to mask.
+    polygons : list, optional
+        List of `qdmpy.shared.polygon.Polygon` objects.
+        (the default is None, where image is returned with no mask)
+    invert_mask : bool, optional
+        Invert mask such that background is masked, not polygons (i.e. polygons
+        will be operated on if array is passed to np.mean instead of background).
+        (the default is False)
+
+    Returns
+    -------
+    masked_im : np.ma.MaskedArray
+        image, now masked
+    &#34;&#34;&#34;
+    image = np.array(image)
+    if polygons is None:
+        return np.ma.masked_array(image, mask=np.zeros(image.shape))
+    if len(image.shape) != 2:
+        raise ValueError(&#34;image is not a 2D array&#34;)
+
+    if not isinstance(polygons, (list, tuple)) or not isinstance(
+        polygons[0], dukit.shared.polygon.Polygon
+    ):
+        raise TypeError(&#34;polygons were not None, a list or a list of Polygon objects&#34;)
+
+    ylen, xlen = image.shape
+    masked_area = np.full(image.shape, True)  # all masked to start with
+
+    grid_y, grid_x = np.meshgrid(range(ylen), range(xlen), indexing=&#34;ij&#34;)
+
+    for p in polygons:
+        in_or_out = p.is_inside(grid_y, grid_x)
+        # mask all vals that are not background
+        m = np.ma.masked_greater_equal(in_or_out, 0).mask
+        masked_area = np.logical_and(masked_area, ~m)
+
+    msk = np.logical_not(masked_area) if not invert_mask else masked_area
+
+    return np.ma.masked_array(image, mask=msk)
+
+
+def get_background(
+    image: npt.NDArray,
+    method: str,
+    polygons: list | None = None,
+    sigma_clip: bool = False,
+    sigma_clip_sigma: float = 3,
+    no_bground_if_clip_fails: bool = False,
+    **method_params_dict,
+) -&gt; tuple[npt.NDArray, npt.NDArray]:
+    &#34;&#34;&#34;Returns a background for given image, via chosen method.
+
+    Methods available:
+
+    - &#34;fix_zero&#34;
+        - Fix background to be a constant offset (z value)
+        - params required in method_params_dict:
+            &#34;zero&#34; an int/float, defining the constant offset of the background
+    - &#34;three_point&#34;
+        - Calculate plane background with linear algebra from three [x,y]
+          lateral positions given
+        - params required in method_params_dict:
+            - &#34;points&#34; a len-3 iterable containing [x, y] points
+    - &#34;mean&#34;
+        - background calculated from mean of image
+        - no params required
+    - &#34;poly&#34;
+        - background calculated from polynomial fit to image.
+        - params required in method_params_dict:
+            - &#34;order&#34;: an int, the &#39;order&#39; polynomial to fit. (e.g. 1 = plane).
+    - &#34;gaussian&#34;
+        - background calculated from _gaussian fit to image (with rotation)
+        - no params required
+    - &#34;lorentzian&#34;
+        - as above, but a lorentzian lineshape (with rotation)
+    - &#34;interpolate&#34;
+        - Background defined by the dataset smoothed via a sigma-_gaussian
+            filtering, and method-interpolation over masked (polygon) regions.
+        - params required in method_params_dict:
+            - &#34;interp_method&#34;: nearest, linear, cubic.
+            - &#34;sigma&#34;: sigma passed to _gaussian filter
+                (see scipy.ndimage._gaussian_filter) which is utilized on the
+                background before interpolating
+    - &#34;gaussian_filter&#34;
+        - background calculated from image filtered with a _gaussian filter.
+        - params required in method_params_dict:
+            - &#34;sigma&#34;: sigma passed to _gaussian filter (see
+                    scipy.ndimage._gaussian_filter)
+    - &#34;gaussian_then_poly&#34;
+        - runs gaussian then poly subtraction
+        - params required in method_params_dict:
+            - &#34;order&#34;: an int, the &#39;order&#39; polynomial to fit. (e.g. 1 = plane).
+
+    polygon utilization:
+        - if method is not interpolate, the image is masked where the polygons are
+          and the background is calculated without these regions
+        - if the method is interpolate, these regions are interpolated over
+            (and the rest of the image, _gaussian smoothed, is &#39;background&#39;).
+
+    Arguments
+    ---------
+    image : 2D array-like
+        image to get backgrond of
+    method : str
+        Method to use, available options above
+    **method_params_dict : dict
+        Key-value pairs passed onto each background backend. Required params
+        given above.
+    polygons : list, optional
+        list of `qdmpy.shared.polygon.Polygon` objects.
+        (the default is None, in which case the polygon feature is not used)
+    no_bground_if_clip_fails : bool
+        You get it.
+
+    Returns
+    -------
+    im_bground : ndarray
+        2D numpy array, representing the &#39;background&#39; of image.
+    mask : ndarray
+        Mask (True pixels were not used to calculate background).
+    &#34;&#34;&#34;
+    # Discuss masking -&gt; if polygons provided, background is calculated but with
+    # polygon regions masked -&gt; background calculated without these.
+    # also used for interpolation method.
+    method_required_settings: dict[[str], list] = {
+        &#34;fix_zero&#34;: [&#34;zero&#34;],
+        &#34;three_point&#34;: [&#34;points&#34;],
+        &#34;mean&#34;: [],
+        &#34;poly&#34;: [&#34;order&#34;],
+        &#34;gaussian&#34;: [],
+        &#34;lorentzian&#34;: [],
+        &#34;interpolate&#34;: [&#34;interp_method&#34;, &#34;sigma&#34;],
+        &#34;gaussian_filter&#34;: [&#34;sigma&#34;],
+        &#34;gaussian_then_poly&#34;: [&#34;order&#34;],
+    }
+    method_fns: dict[[str], Callable] = {
+        &#34;fix_zero&#34;: _zero_background,
+        &#34;three_point&#34;: _three_point_background,
+        &#34;mean&#34;: _mean_background,
+        &#34;poly&#34;: _poly_background,
+        &#34;gaussian&#34;: _gaussian_background,
+        &#34;lorentzian&#34;: _lorentzian_background,
+        &#34;interpolate&#34;: _interpolated_background,
+        &#34;gaussian_filter&#34;: _filtered_background,
+        &#34;gaussian_then_poly&#34;: _gaussian_then_poly,
+    }
+    image = np.ma.array(image, mask=np.zeros(image.shape))
+    if len(image.shape) != 2:
+        raise ValueError(&#34;image is not a 2D array&#34;)
+    if not isinstance(method, str):
+        raise TypeError(&#34;method must be a string.&#34;)
+    if not isinstance(method_params_dict, dict):
+        raise TypeError(&#34;method_params_dict must be a dict.&#34;)
+    if method not in method_required_settings:
+        raise ValueError(
+            &#34;&#39;method&#39; argument to get_background not in implemented_methods: &#34;
+            + f&#34;{method_required_settings.keys()}&#34;
+        )
+    for setting in method_required_settings[method]:
+        if setting not in method_params_dict:
+            raise ValueError(
+                f&#34;{setting} key missing from method_params_dict for method: {method}&#34;
+            )
+
+    if method != &#34;interpolate&#34;:
+        # can&#39;t mask it for interpolate as we need that info!
+        image = mask_polygons(image, polygons)
+
+    if method == &#34;gaussian_filter&#34;:
+        method_params_dict[&#34;filter_type&#34;] = &#34;gaussian&#34;
+
+    if method == &#34;interpolate&#34;:
+        method_params_dict[&#34;polygons&#34;] = polygons
+
+    if method == &#34;three_point&#34; and &#34;sample_size&#34; not in method_params_dict:
+        method_params_dict[&#34;sample_size&#34;] = 0
+    return (
+        method_fns[method](image, **method_params_dict),
+        np.ma.getmaskarray(image).astype(int),
+    )
+
+
+# ============================================================================
+
+
+def mu_sigma_inside_polygons(
+    image: npt.NDArray, polygons: list | None = None
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;returns (mean, standard_deviation) for image, only _within_ polygon areas.&#34;&#34;&#34;
+    image = mask_polygons(image, polygons, invert_mask=True)
+    return np.mean(image), np.std(image)
+
+
+# ============================================================================
+# ============================================================================
+
+
+# hands off to other filters
+def get_im_filtered(image: npt.NDArray, filter_type: str, **kwargs) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Wrapped over other filters.
+    Current filters defined:
+        - filter_type = gaussian, `qdmpy.shared.itool._get_im_filtered_gaussian`
+    &#34;&#34;&#34;
+    if not isinstance(image, np.ma.core.MaskedArray):
+        image = np.ma.masked_array(image)
+    filter_fns = {
+        &#34;gaussian&#34;: _get_im_filtered_gaussian,
+    }
+    # filter not so great with nans (and mask doesn&#39;t work w filters) -&gt; set to nanmean
+    if &#34;upper_threshold&#34; in kwargs and kwargs[&#34;upper_threshold&#34;]:
+        image[image &gt; kwargs[&#34;upper_threshold&#34;]] = np.nan
+    if &#34;lower_threshold&#34; in kwargs and kwargs[&#34;lower_threshold&#34;]:
+        image[image &lt; kwargs[&#34;lower_threshold&#34;]] = np.nan
+    image[np.logical_or(np.isnan(image), image.mask)] = np.nanmean(image)
+
+    return filter_fns[filter_type](image, **kwargs)
+
+
+# ============================================================================
+
+
+def _get_im_filtered_gaussian(image: npt.NDArray, sigma: float) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Returns image filtered through scipy.ndimage.gaussian_filter with
+    parameter &#39;sigma&#39;.&#34;&#34;&#34;
+    return scipy.ndimage.gaussian_filter(
+        image,
+        sigma=sigma,
+    )
+
+
+# ============================================================================
+
+
+def _zero_background(image: npt.NDArray, zero: float) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Background defined by z level of &#39;zero&#39;&#34;&#34;&#34;
+    if not isinstance(zero, (int, float)):
+        raise TypeError(&#34;&#39;zero&#39; must be an int or a float.&#34;)
+    mn = zero
+    bg = np.empty(image.shape)
+    bg[:] = mn
+    return bg
+
+
+# ============================================================================
+
+
+def _equation_plane(
+    params: list | tuple | npt.NDArray, y: npt.NDArray, x: npt.NDArray
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;params: [a, b, c, d] s.t. d = a*y + b*x + c*z
+    so z = (1/c) * (d - (ay + bx)) -&gt; return this.&#34;&#34;&#34;
+    return (1 / params[2]) * (params[3] - params[0] * y - params[1] * x)
+
+
+def _points_to_params(points: list | tuple | npt.NDArray) -&gt; tuple:
+    &#34;&#34;&#34;
+    http://pi.math.cornell.edz/~froh/231f08e1a.pdf
+    points: iterable of 3 iterables: [x, y, z]
+    returns a,b,c,d parameters (see _equation_plane)
+    &#34;&#34;&#34;
+    rearranged_points = [[p[1], p[0], p[2]] for p in points]  # change to [y, x, z]
+    pts = np.array(rearranged_points)
+    vec1_in_plane = pts[1] - pts[0]
+    vec2_in_plane = pts[2] - pts[0]
+    a_normal = np.cross(vec1_in_plane, vec2_in_plane)
+
+    d = np.dot(pts[2], a_normal)
+    return *a_normal, d
+
+
+def _three_point_background(
+    image: npt.NDArray, points: list | tuple | npt.NDArray, sample_size: int
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;points: len 3 iterable of len 2 iterables: [[x1, y1], [x2, y2], [x3, y3]]
+    sample_size: integer
+    https://stackoverflow.com/questions/20699821/find-and-draw-regression-plane-to-a-set-of-points
+    https://www.geeksforgeeks.org/program-to-find-equation-of-a-plane-passing-through-3-points/
+    &#34;&#34;&#34;
+
+    if len(points) != 3:
+        raise ValueError(&#34;points needs to be len 3 of format: [x, y] (int or floats).&#34;)
+    if not isinstance(sample_size, int) or sample_size &lt; 0:
+        raise TypeError(&#34;sample_size must be an integer &gt;= 0&#34;)
+    for p in points:
+        if len(p) != 2:
+            raise ValueError(
+                &#34;points needs to be len 3 of format: [x, y] (int or floats).&#34;
+            )
+        for c in p:
+            if not isinstance(c, (int, float)):
+                raise ValueError(
+                    &#34;points needs to be len 3 of format: [x, y] (int or floats).&#34;
+                )
+        if image.mask[p[1], p[0]]:
+            dukit_warn(
+                &#34;One of the input points was masked (inside a polygon?), &#34;
+                + &#34;falling back on polyfit, order 1&#34;
+            )
+            return _poly_background(image, order=1)
+
+    def _mean_sample(image: npt.NDArray, sample_size: int, yx: tuple) -&gt; float:
+        &#34;&#34;&#34;Mean of samples of &#39;image&#39; centered on &#39;yx&#39; out to pixels &#39;sample_size&#39;
+        in both x &amp; y.&#34;&#34;&#34;
+
+        def _sample_generator(image, sample_size, yx):
+            &#34;&#34;&#34;sample &#39;image&#39; centered on &#39;yx&#39; out to pixels &#39;sample_size&#39;
+            in both x &amp; y.&#34;&#34;&#34;
+            for y in range(yx[0] - sample_size, yx[0] + sample_size + 1):
+                for x in range(yx[1] - sample_size, yx[1] + sample_size + 1):
+                    try:
+                        yield image[y, x]
+                    except IndexError:
+                        continue
+
+        return np.mean([sample for sample in _sample_generator(image, sample_size, yx)])
+
+    points = np.array(
+        [np.append(p, _mean_sample(image, sample_size, (p[1], p[0]))) for p in points]
+    )
+    Y, X = np.indices(image.shape)  # noqa: N806
+    return _equation_plane(_points_to_params(points), Y, X)
+
+
+# ============================================================================
+
+
+def _mean_background(image: npt.NDArray) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Background defined by mean of image.&#34;&#34;&#34;
+    bg = np.empty(image.shape)
+    mn = np.nanmean(image)
+    bg[:] = mn
+    return bg
+
+
+# ============================================================================
+
+
+def _residual_poly(
+    params: list | tuple | npt.NDArray,
+    y: npt.NDArray,
+    x: npt.NDArray,
+    z: npt.NDArray,
+    order: int,
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;
+    z = image data, order = highest polynomial order to go to
+    y, x: index meshgrids
+    &#34;&#34;&#34;
+    # get params to matrix form (as expected by polyval)
+    params = np.append(
+        params, 0
+    )  # add on c[-1, -1] term we don&#39;t want (i.e. cross term of next order)
+    c = params.reshape((order + 1, order + 1))
+    return polyval2d(y, x, c) - z  # note z is flattened, as is polyval
+
+
+def _poly_background(image: npt.NDArray, order: int) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Background defined by a polynomial fit up to order &#39;order&#39;.&#34;&#34;&#34;
+    if order == 0:
+        return _mean_background(image)
+
+    init_params = np.zeros((order + 1, order + 1))
+    init_params[0, 0] = np.nanmean(
+        image
+    )  # set zeroth term to be mean to get it started
+    Y, X = np.indices(image.shape)  # noqa: N806
+    good_vals = np.logical_and(~np.isnan(image), ~image.mask)
+    y = Y[good_vals]
+    x = X[good_vals]
+
+    data = image[good_vals]  # flattened
+    best_c = least_squares(
+        _residual_poly, init_params.flatten()[:-1], args=(y, x, data, order)
+    ).x
+    best_c = np.append(best_c, 0)
+    c = best_c.reshape((order + 1, order + 1))
+    return polyval2d(Y.flatten(), X.flatten(), c).reshape(
+        image.shape
+    )  # eval over full image
+
+
+# ============================================================================
+
+
+def _gaussian(
+    p: list | tuple | npt.NDArray, y: npt.NDArray, x: npt.NDArray
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Simple Gaussian function, height, center_y, center_x, width_y, width_x, rot = p.&#34;&#34;&#34;
+    height, center_y, center_x, width_y, width_x, rot, offset = p
+    return offset + height * np.exp(
+        -(
+            (((y - center_y) * np.cos(rot) + (x - center_x) * np.sin(rot)) / width_y)
+            ** 2
+            + (((x - center_x) * np.cos(rot) - (y - center_y) * np.sin(rot)) / width_x)
+            ** 2
+        )
+        / 2
+    )
+
+
+def _moments(image: npt.NDArray) -&gt; tuple:
+    &#34;&#34;&#34;Calculate _moments of image (get initial guesses for _gaussian and _lorentzian
+    function), rot=0.0 assumed&#34;&#34;&#34;
+    offset = np.nanmin(image)
+    total = np.nansum(image)
+    Y, X = np.indices(image.shape)  # noqa: N806
+
+    center_y = np.nansum(Y * image) / total
+    center_x = np.nansum(X * image) / total
+    if center_y &gt; np.max(Y) or center_y &lt; 0:
+        center_y = np.max(Y) / 2
+    if center_x &gt; np.max(X) or center_x &lt; 0:
+        center_x = np.max(X) / 2
+
+    col = image[int(center_y), :]
+    row = image[:, int(center_x)]
+    width_x = np.nansum(
+        np.sqrt(abs((np.arange(col.size) - center_y) ** 2 * col)) / np.nansum(col)
+    )
+    width_y = np.nansum(
+        np.sqrt(abs((np.arange(row.size) - center_x) ** 2 * row)) / np.nansum(row)
+    )
+    height = np.nanmax(image)
+    return height, center_y, center_x, width_y, width_x, 0.0, offset
+
+
+def _residual_gaussian(
+    p: list | tuple | npt.NDArray, y: npt.NDArray, x: npt.NDArray, data: npt.NDArray
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Residual of data with a _gaussian model.&#34;&#34;&#34;
+    return _gaussian(p, y, x) - data
+
+
+def _gaussian_background(image: npt.NDArray) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Background defined by a Gaussian function.&#34;&#34;&#34;
+    params = _moments(image)
+    Y, X = np.indices(image.shape)  # noqa: N806
+    good_vals = np.logical_and(~np.isnan(image), ~image.mask)
+    y = Y[good_vals]
+    x = X[good_vals]
+    data = image[good_vals]
+    p = least_squares(
+        _residual_gaussian,
+        params,
+        method=&#34;trf&#34;,
+        bounds=(0, np.inf),
+        args=(y, x, data),
+    ).x
+    return _gaussian(p, Y, X)
+
+
+def _lorentzian(
+    p: list | tuple | npt.NDArray, y: npt.NDArray, x: npt.NDArray
+) -&gt; npt.NDArray:
+    height, center_y, center_x, width_y, width_x, rot, offset = p
+    xp = (x - center_x) * np.cos(rot) - (y - center_y) * np.sin(rot)
+    yp = (x - center_x) * np.sin(rot) + (y - center_y) * np.cos(rot)
+
+    R = (xp / width_x) ** 2 + (yp / width_y) ** 2
+
+    return offset + height * (1 / (1 + R))
+
+
+def _residual_lorentzian(
+    p: list | tuple | npt.NDArray, y: npt.NDArray, x: npt.NDArray, data: npt.NDArray
+) -&gt; npt.NDArray:
+    return _lorentzian(p, y, x) - data
+
+
+def _lorentzian_background(image: npt.NDArray) -&gt; tuple[npt.NDArray, npt.NDArray]:
+    params = _moments(image)
+    Y, X = np.indices(image.shape)  # noqa: N806
+    good_vals = np.logical_and(~np.isnan(image), ~image.mask)
+    y = Y[good_vals]
+    x = X[good_vals]
+    data = image[good_vals]
+    p = least_squares(
+        _residual_lorentzian,
+        params,
+        bounds=(0, np.inf),
+        method=&#34;trf&#34;,
+        args=(y, x, data),
+    ).x
+
+    return p, _lorentzian(p, Y, X)
+
+
+# ============================================================================
+
+
+def _interpolated_background(
+    image: npt.NDArray, interp_method: str, polygons: list, sigma: float
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Background defined by the dataset smoothed via a sigma-_gaussian filtering,
+    and method-interpolation over masked (polygon) regions.
+
+    method available: nearest, linear, cubic.
+    &#34;&#34;&#34;
+    if not isinstance(polygons, (list, tuple)) or not isinstance(
+        polygons[0], dukit.shared.polygon.Polygon
+    ):
+        raise TypeError(&#34;polygons were not None, a list or a list of Polygon objects&#34;)
+
+    ylen, xlen = image.shape
+    isnt_poly = np.full(image.shape, True)  # all masked to start with
+
+    # coordinate grid for all coordinates
+    grid_y, grid_x = np.meshgrid(range(ylen), range(xlen), indexing=&#34;ij&#34;)
+
+    for p in polygons:
+        in_or_out = p.is_inside(grid_y, grid_x)
+        # mask all vals that are not background
+        is_this_poly = np.ma.masked_greater_equal(
+            in_or_out, 0
+        ).mask  # &gt;= 0 =&gt; inside/on poly
+        isnt_poly = np.logical_and(
+            isnt_poly, ~is_this_poly
+        )  # prev isnt_poly and isnt this poly
+
+    # now we want to send all of the values in indexes that is_bg is True to griddata
+    pts = []
+    vals = []
+    for i in range(ylen):
+        for j in range(xlen):
+            if isnt_poly[i, j]:
+                pts.append([i, j])
+                vals.append(image[i, j])
+
+    bg_interp = griddata(pts, vals, (grid_y, grid_x), method=interp_method)
+
+    return get_im_filtered(bg_interp, &#34;gaussian&#34;, sigma=sigma)
+
+
+# ============================================================================
+
+
+def _filtered_background(image: npt.NDArray, filter_type: str, **kwargs) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Background defined by a filter_type-filtering of the image.
+    Passed to `qdmpy.shared.itool.get_background&#34;&#34;&#34;
+    return get_im_filtered(image, filter_type, **kwargs)
+
+
+# ============================================================================
+
+
+def _gaussian_then_poly(image: npt.NDArray, order: int) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Background defines as: fit of a gaussian then a polynomial to image.&#34;&#34;&#34;
+    gauss_back = _gaussian_background(image)
+    return _poly_background(image - gauss_back, order) + gauss_back
+
+
+# ============================================================================</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="dukit.shared.itool.get_background"><code class="name flex">
+<span>def <span class="ident">get_background</span></span>(<span>image: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], method: str, polygons: list | None = None, sigma_clip: bool = False, sigma_clip_sigma: float = 3, no_bground_if_clip_fails: bool = False, **method_params_dict) -> tuple[numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a background for given image, via chosen method.</p>
+<p>Methods available:</p>
+<ul>
+<li>"fix_zero"<ul>
+<li>Fix background to be a constant offset (z value)</li>
+<li>params required in method_params_dict:
+"zero" an int/float, defining the constant offset of the background</li>
+</ul>
+</li>
+<li>"three_point"<ul>
+<li>Calculate plane background with linear algebra from three [x,y]
+lateral positions given</li>
+<li>params required in method_params_dict:<ul>
+<li>"points" a len-3 iterable containing [x, y] points</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>"mean"<ul>
+<li>background calculated from mean of image</li>
+<li>no params required</li>
+</ul>
+</li>
+<li>"poly"<ul>
+<li>background calculated from polynomial fit to image.</li>
+<li>params required in method_params_dict:<ul>
+<li>"order": an int, the 'order' polynomial to fit. (e.g. 1 = plane).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>"gaussian"<ul>
+<li>background calculated from _gaussian fit to image (with rotation)</li>
+<li>no params required</li>
+</ul>
+</li>
+<li>"lorentzian"<ul>
+<li>as above, but a lorentzian lineshape (with rotation)</li>
+</ul>
+</li>
+<li>"interpolate"<ul>
+<li>Background defined by the dataset smoothed via a sigma-_gaussian
+filtering, and method-interpolation over masked (polygon) regions.</li>
+<li>params required in method_params_dict:<ul>
+<li>"interp_method": nearest, linear, cubic.</li>
+<li>"sigma": sigma passed to _gaussian filter
+(see scipy.ndimage._gaussian_filter) which is utilized on the
+background before interpolating</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>"gaussian_filter"<ul>
+<li>background calculated from image filtered with a _gaussian filter.</li>
+<li>params required in method_params_dict:<ul>
+<li>"sigma": sigma passed to _gaussian filter (see
+scipy.ndimage._gaussian_filter)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>"gaussian_then_poly"<ul>
+<li>runs gaussian then poly subtraction</li>
+<li>params required in method_params_dict:<ul>
+<li>"order": an int, the 'order' polynomial to fit. (e.g. 1 = plane).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>polygon utilization:
+- if method is not interpolate, the image is masked where the polygons are
+and the background is calculated without these regions
+- if the method is interpolate, these regions are interpolated over
+(and the rest of the image, _gaussian smoothed, is 'background').</p>
+<h2 id="arguments">Arguments</h2>
+<dl>
+<dt><strong><code>image</code></strong> :&ensp;<code>2D array-like</code></dt>
+<dd>image to get backgrond of</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>str</code></dt>
+<dd>Method to use, available options above</dd>
+<dt><strong><code>**method_params_dict</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Key-value pairs passed onto each background backend. Required params
+given above.</dd>
+<dt><strong><code>polygons</code></strong> :&ensp;<code>list</code>, optional</dt>
+<dd>list of <code>qdmpy.shared.polygon.Polygon</code> objects.
+(the default is None, in which case the polygon feature is not used)</dd>
+<dt><strong><code>no_bground_if_clip_fails</code></strong> :&ensp;<code>bool</code></dt>
+<dd>You get it.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>im_bground</code></strong> :&ensp;<code>ndarray</code></dt>
+<dd>2D numpy array, representing the 'background' of image.</dd>
+<dt><strong><code>mask</code></strong> :&ensp;<code>ndarray</code></dt>
+<dd>Mask (True pixels were not used to calculate background).</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_background(
+    image: npt.NDArray,
+    method: str,
+    polygons: list | None = None,
+    sigma_clip: bool = False,
+    sigma_clip_sigma: float = 3,
+    no_bground_if_clip_fails: bool = False,
+    **method_params_dict,
+) -&gt; tuple[npt.NDArray, npt.NDArray]:
+    &#34;&#34;&#34;Returns a background for given image, via chosen method.
+
+    Methods available:
+
+    - &#34;fix_zero&#34;
+        - Fix background to be a constant offset (z value)
+        - params required in method_params_dict:
+            &#34;zero&#34; an int/float, defining the constant offset of the background
+    - &#34;three_point&#34;
+        - Calculate plane background with linear algebra from three [x,y]
+          lateral positions given
+        - params required in method_params_dict:
+            - &#34;points&#34; a len-3 iterable containing [x, y] points
+    - &#34;mean&#34;
+        - background calculated from mean of image
+        - no params required
+    - &#34;poly&#34;
+        - background calculated from polynomial fit to image.
+        - params required in method_params_dict:
+            - &#34;order&#34;: an int, the &#39;order&#39; polynomial to fit. (e.g. 1 = plane).
+    - &#34;gaussian&#34;
+        - background calculated from _gaussian fit to image (with rotation)
+        - no params required
+    - &#34;lorentzian&#34;
+        - as above, but a lorentzian lineshape (with rotation)
+    - &#34;interpolate&#34;
+        - Background defined by the dataset smoothed via a sigma-_gaussian
+            filtering, and method-interpolation over masked (polygon) regions.
+        - params required in method_params_dict:
+            - &#34;interp_method&#34;: nearest, linear, cubic.
+            - &#34;sigma&#34;: sigma passed to _gaussian filter
+                (see scipy.ndimage._gaussian_filter) which is utilized on the
+                background before interpolating
+    - &#34;gaussian_filter&#34;
+        - background calculated from image filtered with a _gaussian filter.
+        - params required in method_params_dict:
+            - &#34;sigma&#34;: sigma passed to _gaussian filter (see
+                    scipy.ndimage._gaussian_filter)
+    - &#34;gaussian_then_poly&#34;
+        - runs gaussian then poly subtraction
+        - params required in method_params_dict:
+            - &#34;order&#34;: an int, the &#39;order&#39; polynomial to fit. (e.g. 1 = plane).
+
+    polygon utilization:
+        - if method is not interpolate, the image is masked where the polygons are
+          and the background is calculated without these regions
+        - if the method is interpolate, these regions are interpolated over
+            (and the rest of the image, _gaussian smoothed, is &#39;background&#39;).
+
+    Arguments
+    ---------
+    image : 2D array-like
+        image to get backgrond of
+    method : str
+        Method to use, available options above
+    **method_params_dict : dict
+        Key-value pairs passed onto each background backend. Required params
+        given above.
+    polygons : list, optional
+        list of `qdmpy.shared.polygon.Polygon` objects.
+        (the default is None, in which case the polygon feature is not used)
+    no_bground_if_clip_fails : bool
+        You get it.
+
+    Returns
+    -------
+    im_bground : ndarray
+        2D numpy array, representing the &#39;background&#39; of image.
+    mask : ndarray
+        Mask (True pixels were not used to calculate background).
+    &#34;&#34;&#34;
+    # Discuss masking -&gt; if polygons provided, background is calculated but with
+    # polygon regions masked -&gt; background calculated without these.
+    # also used for interpolation method.
+    method_required_settings: dict[[str], list] = {
+        &#34;fix_zero&#34;: [&#34;zero&#34;],
+        &#34;three_point&#34;: [&#34;points&#34;],
+        &#34;mean&#34;: [],
+        &#34;poly&#34;: [&#34;order&#34;],
+        &#34;gaussian&#34;: [],
+        &#34;lorentzian&#34;: [],
+        &#34;interpolate&#34;: [&#34;interp_method&#34;, &#34;sigma&#34;],
+        &#34;gaussian_filter&#34;: [&#34;sigma&#34;],
+        &#34;gaussian_then_poly&#34;: [&#34;order&#34;],
+    }
+    method_fns: dict[[str], Callable] = {
+        &#34;fix_zero&#34;: _zero_background,
+        &#34;three_point&#34;: _three_point_background,
+        &#34;mean&#34;: _mean_background,
+        &#34;poly&#34;: _poly_background,
+        &#34;gaussian&#34;: _gaussian_background,
+        &#34;lorentzian&#34;: _lorentzian_background,
+        &#34;interpolate&#34;: _interpolated_background,
+        &#34;gaussian_filter&#34;: _filtered_background,
+        &#34;gaussian_then_poly&#34;: _gaussian_then_poly,
+    }
+    image = np.ma.array(image, mask=np.zeros(image.shape))
+    if len(image.shape) != 2:
+        raise ValueError(&#34;image is not a 2D array&#34;)
+    if not isinstance(method, str):
+        raise TypeError(&#34;method must be a string.&#34;)
+    if not isinstance(method_params_dict, dict):
+        raise TypeError(&#34;method_params_dict must be a dict.&#34;)
+    if method not in method_required_settings:
+        raise ValueError(
+            &#34;&#39;method&#39; argument to get_background not in implemented_methods: &#34;
+            + f&#34;{method_required_settings.keys()}&#34;
+        )
+    for setting in method_required_settings[method]:
+        if setting not in method_params_dict:
+            raise ValueError(
+                f&#34;{setting} key missing from method_params_dict for method: {method}&#34;
+            )
+
+    if method != &#34;interpolate&#34;:
+        # can&#39;t mask it for interpolate as we need that info!
+        image = mask_polygons(image, polygons)
+
+    if method == &#34;gaussian_filter&#34;:
+        method_params_dict[&#34;filter_type&#34;] = &#34;gaussian&#34;
+
+    if method == &#34;interpolate&#34;:
+        method_params_dict[&#34;polygons&#34;] = polygons
+
+    if method == &#34;three_point&#34; and &#34;sample_size&#34; not in method_params_dict:
+        method_params_dict[&#34;sample_size&#34;] = 0
+    return (
+        method_fns[method](image, **method_params_dict),
+        np.ma.getmaskarray(image).astype(int),
+    )</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.itool.get_im_filtered"><code class="name flex">
+<span>def <span class="ident">get_im_filtered</span></span>(<span>image: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], filter_type: str, **kwargs) -> numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Wrapped over other filters.
+Current filters defined:
+- filter_type = gaussian, <code>qdmpy.shared.itool._get_im_filtered_gaussian</code></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_im_filtered(image: npt.NDArray, filter_type: str, **kwargs) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Wrapped over other filters.
+    Current filters defined:
+        - filter_type = gaussian, `qdmpy.shared.itool._get_im_filtered_gaussian`
+    &#34;&#34;&#34;
+    if not isinstance(image, np.ma.core.MaskedArray):
+        image = np.ma.masked_array(image)
+    filter_fns = {
+        &#34;gaussian&#34;: _get_im_filtered_gaussian,
+    }
+    # filter not so great with nans (and mask doesn&#39;t work w filters) -&gt; set to nanmean
+    if &#34;upper_threshold&#34; in kwargs and kwargs[&#34;upper_threshold&#34;]:
+        image[image &gt; kwargs[&#34;upper_threshold&#34;]] = np.nan
+    if &#34;lower_threshold&#34; in kwargs and kwargs[&#34;lower_threshold&#34;]:
+        image[image &lt; kwargs[&#34;lower_threshold&#34;]] = np.nan
+    image[np.logical_or(np.isnan(image), image.mask)] = np.nanmean(image)
+
+    return filter_fns[filter_type](image, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.itool.mask_polygons"><code class="name flex">
+<span>def <span class="ident">mask_polygons</span></span>(<span>image: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], polygons: list | None = None, invert_mask: bool = False) -> numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Mask image for the given polygon regions.</p>
+<h2 id="arguments">Arguments</h2>
+<dl>
+<dt><strong><code>image</code></strong> :&ensp;<code>2D array-like</code></dt>
+<dd>Image array to mask.</dd>
+<dt><strong><code>polygons</code></strong> :&ensp;<code>list</code>, optional</dt>
+<dd>List of <code>qdmpy.shared.polygon.Polygon</code> objects.
+(the default is None, where image is returned with no mask)</dd>
+<dt><strong><code>invert_mask</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Invert mask such that background is masked, not polygons (i.e. polygons
+will be operated on if array is passed to np.mean instead of background).
+(the default is False)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>masked_im</code></strong> :&ensp;<code>np.ma.MaskedArray</code></dt>
+<dd>image, now masked</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mask_polygons(
+    image: npt.NDArray, polygons: list | None = None, invert_mask: bool = False
+) -&gt; npt.NDArray:
+    &#34;&#34;&#34;Mask image for the given polygon regions.
+
+    Arguments
+    ---------
+    image : 2D array-like
+        Image array to mask.
+    polygons : list, optional
+        List of `qdmpy.shared.polygon.Polygon` objects.
+        (the default is None, where image is returned with no mask)
+    invert_mask : bool, optional
+        Invert mask such that background is masked, not polygons (i.e. polygons
+        will be operated on if array is passed to np.mean instead of background).
+        (the default is False)
+
+    Returns
+    -------
+    masked_im : np.ma.MaskedArray
+        image, now masked
+    &#34;&#34;&#34;
+    image = np.array(image)
+    if polygons is None:
+        return np.ma.masked_array(image, mask=np.zeros(image.shape))
+    if len(image.shape) != 2:
+        raise ValueError(&#34;image is not a 2D array&#34;)
+
+    if not isinstance(polygons, (list, tuple)) or not isinstance(
+        polygons[0], dukit.shared.polygon.Polygon
+    ):
+        raise TypeError(&#34;polygons were not None, a list or a list of Polygon objects&#34;)
+
+    ylen, xlen = image.shape
+    masked_area = np.full(image.shape, True)  # all masked to start with
+
+    grid_y, grid_x = np.meshgrid(range(ylen), range(xlen), indexing=&#34;ij&#34;)
+
+    for p in polygons:
+        in_or_out = p.is_inside(grid_y, grid_x)
+        # mask all vals that are not background
+        m = np.ma.masked_greater_equal(in_or_out, 0).mask
+        masked_area = np.logical_and(masked_area, ~m)
+
+    msk = np.logical_not(masked_area) if not invert_mask else masked_area
+
+    return np.ma.masked_array(image, mask=msk)</code></pre>
+</details>
+</dd>
+<dt id="dukit.shared.itool.mu_sigma_inside_polygons"><code class="name flex">
+<span>def <span class="ident">mu_sigma_inside_polygons</span></span>(<span>image: numpy.ndarray[typing.Any, numpy.dtype[+ScalarType]], polygons: list | None = None) -> tuple[float, float]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>returns (mean, standard_deviation) for image, only <em>within</em> polygon areas.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mu_sigma_inside_polygons(
+    image: npt.NDArray, polygons: list | None = None
+) -&gt; tuple[float, float]:
+    &#34;&#34;&#34;returns (mean, standard_deviation) for image, only _within_ polygon areas.&#34;&#34;&#34;
+    image = mask_polygons(image, polygons, invert_mask=True)
+    return np.mean(image), np.std(image)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#functions">Functions</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="dukit.shared" href="index.html">dukit.shared</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="dukit.shared.itool.get_background" href="#dukit.shared.itool.get_background">get_background</a></code></li>
+<li><code><a title="dukit.shared.itool.get_im_filtered" href="#dukit.shared.itool.get_im_filtered">get_im_filtered</a></code></li>
+<li><code><a title="dukit.shared.itool.mask_polygons" href="#dukit.shared.itool.mask_polygons">mask_polygons</a></code></li>
+<li><code><a title="dukit.shared.itool.mu_sigma_inside_polygons" href="#dukit.shared.itool.mu_sigma_inside_polygons">mu_sigma_inside_polygons</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

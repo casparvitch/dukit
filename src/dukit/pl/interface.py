@@ -32,6 +32,7 @@ import pathlib
 import numpy as np
 import numpy.typing as npt
 from typing import Union
+from collections import defaultdict as dd
 
 # ============================================================================
 
@@ -189,7 +190,10 @@ def fit_roi(
         )
 
     if opath:
-        dukit.json2dict.dict_to_json(result, opath)
+        res_dict = {}
+        for backend in result.keys():
+            res_dict[backend] = result[backend].to_dict()
+        dukit.json2dict.dict_to_json(res_dict, opath)
     return result
 
 
@@ -344,7 +348,11 @@ def fit_aois(
         _recursive_dict_update(result, gf_res)
 
     if opath:
-        dukit.json2dict.dict_to_json(result, opath)
+        res_dict = dd(dict)
+        for aoi in result.keys():
+            for fit_backend in result[aoi].keys():
+                res_dict[aoi][fit_backend] = result[aoi][fit_backend].to_dict()
+        dukit.json2dict.dict_to_json(res_dict, opath)
     return result
 
 

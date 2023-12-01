@@ -129,11 +129,11 @@ class AoiAvgFit:
         self.pbounds = pbounds
         self.aoi_coords = aoi_coords
 
-    def save_json(self, filepath):
+    def to_dict(self):
         """
-        Save all attributes as a json file in filepath (ending in '.json').
+        Return a dict of params
         """
-        output_dict = {
+        return {
             "aoi_num": self.aoi_num,
             "sweep_arr": self.sweep_arr,
             "avg_sig_norm": self.avg_sig_norm,
@@ -149,7 +149,6 @@ class AoiAvgFit:
             "pbounds": self.pbounds,
             "aoi_coords": self.aoi_coords,
         }
-        dukit.json2dict.dict_to_json(output_dict, filepath)
 
 
 # ============================================================================
@@ -253,11 +252,11 @@ class RoiAvgFit:
         self.pguess = pguess
         self.pbounds = pbounds
 
-    def save_json(self, filepath):
+    def to_dict(self):
         """
-        Save all attributes as a json file in filepath (ending in '.json').
+        Return a dict of params
         """
-        output_dict = {
+        return {
             "fit_backend": self.fit_backend,
             "sweep_arr": self.sweep_arr,
             "avg_sig_norm": self.avg_sig_norm,
@@ -272,4 +271,3 @@ class RoiAvgFit:
             "init_pguess": self.pguess,
             "init_pbounds": self.pbounds,
         }
-        dukit.json2dict.dict_to_json(output_dict, filepath)

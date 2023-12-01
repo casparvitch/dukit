@@ -71,8 +71,10 @@ instance/
 # Sphinx documentation
 docs/_build/
 
-# pdoc documentation
-/docs/dukit/
+# pdoc documentation -> actually we want to keep that.
+#/docs/dukit/
+#docs/*.js
+#docs/*.html
 
 # PyBuilder
 .pybuilder/
@@ -240,5 +242,3 @@ fabric.properties
 
 *.dot
 *.prof
-#docs/*.js
-#docs/*.html
