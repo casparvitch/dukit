@@ -5,7 +5,7 @@ Install instructions
 
 (Assuming you know git - see below)
 
-- [clone](https://gitlab.unimelb.edu.au/sscholten/qdmpy)
+- [clone](https://github.com/casparvitch/dukit)
 - install python3.11
 - navigate to root-dir (containing 'src' etc.)
 ```bash

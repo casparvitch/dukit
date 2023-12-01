@@ -36,9 +36,9 @@ Classes
 
 Functions
 ---------
- - `qdmpy.polygon.load_polygon_nodes`
- - `qdmpy.polygon.polygon_selector`
- - `qdmpy.polygon.PolygonSelectionWidget`
+ - `dukit.polygon.load_polygon_nodes`
+ - `dukit.polygon.polygon_selector`
+ - `dukit.polygon.PolygonSelectionWidget`
 """
 
 # ============================================================================

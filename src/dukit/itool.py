@@ -1059,7 +1059,7 @@ def _min_max(
     image : np array, 3D
         image data being shown as ax.imshow
     c_range_values : tuple[float, ...]
-        See `qdmpy.plot.common.get_colormap_range`
+        See `dukit.plot.get_colormap_range`
     """
     return np.nanmin(image), np.nanmax(image)
 
@@ -1075,7 +1075,7 @@ def _strict_range(
     image : np array, 3D
         image data being shown as ax.imshow
     c_range_values : tuple[float, ...]
-        See `qdmpy.plot.common.get_colormap_range`
+        See `dukit.plot.get_colormap_range`
     """
     return c_range_values[0], c_range_values[1]
 
@@ -1091,7 +1091,7 @@ def _min_max_sym_mean(
     image : np array, 3D
         image data being shown as ax.imshow
     c_range_values : tuple[float, ...]
-        See `qdmpy.plot.common.get_colormap_range`
+        See `dukit.plot.get_colormap_range`
     """
     minimum = np.nanmin(image)
     maximum = np.nanmax(image)
@@ -1111,7 +1111,7 @@ def _min_max_sym_zero(
     image : np array, 3D
         image data being shown as ax.imshow
     c_range_values : tuple[float, ...]
-        See `qdmpy.plot.common.get_colormap_range`
+        See `dukit.plot.get_colormap_range`
     """
     min_abs = np.abs(np.nanmin(image))
     max_abs = np.abs(np.nanmax(image))
@@ -1131,7 +1131,7 @@ def _deviation_from_mean(
     image : np array, 3D
         image data being shown as ax.imshow
     c_range_values : tuple[float, ...]
-        See `qdmpy.plot.common.get_colormap_range`
+        See `dukit.plot.get_colormap_range`
     """
     return (1 - c_range_values[0]) * np.mean(image), (1 + c_range_values[0]) * np.mean(
         image
@@ -1149,7 +1149,7 @@ def _percentile(
     image : np array, 3D
         image data being shown as ax.imshow
     c_range_values : tuple[float, ...]
-        See `qdmpy.plot.common.get_colormap_range`
+        See `dukit.plot.get_colormap_range`
     """
     return tuple(np.nanpercentile(image, c_range_values))
 
@@ -1165,7 +1165,7 @@ def _percentile_sym_zero(
     image : np array, 3D
         image data being shown as ax.imshow
     c_range_values : tuple[float, ...]
-        See `qdmpy.plot.common.get_colormap_range`
+        See `dukit.plot.get_colormap_range`
     """
     plow, phigh = np.nanpercentile(image, c_range_values)  # e.g. [10, 90]
     val = max(abs(plow), abs(phigh))
@@ -1183,7 +1183,7 @@ def _mean_plus_minus(
     image : np array, 3D
         image data being shown as ax.imshow
     c_range_values : tuple[float, ...]
-        See `qdmpy.plot.common.get_colormap_range`
+        See `dukit.plot.get_colormap_range`
     """
     mean = np.mean(image)
     return mean - c_range_values, mean + c_range_values

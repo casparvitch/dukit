@@ -5,7 +5,7 @@ Various GUI widgets for use in the DUKIT.
 Not very well documented. But I don't really understand it so that's fine.
 How to use? See polygon.py and linecut.py
 
-Don't import any other qdmpy modules, ensure this is a leaf in the dep. tree.
+Don't import any other dukit modules, ensure this is a leaf in the dep. tree.
 
 Apologies for lack of typing, I don't understand this stuff sufficiently.
 But it does currently *just work*.
