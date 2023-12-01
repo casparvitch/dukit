@@ -20,6 +20,16 @@ pip install -e .
 for an editable install: to edit library without reinstalling. Note you will have to
 restart any jupyter kernel you have running to benefit from any updates.
 
+# Installing extensions
+
+To install cpufit (linux or windows) or gpufit (windows) extensions, you simply run:
+```bash
+pip install .[cpufit,gpufit]
+```
+with whichever extensions you want there.
+These libraries are automatically installed from the wheel files in the `ext_wheels` 
+folder.
+
 # Documentation
 
 `doit docs`, or:
