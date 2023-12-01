@@ -240,5 +240,5 @@ fabric.properties
 
 *.dot
 *.prof
-docs/*.js
-docs/*.html
+#docs/*.js
+#docs/*.html
