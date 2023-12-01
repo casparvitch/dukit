@@ -7,7 +7,7 @@ Functions
  - `dukit.pl.gpufit.fit_roi_avg_pl`
  - `dukit.pl.gpufit.fit_aois_pl`
  - `qdmpy.pl.gpufit.fit_all_pixels_pl`
- - `dukit.pl.gpufit._gen_sf_guesses_bounds`
+ - `dukit.pl.gpufit._gen_gf_guesses_bounds`
 """
 
 # ============================================================================
@@ -17,7 +17,7 @@ __pdoc__ = {
     "dukit.pl.gpufit.fit_roi_avg_pl": True,
     "dukit.pl.gpufit.fit_aois_pl": True,
     "dukit.pl.gpufit.fit_all_pixels_pl": True,
-    "dukit.pl.gpufit._gen_sf_guesses_bounds": True,
+    "dukit.pl.gpufit._gen_gf_guesses_bounds": True,
 }
 
 # ==========================================================================
@@ -112,7 +112,7 @@ def fit_roi_avg_pl(
 
     Returns
     -------
-    fit_image_results : dukit.shared.RoiAvgFit
+    fit_image_results : dukit.share.RoiAvgFit
     """
     pguess, pbounds = _gen_gf_guesses_bounds(
         fit_model, *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict)
@@ -372,7 +372,7 @@ def fit_all_pixels_pl(
         Format: key -> bounds for that param type (or use _range).
         e.g. 'pos_bounds': [5., 25.]
         or 'pos_range': 5.0
-    roi_avg_result : dukit.shared.RoiAvgFit | None
+    roi_avg_result : dukit.share.RoiAvgFit | None
         The result of fitting the ROI average.
         If done, directly uses guesses provided.
     n_jobs : int, default=-2

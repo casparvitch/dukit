@@ -10,7 +10,7 @@ Functions
  - `dukit.field.defects.NVEnsemble`
  - `dukit.field.defects.VBEnsemble`
  - `dukit.field.defects.SpinPair`
- - `dukit.field.defects.CSpinPair`
+ - `dukit.field.defects.CPairEnsemble`
 """
 
 # ============================================================================
@@ -22,7 +22,7 @@ __pdoc__ = {
     "dukit.field.defects.NVEnsemble": True,
     "dukit.field.defects.VBEnsemble": True,
     "dukit.field.defects.SpinPair": True,
-    "dukit.field.defects.CSpinPair": True,
+    "dukit.field.defects.CPairEnsemble": True,
 }
 
 # TODO add vector mag methods.
@@ -39,7 +39,18 @@ import numpy.typing as npt
 
 
 class Defect:
-    pass
+    def b_defects(
+        self,
+        res_freqs: tuple[npt.ArrayLike] | tuple[float, ...],
+        past_gslac: bool = False,
+    ) -> tuple[npt.ArrayLike] | tuple[float, ...]:
+        raise NotImplementedError()
+
+    def dshift_defects(
+        self,
+        res_freqs: tuple[npt.ArrayLike] | tuple[float],
+    ) -> tuple[npt.ArrayLike] | tuple[float, ...]:
+        raise NotImplementedError()
 
 
 class SpinOne(Defect):
@@ -53,12 +64,17 @@ class SpinOne(Defect):
         res_freqs: tuple[npt.ArrayLike] | tuple[float, ...],
         past_gslac: bool = False,
     ) -> tuple[npt.ArrayLike] | tuple[float, ...]:
+        """Calculate magnetic field(s) [in defect frame(s)]
+        in Tesla from resonance frequencies in MHz.
+        """
         raise NotImplementedError()
 
     def dshift_defects(
         self,
         res_freqs: tuple[npt.ArrayLike] | tuple[float],
     ) -> tuple[npt.ArrayLike] | tuple[float, ...]:
+        """Calculate d-shifts in MHz from resonance frequencies in MHz.
+        """
         res_freqs = list(res_freqs)
         res_freqs.sort(key=np.nanmean)  # sort into correct order
         num_res = len(res_freqs)
@@ -149,10 +165,9 @@ class SpinPair(Defect):
     gamma: float
 
     def b_defects(
-        self,
-        res_freq: npt.ArrayLike | float,
+        self, res_freqs: tuple[npt.ArrayLike] | tuple[float], past_gslac=False
     ) -> tuple[npt.ArrayLike] | tuple[float, ...]:
-        return (res_freq / self.gamma,)
+        return tuple([res_freqs[0] / self.gamma])
 
 
 class CPairEnsemble(SpinPair):

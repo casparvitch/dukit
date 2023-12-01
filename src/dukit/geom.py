@@ -5,8 +5,11 @@ system etc., required for retrieving/reconstructing vector fields.
 
 Currently only written for NVs.
 
+& Currently not utilized anywhere.
+
 NOTE probably shouldn't be exposed as API
 TODO come back and check this is sufficient for ham fit / dc_odmr etc.
+Probably want to add these details to `dukit.field.defects.Defect` objects.
 
 Functions
 ---------
@@ -17,7 +20,7 @@ Constants
 ---------
  - `dukit.geom.NV_AXES_100_110`
  - `dukit.geom.NV_AXES_100_100`
- - `dukit.geom.NV_AXES_100_110`
+ - `dukit.geom.NV_AXES_111`
 """
 
 
@@ -29,7 +32,7 @@ __pdoc__ = {
     "dukit.geom.get_unv_frames": True,
     "dukit.geom.NV_AXES_100_110": True,
     "dukit.geom.NV_AXES_100_100": True,
-    "dukit.geom.NV_AXES_100_110": True,
+    "dukit.geom.NV_AXES_111": True,
 }
 
 # ============================================================================

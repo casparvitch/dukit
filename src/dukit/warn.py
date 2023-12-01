@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Always lowest in import heirarchy
+"""
+Warnings for DUKIT.
+
+Always lowest in import heirarchy
 
 Functions
 ---------

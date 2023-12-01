@@ -30,11 +30,11 @@
 #
 
 """
+Python/NumPy implementation of IDL's rebin function.
+
 NOTE: vendored from https://github.com/sbrisard/rebin as it has no conda-forge package
 
-
 ========
-
 
 Python/NumPy implementation of IDL's rebin function.
 

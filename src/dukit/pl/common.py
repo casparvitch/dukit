@@ -61,10 +61,16 @@ def gen_init_guesses(
         Dict holding guesses for each parameter, e.g. key -> list of bounds for each
         independent version of that fn_type.
     """
+
     init_guesses = {}
     init_bounds = {}
 
     for param_key in fit_model.get_param_defn():
+        if param_key not in guesses_dict:
+            raise KeyError(
+                f"Parameter {param_key} of {fit_model.__class__} "
+                "not in guesses dictionary."
+            )
         guess = guesses_dict[param_key]
 
         if param_key + "_range" in bounds_dict:
@@ -72,7 +78,10 @@ def gen_init_guesses(
         elif param_key + "_bounds" in bounds_dict:
             bounds = bounds_dict[param_key + "_bounds"]
         else:
-            raise RuntimeError(f"Provide bounds for {param_key}!")
+            raise RuntimeError(
+                f"Parameter {param_key}_bounds nor {param_key}_range "
+                "in bounds dictionary for {fit_model.__class__}."
+            )
 
         if guess is not None:
             init_guesses[param_key] = guess
@@ -171,4 +180,3 @@ def calc_sigmas(
     s_sq = cost / (len(resid) - len(best_params))
     pcov *= s_sq
     return np.sqrt(np.diag(pcov))  # array of standard deviations
-

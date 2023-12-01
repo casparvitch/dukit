@@ -101,7 +101,7 @@ def fit_roi_avg_pl(
 
     Returns
     -------
-    fit_image_results : dukit.shared.RoiAvgFit
+    fit_image_results : dukit.share.RoiAvgFit
     """
     if jac is None:
         jac = fit_model.jacobian_scipyfit
@@ -353,7 +353,7 @@ def fit_all_pixels_pl(
     bounds_dict : dict
         dict holding bound options for each parameter type, e.g.
         {"pos_range": 5.0, "amp_bounds": [0.0, 1.0], ...}
-    roi_avg_result : dukit.shared.RoiAvgFit | None
+    roi_avg_result : dukit.share.RoiAvgFit | None
         The result of fitting the ROI average.
         If done, directly uses guesses provided.
     n_jobs : int, default=-2

@@ -18,6 +18,8 @@ Functions
  - `dukit.itool.smooth_image_stack`
  - `dukit.itool.sum_spatially`
  - `dukit.itool.get_aois`
+ - `dukit.itool._iterslice`
+ - `dukit.itool._iterframe`
 """
 
 # ============================================================================
@@ -38,14 +40,13 @@ __pdoc__ = {
     "dukit.itool.smooth_image_stack": True,
     "dukit.itool.sum_spatially": True,
     "dukit.itool.get_aois": True,
+    "dukit.itool._iterslice": True,
+    "dukit.itool._iterframe": True,
 }
-
-from itertools import product
 
 # ============================================================================
 
 import numpy as np
-import numpy.typing as npt
 from numpy import typing as npt
 from numpy.polynomial.polynomial import polyval2d
 from scipy.optimize import least_squares
@@ -53,6 +54,7 @@ from scipy.interpolate import griddata
 from scipy.ndimage import gaussian_filter
 import scipy.ndimage
 from typing import Callable
+from itertools import product
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt

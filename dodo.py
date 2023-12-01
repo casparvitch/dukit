@@ -69,7 +69,7 @@ def task_docs():
     return {
         "actions": [
             "pdoc3 --output-dir docs/ " +
-            "--html --template-dir docs/ --force src/dukit/"],
+            "--html --template-dir docs/ --force --skip-errors src/dukit/"],
     }
 
 

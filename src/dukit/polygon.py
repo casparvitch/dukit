@@ -1,29 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-This module holds the Polygon class: a class to compute if a point
-lies inside/outside/on-side of a polygon. Also defined is a function
-(polygon_gui) that can be called to select a polygon region on an image.
+This module holds the Polygon class.
+
+A class to compute if a point lies inside/outside/on-side of a polygon.
+Also defined is a function (polygon_selector) that can be called to select a polygon
+region on an image.
 
 For use check examples.
 
 Apologies for lack of typing, I don't understand sufficiently and it
 currently *just works*.
-
-Polygon-GUI
------------
-Function to select polygons on an image. Ensure you have the required
-gui backends for matplotlib. Best ran seperately/not within jupyter.
-E.g. open python REpl (python at cmd), 'import qdmpy.itool', then
-run qdmpy.shared.polygon.Polygonpolygon_gui() & follow the prompts.
-
-An optional array (i.e. the image used to define regions) can be passed
-to polygon_gui.
-
-The output json path can then be specified in the usual way (there's an
-option called 'polygon_nodes_path') to utilize these regions in the main
-processing code.
-
-Update: probably best to use polygon_selector() function. Check examples.
 
 Polygon
 -------
