@@ -10,3 +10,6 @@ To build documentation:
 
 - the force option overwrites any existing docs
 - skip-errors will avoid issues e.g. if you don't have pygpufit installed.
+
+Note: we commit the docs, as they're built with github pages (not actions).
+NB: the index.html file at this level is a redirect to dukit/index.html, leave that there.
