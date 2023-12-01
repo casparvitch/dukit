@@ -5,14 +5,12 @@ lab at RMIT/UniMelb. For the lab control software see
 [DavidBroadway/qdm-control](https://github.com/DavidBroadway/qdm-control)
 (may not be public, talk to David Broadway).
 
-On this page we will document the API, for other information see the README.md,
-INSTALL.md and DEVDOCS.md (@ repo link below), or click through the sub-package links below.
+On this page we will document the API, for other information see the [README.md](https://github.com/casparvitch/dukit/blob/main/README.md),
+[INSTALL.md](https://github.com/casparvitch/dukit/blob/main/INSTALL.md) and [DEVDOCS.md](https://github.com/casparvitch/dukit/blob/main/DEVDOCS.md), or click through the sub-package links below.
 
-See the examples folder (@ repo link below) for nice examples of usage.
+See the [examples](https://github.com/casparvitch/dukit/tree/main/examples) folder for nice examples of usage.
 
 [Repository here](https://github.com/casparvitch/dukit)
-
-[Docs here](https://casparvitch.github.io/dukit/dukit/index.html)
 
 # DUKIT Public API
 
