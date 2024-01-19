@@ -21,6 +21,7 @@ required = [
     "pyfftw",
     "dill",  # for magsim, polygons
     "scikit-image",
+    "joblib"
 ]
 
 here = pathlib.Path(__file__).parent.resolve()
