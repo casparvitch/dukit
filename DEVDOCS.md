@@ -36,6 +36,8 @@ has some tips on how to get started with git & github, which should be helpful.
   modular.
 - Aberration correction - see Sam Scholten thesis. Both for the field map and directly
   on the image stack.
+- Go through docs carefully, e.g. read each file docstring.
+- Test the asymmetric binning in fourier space.
 
 # Import/dependency graph
 
