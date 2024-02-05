@@ -379,7 +379,10 @@ class LVControl(MelbSystem):
             encoding="utf-8",
         ) as fid:
             sweep_str = fid.readline().rstrip().split("\t")
-        return np.array([float(i) for i in sweep_str], dtype=np.float64)
+        sweep_arr = np.array([float(i) for i in sweep_str], dtype=np.float64)
+        if np.any(sweep_arr <= 0):
+            warn("sweep_arr contains negatives or zeroes, check if model can handle!")
+        return sweep_arr
 
     def get_hardware_binning(self, filepath: str) -> int:
         metadata = self._read_metadata(filepath)
@@ -559,10 +562,13 @@ class PyControl(MelbSystem):
         return self._chop_into_sig_ref(image, True, norm)
 
     def read_sweep_arr(self, filepath: str) -> npt.NDArray[np.float64]:
-        return np.ndarray(
+        sweep_arr = np.ndarray(
             json_to_dict(filepath + ".json")["freq_list"],
             dtype=np.float64,
         )  # TODO name won't work for tau sweeps
+        if np.any(sweep_arr <= 0):
+            warn("sweep_arr contains negatives or zeroes, check if model can handle!")
+        return sweep_arr
 
     def get_hardware_binning(self, filepath: str) -> int:
         metadata = self._read_metadata(filepath)
