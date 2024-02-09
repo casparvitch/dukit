@@ -410,9 +410,9 @@ class ConstLorentzians(FitModel):
             a = fit_params[i * 3 + 3]
             g = fwhm / 2
 
-            j[:, 2 + i * 3] = (a * g * (x - c) ** 2) / ((x - c) ** 2 + g**2) ** 2
-            j[:, 3 + i * 3] = (2 * a * g**2 * (x - c)) / (g**2 + (x - c) ** 2) ** 2
-            j[:, 4 + i * 3] = g**2 / ((x - c) ** 2 + g**2)
+            j[:, 1 + i * 3] = (a * g * (x - c) ** 2) / ((x - c) ** 2 + g**2) ** 2
+            j[:, 2 + i * 3] = (2 * a * g**2 * (x - c)) / (g**2 + (x - c) ** 2) ** 2
+            j[:, 3 + i * 3] = g**2 / ((x - c) ** 2 + g**2)
         return j
 
     def get_param_defn(self) -> tuple[str, ...]:
