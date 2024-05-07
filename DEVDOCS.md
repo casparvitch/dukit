@@ -38,6 +38,9 @@ has some tips on how to get started with git & github, which should be helpful.
   on the image stack.
 - Go through docs carefully, e.g. read each file docstring.
 - Test the asymmetric binning in fourier space.
+- From Percy/Ella: Auto-scientific notation the labels on images (e.g. Bfield 0.0002 T -> 2e-4 T)
+- Write a function to get resonant freqs from fit_image_results?? IDK depends on fit function etc.
+  - or at least get all #s that match a certain fit param name, e.g. `get_n_params(fit_image_results, "pos")`
 
 # Import/dependency graph
 
