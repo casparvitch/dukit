@@ -1008,31 +1008,31 @@ def get_colormap_range(
         "mean_plus_minus": _mean_plus_minus,
     }
 
-    # if c_range_type == "strict_range":
-    #     if (
-    #         not isinstance(c_range_vals, (float, int))
-    #         or len(c_range_vals) != 2  # noqa: W503
-    #         or (not isinstance(c_range_vals[0], (float, int)))  # noqa: W503
-    #         or (not isinstance(c_range_vals[1], (float, int)))  # noqa: W503
-    #         or c_range_vals[0] > c_range_vals[1]  # noqa: W503
-    #     ):
-    #         warn(warning_messages[c_range_type])
-    #         return _min_max_sym_mean(image, ())
     if c_range_type == "strict_range":
         if (
             not isinstance(c_range_vals, (float, int))
-        ): 
-            warn("not isinstance(c_range_vals, (float, int))")
-
-        elif len(c_range_vals) != 2:  # noqa: W503
-            warn("len(c_range_vals) != 2")
-        elif (not isinstance(c_range_vals[0], (float, int))):  # noqa: W503
-            warn("not isinstance(c_range_vals[0], (float, int))")
-        elif (not isinstance(c_range_vals[1], (float, int))):  # noqa: W503
-            warn("not isinstance(c_range_vals[1], (float, int))")
-        elif c_range_vals[0] > c_range_vals[1]:  # noqa: W503
-            warn("c_range_vals[0] > c_range_vals[1]")
+            or len(c_range_vals) != 2  # noqa: W503
+            or (not isinstance(c_range_vals[0], (float, int)))  # noqa: W503
+            or (not isinstance(c_range_vals[1], (float, int)))  # noqa: W503
+            or c_range_vals[0] > c_range_vals[1]  # noqa: W503
+        ):
+            warn(warning_messages[c_range_type])
             return _min_max_sym_mean(image, ())
+    # if c_range_type == "strict_range":
+    #     if (
+    #         not isinstance(c_range_vals, (float, int))
+    #     ): 
+    #         warn("not isinstance(c_range_vals, (float, int))")
+
+    #     elif len(c_range_vals) != 2:  # noqa: W503
+    #         warn("len(c_range_vals) != 2")
+    #     elif (not isinstance(c_range_vals[0], (float, int))):  # noqa: W503
+    #         warn("not isinstance(c_range_vals[0], (float, int))")
+    #     elif (not isinstance(c_range_vals[1], (float, int))):  # noqa: W503
+    #         warn("not isinstance(c_range_vals[1], (float, int))")
+    #     elif c_range_vals[0] > c_range_vals[1]:  # noqa: W503
+    #         warn("c_range_vals[0] > c_range_vals[1]")
+    #         return _min_max_sym_mean(image, ())
         
     elif c_range_type == "mean_plus_minus":
         if not isinstance(c_range_vals[0], (float, int)):
