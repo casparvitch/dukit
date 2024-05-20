@@ -390,7 +390,7 @@ class ConstLorentzians(FitModel):
             val += amp * hwhmsqr / ((x - pos) ** 2 + hwhmsqr)
         return val - pl_vals
 
-    def jacobian_scipyfit(
+    def jacobian_scipyfit(  
         self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike, pl_vals: npt.ArrayLike
     ):
         """Evaluates (analytic) jacobian of fitmodel in format expected by

@@ -342,7 +342,7 @@ def fit_all_pixels_pl(
     Arguments
     ---------
     sig_norm : np array, 3D
-        Normalised measurement array, shape: [sweep_arr, y, x].
+        Normalised measurement array, shape: [y, x, sweep_ar].
     sweep_arr : np array, 1D
         Affine parameter list (e.g. tau or freq)
     fit_model : `dukit.pl.model.FitModel`
