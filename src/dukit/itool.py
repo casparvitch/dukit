@@ -1011,7 +1011,7 @@ def get_colormap_range(
 
     if c_range_type == "strict_range":
         if (
-            not isinstance(c_range_vals, (float, int))
+            not isinstance(c_range_vals, (list, tuple))
             or len(c_range_vals) != 2  # noqa: W503
             or (not isinstance(c_range_vals[0], (float, int)))  # noqa: W503
             or (not isinstance(c_range_vals[1], (float, int)))  # noqa: W503

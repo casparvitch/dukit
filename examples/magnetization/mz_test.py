@@ -56,7 +56,8 @@ with open(OUTPUT_DIR + "dukit_version.txt", "w") as fid:
 
 FIT_RES_DIR = OUTPUT_DIR + "/data/"
 # set below to "" or None or False to *not* load prev fit
-PREV_FIT = ""  # FIT_RES_DIR[:]
+# PREV_FIT = ""  # FIT_RES_DIR[:]
+PREV_FIT = FIT_RES_DIR[:]
 
 # === START SCRIPT
 
@@ -213,8 +214,10 @@ _ = dukit.plot.b_defects(
     b_nv_sbg,
     name="sub_bg b_nvs",
     opath=OUTPUT_DIR + f"b_nvs-sub_bg.{FIG_FORMAT}",
-    c_range_type="percentile",
-    c_range_values=(2, 98),
+    # c_range_type="percentile",
+    c_range_type="strict_range",
+    # c_range_values=(2, 98),
+    c_range_values=(-1.3e-6, 1.3e-6),
     raw_pixel_size=raw_pixel_size,
     applied_binning=ADDITIONAL_BINS,
     annotate_polygons=ANNOTATE_POLYS,
@@ -225,8 +228,10 @@ _ = dukit.plot.dshifts(
     dshifts,
     name="dshifts",
     opath=OUTPUT_DIR + f"dshifts.{FIG_FORMAT}",
-    c_range_type="percentile",
-    c_range_values=(2, 98),
+    # c_range_type="percentile",
+    c_range_type="strict_range",
+    # c_range_values=(2, 98),
+    c_range_values=(2876, 2880),
     raw_pixel_size=raw_pixel_size,
     applied_binning=ADDITIONAL_BINS,
 )
