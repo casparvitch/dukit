@@ -625,9 +625,10 @@ class Zyla(LVControl):
     """
 
     name = "Zyla"
-    _obj_mag = 4
+    _obj_mag = 40
     _obj_ref_focal_length = 200e-3
-    _camera_tube_lens = 300e-3
+    # _camera_tube_lens = 300e-3
+    _camera_tube_lens = False
     _sensor_pixel_pitch = 6.5e-6
 
 
