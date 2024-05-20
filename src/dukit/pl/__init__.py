@@ -28,4 +28,5 @@ from dukit.pl.model import (
     ConstLorentzians,
 )
 
-from dukit.pl.interface import fit_all_pixels, fit_roi, fit_aois, load_fit_results
+from dukit.pl.interface import fit_all_pixels, fit_roi, fit_aois, load_fit_results, \
+    get_fitres_params

@@ -12,6 +12,7 @@ Functions
  - `dukit.pl.interface.fit_aois`
  - `dukit.pl.interface.fit_all_pixels`
  - `dukit.pl.interface.load_fit_results`
+ - `dukit.pl.interface.get_fitres_params`
 """
 
 # ============================================================================
@@ -532,3 +533,29 @@ def load_fit_results(idir: str, fit_model: "dukit.pl.model.FitModel") -> dict:
     for name in names:
         fit_results[name] = np.loadtxt(idir + f"{name}.txt", delimiter=",")
     return fit_results
+
+# ============================================================================
+
+def get_fitres_params(fit_results: dict, res_pos_name: str = "pos") -> tuple:
+    """
+    Get the fit results parameters from a dictionary of fit results & res param name.
+
+    Helper function.
+
+    Arguments
+    ---------
+    fit_results : dict
+        Dictionary of fit results.
+    res_pos_name : str = "pos"
+        Name of the resonance position parameter, e.g. 'pos' for Lorentzians.
+
+    Returns
+    -------
+    resonances : tuple
+        Tuple of resonance positions, each a 2D array.
+    """
+    resonances_lst = []
+    for key in sorted(list(fit_results.keys())):
+        if key.startswith(res_pos_name):
+            resonances_lst.append(fit_results[key])
+    return tuple(resonances_lst)

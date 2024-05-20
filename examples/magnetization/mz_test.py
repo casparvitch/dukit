@@ -178,10 +178,10 @@ _ = dukit.plot.pl_param_images(
 )
 
 defect = dukit.NVEnsemble()
-b_nvs = defect.b_defects((fit_image_results["pos_0"], fit_image_results["pos_1"]))
-dshifts = defect.dshift_defects(
-    (fit_image_results["pos_0"], fit_image_results["pos_1"])
-)
+# resonances = (fit_image_results["pos_0"], fit_image_results["pos_1"])
+resonances = dukit.get_fitres_params(fit_image_results, "pos")
+b_nvs = defect.b_defects(resonances)
+dshifts = defect.dshift_defects(resonances)
 # calc b_nv_bg, b_nv_sbg
 # b_nv_bgs = tuple([dukit.get_background(bnv, "poly", order=2)[0] for bnv in b_nvs])
 b_nv_bgs = tuple(
