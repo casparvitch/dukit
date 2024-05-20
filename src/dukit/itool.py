@@ -93,6 +93,7 @@ DEFAULT_RCPARAMS: dict = {
     "scalebar.sep": 1,
     "axes.formatter.useoffset": False,
     "axes.formatter.use_mathtext": True,
+    "axes.formatter.limits": (-2, 6),
     "errorbar.capsize": 3.0,
 }
 """Set of rcparams we've casually decided are reasonable."""
