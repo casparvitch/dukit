@@ -199,7 +199,7 @@ class System:
         elif norm == "div":
             sig_norm = sig / ref
         elif norm == "true_sub":
-            sig_norm = (sig - ref) / np.nanmax(sig - ref).reshape(sig.shape[:-1]+(1,))
+            sig_norm = (sig - ref) / np.nanmax(sig - ref)
         """
         raise NotImplementedError
 

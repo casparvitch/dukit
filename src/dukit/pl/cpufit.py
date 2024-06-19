@@ -123,9 +123,7 @@ def fit_roi_avg_pl(
     elif norm == "sub":
         sig_norm = 1 + (sig - ref) / (sig + ref)
     elif norm == "true_sub":
-        sig_norm = (sig - ref) / np.nanmax(sig - ref).reshape(
-                sig.shape[:-1] + (1,)
-            ),
+        sig_norm = (sig - ref) / np.nanmax(sig - ref)
 
     avg_sig_norm = np.nanmean(sig_norm, axis=(0, 1))
     avg_sig = np.nanmean(sig, axis=(0, 1))
@@ -285,9 +283,7 @@ def fit_aois_pl(
         elif norm == "sub":
             avg_sig_norm = np.nanmean(1 + (s - r) / (s + r), axis=(0, 1))
         elif norm == "true_sub":
-            avg_sig_norm = np.nanmean((s - r) / np.nanmax(s - r).reshape(
-                s.shape[:-1] + (1,)
-            ), axis=(0, 1))
+            avg_sig_norm = np.nanmean((s - r) / np.nanmax(s - r), axis=(0, 1))
 
         avg_sig = np.nanmean(s, axis=(0, 1))
         avg_ref = np.nanmean(r, axis=(0, 1))
