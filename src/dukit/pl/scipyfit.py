@@ -59,7 +59,7 @@ def fit_roi_avg_pl(
     jac: str | None = None,
 ):
     """
-    Fit AOI averages
+    Fit ROI average
 
     Arguments
     ---------
@@ -109,6 +109,8 @@ def fit_roi_avg_pl(
     pguess, pbounds = _gen_sf_guesses_bounds(
         fit_model, *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict)
     )
+    # NOTE do we want to average over spectra per-pixel, or average over counts?
+    # I guess we want the local average, so this is ok.
 
     if norm == "div":
         sig_norm = sig / ref

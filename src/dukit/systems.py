@@ -290,7 +290,7 @@ class System:
         """
 
         Parameters
-        ----------
+----------
         sig : npt.NDArray
             signal
         ref : npt.NDArray
