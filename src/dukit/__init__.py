@@ -256,7 +256,7 @@ from dukit.fourier import (
     MU_0,
 )
 
-from dukit.driftcorrect import drift_correct_test, drift_correct_measurement
+from dukit.driftcorrect import drift_correct_test, drift_correct_measurement, read_and_drift_correct, drift_correct_multiseq_test, drift_correct_multiseq_measurement, read_and_drift_correct_multiseq
 
 from dukit.magsim import SandboxMagSim, ComparisonMagSim
 
