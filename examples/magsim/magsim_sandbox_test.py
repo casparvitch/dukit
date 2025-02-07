@@ -9,7 +9,10 @@ with open(
     exec(fid.read())  # reads in TEST_DATA_PATH string
 DIR = TEST_DATA_PATH + "mz_test/"
 
-np_text_file_path = DIR + "ODMR - Pulsed_10_Rectangle_bin_8/field/sig_sub_ref/sig_sub_ref_bnv_0.txt"
+np_text_file_path = (
+    DIR
+    + "ODMR - Pulsed_10_Rectangle_bin_8/field/sig_sub_ref/sig_sub_ref_bnv_0.txt"
+)
 json_output_path = DIR + "polys_mz_sandbox.json"
 json_input_path = DIR + "polys.json"
 mean_plus_minus = 0.25
@@ -39,8 +42,10 @@ sim.set_template_as_polygons()
 
 sim.set_template_as_polygons()
 
-sim.define_magnets(5,  (0, 1, 0))  # mag unit: mu_b/nm^2
-_ = sim.plot_magsim_magnetizations(annotate_polygons=True, polygon_patch_params=pgon_patch)
+sim.define_magnets(5, (0, 1, 0))  # mag unit: mu_b/nm^2
+_ = sim.plot_magsim_magnetizations(
+    annotate_polygons=True, polygon_patch_params=pgon_patch
+)
 
 sim.run(
     height, pad_mode="constant", resolution=res
@@ -50,8 +55,14 @@ unv = [np.sqrt(1 / 3), np.sqrt(1 / 3), np.sqrt(1 / 3)]
 
 _ = sim.plot_magsim_bfield_at_nvs(strict_range=(-0.25, 0.25), projection=unv)
 
-_ = sim.plot_magsim_bfield_at_nvs(strict_range=(-0.25, 0.25), projection=(1, 0, 0))
-_ = sim.plot_magsim_bfield_at_nvs(strict_range=(-0.25, 0.25), projection=(0, 1, 0))
-_ = sim.plot_magsim_bfield_at_nvs(strict_range=(-0.25, 0.25), projection=(0, 0, 1))
+_ = sim.plot_magsim_bfield_at_nvs(
+    strict_range=(-0.25, 0.25), projection=(1, 0, 0)
+)
+_ = sim.plot_magsim_bfield_at_nvs(
+    strict_range=(-0.25, 0.25), projection=(0, 1, 0)
+)
+_ = sim.plot_magsim_bfield_at_nvs(
+    strict_range=(-0.25, 0.25), projection=(0, 0, 1)
+)
 
 plt.show()

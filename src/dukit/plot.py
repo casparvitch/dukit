@@ -117,7 +117,9 @@ def roi_pl_image(
 
     fig, ax = plt.subplots()
     if "c_range" not in kwargs and c_range_type and c_range_values:
-        c_range = dukit.itool.get_colormap_range(c_range_type, c_range_values, pl_image)
+        c_range = dukit.itool.get_colormap_range(
+            c_range_type, c_range_values, pl_image
+        )
     else:
         c_range = dukit.itool.get_colormap_range("min_max", (), pl_image)
 
@@ -181,7 +183,9 @@ def aoi_pl_image(
     """
     fig, ax = plt.subplots()
     if "c_range" not in kwargs and c_range_type and c_range_values:
-        c_range = dukit.itool.get_colormap_range(c_range_type, c_range_values, pl_image)
+        c_range = dukit.itool.get_colormap_range(
+            c_range_type, c_range_values, pl_image
+        )
     else:
         c_range = dukit.itool.get_colormap_range("min_max", (), pl_image)
 
@@ -211,7 +215,9 @@ def aoi_pl_image(
         edgecolor=AOI_COLORS[0],
     )
     for i, aoi in enumerate(aoi_coords):
-        _add_patch_rect(ax, aoi, label="AOI " + str(i + 1), edgecolor=AOI_COLORS[i + 1])
+        _add_patch_rect(
+            ax, aoi, label="AOI " + str(i + 1), edgecolor=AOI_COLORS[i + 1]
+        )
 
     if opath:
         fig.savefig(opath)
@@ -222,7 +228,9 @@ def aoi_pl_image(
 # ============================================================================
 
 
-def roi_avg_fits(roi_results: dict[str, dukit.share.RoiAvgFit], opath: str = ""):
+def roi_avg_fits(
+    roi_results: dict[str, dukit.share.RoiAvgFit], opath: str = ""
+):
     """
     Plots fit of spectrum averaged across ROI, as well as corresponding residual values.
 
@@ -259,7 +267,9 @@ def roi_avg_fits(roi_results: dict[str, dukit.share.RoiAvgFit], opath: str = "")
         mec="firebrick",
     )
     lspec_names.append("raw data")
-    lspec_lines.append(Line2D([0], [0], ls=" ", marker="o", mfc="w", mec="firebrick"))
+    lspec_lines.append(
+        Line2D([0], [0], ls=" ", marker="o", mfc="w", mec="firebrick")
+    )
 
     arb_result = next(iter(roi_results.values()))
 
@@ -429,7 +439,9 @@ def aoi_spectra(
     num_wide = 3 if len(aois) < 3 else len(aois)
     figsize[0] *= 0.6 * num_wide
     figsize[1] *= 1.75
-    fig, axs = plt.subplots(2, num_wide, figsize=figsize, sharex=True, sharey=False)
+    fig, axs = plt.subplots(
+        2, num_wide, figsize=figsize, sharex=True, sharey=False
+    )
 
     for i, aoi in enumerate(aois):
         # plot sig
@@ -610,7 +622,11 @@ def aoi_spectra_fit(
     figsize[1] *= 1 + len(aoi_fit_results.keys())  # number of rows
 
     fig, axs = plt.subplots(
-        1 + len(aoi_fit_results.keys()), 3, figsize=figsize, sharex=True, sharey=False
+        1 + len(aoi_fit_results.keys()),
+        3,
+        figsize=figsize,
+        sharex=True,
+        sharey=False,
     )
     axs[-1, 0].set_xlabel("Sweep parameter")
     axs[-1, 1].set_xlabel("Sweep parameter")
@@ -787,7 +803,9 @@ def pl_param_image(
         c_label = fit_model.get_param_unit(param_name, param_number)
 
     if "c_range" not in kwargs and c_range_type and c_range_values:
-        c_range = dukit.itool.get_colormap_range(c_range_type, c_range_values, image)
+        c_range = dukit.itool.get_colormap_range(
+            c_range_type, c_range_values, image
+        )
     else:
         c_range = dukit.itool.get_colormap_range("min_max", (), image)
 
@@ -884,7 +902,9 @@ def pl_param_images(
         return int(num)
 
     # sort based on number (just in case)
-    our_keys.sort(key=param_sorter)  # i.e. key = lambda x: int(x.split("_")[-1])
+    our_keys.sort(
+        key=param_sorter
+    )  # i.e. key = lambda x: int(x.split("_")[-1])
     nk = len(our_keys)
 
     if nk == 1:
@@ -927,7 +947,9 @@ def pl_param_images(
             if nk % 2:
                 param_nums.append(nk // 2 + 1)
             if len(param_nums) < 4:
-                param_nums.extend([-1 for _ in range(4 - len(param_nums))])  # dummies
+                param_nums.extend(
+                    [-1 for _ in range(4 - len(param_nums))]
+                )  # dummies
             param_nums.extend(
                 list(range(nk - 1, (nk - 1) // 2, -1))
             )  # range(start, stop, step)
@@ -949,7 +971,9 @@ def pl_param_images(
                 continue
 
             if errorplot:
-                c_label = "SD: " + fit_model.get_param_unit(param_name, param_number)
+                c_label = "SD: " + fit_model.get_param_unit(
+                    param_name, param_number
+                )
             else:
                 c_label = fit_model.get_param_unit(param_name, param_number)
 
@@ -958,7 +982,9 @@ def pl_param_images(
                     c_range_type, c_range_values, image_data
                 )
             else:
-                c_range = dukit.itool.get_colormap_range("min_max", (), image_data)
+                c_range = dukit.itool.get_colormap_range(
+                    "min_max", (), image_data
+                )
 
             fig, ax = dukit.itool.plot_image_on_ax(
                 fig,
@@ -1081,7 +1107,9 @@ def b_defects(
     # axs index: axs[row, col]
     for i, bd in enumerate(b_defects):
         if "c_range" not in kwargs and c_range_type and c_range_values:
-            c_range = dukit.itool.get_colormap_range(c_range_type, c_range_values, bd)
+            c_range = dukit.itool.get_colormap_range(
+                c_range_type, c_range_values, bd
+            )
         else:
             c_range = dukit.itool.get_colormap_range("min_max", (), bd)
 

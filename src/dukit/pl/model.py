@@ -13,6 +13,8 @@ Classes
  - `qdmpy.pl.model.ConstStretchedExp`
  - `qdmpy.pl.model.ConstDampedRabi`
  - `qdmpy.pl.model.LinearLorentzians`
+ - `qdmpy.pl.model.LinearN15Lorentzians`
+ - `qdmpy.pl.model.LinearN14Lorentzians`
  - `qdmpy.pl.model.ConstLorentzians`
 """
 
@@ -24,6 +26,8 @@ __pdoc__ = {
     "qdmpy.pl.model.ConstStretchedExp": True,
     "qdmpy.pl.model.ConstDampedRabi": True,
     "qdmpy.pl.model.LinearLorentzians": True,
+    "qdmpy.pl.model.LinearN15Lorentzians": True,
+    "qdmpy.pl.model.LinearN14Lorentzians": True,
     "qdmpy.pl.model.ConstLorentzians": True,
 }
 
@@ -77,7 +81,10 @@ class FitModel:
     # =================================
 
     def residuals_scipyfit(
-        self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike, pl_vals: npt.ArrayLike
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
     ):
         """Evaluates residual: fit model (affine params/sweep_arr) - pl values"""
         # NB: pl_vals unused, but left for compat with FitModel & Hamiltonian
@@ -85,13 +92,18 @@ class FitModel:
 
     @staticmethod
     @njit(fastmath=True)
-    def _resid(x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike):
+    def _resid(
+        x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike
+    ):
         raise NotImplementedError()
 
     # =================================
 
     def jacobian_scipyfit(
-        self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike, pl_vals: npt.ArrayLike
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
     ):
         """Evaluates (analytic) jacobian of fitmodel in format expected by scipy
         least_squares"""
@@ -99,7 +111,9 @@ class FitModel:
 
     @staticmethod
     @njit(fastmath=True)
-    def _jac(x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike):
+    def _jac(
+        x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike
+    ):
         raise NotImplementedError()
 
     # =================================
@@ -151,7 +165,9 @@ class FitModel:
         if param_name == "residual":
             return "Error: sum( || residual(sweep_params) || ) over affine param (a.u.)"
         if param_name.startswith("sigma_"):
-            return self.get_param_odict()[param_name[6:] + "_" + str(param_number)]
+            return self.get_param_odict()[
+                param_name[6:] + "_" + str(param_number)
+            ]
         return self.get_param_odict()[param_name + "_" + str(param_number)]
 
 
@@ -159,7 +175,6 @@ class FitModel:
 
 
 class ConstStretchedExp(FitModel):
-
     @staticmethod
     @njit(fastmath=True)
     def _eval(x: npt.ArrayLike, fit_params: npt.ArrayLike):
@@ -168,13 +183,19 @@ class ConstStretchedExp(FitModel):
 
     @staticmethod
     @njit(fastmath=True)
-    def _resid(x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike):
+    def _resid(
+        x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike
+    ):
         c, charac_exp_t, amp_exp, power_exp = fit_params
-        return amp_exp * np.exp(-((x / charac_exp_t) ** power_exp)) + c - pl_vals
+        return (
+            amp_exp * np.exp(-((x / charac_exp_t) ** power_exp)) + c - pl_vals
+        )
 
     @staticmethod
     @njit(fastmath=True)
-    def _jac(x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike):
+    def _jac(
+        x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike
+    ):
         c, charac_exp_t, amp_exp, power_exp = fit_params
         j = np.empty((np.shape(x)[0], 4))
         j[:, 0] = 1
@@ -213,7 +234,6 @@ class ConstStretchedExp(FitModel):
 
 
 class ConstDampedRabi(FitModel):
-
     @staticmethod
     @njit(fastmath=True)
     def _eval(x: npt.ArrayLike, fit_params: npt.ArrayLike):
@@ -222,13 +242,19 @@ class ConstDampedRabi(FitModel):
 
     @staticmethod
     @njit(fastmath=True)
-    def _resid(x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike):
+    def _resid(
+        x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike
+    ):
         c, omega, pos, amp, tau = fit_params
-        return amp * np.exp(-(x / tau)) * np.cos(omega * (x - pos)) + c - pl_vals
+        return (
+            amp * np.exp(-(x / tau)) * np.cos(omega * (x - pos)) + c - pl_vals
+        )
 
     @staticmethod
     @njit(fastmath=True)
-    def _jac(x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike):
+    def _jac(
+        x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike
+    ):
         c, omega, pos, amp, tau = fit_params
         j = np.empty((np.shape(x)[0], 5))
         j[:, 0] = 1
@@ -245,7 +271,13 @@ class ConstDampedRabi(FitModel):
         return j
 
     def get_param_defn(self) -> tuple[str, ...]:
-        return "constant", "rabi_freq", "rabi_t_offset", "rabi_amp", "rabi_decay_time"
+        return (
+            "constant",
+            "rabi_freq",
+            "rabi_t_offset",
+            "rabi_amp",
+            "rabi_decay_time",
+        )
 
     def get_param_odict(self) -> dict[str, str]:
         return dict(
@@ -291,7 +323,10 @@ class LinearLorentzians(FitModel):
     @staticmethod
     @njit(fastmath=True)
     def _resid(
-        n: int, x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike
+        n: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
     ):
         c = fit_params[0]
         m = fit_params[1]
@@ -305,7 +340,10 @@ class LinearLorentzians(FitModel):
         return val - pl_vals
 
     def jacobian_scipyfit(
-        self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike, pl_vals: npt.ArrayLike
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
     ):
         """Evaluates (analytic) jacobian of fitmodel in format expected by scipy
         least_squares"""
@@ -314,7 +352,10 @@ class LinearLorentzians(FitModel):
     @staticmethod
     @njit(fastmath=True)
     def _jac(
-        n: int, x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike
+        n: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
     ):
         j = np.empty((np.shape(x)[0], 2 + 3 * n), dtype=np.float64)
         j[:, 0] = 1  # wrt constant
@@ -325,8 +366,12 @@ class LinearLorentzians(FitModel):
             a = fit_params[i * 3 + 4]
             g = fwhm / 2
 
-            j[:, 2 + i * 3] = (a * g * (x - c) ** 2) / ((x - c) ** 2 + g**2) ** 2
-            j[:, 3 + i * 3] = (2 * a * g**2 * (x - c)) / (g**2 + (x - c) ** 2) ** 2
+            j[:, 2 + i * 3] = (a * g * (x - c) ** 2) / (
+                (x - c) ** 2 + g**2
+            ) ** 2
+            j[:, 3 + i * 3] = (2 * a * g**2 * (x - c)) / (
+                g**2 + (x - c) ** 2
+            ) ** 2
             j[:, 4 + i * 3] = g**2 / ((x - c) ** 2 + g**2)
         return j
 
@@ -337,7 +382,265 @@ class LinearLorentzians(FitModel):
         return tuple(defn)
 
     def get_param_odict(self) -> dict[str, str]:
-        defn = [("c_0", "Amplitude (a.u.)"), ("m_0", "Amplitude per Freq (a.u.)")]
+        defn = [
+            ("c_0", "Amplitude (a.u.)"),
+            ("m_0", "Amplitude per Freq (a.u.)"),
+        ]
+        for i in range(self.n_lorentzians):
+            defn += [(f"fwhm_{i}", "Freq (MHz)")]
+            defn += [(f"pos_{i}", "Freq (MHz)")]
+            defn += [(f"amp_{i}", "Amp (a.u.)")]
+        return dict(defn)
+
+
+# ====================================================================================
+
+
+class LinearN14Lorentzians(FitModel):
+    def __init__(self, n_lorentzians: int):
+        self.n_lorentzians = n_lorentzians
+        self.fit_functions = {"linear": 1, "n14lorentzian": n_lorentzians}
+
+    def __call__(self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike):
+        return self._eval(self.n_lorentzians, sweep_arr, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _eval(n: int, x: npt.ArrayLike, fit_params: npt.ArrayLike):
+        """N14 has 2 resonances separated by 3.03MHz.
+        We keep widths, heights fixed for the pair & split the amp/fwhm between
+        the two HF levels."""
+        c = fit_params[0]
+        m = fit_params[1]
+        val = m * x + c
+        for i in range(n):
+            fwhm = fit_params[i * 3 + 2]
+            pos = fit_params[i * 3 + 3]
+            amp = fit_params[i * 3 + 4]
+            hwhmsqr = ((fwhm / 2.0) ** 2) / 4
+            val += (
+                0.5 * amp * hwhmsqr / ((x - pos - 1.515) ** 2 + hwhmsqr)
+            ) + (0.5 * amp * hwhmsqr / ((x - pos + 1.515) ** 2 + hwhmsqr))
+        return val
+
+    def residuals_scipyfit(self, param_ar, sweep_arr, pl_vals):
+        """Evaluates residual: fit model (affine params/sweep_arr) - pl values"""
+        return self._resid(self.n_lorentzians, sweep_arr, pl_vals, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _resid(
+        n: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
+    ):
+        c = fit_params[0]
+        m = fit_params[1]
+        val = m * x + c
+        for i in range(n):
+            fwhm = fit_params[i * 3 + 2]
+            pos = fit_params[i * 3 + 3]
+            amp = fit_params[i * 3 + 4]
+            hwhmsqr = ((fwhm / 2.0) ** 2) / 4
+            val += (
+                0.5 * amp * hwhmsqr / ((x - pos - 1.515) ** 2 + hwhmsqr)
+            ) + (0.5 * amp * hwhmsqr / ((x - pos + 1.515) ** 2 + hwhmsqr))
+        return val - pl_vals
+
+    def jacobian_scipyfit(
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+    ):
+        """Evaluates (analytic) jacobian of fitmodel in format expected by scipy
+        least_squares"""
+        return self._jac(self.n_lorentzians, sweep_arr, pl_vals, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _jac(
+        n: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
+    ):
+        j = np.empty((np.shape(x)[0], 2 + 3 * n), dtype=np.float64)
+        j[:, 0] = 1  # wrt constant
+        j[:, 1] = x  # wrt m
+        for i in range(n):
+            fwhm = fit_params[i * 3 + 2]
+            c = fit_params[i * 3 + 3]
+            a = fit_params[i * 3 + 4]
+            g = (fwhm / 2) / 2
+
+            j[:, 2 + i * 3] = (a * g / 4) * (
+                g**2
+                * (
+                    -1 / (g**2 + (x + 1.515 - c) ** 2) ** 2
+                    - 1 / (g**2 + (x - 1.515 - c) ** 2) ** 2
+                )
+                + 1 / (g**2 + (x + 1.515 - c) ** 2)
+                + 1 / (g**2 + (x - 1.515 - c) ** 2)
+            )
+            j[:, 3 + i * 3] = (
+                a
+                * g**2
+                * (
+                    (x - c - 1.515) / ((g**2 + (x - 1.515 - c) ** 2) ** 2)
+                    + (x + 1.515 - c) / (g**2 + (x + 1.515 - c) ** 2) ** 2
+                )
+            )
+            j[:, 4 + i * 3] = (g**2 / 2) * (
+                1 / (g**2 + (x - c + 1.515) ** 2)
+                + 1 / (g**2 + (x - 1.515 - c) ** 2)
+            )
+        return j
+
+    def get_param_defn(self) -> tuple[str, ...]:
+        defn = ["c", "m"]
+        for i in range(self.n_lorentzians):
+            defn += ["fwhm", "pos", "amp"]
+        return tuple(defn)
+
+    def get_param_odict(self) -> dict[str, str]:
+        defn = [
+            ("c_0", "Amplitude (a.u.)"),
+            ("m_0", "Amplitude per Freq (a.u.)"),
+        ]
+        for i in range(self.n_lorentzians):
+            defn += [(f"fwhm_{i}", "Freq (MHz)")]
+            defn += [(f"pos_{i}", "Freq (MHz)")]
+            defn += [(f"amp_{i}", "Amp (a.u.)")]
+        return dict(defn)
+
+
+# ====================================================================================
+
+
+class Linear15Lorentzians(FitModel):
+    def __init__(self, n_lorentzians: int):
+        self.n_lorentzians = n_lorentzians
+        self.fit_functions = {"linear": 1, "n15lorentzian": n_lorentzians}
+
+    def __call__(self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike):
+        return self._eval(self.n_lorentzians, sweep_arr, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _eval(n: int, x: npt.ArrayLike, fit_params: npt.ArrayLike):
+        """N15 has 3 resonances separated by 2.14MHz.
+        We keep widths, heights fixed for the trio & split the amp/fwhm between
+        the three HF levels."""
+        c = fit_params[0]
+        m = fit_params[1]
+        val = m * x + c
+        for i in range(n):
+            fwhm = fit_params[i * 3 + 2]
+            pos = fit_params[i * 3 + 3]
+            amp = fit_params[i * 3 + 4]
+            hwhmsqr = ((fwhm / 3) ** 2) / 4
+            val += (
+                (amp / 3) * hwhmsqr / ((x - pos - 2.14) ** 2 + hwhmsqr)
+                + (amp / 3) * hwhmsqr / ((x - pos) ** 2 + hwhmsqr)
+                + (amp / 3) * hwhmsqr / ((x - pos + 2.14) ** 2 + hwhmsqr)
+            )
+        return val
+
+    def residuals_scipyfit(self, param_ar, sweep_arr, pl_vals):
+        """Evaluates residual: fit model (affine params/sweep_arr) - pl values"""
+        return self._resid(self.n_lorentzians, sweep_arr, pl_vals, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _resid(
+        n: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
+    ):
+        c = fit_params[0]
+        m = fit_params[1]
+        val = m * x + c
+        for i in range(n):
+            fwhm = fit_params[i * 3 + 2]
+            pos = fit_params[i * 3 + 3]
+            amp = fit_params[i * 3 + 4]
+            hwhmsqr = ((fwhm / 3) ** 2) / 4
+            val += (
+                (amp / 3) * hwhmsqr / ((x - pos - 2.14) ** 2 + hwhmsqr)
+                + (amp / 3) * hwhmsqr / ((x - pos) ** 2 + hwhmsqr)
+                + (amp / 3) * hwhmsqr / ((x - pos + 2.14) ** 2 + hwhmsqr)
+            )
+        return val - pl_vals
+
+    def jacobian_scipyfit(
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+    ):
+        """Evaluates (analytic) jacobian of fitmodel in format expected by scipy
+        least_squares"""
+        return self._jac(self.n_lorentzians, sweep_arr, pl_vals, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _jac(
+        n: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
+    ):
+        j = np.empty((np.shape(x)[0], 2 + 3 * n), dtype=np.float64)
+        j[:, 0] = 1  # wrt constant
+        j[:, 1] = x  # wrt m
+        for i in range(n):
+            fwhm = fit_params[i * 3 + 2]
+            c = fit_params[i * 3 + 3]
+            a = fit_params[i * 3 + 4]
+            g = (fwhm / 3) / 2
+
+            j[:, 2 + i * 3] = (a * g / 9) * (
+                g**2
+                * (
+                    -1 / (g**2 + (x - c) ** 2) ** 2
+                    - 1 / (g**2 + (x + 2.14 - c) ** 2) ** 2
+                    - 1 / (g**2 + (x - c - 2.14) ** 2) ** 2
+                )
+                + 1 / (g**2 + (x - c) ** 2)
+                + 1 / (g**2 + (x + 2.14 - c) ** 2)
+                + 1 / (g**2 + (x - 2.14 - c) ** 2)
+            )
+            j[:, 3 + i * 3] = (
+                (2 / 3)
+                * a
+                * g**2
+                * (
+                    (x - c - 2.14) / ((g**2 + (x - 2.14 - c) ** 2) ** 2)
+                    + (x + 2.14 - c) / (g**2 + (x + 2.14 - c) ** 2) ** 2
+                    + (x - c) / (g**2 + (x - c) ** 2) ** 2
+                )
+            )
+            j[:, 4 + i * 3] = (g**2 / 3) * (
+                1 / (g**2 + (x - c) ** 2)
+                + 1 / (g**2 + (x - c + 2.14) ** 2)
+                + 1 / (g**2 + (x - 2.14 - c) ** 2)
+            )
+        return j
+
+    def get_param_defn(self) -> tuple[str, ...]:
+        defn = ["c", "m"]
+        for i in range(self.n_lorentzians):
+            defn += ["fwhm", "pos", "amp"]
+        return tuple(defn)
+
+    def get_param_odict(self) -> dict[str, str]:
+        defn = [
+            ("c_0", "Amplitude (a.u.)"),
+            ("m_0", "Amplitude per Freq (a.u.)"),
+        ]
         for i in range(self.n_lorentzians):
             defn += [(f"fwhm_{i}", "Freq (MHz)")]
             defn += [(f"pos_{i}", "Freq (MHz)")]
@@ -370,7 +673,10 @@ class ConstLorentzians(FitModel):
         return val
 
     def residuals_scipyfit(
-        self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike, pl_vals: npt.ArrayLike
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
     ):
         """Evaluates residual: fit model (affine params/sweep_arr) - pl values"""
         return self._resid(self.n_lorentzians, sweep_arr, pl_vals, param_ar)
@@ -378,7 +684,10 @@ class ConstLorentzians(FitModel):
     @staticmethod
     @njit(fastmath=True)
     def _resid(
-        n: int, x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike
+        n: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
     ):
         c = fit_params[0]
         val = c * np.ones(np.shape(x))
@@ -390,8 +699,11 @@ class ConstLorentzians(FitModel):
             val += amp * hwhmsqr / ((x - pos) ** 2 + hwhmsqr)
         return val - pl_vals
 
-    def jacobian_scipyfit(  
-        self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike, pl_vals: npt.ArrayLike
+    def jacobian_scipyfit(
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
     ):
         """Evaluates (analytic) jacobian of fitmodel in format expected by
         scipy least_squares"""
@@ -400,7 +712,10 @@ class ConstLorentzians(FitModel):
     @staticmethod
     @njit(fastmath=True)
     def _jac(
-        n: int, x: npt.ArrayLike, pl_vals: npt.ArrayLike, fit_params: npt.ArrayLike
+        n: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
     ):
         j = np.empty((np.shape(x)[0], 1 + 3 * n), dtype=np.float64)
         j[:, 0] = 1  # wrt constant
@@ -410,8 +725,12 @@ class ConstLorentzians(FitModel):
             a = fit_params[i * 3 + 3]
             g = fwhm / 2
 
-            j[:, 1 + i * 3] = (a * g * (x - c) ** 2) / ((x - c) ** 2 + g**2) ** 2
-            j[:, 2 + i * 3] = (2 * a * g**2 * (x - c)) / (g**2 + (x - c) ** 2) ** 2
+            j[:, 1 + i * 3] = (a * g * (x - c) ** 2) / (
+                (x - c) ** 2 + g**2
+            ) ** 2
+            j[:, 2 + i * 3] = (2 * a * g**2 * (x - c)) / (
+                g**2 + (x - c) ** 2
+            ) ** 2
             j[:, 3 + i * 3] = g**2 / ((x - c) ** 2 + g**2)
         return j
 

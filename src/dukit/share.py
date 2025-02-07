@@ -201,7 +201,7 @@ class RoiAvgFit:
         avg_ref: npt.NDArray,
         fit_xvec: npt.NDArray,
         fit_yvec: npt.NDArray,
-        fit_yvec_guess : npt.NDArray,
+        fit_yvec_guess: npt.NDArray,
         best_params: npt.NDArray,
         best_sigmas: npt.NDArray,
         best_residual: float,

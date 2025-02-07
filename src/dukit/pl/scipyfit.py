@@ -51,7 +51,7 @@ def fit_roi_avg_pl(
     bounds_dict: dict,
     norm: str = "div",
     method: str = "trf",
-    verbose: int =0,
+    verbose: int = 0,
     gtol: float = 1e-12,
     xtol: float = 1e-12,
     ftol: float = 1e-12,
@@ -107,7 +107,8 @@ def fit_roi_avg_pl(
         jac = fit_model.jacobian_scipyfit
 
     pguess, pbounds = _gen_sf_guesses_bounds(
-        fit_model, *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict)
+        fit_model,
+        *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict),
     )
     # NOTE do we want to average over spectra per-pixel, or average over counts?
     # I guess we want the local average, so this is ok.
@@ -236,7 +237,8 @@ def fit_aois_pl(
         jac = fit_model.jacobian_scipyfit
 
     pguess, pbounds = _gen_sf_guesses_bounds(
-        fit_model, *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict)
+        fit_model,
+        *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict),
     )
     aois = dukit.itool.get_aois(np.shape(sig), *aoi_coords)
     aoi_pl_vecs = []
@@ -392,14 +394,19 @@ def fit_all_pixels_pl(
         jac = fit_model.jacobian_scipyfit
 
     init_pguess, pbounds = _gen_sf_guesses_bounds(
-        fit_model, *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict)
+        fit_model,
+        *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict),
     )
-    pguess = roi_avg_result.best_params if roi_avg_result is not None else init_pguess
+    pguess = (
+        roi_avg_result.best_params
+        if roi_avg_result is not None
+        else init_pguess
+    )
 
     # call into the library (measure time)
     t0 = timer()
     results_lst = Parallel(n_jobs=n_jobs, verbose=joblib_verbosity)(
-            delayed(_spfitter)(
+        delayed(_spfitter)(
             fit_model,
             sweep_arr,
             pl_vec,
@@ -413,7 +420,7 @@ def fit_all_pixels_pl(
             loss=loss,
             jac=jac,
         )
-            for pl_vec in dukit.itool._iterslice(sig_norm, axis=-1)
+        for pl_vec in dukit.itool._iterslice(sig_norm, axis=-1)
     )
     t1 = timer()
     dt = timedelta(seconds=t1 - t0).total_seconds()
@@ -426,7 +433,8 @@ def fit_all_pixels_pl(
     names.extend([f"sigma_{n}" for n in names])
     names.append("residual_0")
     fit_image_results = {
-        name: array for name, array in zip(names, dukit.itool._iterframe(results_arr))
+        name: array
+        for name, array in zip(names, dukit.itool._iterframe(results_arr))
     }
 
     return fit_image_results
@@ -447,22 +455,26 @@ def _spfitter(
     """
     try:
         fitres = least_squares(
-            fit_model.residuals_scipyfit, p0, args=(sweep_arr, pl_vec), **fit_optns
+            fit_model.residuals_scipyfit,
+            p0,
+            args=(sweep_arr, pl_vec),
+            **fit_optns,
         )
-        perr = dukit.pl.common.calc_sigmas(fit_model, sweep_arr, pl_vec, fitres.x)
+        perr = dukit.pl.common.calc_sigmas(
+            fit_model, sweep_arr, pl_vec, fitres.x
+        )
         resid = fit_model.residuals_scipyfit(fitres.x, sweep_arr, pl_vec)
     except ValueError:
         return np.hstack(
             (np.full_like(p0, np.nan), np.full_like(p0, np.nan), np.nan)
         )
     return np.hstack(
-        (fitres.x, perr, np.sum(np.abs(resid, dtype=np.float64), dtype=np.float64))
+        (
+            fitres.x,
+            perr,
+            np.sum(np.abs(resid, dtype=np.float64), dtype=np.float64),
+        )
     )
-
-
-
-
-
 
 
 def _gen_sf_guesses_bounds(

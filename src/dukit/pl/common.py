@@ -74,7 +74,9 @@ def gen_init_guesses(
         guess = guesses_dict[param_key]
 
         if param_key + "_range" in bounds_dict:
-            bounds = bounds_from_range(bounds_dict[param_key + "_range"], guess)
+            bounds = bounds_from_range(
+                bounds_dict[param_key + "_range"], guess
+            )
         elif param_key + "_bounds" in bounds_dict:
             bounds = bounds_dict[param_key + "_bounds"]
         else:
@@ -87,7 +89,9 @@ def gen_init_guesses(
             init_guesses[param_key] = guess
             init_bounds[param_key] = np.array(bounds)
         else:
-            raise RuntimeError(f"Not sure why your guess for {param_key} is None?")
+            raise RuntimeError(
+                f"Not sure why your guess for {param_key} is None?"
+            )
     return init_guesses, init_bounds
 
 
@@ -130,9 +134,15 @@ def bounds_from_range(
                 for each_guess in guess
             ]
     else:
-        if isinstance(rang, (list, tuple, np.ndarray)) and len(list(rang)) == 1:
+        if (
+            isinstance(rang, (list, tuple, np.ndarray))
+            and len(list(rang)) == 1
+        ):
             rang = rang[0]
-        if isinstance(guess, (list, tuple, np.ndarray)) and len(list(guess)) == 1:
+        if (
+            isinstance(guess, (list, tuple, np.ndarray))
+            and len(list(guess)) == 1
+        ):
             guess = guess[0]
         bounds = [
             guess - rang,

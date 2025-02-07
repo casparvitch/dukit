@@ -181,7 +181,8 @@ def _is_inside_sm(point, polygon):
             # non-horizontal line
             if dy < 0 or dy2 < 0:
                 F = (
-                    dy * (polygon[jj][0] - polygon[ii][0]) / (dy - dy2) + polygon[ii][0]
+                    dy * (polygon[jj][0] - polygon[ii][0]) / (dy - dy2)
+                    + polygon[ii][0]
                 )  # noqa: N806
 
                 if (
@@ -198,7 +199,9 @@ def _is_inside_sm(point, polygon):
                 point[0] == polygon[jj][0]
                 or (
                     dy == 0
-                    and (point[0] - polygon[ii][0]) * (point[0] - polygon[jj][0]) <= 0
+                    and (point[0] - polygon[ii][0])
+                    * (point[0] - polygon[jj][0])
+                    <= 0
                 )
             ):
                 return 2
@@ -289,7 +292,9 @@ class Polygon:
         if xs.shape is tuple():
             return _is_inside_sm((y, x), self.get_yx())
         else:
-            return _is_inside_sm_parallel(np.stack((ys, xs), axis=-1), self.get_yx())
+            return _is_inside_sm_parallel(
+                np.stack((ys, xs), axis=-1), self.get_yx()
+            )
 
 
 # ============================================================================
@@ -427,7 +432,9 @@ def polygon_selector(
         and len(strict_range) == 2
     ):
         vmin, vmax = strict_range
-    elif mean_plus_minus is not None and isinstance(mean_plus_minus, (float, int)):
+    elif mean_plus_minus is not None and isinstance(
+        mean_plus_minus, (float, int)
+    ):
         mean = np.mean(image)
         vmin, vmax = mean - mean_plus_minus, mean + mean_plus_minus
     else:
@@ -473,7 +480,9 @@ def polygon_selector(
         raise RuntimeError("You didn't define any polygons")
 
     # exclude polygons with nodes < 3
-    pgon_lst = [pgon.get_nodes() for pgon in pgons if np.shape(pgon.get_nodes())[0] > 2]
+    pgon_lst = [
+        pgon.get_nodes() for pgon in pgons if np.shape(pgon.get_nodes())[0] > 2
+    ]
     output_dict = {
         "nodes": pgon_lst,
         "image_shape": image.shape,
@@ -537,11 +546,15 @@ class PolygonSelectionWidget:
             if "lineprops" in style and isinstance(style["lineprops"], dict):
                 for key, item in style["lineprops"]:
                     self.lp[key] = item
-            if "markerprops" in style and isinstance(style["markerprops"], dict):
+            if "markerprops" in style and isinstance(
+                style["markerprops"], dict
+            ):
                 for key, item in style["markerprops"]:
                     self.mp[key] = item
 
-        vsr = 7.5 * self.mp["markersize"]  # linear scaling on what our select radius is
+        vsr = (
+            7.5 * self.mp["markersize"]
+        )  # linear scaling on what our select radius is
         self.ax = ax
         self.polys = dukit.widget.PolygonSelector(
             ax,
@@ -588,9 +601,11 @@ class PolygonSelectionWidget:
 
         self.polys.draw_polygon()
 
+
 # ============================================================================
 
-def load_polygon_nodes(poly_path_or_dict : str | dict) -> list[npt.NDArray]:
+
+def load_polygon_nodes(poly_path_or_dict: str | dict) -> list[npt.NDArray]:
     """
     Loads polygon nodes from json file.
 
@@ -604,14 +619,17 @@ def load_polygon_nodes(poly_path_or_dict : str | dict) -> list[npt.NDArray]:
     list[npt.NDArray]
         List of polygons, each polygon is an array of nodes.
     """
-    def _load_dict(path:str):
+
+    def _load_dict(path: str):
         if path.endswith("json"):
             return json_to_dict(path)
         elif path.endswith("pickle"):
             with open(path, "rb") as f:
                 return pickle.load(f)
         else:
-            raise ValueError("polygon_nodes path did not end in 'json' or 'pickle'")
+            raise ValueError(
+                "polygon_nodes path did not end in 'json' or 'pickle'"
+            )
 
     if isinstance(poly_path_or_dict, dict):
         return [np.array(p) for p in poly_path_or_dict["nodes"]]

@@ -61,7 +61,9 @@ def _drift_correct_stack(
 
     reg_sig_norm = np.empty(move_sig_norm.shape)
     for i in range(move_sig_norm.shape[-1]):
-        reg_sig_norm[:, :, i] = warp(move_sig_norm[:, :, i], tform, mode="edge")
+        reg_sig_norm[:, :, i] = warp(
+            move_sig_norm[:, :, i], tform, mode="edge"
+        )
     return reg_sig_norm, tuple(shift_calc)
 
 
@@ -73,7 +75,7 @@ def read_and_drift_correct(
     stub: Callable[[int], str],
     image_seq: list | tuple | npt.NDArray,
     system: dukit.systems.System,
-    roi_coords:tuple[int,int,int,int],
+    roi_coords: tuple[int, int, int, int],
     ignore_ref: bool = False,
     mask: npt.NDArray[np.bool_]
     | None = None,  # True where(i) you want to incl im in accum
@@ -252,7 +254,9 @@ def drift_correct_test(
     for i in image_seq:
         sig, _, _ = system.read_image(directory + stub(i), ignore_ref, "div")
         pl = np.sum(sig, axis=-1)
-        accum_pl = dukit.itool.crop_roi(pl, (-1, -1, -1, -1)) # don't crop here
+        accum_pl = dukit.itool.crop_roi(
+            pl, (-1, -1, -1, -1)
+        )  # don't crop here
         if first:
             first = False
             prev_accum_pl = accum_pl.copy()
@@ -308,7 +312,7 @@ def drift_correct_test(
             c_range=(None, None),
             c_label="Counts",
             show_tick_marks=True,
-            c_map="gray"
+            c_map="gray",
         )
 
     return fig, axs

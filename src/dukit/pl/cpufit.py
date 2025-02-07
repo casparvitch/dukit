@@ -115,7 +115,8 @@ def fit_roi_avg_pl(
     fit_image_results : dukit.share.RoiAvgFit
     """
     pguess, pbounds = _gen_cf_guesses_bounds(
-        fit_model, *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict)
+        fit_model,
+        *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict),
     )
 
     if norm == "div":
@@ -133,9 +134,13 @@ def fit_roi_avg_pl(
     params_to_fit = _get_params_to_fit(fit_model)
 
     # need to repeat avg_sig_norm twice, as cpufit expects 2D array
-    roi_norm_twice = np.repeat([avg_sig_norm], repeats=2, axis=0).astype(np.float32)
+    roi_norm_twice = np.repeat([avg_sig_norm], repeats=2, axis=0).astype(
+        np.float32
+    )
     guess = np.repeat([pguess], repeats=2, axis=0).astype(dtype=np.float32)
-    constraints = np.repeat([pbounds], repeats=2, axis=0).astype(dtype=np.float32)
+    constraints = np.repeat([pbounds], repeats=2, axis=0).astype(
+        dtype=np.float32
+    )
     constraint_types = np.array(
         [cf.ConstraintType.LOWER_UPPER for i in range(len(params_to_fit))]
     ).astype(np.int32)
@@ -248,13 +253,16 @@ def fit_aois_pl(
         Format: {"AOI_n": {"scipyfit": AoiAvgFit}, ...}
     """
     pguess, pbounds = _gen_cf_guesses_bounds(
-        fit_model, *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict)
+        fit_model,
+        *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict),
     )
     # only fit the params we want to :)
     params_to_fit = _get_params_to_fit(fit_model)
     # need to repeat everything, as cpufit expects 2D array
     guess = np.repeat([pguess], repeats=2, axis=0).astype(dtype=np.float32)
-    constraints = np.repeat([pbounds], repeats=2, axis=0).astype(dtype=np.float32)
+    constraints = np.repeat([pbounds], repeats=2, axis=0).astype(
+        dtype=np.float32
+    )
     constraint_types = np.array(
         [cf.ConstraintType.LOWER_UPPER for i in range(len(params_to_fit))]
     ).astype(np.int32)
@@ -288,7 +296,9 @@ def fit_aois_pl(
         avg_sig = np.nanmean(s, axis=(0, 1))
         avg_ref = np.nanmean(r, axis=(0, 1))
 
-        this_aoi_twice = np.repeat([avg_sig_norm], repeats=2, axis=0).astype(np.float32)
+        this_aoi_twice = np.repeat([avg_sig_norm], repeats=2, axis=0).astype(
+            np.float32
+        )
         best_params_cf, _, _, _, _ = cf.fit_constrained(
             this_aoi_twice,
             None,
@@ -399,9 +409,14 @@ def fit_all_pixels_pl(
     num_pixels = np.shape(sig_norm)[0] * np.shape(sig_norm)[1]
 
     init_pguess, pbounds = _gen_cf_guesses_bounds(
-        fit_model, *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict)
+        fit_model,
+        *dukit.pl.common.gen_init_guesses(fit_model, guess_dict, bounds_dict),
     )
-    pguess = roi_avg_result.best_params if roi_avg_result is not None else init_pguess
+    pguess = (
+        roi_avg_result.best_params
+        if roi_avg_result is not None
+        else init_pguess
+    )
     # only fit the params we want to :)
     params_to_fit = _get_params_to_fit(fit_model)
 
@@ -441,7 +456,9 @@ def fit_all_pixels_pl(
     logging.info(f"fit time: {execution_time:.2f}s")
 
     # unsure if this will work...
-    results_arr = np.array(fitting_results).reshape((*sig_norm.shape[:2], len(pguess)))
+    results_arr = np.array(fitting_results).reshape(
+        (*sig_norm.shape[:2], len(pguess))
+    )
 
     names = list(fit_model.get_param_odict().keys())
     fit_image_results = {
@@ -464,8 +481,12 @@ def fit_all_pixels_pl(
     # calc sigmas & get correct shape - not particularly efficient here
     # be careful with sizes, we only want the parameters actually fit
     sigmas_shaped = np.full((num_pixels, len(names)), np.nan)
-    for pl_vec, fitp, sigma_vec in zip(sig_norm_shaped, fitting_results, sigmas_shaped):
-        sigma_vec[:] = dukit.pl.common.calc_sigmas(fit_model, sweep_arr, pl_vec, fitp)
+    for pl_vec, fitp, sigma_vec in zip(
+        sig_norm_shaped, fitting_results, sigmas_shaped
+    ):
+        sigma_vec[:] = dukit.pl.common.calc_sigmas(
+            fit_model, sweep_arr, pl_vec, fitp
+        )
     sigmas_result = sigmas_shaped.reshape((*sig_norm.shape[:2], len(names)))
 
     for i, _ in enumerate(names):
@@ -540,7 +561,9 @@ def _gen_cf_guesses_bounds(
     return np.array(param_lst), np.array(bound_lst)
 
 
-def _get_params_to_fit(fit_model: "dukit.pl.model.FitModel") -> npt.NDArray[np.int32]:
+def _get_params_to_fit(
+    fit_model: "dukit.pl.model.FitModel",
+) -> npt.NDArray[np.int32]:
     model_id = _get_cpufit_modelID(fit_model)
     if model_id in [
         cf.ModelID.LORENTZ8_CONST,
@@ -548,10 +571,14 @@ def _get_params_to_fit(fit_model: "dukit.pl.model.FitModel") -> npt.NDArray[np.i
     ]:
         num_lorentzians = fit_model.n_lorentzians
         if model_id == cf.ModelID.LORENTZ8_CONST:
-            params_to_fit = [1 for i in range(3 * num_lorentzians + 1)]  # + 1 for const
+            params_to_fit = [
+                1 for i in range(3 * num_lorentzians + 1)
+            ]  # + 1 for const
             num_params = 25
         elif model_id == cf.ModelID.LORENTZ8_LINEAR:
-            params_to_fit = [1 for i in range(3 * num_lorentzians + 2)]  # + 2 for c, m
+            params_to_fit = [
+                1 for i in range(3 * num_lorentzians + 2)
+            ]  # + 2 for c, m
             num_params = 26
         while len(params_to_fit) < num_params:
             params_to_fit.append(0)

@@ -23,4 +23,3 @@ pgon_lst = dukit.polygon_selector(
     json_output_path=json_output_path,
     mean_plus_minus=mean_plus_minus,
 )
-

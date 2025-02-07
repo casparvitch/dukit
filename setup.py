@@ -4,7 +4,7 @@ import sys
 import sysconfig
 import setuptools
 
-exec(open('src/dukit/_version.py').read()) # read __version__
+exec(open("src/dukit/_version.py").read())  # read __version__
 
 # odd bug with develop (editable) installs, see: https://github.com/pypa/pip/issues/7953
 site.ENABLE_USER_SITE = "--user" in sys.argv[1:]
@@ -21,7 +21,7 @@ required = [
     "pyfftw",
     "dill",  # for magsim, polygons
     "scikit-image",
-    "joblib"
+    "joblib",
 ]
 
 here = pathlib.Path(__file__).parent.resolve()
@@ -48,7 +48,7 @@ if __name__ == "__main__":
             "gpufit",
             "Widefield Defect Microscopy",
             "QDM",
-            "Quantum Diamond Microscopy"
+            "Quantum Diamond Microscopy",
         ],
         license="MIT",
         package_dir={"": "src"},

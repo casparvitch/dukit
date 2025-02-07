@@ -151,7 +151,9 @@ def mask_polygons(
     if not isinstance(polygons, (list, tuple)) or not isinstance(
         polygons[0], dukit.polygon.Polygon
     ):
-        raise TypeError("polygons were not None, a list or a list of Polygon objects")
+        raise TypeError(
+            "polygons were not None, a list or a list of Polygon objects"
+        )
 
     ylen, xlen = image.shape
     masked_area = np.full(image.shape, True)  # all masked to start with
@@ -327,7 +329,9 @@ def mu_sigma_inside_polygons(
 
 
 # hands off to other filters
-def get_im_filtered(image: npt.NDArray, filter_type: str, **kwargs) -> npt.NDArray:
+def get_im_filtered(
+    image: npt.NDArray, filter_type: str, **kwargs
+) -> npt.NDArray:
     """Wrapped over other filters.
     Current filters defined:
         - filter_type = gaussian, `qdmpy.shared.itool._get_im_filtered_gaussian`
@@ -389,7 +393,9 @@ def _points_to_params(points: list | tuple | npt.NDArray) -> tuple:
     points: iterable of 3 iterables: [x, y, z]
     returns a,b,c,d parameters (see _equation_plane)
     """
-    rearranged_points = [[p[1], p[0], p[2]] for p in points]  # change to [y, x, z]
+    rearranged_points = [
+        [p[1], p[0], p[2]] for p in points
+    ]  # change to [y, x, z]
     pts = np.array(rearranged_points)
     vec1_in_plane = pts[1] - pts[0]
     vec2_in_plane = pts[2] - pts[0]
@@ -409,7 +415,9 @@ def _three_point_background(
     """
 
     if len(points) != 3:
-        raise ValueError("points needs to be len 3 of format: [x, y] (int or floats).")
+        raise ValueError(
+            "points needs to be len 3 of format: [x, y] (int or floats)."
+        )
     if not isinstance(sample_size, int) or sample_size < 0:
         raise TypeError("sample_size must be an integer >= 0")
     for p in points:
@@ -446,7 +454,10 @@ def _three_point_background(
         return np.mean(list(_sample_generator(image, sample_size, yx)))
 
     points = np.array(
-        [np.append(p, _mean_sample(image, sample_size, (p[1], p[0]))) for p in points]
+        [
+            np.append(p, _mean_sample(image, sample_size, (p[1], p[0])))
+            for p in points
+        ]
     )
     Y, X = np.indices(image.shape)  # noqa: N806
     return _equation_plane(_points_to_params(points), Y, X)
@@ -520,9 +531,15 @@ def _gaussian(
     height, center_y, center_x, width_y, width_x, rot, offset = p
     return offset + height * np.exp(
         -(
-            (((y - center_y) * np.cos(rot) + (x - center_x) * np.sin(rot)) / width_y)
+            (
+                ((y - center_y) * np.cos(rot) + (x - center_x) * np.sin(rot))
+                / width_y
+            )
             ** 2
-            + (((x - center_x) * np.cos(rot) - (y - center_y) * np.sin(rot)) / width_x)
+            + (
+                ((x - center_x) * np.cos(rot) - (y - center_y) * np.sin(rot))
+                / width_x
+            )
             ** 2
         )
         / 2
@@ -546,17 +563,22 @@ def _moments(image: npt.NDArray) -> tuple:
     col = image[int(center_y), :]
     row = image[:, int(center_x)]
     width_x = np.nansum(
-        np.sqrt(abs((np.arange(col.size) - center_y) ** 2 * col)) / np.nansum(col)
+        np.sqrt(abs((np.arange(col.size) - center_y) ** 2 * col))
+        / np.nansum(col)
     )
     width_y = np.nansum(
-        np.sqrt(abs((np.arange(row.size) - center_x) ** 2 * row)) / np.nansum(row)
+        np.sqrt(abs((np.arange(row.size) - center_x) ** 2 * row))
+        / np.nansum(row)
     )
     height = np.nanmax(image)
     return height, center_y, center_x, width_y, width_x, 0.0, offset
 
 
 def _residual_gaussian(
-    p: list | tuple | npt.NDArray, y: npt.NDArray, x: npt.NDArray, data: npt.NDArray
+    p: list | tuple | npt.NDArray,
+    y: npt.NDArray,
+    x: npt.NDArray,
+    data: npt.NDArray,
 ) -> npt.NDArray:
     """Residual of data with a _gaussian model."""
     return _gaussian(p, y, x) - data
@@ -593,12 +615,17 @@ def _lorentzian(
 
 
 def _residual_lorentzian(
-    p: list | tuple | npt.NDArray, y: npt.NDArray, x: npt.NDArray, data: npt.NDArray
+    p: list | tuple | npt.NDArray,
+    y: npt.NDArray,
+    x: npt.NDArray,
+    data: npt.NDArray,
 ) -> npt.NDArray:
     return _lorentzian(p, y, x) - data
 
 
-def _lorentzian_background(image: npt.NDArray) -> tuple[npt.NDArray, npt.NDArray]:
+def _lorentzian_background(
+    image: npt.NDArray,
+) -> tuple[npt.NDArray, npt.NDArray]:
     params = _moments(image)
     Y, X = np.indices(image.shape)  # noqa: N806
     good_vals = np.logical_and(~np.isnan(image), ~image.mask)
@@ -668,7 +695,9 @@ def _interpolated_background(
 # ============================================================================
 
 
-def _filtered_background(image: npt.NDArray, filter_type: str, **kwargs) -> npt.NDArray:
+def _filtered_background(
+    image: npt.NDArray, filter_type: str, **kwargs
+) -> npt.NDArray:
     """Background defined by a filter_type-filtering of the image.
     Passed to `qdmpy.shared.itool.get_background"""
     return get_im_filtered(image, filter_type, **kwargs)
@@ -822,7 +851,9 @@ def plot_image_on_ax(
     ax : matplotlib Axis object
     """
 
-    imshowed = ax.imshow(image_data, cmap=c_map, vmin=c_range[0], vmax=c_range[1])
+    imshowed = ax.imshow(
+        image_data, cmap=c_map, vmin=c_range[0], vmax=c_range[1]
+    )
 
     ax.set_title(title)
 
@@ -840,7 +871,9 @@ def plot_image_on_ax(
             ax.add_artist(scalebar_y)
         else:
             pixel = (
-                raw_pixel_size * applied_binning if applied_binning else raw_pixel_size
+                raw_pixel_size * applied_binning
+                if applied_binning
+                else raw_pixel_size
             )
             scalebar = ScaleBar(pixel)
             ax.add_artist(scalebar)
@@ -1134,9 +1167,9 @@ def _deviation_from_mean(
     c_range_values : tuple[float, ...]
         See `dukit.plot.get_colormap_range`
     """
-    return (1 - c_range_values[0]) * np.mean(image), (1 + c_range_values[0]) * np.mean(
-        image
-    )
+    return (1 - c_range_values[0]) * np.mean(image), (
+        1 + c_range_values[0]
+    ) * np.mean(image)
 
 
 def _percentile(
@@ -1193,7 +1226,9 @@ def _mean_plus_minus(
 # ============================================================================
 
 
-def crop_roi(seq: npt.ArrayLike, roi_coords: tuple[int, int, int, int]) -> npt.NDArray:
+def crop_roi(
+    seq: npt.ArrayLike, roi_coords: tuple[int, int, int, int]
+) -> npt.NDArray:
     """
 
     Parameters
@@ -1301,10 +1336,14 @@ def _check_start_end_rectangle(
         start_y = 0
 
     if end_x >= full_size_w:
-        warn(f"Rectangle too big in x [{end_x}], cropping to image [{full_size_w}].\n")
+        warn(
+            f"Rectangle too big in x [{end_x}], cropping to image [{full_size_w}].\n"
+        )
         end_x = full_size_w - 1
     if end_y >= full_size_h:
-        warn(f"Rectangle too big in y [{end_y}], cropping to image [{full_size_h}].\n")
+        warn(
+            f"Rectangle too big in y [{end_y}], cropping to image [{full_size_h}].\n"
+        )
         end_y = full_size_h - 1
 
     return start_x, start_y, end_x, end_y
@@ -1357,7 +1396,9 @@ def crop_sweep(
 
 
 def smooth_image_stack(
-    stack: npt.NDArray, sigma: tuple[float, float] | float, truncate: float = 4.0
+    stack: npt.NDArray,
+    sigma: tuple[float, float] | float,
+    truncate: float = 4.0,
 ) -> npt.NDArray:
     """
     Smooth image stack in spatial dimensions with gaussian.
@@ -1377,7 +1418,9 @@ def smooth_image_stack(
         Image stack smoothed in spatial dimensions.
     """
     if isinstance(sigma, (list, tuple)):
-        return gaussian_filter(stack, sigma=(sigma[1], sigma[0], 0), truncate=truncate)
+        return gaussian_filter(
+            stack, sigma=(sigma[1], sigma[0], 0), truncate=truncate
+        )
     return gaussian_filter(stack, sigma=(sigma, sigma, 0), truncate=truncate)
 
 
@@ -1406,7 +1449,9 @@ def rebin_image_stack(
         return stack
     if isinstance(additional_bins, (tuple, list)):
         return dukit.rebin.rebin(
-            stack, factor=(additional_bins[1], additional_bins[0], 1), func=np.mean
+            stack,
+            factor=(additional_bins[1], additional_bins[0], 1),
+            func=np.mean,
         )
     return dukit.rebin.rebin(
         stack,
@@ -1432,7 +1477,9 @@ def get_aois(
     *aoi_coords: tuple[int, int, int, int],
 ) -> tuple[tuple[slice, slice]]:
     aois: list = (
-        [] if not aoi_coords else [_define_area_roi(*aoi) for aoi in aoi_coords]
+        []
+        if not aoi_coords
+        else [_define_area_roi(*aoi) for aoi in aoi_coords]
     )
 
     if len(image_shape) == 3:
@@ -1441,11 +1488,15 @@ def get_aois(
         shp = image_shape
     aois.insert(
         0,
-        _define_area_roi(shp[0] // 2, shp[1] // 2, shp[0] // 2 + 1, shp[1] // 2 + 1),
+        _define_area_roi(
+            shp[0] // 2, shp[1] // 2, shp[0] // 2 + 1, shp[1] // 2 + 1
+        ),
     )
     return tuple(aois)
 
+
 # ============================================================================
+
 
 def _iterslice(x: npt.NDArray, axis: int = 0):
     """Iterate through array x in slices along axis 'axis' (defaults to 0).
@@ -1455,7 +1506,9 @@ def _iterslice(x: npt.NDArray, axis: int = 0):
     for p in product(*sub):
         yield x[p]
 
+
 # ============================================================================
+
 
 def _iterframe(x_3d: npt.NDArray):
     """iterframe(shape(y,x,freqs)) will give iter. of 2d y,x frames."""

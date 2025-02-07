@@ -169,7 +169,9 @@ class System:
     def read_image(
         self, filepath: str, ignore_ref: bool = False, norm: str = "div"
     ) -> tuple[
-        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+        npt.NDArray[np.float64],
+        npt.NDArray[np.float64],
+        npt.NDArray[np.float64],
     ]:
         """
         Method that must be defined to read raw data in from filepath.
@@ -247,7 +249,9 @@ class System:
 
         f_obj = self._obj_ref_focal_length / self._obj_mag
 
-        camera_pixel_size = self._sensor_pixel_pitch * f_obj / self._camera_tube_lens
+        camera_pixel_size = (
+            self._sensor_pixel_pitch * f_obj / self._camera_tube_lens
+        )
 
         return hardware_binning * camera_pixel_size
 
@@ -286,28 +290,34 @@ class System:
         )
 
     @staticmethod
-    def norm(sig: npt.NDArray, ref: npt.NDArray, norm: str = "div") -> npt.NDArray:
+    def norm(
+        sig: npt.NDArray, ref: npt.NDArray, norm: str = "div"
+    ) -> npt.NDArray:
         """
 
-        Parameters
-----------
-        sig : npt.NDArray
-            signal
-        ref : npt.NDArray
-            reference
-        norm : str = "div"
-            normalisation method in ["div", "sub", "true_sub"]
+                Parameters
+        ----------
+                sig : npt.NDArray
+                    signal
+                ref : npt.NDArray
+                    reference
+                norm : str = "div"
+                    normalisation method in ["div", "sub", "true_sub"]
 
-        Returns
-        -------
-        sig_norm : npt.NDArray
-            normalised signal
+                Returns
+                -------
+                sig_norm : npt.NDArray
+                    normalised signal
         """
         if norm not in ["div", "sub", "true_sub"]:
-            raise ValueError("bad norm option, use one of ['sub', 'div', 'true_sub']")
+            raise ValueError(
+                "bad norm option, use one of ['sub', 'div', 'true_sub']"
+            )
         if np.mean(sig) > 2 * np.mean(ref):
             # probably didn't use_ref
-            warn("In renorm assuming not used_ref, norming sig by highest val.")
+            warn(
+                "In renorm assuming not used_ref, norming sig by highest val."
+            )
             return sig / np.nanmax(sig, axis=-1)
         if norm == "sub":
             return 1 + (sig - ref) / (sig + ref)
@@ -330,10 +340,14 @@ class MelbSystem(System):
     def _chop_into_sig_ref(
         self, img: npt.NDArray[np.float64], used_ref: bool, norm: str
     ) -> tuple[
-        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+        npt.NDArray[np.float64],
+        npt.NDArray[np.float64],
+        npt.NDArray[np.float64],
     ]:
         if norm not in ["div", "sub", "true_sub"]:
-            raise ValueError("bad norm option, use one of ['sub', 'div', 'true_sub']")
+            raise ValueError(
+                "bad norm option, use one of ['sub', 'div', 'true_sub']"
+            )
 
         # now chop up into sig, ref & normalise
         if used_ref:
@@ -356,7 +370,9 @@ class LVControl(MelbSystem):
     def read_image(
         self, filepath: str, ignore_ref: bool = False, norm: str = "div"
     ) -> tuple[
-        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+        npt.NDArray[np.float64],
+        npt.NDArray[np.float64],
+        npt.NDArray[np.float64],
     ]:
         # read from disk
         with open(filepath, mode="r", encoding="utf-8") as fid:
@@ -381,7 +397,9 @@ class LVControl(MelbSystem):
             sweep_str = fid.readline().rstrip().split("\t")
         sweep_arr = np.array([float(i) for i in sweep_str], dtype=np.float64)
         if np.any(sweep_arr <= 0):
-            warn("sweep_arr contains negatives or zeroes, check if model can handle!")
+            warn(
+                "sweep_arr contains negatives or zeroes, check if model can handle!"
+            )
         return sweep_arr
 
     def get_hardware_binning(self, filepath: str) -> int:
@@ -548,14 +566,21 @@ class PyControl(MelbSystem):
     def read_image(
         self, filepath: str, ignore_ref: bool = False, norm: str = "div"
     ) -> tuple[
-        npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]
+        npt.NDArray[np.float64],
+        npt.NDArray[np.float64],
+        npt.NDArray[np.float64],
     ]:
         if norm not in ["div", "sub", "true_sub"]:
-            raise ValueError("bad norm option, use one of ['sub', 'div', 'true_sub']")
+            raise ValueError(
+                "bad norm option, use one of ['sub', 'div', 'true_sub']"
+            )
 
         # TODO test if moving freqs to last is working here? also the ::2 below.
         image = np.load(filepath + ".npy").transpose([1, 2, 0])
-        if ignore_ref and self._read_metadata(filepath)["Measurement"]["ref_bool"]:
+        if (
+            ignore_ref
+            and self._read_metadata(filepath)["Measurement"]["ref_bool"]
+        ):
             return self._chop_into_sig_ref(image[:, :, ::2], False, norm)
         if not self._read_metadata(filepath)["Measurement"]["ref_bool"]:
             return self._chop_into_sig_ref(image, False, norm)
@@ -567,7 +592,9 @@ class PyControl(MelbSystem):
             dtype=np.float64,
         )  # TODO name won't work for tau sweeps
         if np.any(sweep_arr <= 0):
-            warn("sweep_arr contains negatives or zeroes, check if model can handle!")
+            warn(
+                "sweep_arr contains negatives or zeroes, check if model can handle!"
+            )
         return sweep_arr
 
     def get_hardware_binning(self, filepath: str) -> int:

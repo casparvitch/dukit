@@ -35,6 +35,7 @@ from dukit.warn import warn
 
 # ============================================================================
 
+
 def json_to_dict(filepath: str) -> dict:
     """read the json file at filepath into a dict"""
     _, pattern = os.path.splitext(filepath)
@@ -51,8 +52,8 @@ def json_to_dict(filepath: str) -> dict:
 
 
 def dict_to_json(
-        dictionary: dict,
-        filepath: str,
+    dictionary: dict,
+    filepath: str,
 ) -> None:
     """save the dict as a json in a pretty way"""
 
@@ -85,7 +86,7 @@ def _prettyjson(obj, indent=4, maxlinelength=80):
     """
 
     items, _ = _getsubitems(
-            obj, itemkey="", islast=True, maxlinelength=maxlinelength
+        obj, itemkey="", islast=True, maxlinelength=maxlinelength
     )
     res = _indentitems(items, indent, indentcurrent=0)
     return res
@@ -94,7 +95,7 @@ def _prettyjson(obj, indent=4, maxlinelength=80):
 # ============================================================================
 
 
-def _getsubitems(obj, itemkey:str, islast:bool, maxlinelength:int):
+def _getsubitems(obj, itemkey: str, islast: bool, maxlinelength: int):
     items = []
     # assume we can concatenate inner content unless a child node returns an
     # expanded list
@@ -134,7 +135,7 @@ def _getsubitems(obj, itemkey:str, islast:bool, maxlinelength:int):
                 itemkey_ = _basictype2str(k)
             # inner = (items, indent)
             inner, can_concat_ = _getsubitems(
-                    obj[k], itemkey_, islast_, maxlinelength
+                obj[k], itemkey_, islast_, maxlinelength
             )
             # inner can be a string or a list
             subitems.extend(inner)
@@ -187,7 +188,7 @@ def _getsubitems(obj, itemkey:str, islast:bool, maxlinelength:int):
 # ============================================================================
 
 
-def _basictype2str(obj)->str:
+def _basictype2str(obj) -> str:
     """This is a filter on objects that get sent to the json. Some types
     can't be stored literally in json files, so we can adjust for that here.
     """
@@ -238,7 +239,7 @@ def _json_remove_comments(string, strip_space=True):
 
     for match in re.finditer(tokenizer, string):
         if not (in_multi or in_single):
-            tmp = string[index: match.start()]  # noqa: E203
+            tmp = string[index : match.start()]  # noqa: E203
             if not in_string and strip_space:
                 # replace white space as defined in standard
                 tmp = re.sub("[ \t\n\r]+", "", tmp)
@@ -256,7 +257,7 @@ def _json_remove_comments(string, strip_space=True):
 
             # start of string or unescaped quote character to end string
             if not in_string or (
-                    escaped is None or len(escaped.group()) % 2 == 0
+                escaped is None or len(escaped.group()) % 2 == 0
             ):  # noqa
                 in_string = not in_string
             index -= 1  # include " character in next catch
@@ -272,7 +273,7 @@ def _json_remove_comments(string, strip_space=True):
         elif val in "\r\n" and not (in_multi or in_string) and in_single:
             in_single = False
         elif not (
-                (in_multi or in_single) or (val in " \r\n\t" and strip_space)
+            (in_multi or in_single) or (val in " \r\n\t" and strip_space)
         ):  # noqa
             new_str.append(val)
 
@@ -297,5 +298,6 @@ def fail_float(a):
         return float(a)
     except ValueError:
         return a
+
 
 # ============================================================================

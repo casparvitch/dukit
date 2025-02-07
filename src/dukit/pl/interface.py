@@ -367,7 +367,7 @@ def fit_all_pixels(
     fit_model: "dukit.pl.model.FitModel",
     guess_dict: dict,
     bounds_dict: dict,
-    roi_avg_result : Union[None, "dukit.share.RoiAvgFit"],
+    roi_avg_result: Union[None, "dukit.share.RoiAvgFit"],
     odir: str = "",
     sf_n_jobs: int = -2,
     sf_joblib_verbosity: int = 5,
@@ -534,7 +534,9 @@ def load_fit_results(idir: str, fit_model: "dukit.pl.model.FitModel") -> dict:
         fit_results[name] = np.loadtxt(idir + f"{name}.txt", delimiter=",")
     return fit_results
 
+
 # ============================================================================
+
 
 def get_fitres_params(fit_results: dict, res_pos_name: str = "pos") -> tuple:
     """

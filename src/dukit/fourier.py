@@ -123,7 +123,7 @@ def pad_image(
 def define_k_vectors(
     shape: tuple[int, int],
     raw_pixel_size: float,
-    applied_binning: tuple[int, int] | int =1,
+    applied_binning: tuple[int, int] | int = 1,
     k_vector_epsilon: float = 1e-6,
 ) -> tuple[npt.NDArray, npt.NDArray, npt.NDArray]:
     """Get scaled k vectors (as meshgrid) for fft.
@@ -155,7 +155,11 @@ def define_k_vectors(
         ky_vec = scaling_y * numpy_fft.fftshift(numpy_fft.fftfreq(shape[0]))
         kx_vec = scaling_x * numpy_fft.fftshift(numpy_fft.fftfreq(shape[1]))
     else:
-        scl = raw_pixel_size * applied_binning if applied_binning else raw_pixel_size
+        scl = (
+            raw_pixel_size * applied_binning
+            if applied_binning
+            else raw_pixel_size
+        )
         scaling = np.float64(2 * np.pi / scl)
         ky_vec = scaling * numpy_fft.fftshift(numpy_fft.fftfreq(shape[0]))
         kx_vec = scaling * numpy_fft.fftshift(numpy_fft.fftfreq(shape[1]))

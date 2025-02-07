@@ -176,7 +176,8 @@ def rebin(a, factor, func=None):
     for f in factor:
         if f != int(f):
             raise ValueError(
-                "factor must be an int or a tuple of ints " "(got {})".format(f)
+                "factor must be an int or a tuple of ints "
+                "(got {})".format(f)
             )
 
     new_shape = [n // f for n, f in zip(a.shape, factor)] + list(factor)

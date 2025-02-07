@@ -274,7 +274,7 @@ from dukit.pl import (
     fit_roi,
     fit_aois,
     load_fit_results,
-    get_fitres_params
+    get_fitres_params,
 )
 
 from dukit.field import (

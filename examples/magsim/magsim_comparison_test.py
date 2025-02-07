@@ -9,7 +9,10 @@ with open(
     exec(fid.read())  # reads in TEST_DATA_PATH string
 DIR = TEST_DATA_PATH + "mz_test/"
 
-np_text_file_path = DIR + "ODMR - Pulsed_10_Rectangle_bin_8/field/sig_sub_ref/sig_sub_ref_bnv_0.txt"
+np_text_file_path = (
+    DIR
+    + "ODMR - Pulsed_10_Rectangle_bin_8/field/sig_sub_ref/sig_sub_ref_bnv_0.txt"
+)
 json_output_path = DIR + "polys_mz_comparison.json"
 json_input_path = DIR + "polys.json"
 mean_plus_minus = 0.25
@@ -33,13 +36,17 @@ sim = dukit.ComparisonMagSim(np_text_file_path, (30e-6, 30e-6))
 # sim.add_polygons(json_input_path)
 # OR gui-select polygons, use 'alt' to signal finished polygon (can have multiple)
 # (shift + mouse to move, r + scroll to resize, for example), close window to continue
-sim.select_polygons(output_path=json_output_path, mean_plus_minus=mean_plus_minus)
+sim.select_polygons(
+    output_path=json_output_path, mean_plus_minus=mean_plus_minus
+)
 
-sim.rescale(3) # to resize polygons
+sim.rescale(3)  # to resize polygons
 
 sim.define_magnets(5, (0, 0, 1))
 
-sim.plot_magsim_magnetizations(annotate_polygons=True, polygon_patch_params=pgon_patch)
+sim.plot_magsim_magnetizations(
+    annotate_polygons=True, polygon_patch_params=pgon_patch
+)
 sim.run(290e-9, pad_mode="constant", resolution=700e-9)
 unv = [np.sqrt(1 / 3), np.sqrt(1 / 3), np.sqrt(1 / 3)]
 
