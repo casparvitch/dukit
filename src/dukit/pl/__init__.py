@@ -10,6 +10,8 @@ Classes
 - `dukit.pl.model.ConstStretchedExp`
 - `dukit.pl.model.ConstDampedRabi`
 - `dukit.pl.model.LinearLorentzians`
+- `dukit.pl.model.LinearN14Lorentzians`
+- `dukit.pl.model.LinearN15Lorentzians`
 - `dukit.pl.model.ConstLorentzians`
 
 Functions
@@ -25,6 +27,8 @@ from dukit.pl.model import (
     ConstStretchedExp,
     ConstDampedRabi,
     LinearLorentzians,
+    LinearN14Lorentzians,
+    LinearN15Lorentzians,
     ConstLorentzians,
 )
 
