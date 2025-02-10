@@ -164,31 +164,37 @@ def fit_roi(
         jac=sf_jac,
     )
     if CPUFIT_AVAILABLE:
-        result["cpufit"] = dukit.pl.cpufit.fit_roi_avg_pl(
-            sig,
-            ref,
-            sweep_arr,
-            fit_model,
-            guess_dict,
-            bounds_dict,
-            norm=norm,
-            tolerance=gf_tolerance,
-            estimator_id=gf_estimator_id,
-            max_iterations=gf_max_iterations,
-        )
+        try:
+            result["cpufit"] = dukit.pl.cpufit.fit_roi_avg_pl(
+                sig,
+                ref,
+                sweep_arr,
+                fit_model,
+                guess_dict,
+                bounds_dict,
+                norm=norm,
+                tolerance=gf_tolerance,
+                estimator_id=gf_estimator_id,
+                max_iterations=gf_max_iterations,
+            )
+        except RuntimeError:
+            pass # modelID not found, that's fine
     if GPUFIT_AVAILABLE:
-        result["gpufit"] = dukit.pl.gpufit.fit_roi_avg_pl(
-            sig,
-            ref,
-            sweep_arr,
-            fit_model,
-            guess_dict,
-            bounds_dict,
-            norm=norm,
-            tolerance=gf_tolerance,
-            estimator_id=gf_estimator_id,
-            max_iterations=gf_max_iterations,
-        )
+        try:
+            result["gpufit"] = dukit.pl.gpufit.fit_roi_avg_pl(
+                sig,
+                ref,
+                sweep_arr,
+                fit_model,
+                guess_dict,
+                bounds_dict,
+                norm=norm,
+                tolerance=gf_tolerance,
+                estimator_id=gf_estimator_id,
+                max_iterations=gf_max_iterations,
+            )
+        except RuntimeError:
+            pass # modelID not found, that's fine
 
     if opath:
         res_dict = {}
@@ -318,35 +324,41 @@ def fit_aois(
         jac=sf_jac,
     )
     if CPUFIT_AVAILABLE:
-        cf_res = dukit.pl.cpufit.fit_aois_pl(
-            sig,
-            ref,
-            sweep_arr,
-            fit_model,
-            guess_dict,
-            bounds_dict,
-            *aoi_coords,
-            norm=norm,
-            tolerance=gf_tolerance,
-            max_iterations=gf_max_iterations,
-            estimator_id=gf_estimator_id,
-        )
-        _recursive_dict_update(result, cf_res)
+        try:
+            cf_res = dukit.pl.cpufit.fit_aois_pl(
+                sig,
+                ref,
+                sweep_arr,
+                fit_model,
+                guess_dict,
+                bounds_dict,
+                *aoi_coords,
+                norm=norm,
+                tolerance=gf_tolerance,
+                max_iterations=gf_max_iterations,
+                estimator_id=gf_estimator_id,
+            )
+            _recursive_dict_update(result, cf_res)
+        except RuntimeError:
+            pass # modelID not found, that's fine
     if GPUFIT_AVAILABLE:
-        gf_res = dukit.pl.gpufit.fit_aois_pl(
-            sig,
-            ref,
-            sweep_arr,
-            fit_model,
-            guess_dict,
-            bounds_dict,
-            *aoi_coords,
-            norm=norm,
-            tolerance=gf_tolerance,
-            max_iterations=gf_max_iterations,
-            estimator_id=gf_estimator_id,
-        )
-        _recursive_dict_update(result, gf_res)
+        try:
+            gf_res = dukit.pl.gpufit.fit_aois_pl(
+                sig,
+                ref,
+                sweep_arr,
+                fit_model,
+                guess_dict,
+                bounds_dict,
+                *aoi_coords,
+                norm=norm,
+                tolerance=gf_tolerance,
+                max_iterations=gf_max_iterations,
+                estimator_id=gf_estimator_id,
+            )
+            _recursive_dict_update(result, gf_res)
+        except RuntimeError:
+            pass # modelID not found, that's fine
 
     if opath:
         res_dict = dd(dict)

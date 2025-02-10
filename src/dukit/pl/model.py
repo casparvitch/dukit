@@ -396,10 +396,10 @@ class LinearLorentzians(FitModel):
 # ====================================================================================
 
 
-class LinearN14Lorentzians(FitModel):
+class LinearN15Lorentzians(FitModel):
     def __init__(self, n_lorentzians: int):
         self.n_lorentzians = n_lorentzians
-        self.fit_functions = {"linear": 1, "n14lorentzian": n_lorentzians}
+        self.fit_functions   = {"linear": 1, "n15lorentzian": n_lorentzians}
 
     def __call__(self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike):
         return self._eval(self.n_lorentzians, sweep_arr, param_ar)
@@ -519,10 +519,10 @@ class LinearN14Lorentzians(FitModel):
 # ====================================================================================
 
 
-class Linear15Lorentzians(FitModel):
+class LinearN14Lorentzians(FitModel):
     def __init__(self, n_lorentzians: int):
         self.n_lorentzians = n_lorentzians
-        self.fit_functions = {"linear": 1, "n15lorentzian": n_lorentzians}
+        self.fit_functions = {"linear": 1, "n14lorentzian": n_lorentzians}
 
     def __call__(self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike):
         return self._eval(self.n_lorentzians, sweep_arr, param_ar)
