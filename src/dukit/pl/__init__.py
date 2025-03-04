@@ -13,6 +13,7 @@ Classes
 - `dukit.pl.model.LinearN14Lorentzians`
 - `dukit.pl.model.LinearN15Lorentzians`
 - `dukit.pl.model.ConstLorentzians`
+- `dukit.pl.model.SkewedLorentzians`
 
 Functions
 ---------
@@ -30,6 +31,7 @@ from dukit.pl.model import (
     LinearN14Lorentzians,
     LinearN15Lorentzians,
     ConstLorentzians,
+    SkewedLorentzians,
 )
 
 from dukit.pl.interface import (

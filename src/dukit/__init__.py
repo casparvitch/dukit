@@ -278,6 +278,7 @@ from dukit.pl import (
     LinearN15Lorentzians,
     LinearN14Lorentzians,
     ConstLorentzians,
+    SkewedLorentzians,
     fit_all_pixels,
     fit_roi,
     fit_aois,

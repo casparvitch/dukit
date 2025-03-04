@@ -16,6 +16,7 @@ Classes
  - `qdmpy.pl.model.LinearN15Lorentzians`
  - `qdmpy.pl.model.LinearN14Lorentzians`
  - `qdmpy.pl.model.ConstLorentzians`
+ - `qdmpy.pl.model.SkewedLorentzians`
 """
 
 # ============================================================================
@@ -29,6 +30,7 @@ __pdoc__ = {
     "qdmpy.pl.model.LinearN15Lorentzians": True,
     "qdmpy.pl.model.LinearN14Lorentzians": True,
     "qdmpy.pl.model.ConstLorentzians": True,
+    "qdmpy.pl.model.SkewedLorentzians": True,
 }
 
 # ============================================================================
@@ -399,7 +401,7 @@ class LinearLorentzians(FitModel):
 class LinearN15Lorentzians(FitModel):
     def __init__(self, n_lorentzians: int):
         self.n_lorentzians = n_lorentzians
-        self.fit_functions   = {"linear": 1, "n15lorentzian": n_lorentzians}
+        self.fit_functions = {"linear": 1, "n15lorentzian": n_lorentzians}
 
     def __call__(self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike):
         return self._eval(self.n_lorentzians, sweep_arr, param_ar)
@@ -746,4 +748,147 @@ class ConstLorentzians(FitModel):
             defn += [(f"fwhm_{i}", "Freq (MHz)")]
             defn += [(f"pos_{i}", "Freq (MHz)")]
             defn += [(f"amp_{i}", "Amp (a.u.)")]
+        return dict(defn)
+
+
+# ====================================================================================
+
+
+class SkewedLorentzians(FitModel):
+    def __init__(self, n_lorentzians):
+        self.n_lorentzians = n_lorentzians
+        self.fit_functions = {
+            "constant": 1,
+            "skewed_lorentzian": n_lorentzians,
+        }
+
+    def __call__(self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike):
+        return self._eval(self.n_lorentzians, sweep_arr, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _eval(n: int, x: npt.ArrayLike, fit_params: npt.ArrayLike):
+        c = fit_params[0]
+        val = c * np.ones(np.shape(x))
+        for i in range(n):
+            sigma = fit_params[i * 4 + 1]
+            pos = fit_params[i * 4 + 2]
+            amp = fit_params[i * 4 + 3]
+            skew = fit_params[i * 4 + 4]
+            val += amp / (
+                1
+                + (
+                    (x - pos) ** 2
+                    / (sigma**2 * (1 + skew * np.sign(x - pos)) ** 2)
+                )
+            )
+        return val
+
+    def residuals_scipyfit(
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+    ):
+        """Evaluates residual: fit model (affine params/sweep_arr) - pl values"""
+        return self._resid(self.n_lorentzians, sweep_arr, pl_vals, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _resid(
+        n: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
+    ):
+        c = fit_params[0]
+        val = c * np.ones(np.shape(x))
+        for i in range(n):
+            fwhm = fit_params[i * 4 + 1]
+            pos = fit_params[i * 4 + 2]
+            amp = fit_params[i * 4 + 3]
+            skew = fit_params[i * 4 + 4]
+            val += amp / (
+                1
+                + (
+                    (x - pos) ** 2
+                    / (sigma**2 * (1 + skew * np.sign(x - pos)) ** 2)
+                )
+            )
+        return val - pl_vals
+
+    def jacobian_scipyfit(
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+    ):
+        """Evaluates (analytic) jacobian of fitmodel in format expected by
+        scipy least_squares"""
+        return self._jac(self.n_lorentzians, sweep_arr, pl_vals, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _jac(
+        n: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
+    ):
+        j = np.empty((np.shape(x)[0], 1 + 3 * n), dtype=np.float64)
+        j[:, 0] = 1  # wrt constant
+        for i in range(n):
+            w = fit_params[i * 4 + 1]
+            c = fit_params[i * 4 + 2]
+            a = fit_params[i * 4 + 3]
+            s = fit_params[i * 4 + 4]
+
+            # (2*a*(c - x)^2)/(w^3*(1 + s*Sign[-c + x])^2*(1 + (c - x)^2/(w + s*w*Sign[-c + x])^2)^2)
+            # (-2*a*w^2*(c - x)*(1 + s*Sign[-c + x])*(1 + s*Sign[-c + x] + s*(c - x)*Derivative[1][Sign][-c + x]))/(w^2 + (c - x)^2 + # s*w^2*(s*Sign[c - x]^2 + 2*Sign[-c + x]))^2
+            # (1 + (c - x)^2/(w + s*w*Sign[-c + x])^2)^(-1)
+            # (2*a*(c - x)^2*Sign[-c + x])/(w^2*(1 + s*Sign[-c + x])^3*(1 + (c - x)^2/(w + s*w*Sign[-c + x])^2)^2)
+
+
+            j[:, 1 + i * 4] = (2 * a * (c - x) ** 2) / (
+                w**3
+                * (1 + s * np.sign(-c + x)) ** 2
+                * (1 + (c - x) ** 2 / (w + s * w * np.sign(-c + x)) ** 2) ** 2
+            )
+            j[:, 2 + i * 4] = (
+                -2
+                * a
+                * w**2
+                * (c - x)
+                * (1 + s * np.sign(-c + x))
+                * (1 + s * np.sign(-c + x))
+            ) / (
+                w**2
+                + (c - x) ** 2
+                + s * w**2 * (s * np.sign(c - x) ** 2 + 2 * np.sign(-c + x))
+            ) ** 2
+
+            j[:, 3 + i * 4] = (
+                1 + (c - x) ** 2 / (w + s * w * np.sign(-c + x)) ** 2
+            ) ** (-1)
+            j[:, 4 + i * 4] = (2 * a * (c - x) ** 2 * np.sign(-c + x)) / (
+                w**2
+                * (1 + s * np.sign(-c + x)) ** 3
+                * (1 + (c - x) ** 2 / (w + s * w * np.sign(-c + x)) ** 2) ** 2
+            )
+
+        return j
+
+    def get_param_defn(self) -> tuple[str, ...]:
+        defn = ["constant"]
+        for i in range(self.n_lorentzians):
+            defn += ["sigma", "pos", "amp", "skew"]
+        return tuple(defn)
+
+    def get_param_odict(self) -> dict[str, str]:
+        defn = [("constant_0", "Amplitude (a.u.)")]
+        for i in range(self.n_lorentzians):
+            defn += [(f"sigma_{i}", "Freq (MHz)")]
+            defn += [(f"pos_{i}", "Freq (MHz)")]
+            defn += [(f"amp_{i}", "Amp (a.u.)")]
+            defn += [(f"skew_{i}", "Skew (a.u.)")]
         return dict(defn)
