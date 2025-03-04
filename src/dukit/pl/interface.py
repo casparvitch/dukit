@@ -48,7 +48,7 @@ CPUFIT_AVAILABLE: bool = False
 try:
     import pycpufit.cpufit as cf
 
-    CPUFIT_AVAILABLE = True
+    CPUFIT_AVAILABLE = False
 except ImportError:
     pass
 else:
@@ -58,7 +58,7 @@ GPUFIT_AVAILABLE: bool = False
 try:
     import pygpufit.gpufit as gf
 
-    GPUFIT_AVAILABLE = True
+    GPUFIT_AVAILABLE = False
 except ImportError:
     pass
 else:
@@ -177,7 +177,7 @@ def fit_roi(
                 estimator_id=gf_estimator_id,
                 max_iterations=gf_max_iterations,
             )
-        except RuntimeError:
+        except dukit.pl.common.ModelNotFoundException:
             pass # modelID not found, that's fine
     if GPUFIT_AVAILABLE:
         try:
@@ -193,7 +193,7 @@ def fit_roi(
                 estimator_id=gf_estimator_id,
                 max_iterations=gf_max_iterations,
             )
-        except RuntimeError:
+        except dukit.pl.common.ModelNotFoundException:
             pass # modelID not found, that's fine
 
     if opath:
@@ -339,7 +339,7 @@ def fit_aois(
                 estimator_id=gf_estimator_id,
             )
             _recursive_dict_update(result, cf_res)
-        except RuntimeError:
+        except dukit.pl.common.ModelNotFoundException:
             pass # modelID not found, that's fine
     if GPUFIT_AVAILABLE:
         try:
@@ -357,7 +357,7 @@ def fit_aois(
                 estimator_id=gf_estimator_id,
             )
             _recursive_dict_update(result, gf_res)
-        except RuntimeError:
+        except dukit.pl.common.ModelNotFoundException:
             pass # modelID not found, that's fine
 
     if opath:

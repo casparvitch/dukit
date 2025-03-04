@@ -29,6 +29,9 @@ from scipy.linalg import svd
 
 # ============================================================================
 
+class ModelNotFoundException(Exception):
+    pass
+
 
 def gen_init_guesses(
     fit_model: "dukit.pl.model.FitModel", guesses_dict: dict, bounds_dict: dict
