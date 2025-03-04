@@ -63,7 +63,9 @@ def _get_gpufit_modelID(fit_model: "dukit.pl.model.FitModel"):
         return gf.ModelID.LORENTZ8_LINEAR
     if isinstance(fit_model, dukit.pl.model.ConstLorentzians):
         return gf.ModelID.LORENTZ8_CONST
-    raise dukit.pl.common.ModelNotFoundException(f"Model {fit_model.__class__.__name__} not recognised by gpufit.")
+    raise dukit.pl.common.ModelNotFoundException(
+        f"Model {fit_model.__class__.__name__} not recognised by gpufit."
+    )
 
 
 def fit_roi_avg_pl(

@@ -755,33 +755,37 @@ class ConstLorentzians(FitModel):
 
 
 class SkewedLorentzians(FitModel):
-    def __init__(self, n_lorentzians):
-        self.n_lorentzians = n_lorentzians
-        self.fit_functions = {
-            "constant": 1,
-            "skewed_lorentzian": n_lorentzians,
-        }
+    def __init__(self):
+        self.fit_functions = {"skewed_lorentzians": 1}
 
     def __call__(self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike):
-        return self._eval(self.n_lorentzians, sweep_arr, param_ar)
+        return self._eval(sweep_arr, param_ar)
 
     @staticmethod
     @njit(fastmath=True)
-    def _eval(n: int, x: npt.ArrayLike, fit_params: npt.ArrayLike):
+    def _eval(x: npt.ArrayLike, fit_params: npt.ArrayLike):
         c = fit_params[0]
-        val = c * np.ones(np.shape(x))
-        for i in range(n):
-            sigma = fit_params[i * 4 + 1]
-            pos = fit_params[i * 4 + 2]
-            amp = fit_params[i * 4 + 3]
-            skew = fit_params[i * 4 + 4]
-            val += amp / (
-                1
-                + (
-                    (x - pos) ** 2
-                    / (sigma**2 * (1 + skew * np.sign(x - pos)) ** 2)
-                )
-            )
+        m = fit_params[1]
+        val = m * x + c
+
+        D = fit_params[2]
+        split = fit_params[3]
+        w_l = fit_params[4]
+        w_r = fit_params[5]
+        a_l = fit_params[6]
+        a_r = fit_params[7]
+        skew_l = fit_params[8]
+        skew_r = fit_params[9]
+
+        dl = x - D - split / 2
+        dr = x + D + split / 2
+
+        val += a_l / (
+            1 + (dl**2 / (w_l**2 * (1 + skew_l * np.sign(dl)) ** 2))
+        )
+        val += a_r / (
+            1 + (dr**2 / (w_r**2 * (1 + skew_r * np.sign(dr)) ** 2))
+        )
         return val
 
     def residuals_scipyfit(
@@ -791,30 +795,37 @@ class SkewedLorentzians(FitModel):
         pl_vals: npt.ArrayLike,
     ):
         """Evaluates residual: fit model (affine params/sweep_arr) - pl values"""
-        return self._resid(self.n_lorentzians, sweep_arr, pl_vals, param_ar)
+        return self._resid(sweep_arr, pl_vals, param_ar)
 
     @staticmethod
     @njit(fastmath=True)
     def _resid(
-        n: int,
         x: npt.ArrayLike,
         pl_vals: npt.ArrayLike,
         fit_params: npt.ArrayLike,
     ):
         c = fit_params[0]
-        val = c * np.ones(np.shape(x))
-        for i in range(n):
-            sigma = fit_params[i * 4 + 1]
-            pos = fit_params[i * 4 + 2]
-            amp = fit_params[i * 4 + 3]
-            skew = fit_params[i * 4 + 4]
-            val += amp / (
-                1
-                + (
-                    (x - pos) ** 2
-                    / (sigma**2 * (1 + skew * np.sign(x - pos)) ** 2)
-                )
-            )
+        m = fit_params[1]
+        val = m * x + c
+
+        D = fit_params[2]
+        split = fit_params[3]
+        w_l = fit_params[4]
+        w_r = fit_params[5]
+        a_l = fit_params[6]
+        a_r = fit_params[7]
+        skew_l = fit_params[8]
+        skew_r = fit_params[9]
+
+        dl = x - D + split / 2
+        dr = x - D - split / 2
+
+        val += a_l / (
+            1 + (dl**2 / (w_l**2 * (1 + skew_l * np.sign(dl)) ** 2))
+        )
+        val += a_r / (
+            1 + (dr**2 / (w_r**2 * (1 + skew_r * np.sign(dr)) ** 2))
+        )
         return val - pl_vals
 
     def jacobian_scipyfit(
@@ -825,69 +836,207 @@ class SkewedLorentzians(FitModel):
     ):
         """Evaluates (analytic) jacobian of fitmodel in format expected by
         scipy least_squares"""
-        return self._jac(self.n_lorentzians, sweep_arr, pl_vals, param_ar)
+        return self._jac(sweep_arr, pl_vals, param_ar)
 
     @staticmethod
     @njit(fastmath=True)
     def _jac(
-        n: int,
         x: npt.ArrayLike,
         pl_vals: npt.ArrayLike,
         fit_params: npt.ArrayLike,
     ):
-        j = np.empty((np.shape(x)[0], 1 + 4 * n), dtype=np.float64)
+        c = fit_params[0]
+        m = fit_params[1]
+        val = m * x + c
+
+        D = fit_params[2]
+        split = fit_params[3]
+        w_l = fit_params[4]
+        w_r = fit_params[5]
+        a_l = fit_params[6]
+        a_r = fit_params[7]
+        skew_l = fit_params[8]
+        skew_r = fit_params[9]
+
+        dl = x - D + split / 2
+        dr = x - D - split / 2
+
+        j = np.empty((np.shape(x)[0], 10), dtype=np.float64)
         j[:, 0] = 1  # wrt constant
-        for i in range(n):
-            w = fit_params[i * 4 + 1]
-            c = fit_params[i * 4 + 2]
-            a = fit_params[i * 4 + 3]
-            s = fit_params[i * 4 + 4]
+        j[:, 1] = x  # wrt m
 
-            # (2*a*(c - x)^2)/(w^3*(1 + s*Sign[-c + x])^2*(1 + (c - x)^2/(w + s*w*Sign[-c + x])^2)^2)
-            # (-2*a*w^2*(c - x)*(1 + s*Sign[-c + x])*(1 + s*Sign[-c + x] + s*(c - x)*Derivative[1][Sign][-c + x]))/(w^2 + (c - x)^2 + # s*w^2*(s*Sign[c - x]^2 + 2*Sign[-c + x]))^2
-            # (1 + (c - x)^2/(w + s*w*Sign[-c + x])^2)^(-1)
-            # (2*a*(c - x)^2*Sign[-c + x])/(w^2*(1 + s*Sign[-c + x])^3*(1 + (c - x)^2/(w + s*w*Sign[-c + x])^2)^2)
-
-            j[:, 1 + i * 4] = (2 * a * (c - x) ** 2) / (
-                w**3
-                * (1 + s * np.sign(-c + x)) ** 2
-                * (1 + (c - x) ** 2 / (w + s * w * np.sign(-c + x)) ** 2) ** 2
+        # wrt D
+        j[:, 2] = -1 / 2 * (
+            a_r
+            * (2 * D + split - 2 * x)
+            * (2 - 2 * skew_r * np.sign(D + split / 2 - x))
+        ) / (
+            w_r**2
+            * (1 + skew_r * np.sign(-D - split / 2 + x)) ** 3
+            * (
+                1
+                + (2 * D + split - 2 * x) ** 2
+                / (4 * (w_r + skew_r * w_r * np.sign(-D - split / 2 + x)) ** 2)
             )
-            j[:, 2 + i * 4] = (
-                -2
-                * a
-                * w**2
-                * (c - x)
-                * (1 + s * np.sign(-c + x))
-                * (1 + s * np.sign(-c + x))
-            ) / (
-                w**2
-                + (c - x) ** 2
-                + s * w**2 * (s * np.sign(c - x) ** 2 + 2 * np.sign(-c + x))
-            ) ** 2
-
-            j[:, 3 + i * 4] = (
-                1 + (c - x) ** 2 / (w + s * w * np.sign(-c + x)) ** 2
-            ) ** (-1)
-            j[:, 4 + i * 4] = (2 * a * (c - x) ** 2 * np.sign(-c + x)) / (
-                w**2
-                * (1 + s * np.sign(-c + x)) ** 3
-                * (1 + (c - x) ** 2 / (w + s * w * np.sign(-c + x)) ** 2) ** 2
+            ** 2
+        ) - (
+            a_l
+            * (2 * D - split - 2 * x)
+            * (2 + 2 * skew_l * np.sign(-D + split / 2 + x))
+        ) / (
+            2
+            * w_l**2
+            * (1 + skew_l * np.sign(-D + split / 2 + x)) ** 3
+            * (
+                1
+                + (-2 * D + split + 2 * x) ** 2
+                / (4 * (w_l + skew_l * w_l * np.sign(-D + split / 2 + x)) ** 2)
             )
+            ** 2
+        )
+
+        # wrt split
+        j[:, 3] = (
+            -(
+                (
+                    a_r
+                    * (2 * D + split - 2 * x)
+                    * (2 - 2 * skew_r * np.sign(+split / 2 - x))
+                )
+                / (
+                    wr**2
+                    * (1 + skew_r * np.sign(-D - split / 2 + x)) ** 3
+                    * (
+                        1
+                        + (2 * D + split - 2 * x) ** 2
+                        / (
+                            4
+                            * (
+                                w_r
+                                + skew_r * w_r * np.sign(-D - split / 2 + x)
+                            )
+                            ** 2
+                        )
+                    )
+                    ** 2
+                )
+            )
+            + (
+                al
+                * (2 * D - split - 2 * x)
+                * (2 + 2 * skew_l * np.sign(-D + split / 2 + x))
+            )
+            / (
+                wl**2
+                * (1 + skew_l * np.sign(-D + split / 2 + x)) ** 3
+                * (
+                    1
+                    + (-2 * D + split + 2 * x) ** 2
+                    / (
+                        4
+                        * (w_l + skew_l * w_l * np.sign(-D + split / 2 + x))
+                        ** 2
+                    )
+                )
+                ** 2
+            )
+        ) / 4
+
+        # wrt w_l
+        j[:, 4] = (2 * a_l * (-D + split / 2 + x) ** 2) / (
+            w_l**3
+            * (1 + skew_l * np.sign(-D + split / 2 + x)) ** 2
+            * (
+                1
+                + (-2 * D + split + 2 * x) ** 2
+                / (4 * (w_l + skew_l * w_l * np.sign(-D + split / 2 + x)) ** 2)
+            )
+            ** 2
+        )
+
+        # wrt w_r
+        j[:, 5] = (2 * a_r * (D + split / 2 - x) ** 2) / (
+            wr**3
+            * (1 + skew_r * np.sign(-D - split / 2 + x)) ** 2
+            * (
+                1
+                + (2 * D + split - 2 * x) ** 2
+                / (4 * (w_r + skew_r * w_r * np.sign(-D - split / 2 + x)) ** 2)
+            )
+            ** 2
+        )
+
+        # wrt a_l
+        j[:, 6] = (
+            1
+            + (-2 * D + split + 2 * x) ** 2
+            / (4 * (w_l + skew_l * w_l * np.sign(-D + split / 2 + x)) ** 2)
+        ) ** (-1)
+
+        # wrt a_r
+        j[:, 7] = (
+            1
+            + (2 * D + split - 2 * x) ** 2
+            / (4 * (w_r + skew_r * w_r * np.sign(-D - split / 2 + x)) ** 2)
+        ) ** (-1)
+
+        # wrt skew_l
+        j[:, 8] = (
+            2 * a_l * (-D + split / 2 + x) ** 2 * np.sign(-D + split / 2 + x)
+        ) / (
+            w_l**2
+            * (1 + skew_l * np.sign(-D + split / 2 + x)) ** 3
+            * (
+                1
+                + (-2 * D + split + 2 * x) ** 2
+                / (4 * (wl + skew_l * w_l * np.sign(-D + split / 2 + x)) ** 2)
+            )
+            ** 2
+        )
+        # wrt skew_r
+        j[:, 9] = (
+            2 * a_r * (D + split / 2 - x) ** 2 * np.sign(-D - split / 2 + x)
+        ) / (
+            w_r**2
+            * (1 + skew_r * np.sign(-D - split / 2 + x)) ** 3
+            * (
+                1
+                + (2 * D + split - 2 * x) ** 2
+                / (4 * (w_r + skew_r * w_r * np.sign(-D - split / 2 + x)) ** 2)
+            )
+            ** 2
+        )
 
         return j
 
     def get_param_defn(self) -> tuple[str, ...]:
         defn = ["constant"]
         for i in range(self.n_lorentzians):
-            defn += ["sigma", "pos", "amp", "skew"]
+            defn += [
+                "c",
+                "m",
+                "D",
+                "split",
+                "w_l",
+                "w_r",
+                "a_l",
+                "a_r",
+                "skew_l",
+                "skew_r",
+            ]
         return tuple(defn)
 
     def get_param_odict(self) -> dict[str, str]:
-        defn = [("constant_0", "Amplitude (a.u.)")]
-        for i in range(self.n_lorentzians):
-            defn += [(f"sigma_{i}", "Freq (MHz)")]
-            defn += [(f"pos_{i}", "Freq (MHz)")]
-            defn += [(f"amp_{i}", "Amp (a.u.)")]
-            defn += [(f"skew_{i}", "Skew (a.u.)")]
+        defn = [
+            ("c_0", "Amplitude (a.u.)"),
+            ("m_0", "Amplitude per Freq (a.u.)"),
+            ("D_0", "Freq. (MHz)"),
+            ("split_0", "Freq. (MHz)"),
+            ("w_l_0", "Freq. (MHz)"),
+            ("w_r_0", "Freq. (MHz)"),
+            ("a_l_0", "Amplitude (a.u.)"),
+            ("a_r_0", "Amplitude (a.u.)"),
+            ("skew_l_0", "Freq. (MHz)"),
+            ("skew_lr_0", "Freq. (MHz)"),
+        ]
         return dict(defn)

@@ -178,7 +178,7 @@ def fit_roi(
                 max_iterations=gf_max_iterations,
             )
         except dukit.pl.common.ModelNotFoundException:
-            pass # modelID not found, that's fine
+            pass  # modelID not found, that's fine
     if GPUFIT_AVAILABLE:
         try:
             result["gpufit"] = dukit.pl.gpufit.fit_roi_avg_pl(
@@ -194,7 +194,7 @@ def fit_roi(
                 max_iterations=gf_max_iterations,
             )
         except dukit.pl.common.ModelNotFoundException:
-            pass # modelID not found, that's fine
+            pass  # modelID not found, that's fine
 
     if opath:
         res_dict = {}
@@ -340,7 +340,7 @@ def fit_aois(
             )
             _recursive_dict_update(result, cf_res)
         except dukit.pl.common.ModelNotFoundException:
-            pass # modelID not found, that's fine
+            pass  # modelID not found, that's fine
     if GPUFIT_AVAILABLE:
         try:
             gf_res = dukit.pl.gpufit.fit_aois_pl(
@@ -358,7 +358,7 @@ def fit_aois(
             )
             _recursive_dict_update(result, gf_res)
         except dukit.pl.common.ModelNotFoundException:
-            pass # modelID not found, that's fine
+            pass  # modelID not found, that's fine
 
     if opath:
         res_dict = dd(dict)

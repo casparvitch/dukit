@@ -577,10 +577,16 @@ class PyControl(MelbSystem):
 
         # TODO test if moving freqs to last is working here? also the ::2 below.
         dataset = np.load(filepath + ".npz")
-        y_sig, y_ref = (dataset["y_sig"].transpose([1, 2, 0]).copy(), 
-            dataset["y_ref"].transpose([1, 2, 0]).copy())
+        y_sig, y_ref = (
+            dataset["y_sig"].transpose([1, 2, 0]).copy(),
+            dataset["y_ref"].transpose([1, 2, 0]).copy(),
+        )
         if ignore_ref:
-            return y_sig, np.ones_like(y_sig), y_sig / np.nanmax(y_sig, axis=-1)
+            return (
+                y_sig,
+                np.ones_like(y_sig),
+                y_sig / np.nanmax(y_sig, axis=-1),
+            )
         else:
             return y_sig, y_ref, y_sig / y_ref
         # if (
@@ -593,7 +599,9 @@ class PyControl(MelbSystem):
         # return self._chop_into_sig_ref(image, True, norm)
 
     def read_sweep_arr(self, filepath: str) -> npt.NDArray[np.float64]:
-        sweep_arr = np.array(self._read_metadata(filepath)["meas_metadata"]["sweep_x"])
+        sweep_arr = np.array(
+            self._read_metadata(filepath)["meas_metadata"]["sweep_x"]
+        )
         if np.any(sweep_arr <= 0):
             warn(
                 "sweep_arr contains negatives or zeroes, check if model can handle!"
@@ -604,8 +612,10 @@ class PyControl(MelbSystem):
         metadata = self._read_metadata(filepath)
 
         for key in metadata["sys_metadata"]:
-            this =  metadata["sys_metadata"][key]
-            if isinstance(this, dict) and "MainCamera" in this.get("roles", []):
+            this = metadata["sys_metadata"][key]
+            if isinstance(this, dict) and "MainCamera" in this.get(
+                "roles", []
+            ):
                 binning = metadata["sys_metadata"][key]["binning"]
         if binning[0] != binning[1]:
             raise ValueError("dukit not setup to handle anisotropic binning.")
