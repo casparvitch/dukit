@@ -17,6 +17,7 @@ Classes
  - `qdmpy.pl.model.LinearN14Lorentzians`
  - `qdmpy.pl.model.ConstLorentzians`
  - `qdmpy.pl.model.SkewedLorentzians`
+ - `qdmpy.pl.model.LinearLogNormals`
 """
 
 # ============================================================================
@@ -847,7 +848,6 @@ class SkewedLorentzians(FitModel):
     ):
         c = fit_params[0]
         m = fit_params[1]
-        val = m * x + c
 
         D = fit_params[2]
         split = fit_params[3]
@@ -1010,20 +1010,18 @@ class SkewedLorentzians(FitModel):
         return j
 
     def get_param_defn(self) -> tuple[str, ...]:
-        defn = ["constant"]
-        for i in range(self.n_lorentzians):
-            defn += [
-                "c",
-                "m",
-                "D",
-                "split",
-                "w_l",
-                "w_r",
-                "a_l",
-                "a_r",
-                "skew_l",
-                "skew_r",
-            ]
+        defn = [
+            "c",
+            "m",
+            "D",
+            "split",
+            "w_l",
+            "w_r",
+            "a_l",
+            "a_r",
+            "skew_l",
+            "skew_r",
+        ]
         return tuple(defn)
 
     def get_param_odict(self) -> dict[str, str]:
@@ -1039,4 +1037,119 @@ class SkewedLorentzians(FitModel):
             ("skew_l_0", "Freq. (MHz)"),
             ("skew_lr_0", "Freq. (MHz)"),
         ]
+        return dict(defn)
+
+
+# ====================================================================================
+
+
+class LinearLogNormals(FitModel):
+    def __init__(self, n_lognormals: int):
+        self.fit_functions = {"linear": 1, "lognormal": n_lognormals}
+        self.n_lognormals = n_lognormals
+
+    def __call__(self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike):
+        return self._eval(self.n_lognormals, sweep_arr, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _eval(n_lognormals: int, x: npt.ArrayLike, fit_params: npt.ArrayLike):
+        c = fit_params[0]
+        m = fit_params[1]
+        val = m * x + c
+        for i in range(self.n_lognormals):
+            sdwidth = fit_params[i * 3 + 2]
+            pos = fit_params[i * 3 + 3]
+            amp = fit_params[i * 3 + 4]
+            val += amp * np.exp(-((np.log(x) - pos) ** 2) / (2 * sdwidth**2))
+        return val
+
+    def residuals_scipyfit(
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+    ):
+        """Evaluates residual: fit model (affine params/sweep_arr) - pl values"""
+        return self._resid(self.n_lognormals, sweep_arr, pl_vals, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _resid(
+        n_lognormals: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
+    ):
+        c = fit_params[0]
+        m = fit_params[1]
+        val = m * x + c
+        for i in range(self.n_lognormals):
+            sdwidth = fit_params[i * 3 + 2]
+            pos = fit_params[i * 3 + 3]
+            amp = fit_params[i * 3 + 4]
+            val += amp * np.exp(-((np.log(x) - pos) ** 2) / (2 * sdwidth**2))
+        return val - pl_vals
+
+    def jacobian_scipyfit(
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+    ):
+        """Evaluates (analytic) jacobian of fitmodel in format expected by
+        scipy least_squares"""
+        return self._jac(self.n_lognormals, sweep_arr, pl_vals, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _jac(
+        n_lognormals: int,
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
+    ):
+        c, m = fit_params[0], fit_params[1]
+        j = np.empty((np.shape(x)[0], 10), dtype=np.float64)
+        j[:, 0] = 1  # wrt constant
+        j[:, 1] = x  # wrt m
+        for i in range(self.n_lognormals):
+            sdwidth = fit_params[i * 3 + 2]
+            pos = fit_params[i * 3 + 3]
+            amp = fit_params[i * 3 + 4]
+            j[:, 2 + i * 3] = (
+                amp
+                * (np.log(x) - pos) ** 2
+                / (sdwidth**3)
+                * np.exp(-((np.log(x) - pos) ** 2) / (2 * sdwidth**2))
+            )
+            j[:, 3 + i * 3] = (
+                amp
+                * (np.log(x) - pos)
+                / (sdwidth**2)
+                * np.exp(-((np.log(x) - pos) ** 2) / (2 * sdwidth**2))
+            )
+            j[:, 4 + i * 3] = np.exp(
+                -((np.log(x) - pos) ** 2) / (2 * sdwidth**2)
+            )
+        return j
+
+    def get_param_defn(self) -> tuple[str, ...]:
+        defn = [
+            "c",
+            "m",
+        ]
+        for i in range(self.n_lognormals):
+            defn += ["sdwidth", "pos", "amp"]
+        return tuple(defn)
+
+    def get_param_odict(self) -> dict[str, str]:
+        defn = [
+            ("c_0", "Amplitude (a.u.)"),
+            ("m_0", "Amplitude per Freq (a.u.)"),
+        ]
+        for i in range(self.n_lognormals):
+            defn += (f"sdwidth_{i}", "Freq (MHz)")
+            defn += [(f"pos_{i}", "Freq (MHz)")]
+            defn += [(f"amp_{i}", "Amp (a.u.)")]
         return dict(defn)
