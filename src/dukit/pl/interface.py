@@ -48,7 +48,7 @@ CPUFIT_AVAILABLE: bool = False
 try:
     import pycpufit.cpufit as cf
 
-    CPUFIT_AVAILABLE = True
+    CPUFIT_AVAILABLE = False
 except ImportError:
     pass
 else:
@@ -58,7 +58,7 @@ GPUFIT_AVAILABLE: bool = False
 try:
     import pygpufit.gpufit as gf
 
-    GPUFIT_AVAILABLE = True
+    GPUFIT_AVAILABLE = False
 except ImportError:
     pass
 else:

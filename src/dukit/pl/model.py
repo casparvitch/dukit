@@ -804,7 +804,7 @@ class SkewedLorentzians(FitModel):
         c = fit_params[0]
         val = c * np.ones(np.shape(x))
         for i in range(n):
-            fwhm = fit_params[i * 4 + 1]
+            sigma = fit_params[i * 4 + 1]
             pos = fit_params[i * 4 + 2]
             amp = fit_params[i * 4 + 3]
             skew = fit_params[i * 4 + 4]
