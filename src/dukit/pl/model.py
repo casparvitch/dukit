@@ -835,7 +835,7 @@ class SkewedLorentzians(FitModel):
         pl_vals: npt.ArrayLike,
         fit_params: npt.ArrayLike,
     ):
-        j = np.empty((np.shape(x)[0], 1 + 3 * n), dtype=np.float64)
+        j = np.empty((np.shape(x)[0], 1 + 4 * n), dtype=np.float64)
         j[:, 0] = 1  # wrt constant
         for i in range(n):
             w = fit_params[i * 4 + 1]
@@ -847,7 +847,6 @@ class SkewedLorentzians(FitModel):
             # (-2*a*w^2*(c - x)*(1 + s*Sign[-c + x])*(1 + s*Sign[-c + x] + s*(c - x)*Derivative[1][Sign][-c + x]))/(w^2 + (c - x)^2 + # s*w^2*(s*Sign[c - x]^2 + 2*Sign[-c + x]))^2
             # (1 + (c - x)^2/(w + s*w*Sign[-c + x])^2)^(-1)
             # (2*a*(c - x)^2*Sign[-c + x])/(w^2*(1 + s*Sign[-c + x])^3*(1 + (c - x)^2/(w + s*w*Sign[-c + x])^2)^2)
-
 
             j[:, 1 + i * 4] = (2 * a * (c - x) ** 2) / (
                 w**3
