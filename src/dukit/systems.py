@@ -576,21 +576,24 @@ class PyControl(MelbSystem):
             )
 
         # TODO test if moving freqs to last is working here? also the ::2 below.
-        image = np.load(filepath + ".npy").transpose([1, 2, 0])
-        if (
-            ignore_ref
-            and self._read_metadata(filepath)["Measurement"]["ref_bool"]
-        ):
-            return self._chop_into_sig_ref(image[:, :, ::2], False, norm)
-        if not self._read_metadata(filepath)["Measurement"]["ref_bool"]:
-            return self._chop_into_sig_ref(image, False, norm)
-        return self._chop_into_sig_ref(image, True, norm)
+        dataset = np.load(filepath + ".npz")
+        y_sig, y_ref = (dataset["y_sig"].transpose([1, 2, 0]).copy(), 
+            dataset["y_ref"].transpose([1, 2, 0]).copy())
+        if ignore_ref:
+            return y_sig, np.ones_like(y_sig), y_sig / np.nanmax(y_sig, axis=-1)
+        else:
+            return y_sig, y_ref, y_sig / y_ref
+        # if (
+        #     ignore_ref
+        #     and self._read_metadata(filepath)["Measurement"]["ref_bool"]
+        # ):
+        #     return self._chop_into_sig_ref(image[:, :, ::2], False, norm)
+        # if not self._read_metadata(filepath)["Measurement"]["ref_bool"]:
+        #     return self._chop_into_sig_ref(image, False, norm)
+        # return self._chop_into_sig_ref(image, True, norm)
 
     def read_sweep_arr(self, filepath: str) -> npt.NDArray[np.float64]:
-        sweep_arr = np.ndarray(
-            json_to_dict(filepath + ".json")["freq_list"],
-            dtype=np.float64,
-        )  # TODO name won't work for tau sweeps
+        sweep_arr = np.array(self._read_metadata(filepath)["meas_metadata"]["sweep_x"])
         if np.any(sweep_arr <= 0):
             warn(
                 "sweep_arr contains negatives or zeroes, check if model can handle!"
@@ -600,7 +603,10 @@ class PyControl(MelbSystem):
     def get_hardware_binning(self, filepath: str) -> int:
         metadata = self._read_metadata(filepath)
 
-        binning = metadata["Devices"]["camera"]["bin"]
+        for key in metadata["sys_metadata"]:
+            this =  metadata["sys_metadata"][key]
+            if isinstance(this, dict) and "MainCamera" in this.get("roles", []):
+                binning = metadata["sys_metadata"][key]["binning"]
         if binning[0] != binning[1]:
             raise ValueError("dukit not setup to handle anisotropic binning.")
         return int(binning[0])

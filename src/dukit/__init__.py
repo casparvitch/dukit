@@ -84,6 +84,12 @@ System sub-class.
     - Rabi model, constant + damped oscillation.
 - `dukit.pl.model.LinearLorentzians`
     - Linear combination of lorentzians, in init pass number of lorentzians.
+- `dukit.pl.model.LinearN15Lorentzians`
+    - Linear combination of lorentzians, in init pass number of lorentzians.
+      This model assumes N15 diamond with fixed HF splitting, 2pk w equal A/w.
+- `dukit.pl.model.LinearN14Lorentzians`
+    - Linear combination of lorentzians, in init pass number of lorentzians.
+      This model assumes N14 diamond with fixed HF splitting, 3pk w equal A/w. each.
 - `dukit.pl.model.ConstLorentzians`
     - As above, but with constant background.
 - `dukit.pl.interface.fit_all_pixels`
@@ -269,7 +275,10 @@ from dukit.pl import (
     ConstStretchedExp,
     ConstDampedRabi,
     LinearLorentzians,
+    LinearN15Lorentzians,
+    LinearN14Lorentzians,
     ConstLorentzians,
+    SkewedLorentzians,
     fit_all_pixels,
     fit_roi,
     fit_aois,
