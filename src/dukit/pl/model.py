@@ -18,6 +18,7 @@ Classes
  - `qdmpy.pl.model.ConstLorentzians`
  - `qdmpy.pl.model.SkewedLorentzians`
  - `qdmpy.pl.model.LinearLogNormals`
+ - `qdmpy.pl.model.LinearTwoSkewNormals`
 """
 
 # ============================================================================
@@ -32,6 +33,8 @@ __pdoc__ = {
     "qdmpy.pl.model.LinearN14Lorentzians": True,
     "qdmpy.pl.model.ConstLorentzians": True,
     "qdmpy.pl.model.SkewedLorentzians": True,
+    "qdmpy.pl.model.LinearLogNormals": True,
+    "qdmpy.pl.model.LinearTwoSkewNormals": True,
 }
 
 # ============================================================================
@@ -765,18 +768,9 @@ class SkewedLorentzians(FitModel):
     @staticmethod
     @njit(fastmath=True)
     def _eval(x: npt.ArrayLike, fit_params: npt.ArrayLike):
-        c = fit_params[0]
-        m = fit_params[1]
-        val = m * x + c
 
-        D = fit_params[2]
-        split = fit_params[3]
-        w_l = fit_params[4]
-        w_r = fit_params[5]
-        a_l = fit_params[6]
-        a_r = fit_params[7]
-        skew_l = fit_params[8]
-        skew_r = fit_params[9]
+        c, m, D, split, w_l, w_r, a_l, a_r, skew_l, skew_r = fit_params
+        val = m * x + c
 
         dl = x - D - split / 2
         dr = x + D + split / 2
@@ -805,19 +799,9 @@ class SkewedLorentzians(FitModel):
         pl_vals: npt.ArrayLike,
         fit_params: npt.ArrayLike,
     ):
-        c = fit_params[0]
-        m = fit_params[1]
+        c, m, D, split, w_l, w_r, a_l, a_r, skew_l, skew_r = fit_params
+
         val = m * x + c
-
-        D = fit_params[2]
-        split = fit_params[3]
-        w_l = fit_params[4]
-        w_r = fit_params[5]
-        a_l = fit_params[6]
-        a_r = fit_params[7]
-        skew_l = fit_params[8]
-        skew_r = fit_params[9]
-
         dl = x - D + split / 2
         dr = x - D - split / 2
 
@@ -846,20 +830,7 @@ class SkewedLorentzians(FitModel):
         pl_vals: npt.ArrayLike,
         fit_params: npt.ArrayLike,
     ):
-        c = fit_params[0]
-        m = fit_params[1]
-
-        D = fit_params[2]
-        split = fit_params[3]
-        w_l = fit_params[4]
-        w_r = fit_params[5]
-        a_l = fit_params[6]
-        a_r = fit_params[7]
-        skew_l = fit_params[8]
-        skew_r = fit_params[9]
-
-        dl = x - D + split / 2
-        dr = x - D - split / 2
+        c, m, D, split, w_l, w_r, a_l, a_r, skew_l, skew_r = fit_params
 
         j = np.empty((np.shape(x)[0], 10), dtype=np.float64)
         j[:, 0] = 1  # wrt constant
@@ -904,7 +875,7 @@ class SkewedLorentzians(FitModel):
                     * (2 - 2 * skew_r * np.sign(+split / 2 - x))
                 )
                 / (
-                    wr**2
+                    w_r**2
                     * (1 + skew_r * np.sign(-D - split / 2 + x)) ** 3
                     * (
                         1
@@ -922,12 +893,12 @@ class SkewedLorentzians(FitModel):
                 )
             )
             + (
-                al
+                a_l
                 * (2 * D - split - 2 * x)
                 * (2 + 2 * skew_l * np.sign(-D + split / 2 + x))
             )
             / (
-                wl**2
+                w_l**2
                 * (1 + skew_l * np.sign(-D + split / 2 + x)) ** 3
                 * (
                     1
@@ -956,7 +927,7 @@ class SkewedLorentzians(FitModel):
 
         # wrt w_r
         j[:, 5] = (2 * a_r * (D + split / 2 - x) ** 2) / (
-            wr**3
+            w_r**3
             * (1 + skew_r * np.sign(-D - split / 2 + x)) ** 2
             * (
                 1
@@ -989,7 +960,7 @@ class SkewedLorentzians(FitModel):
             * (
                 1
                 + (-2 * D + split + 2 * x) ** 2
-                / (4 * (wl + skew_l * w_l * np.sign(-D + split / 2 + x)) ** 2)
+                / (4 * (w_l + skew_l * w_l * np.sign(-D + split / 2 + x)) ** 2)
             )
             ** 2
         )
@@ -1057,7 +1028,7 @@ class LinearLogNormals(FitModel):
         c = fit_params[0]
         m = fit_params[1]
         val = m * x + c
-        for i in range(self.n_lognormals):
+        for i in range(n_lognormals):
             sdwidth = fit_params[i * 3 + 2]
             pos = fit_params[i * 3 + 3]
             amp = fit_params[i * 3 + 4]
@@ -1084,7 +1055,7 @@ class LinearLogNormals(FitModel):
         c = fit_params[0]
         m = fit_params[1]
         val = m * x + c
-        for i in range(self.n_lognormals):
+        for i in range(n_lognormals):
             sdwidth = fit_params[i * 3 + 2]
             pos = fit_params[i * 3 + 3]
             amp = fit_params[i * 3 + 4]
@@ -1109,11 +1080,10 @@ class LinearLogNormals(FitModel):
         pl_vals: npt.ArrayLike,
         fit_params: npt.ArrayLike,
     ):
-        c, m = fit_params[0], fit_params[1]
-        j = np.empty((np.shape(x)[0], 10), dtype=np.float64)
+        j = np.empty((np.shape(x)[0], len(fit_params)), dtype=np.float64)
         j[:, 0] = 1  # wrt constant
         j[:, 1] = x  # wrt m
-        for i in range(self.n_lognormals):
+        for i in range(n_lognormals):
             sdwidth = fit_params[i * 3 + 2]
             pos = fit_params[i * 3 + 3]
             amp = fit_params[i * 3 + 4]
@@ -1153,3 +1123,180 @@ class LinearLogNormals(FitModel):
             defn += [(f"pos_{i}", "Freq (MHz)")]
             defn += [(f"amp_{i}", "Amp (a.u.)")]
         return dict(defn)
+
+
+# ====================================================================================
+
+
+class LinearTwoSkewNormals(FitModel):
+    def __init__(self):
+        self.fit_functions = {"linear": 1, "twoskewnormals": 1}
+
+    def __call__(self, param_ar: npt.ArrayLike, sweep_arr: npt.ArrayLike):
+        return self._eval(sweep_arr, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _eval(x: npt.ArrayLike, fit_params: npt.ArrayLike):
+        c, m, pos_l, pos_r, w_l, w_r, a_l, a_r, skew_l, skew_r = fit_params
+        val = m * x + c
+        val += skew_normal(x, a_l, pos_l, a_l, skew_l)
+        val += skew_normal(x, a_r, pos_r, a_r, skew_r)
+        return val
+
+    def residuals_scipyfit(
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+    ):
+        """Evaluates residual: fit model (affine params/sweep_arr) - pl values"""
+        return self._resid(sweep_arr, pl_vals, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _resid(
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
+    ):
+        c, m, pos_l, pos_r, w_l, w_r, a_l, a_r, skew_l, skew_r = fit_params
+        val = m * x + c
+        val += skew_normal(x, a_l, pos_l, w_l, skew_l)
+        val += skew_normal(x, a_r, pos_r, w_r, skew_r)
+        return val - pl_vals
+
+    def jacobian_scipyfit(
+        self,
+        param_ar: npt.ArrayLike,
+        sweep_arr: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+    ):
+        """Evaluates (analytic) jacobian of fitmodel in format expected by
+        scipy least_squares"""
+        return self._jac(sweep_arr, pl_vals, param_ar)
+
+    @staticmethod
+    @njit(fastmath=True)
+    def _jac(
+        x: npt.ArrayLike,
+        pl_vals: npt.ArrayLike,
+        fit_params: npt.ArrayLike,
+    ):
+        c, m, pos_l, pos_r, w_l, w_r, a_l, a_r, skew_l, skew_r = fit_params
+        j = np.empty((np.shape(x)[0], len(fit_params)), dtype=np.float64)
+        j[:, 0] = 1  # wrt constant
+        j[:, 1] = x  # wrt m
+        j[:, 2] = dsn_dpos(x, a_l, pos_l, w_l, skew_l)
+        j[:, 3] = dsn_dpos(x, a_r, pos_r, w_r, skew_r)
+        j[:, 4] = dsn_dw(x, a_l, pos_l, w_l, skew_l)
+        j[:, 5] = dsn_dw(x, a_r, pos_r, w_r, skew_r)
+        j[:, 6] = dsn_da(x, a_l, pos_l, w_l, skew_l)
+        j[:, 7] = dsn_da(x, a_r, pos_r, w_r, skew_r)
+        j[:, 8] = dsn_dskew(x, a_l, pos_l, w_l, skew_l)
+        j[:, 9] = dsn_dskew(x, a_r, pos_r, w_r, skew_r)
+        return j
+
+    def get_param_defn(self) -> tuple[str, ...]:
+        defn = [
+            "c",
+            "m",
+            "pos_l",
+            "pos_r",
+            "w_l",
+            "w_r",
+            "a_l",
+            "a_r",
+            "skew_l",
+            "skew_r",
+        ]
+        return tuple(defn)
+
+    def get_param_odict(self) -> dict[str, str]:
+        defn = [
+            ("c_0", "Amplitude (a.u.)"),
+            ("m_0", "Amplitude per Freq (a.u.)"),
+            ("pos_l_0", "Freq. (MHz)"),
+            ("pos_r_0", "Freq. (MHz)"),
+            ("w_l_0", "Freq. (MHz)"),
+            ("w_r_0", "Freq. (MHz)"),
+            ("a_l_0", "Amplitude (a.u.)"),
+            ("a_r_0", "Amplitude (a.u.)"),
+            ("skew_l_0", "Freq. (MHz)"),
+            ("skew_r_0", "Freq. (MHz)"),
+        ]
+        return dict(defn)
+
+@njit(fastmath=True)
+def erf_approx(x):
+    """Approximation of error function (accurate to ~1e-7)"""
+    # Constants for approximation
+    a = [0.254829592, -0.284496736, 1.421413741, -1.453152027, 1.061405429]
+    p = 0.3275911
+    # Save the sign of x
+    sign = 1
+    if x < 0:
+        sign = -1
+    x = abs(x)
+    # Formula 7.1.26 from Abramowitz and Stegun
+    t = 1.0 / (1.0 + p * x)
+    y = 1.0
+    for i in range(5):
+        y -= a[i] * t ** (i + 1)
+
+    return sign * (1 - y * np.exp(-x * x))
+
+@njit(fastmath=True)
+def norm_pdf(x):
+    """Standard normal pdf"""
+    return np.exp(-x * x / 2.0) / np.sqrt(2.0 * np.pi)
+
+@njit(fastmath=True)
+def norm_cdf(x):
+    """Standard normal cdf using error function approximation"""
+    return 0.5 * (1.0 + erf_approx(x / np.sqrt(2.0)))
+
+@njit(fastmath=True)
+def skew_normal(x, a, loc, scale, alpha):
+    t = (x - loc) / scale
+    return 2 * a * norm_pdf(t) * norm_cdf(alpha * t)
+
+@njit(nopython=True)
+def dsn_da(x, a, loc, scale, alpha):
+    """Derivative wrt height"""
+    t = (x - loc) / scale
+    return 2 * norm_pdf(t) * norm_cdf(alpha * t)
+
+@njit(fastmath=True)
+def dsn_dpos(x, a, loc, scale, alpha):
+    """Derivative wrt location"""
+    t = (x - loc) / scale
+    return (
+        2
+        * a
+        / scale
+        * (
+            norm_pdf(t) * norm_cdf(alpha * t) * t
+            + norm_pdf(t) * norm_pdf(alpha * t) * alpha
+        )
+    )
+
+@njit(fastmath=True)
+def dsn_dw(x, a, loc, scale, alpha):
+    """Derivative wrt scale/width"""
+    t = (x - loc) / scale
+    return (
+        2
+        * a
+        / scale
+        * (
+            norm_pdf(t) * norm_cdf(alpha * t) * t
+            + norm_pdf(t) * norm_pdf(alpha * t) * alpha * t
+        )
+    )
+
+@njit(fastmath=True)
+def dsn_dskew(x, a, loc, scale, alpha):
+    """Derivative wrt skewness"""
+    t = (x - loc) / scale
+    return 2 * a * norm_pdf(t) * norm_pdf(alpha * t) * t

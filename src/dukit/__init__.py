@@ -280,6 +280,7 @@ from dukit.pl import (
     ConstLorentzians,
     SkewedLorentzians,
     LinearLogNormals,
+    LinearTwoSkewNormals,
     fit_all_pixels,
     fit_roi,
     fit_aois,

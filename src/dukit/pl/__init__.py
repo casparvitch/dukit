@@ -14,6 +14,8 @@ Classes
 - `dukit.pl.model.LinearN15Lorentzians`
 - `dukit.pl.model.ConstLorentzians`
 - `dukit.pl.model.SkewedLorentzians`
+- `dukit.pl.model.LinearLogNormals`
+- `dukit.pl.model.LinearTwoSkewNormals`
 
 Functions
 ---------
@@ -32,6 +34,8 @@ from dukit.pl.model import (
     LinearN15Lorentzians,
     ConstLorentzians,
     SkewedLorentzians,
+    LinearLogNormals,
+    LinearTwoSkewNormals,
 )
 
 from dukit.pl.interface import (
