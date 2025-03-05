@@ -1140,8 +1140,8 @@ class LinearTwoSkewNormals(FitModel):
     def _eval(x: npt.ArrayLike, fit_params: npt.ArrayLike):
         c, m, pos_l, pos_r, w_l, w_r, a_l, a_r, skew_l, skew_r = fit_params
         val = m * x + c
-        val += skew_normal(x, a_l, pos_l, a_l, skew_l)
-        val += skew_normal(x, a_r, pos_r, a_r, skew_r)
+        val += skew_normal(x, a_l, pos_l, w_l, skew_l)
+        val += skew_normal(x, a_r, pos_r, w_r, skew_r)
         return val
 
     def residuals_scipyfit(
@@ -1234,15 +1234,14 @@ def erf_approx(x):
     a = [0.254829592, -0.284496736, 1.421413741, -1.453152027, 1.061405429]
     p = 0.3275911
     # Save the sign of x
-    sign = 1
-    if x < 0:
-        sign = -1
-    x = abs(x)
+    sign = np.sign(x)
+    x = np.abs(x)
     # Formula 7.1.26 from Abramowitz and Stegun
+    # https://personal.math.ubc.ca/~cbm/aands/page_299.htm  
     t = 1.0 / (1.0 + p * x)
-    y = 1.0
+    y = np.zeros_like(x)
     for i in range(5):
-        y -= a[i] * t ** (i + 1)
+        y += a[i] * (t ** (i + 1))
 
     return sign * (1 - y * np.exp(-x * x))
 
@@ -1271,13 +1270,22 @@ def dsn_da(x, a, loc, scale, alpha):
 def dsn_dpos(x, a, loc, scale, alpha):
     """Derivative wrt location"""
     t = (x - loc) / scale
+    # return (
+    #     2
+    #     * a
+    #     / scale
+    #     * (
+    #         norm_pdf(t) * norm_cdf(alpha * t) * t
+    #         + norm_pdf(t) * norm_pdf(alpha * t) * alpha
+    #     )
+    # )    
     return (
-        2
+        -2
         * a
         / scale
+        * norm_pdf(t)
         * (
-            norm_pdf(t) * norm_cdf(alpha * t) * t
-            + norm_pdf(t) * norm_pdf(alpha * t) * alpha
+            t * norm_cdf(alpha * t) + alpha * norm_pdf(alpha * t)
         )
     )
 
@@ -1285,14 +1293,18 @@ def dsn_dpos(x, a, loc, scale, alpha):
 def dsn_dw(x, a, loc, scale, alpha):
     """Derivative wrt scale/width"""
     t = (x - loc) / scale
+    # return (
+    #     2
+    #     * a
+    #     / scale
+    #     * (
+    #         norm_pdf(t) * norm_cdf(alpha * t) * t
+    #         + norm_pdf(t) * norm_pdf(alpha * t) * alpha * t
+    #     )
+    # )
     return (
-        2
-        * a
-        / scale
-        * (
-            norm_pdf(t) * norm_cdf(alpha * t) * t
-            + norm_pdf(t) * norm_pdf(alpha * t) * alpha * t
-        )
+        - (2 * norm_pdf(t) / scale ** 2) 
+        * ( norm_cdf(alpha * t) + t ** 2 * norm_cdf(alpha * t) + alpha * t * norm_pdf(alpha * t) )
     )
 
 @njit(fastmath=True)
